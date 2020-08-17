@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,7 +39,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Colony Survival\colonyserver_Data\Managed\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Pandaros.API">
+    <Reference Include="Pandaros.API, Version=1.63.516.27014, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Colony Survival\gamedata\mods\Pandaros\API\Pandaros.API.dll</HintPath>
     </Reference>
     <Reference Include="Steamworks.NET">
@@ -78,11 +80,45 @@
     <Compile Include="CivLogger.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\PrimitiveStorageBlock.cs" />
+    <Compile Include="Storage\StockpileBlock.cs" />
+    <Compile Include="Storage\StorageFactory.cs" />
+    <Compile Include="Storage\IStorageUpgradeBlock.cs" />
+    <Compile Include="Storage\StorageUpgradeBlockBase.cs" />
+    <Compile Include="TextureType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="modInfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Textures\emissiveMaskAlpha\" />
+    <Folder Include="TimePeriod\AtomicAge\" />
+    <Folder Include="TimePeriod\BronzeAge\" />
+    <Folder Include="TimePeriod\FusionAge\" />
+    <Folder Include="TimePeriod\IndustrialAge\" />
+    <Folder Include="TimePeriod\InformationAge\" />
+    <Folder Include="TimePeriod\IronAge\" />
+    <Folder Include="TimePeriod\MachineAge\" />
+    <Folder Include="TimePeriod\PreHistory\" />
+    <Folder Include="TimePeriod\Renaissance\" />
+    <Folder Include="TimePeriod\RenewablesAge\" />
+    <Folder Include="TimePeriod\StoneAge\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\StockpileBlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\albedo\StockpileBlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\StockpileBlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\StockpileBlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
