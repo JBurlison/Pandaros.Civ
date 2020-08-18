@@ -11,6 +11,7 @@ using Pandaros.API.Entities;
 using Pandaros.API.Extender;
 using Pandaros.API.localization;
 using Pandaros.API.Models;
+using Pandaros.Civ.TimePeriods;
 using Pipliz;
 using Pipliz.JSON;
 
@@ -28,36 +29,38 @@ namespace Pandaros.Civ.Storage
     {
         public static string Name { get; } = GameSetup.GetNamespace("Storage", "StockpileBlock");
         public static LocalizationHelper LocalizationHelper { get; set; } = new LocalizationHelper(GameSetup.NAMESPACE, "Stockpile");
-        public static Dictionary<TimePeriods, (Vector3Int, Vector3Int)> StockpileSizes { get; set; } = new Dictionary<TimePeriods, (Vector3Int, Vector3Int)>()
+        public static Dictionary<TimePeriod, (Vector3Int, Vector3Int)> StockpileSizes { get; set; } = new Dictionary<TimePeriod, (Vector3Int, Vector3Int)>()
         {
             {
-                TimePeriods.PreHistory, (new Vector3Int(2,0,2), new Vector3Int(-2, 1, -2))
+                TimePeriod.PreHistory, (new Vector3Int(2,0,2), new Vector3Int(-2, 1, -2))
             },
             {
-                TimePeriods.StoneAge, (new Vector3Int(2,0,2), new Vector3Int(-2, 1, -2))
+                TimePeriod.StoneAge, (new Vector3Int(2,0,2), new Vector3Int(-2, 1, -2))
             },
             {
-                TimePeriods.BronzeAge, (new Vector3Int(3,0,3), new Vector3Int(-3, 2, -3))
+                TimePeriod.BronzeAge, (new Vector3Int(3,0,3), new Vector3Int(-3, 2, -3))
             },
             {
-                TimePeriods.IronAge, (new Vector3Int(5,0,3), new Vector3Int(-5, 3, -3))
+                TimePeriod.IronAge, (new Vector3Int(5,0,3), new Vector3Int(-5, 3, -3))
             },
             {
-                TimePeriods.IndustrialAge, (new Vector3Int(7,0,4), new Vector3Int(-7, 3, -4))
+                TimePeriod.IndustrialAge, (new Vector3Int(7,0,4), new Vector3Int(-7, 3, -4))
             },
             {
-                TimePeriods.AtomicAge, (new Vector3Int(8,0,4), new Vector3Int(-8, 4, -4))
+                TimePeriod.AtomicAge, (new Vector3Int(8,0,4), new Vector3Int(-8, 4, -4))
             },
             {
-                TimePeriods.InformationAge, (new Vector3Int(9,0,4), new Vector3Int(-9, 5, -4))
+                TimePeriod.InformationAge, (new Vector3Int(9,0,4), new Vector3Int(-9, 5, -4))
             },
             {
-                TimePeriods.RenewablesAge, (new Vector3Int(10,0,5), new Vector3Int(-10, 5, -5))
+                TimePeriod.RenewablesAge, (new Vector3Int(10,0,5), new Vector3Int(-10, 5, -5))
             },
             {
-                TimePeriods.FusionAge, (new Vector3Int(10,0,7), new Vector3Int(-10, 7, -7))
+                TimePeriod.FusionAge, (new Vector3Int(10,0,7), new Vector3Int(-10, 7, -7))
             }
         };
+
+
         public StockpileBlock()
         {
             name = Name;
@@ -86,7 +89,8 @@ namespace Pandaros.Civ.Storage
                 
                 if (cs.Positions.TryGetValue(Name, out var pos))
                 {
-                    list.Add(new AreaJobTracker.AreaHighlight(pos.Add(StockpileSizes[TimePeriods.PreHistory].Item1), pos.Add(StockpileSizes[TimePeriods.PreHistory].Item2), Shared.EAreaMeshType.ThreeDActive, Shared.EServerAreaType.Default));
+                    var currentPeriod = PeriodFactory.GetTimePeriod(player.ActiveColony);
+                    list.Add(new AreaJobTracker.AreaHighlight(pos.Add(StockpileSizes[currentPeriod].Item1), pos.Add(StockpileSizes[currentPeriod].Item2), Shared.EAreaMeshType.ThreeDActive, Shared.EServerAreaType.Default));
                 }
             }
 
@@ -120,12 +124,12 @@ namespace Pandaros.Civ.Storage
 
         public void OnLoadingColony(Colony c, JSONNode n)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void OnSavingColony(Colony c, JSONNode n)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ
 {
-    public enum TimePeriods
+    public enum TimePeriod
     {
         PreHistory,
         StoneAge,
