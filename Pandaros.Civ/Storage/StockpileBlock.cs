@@ -90,7 +90,7 @@ namespace Pandaros.Civ.Storage
                 if (cs.Positions.TryGetValue(Name, out var pos))
                 {
                     var currentPeriod = PeriodFactory.GetTimePeriod(player.ActiveColony);
-                    list.Add(new AreaJobTracker.AreaHighlight(pos.Add(StockpileSizes[currentPeriod].Item1), pos.Add(StockpileSizes[currentPeriod].Item2), Shared.EAreaMeshType.ThreeDActive, Shared.EServerAreaType.Default));
+                    list.Add(new AreaJobTracker.AreaHighlight(pos.Add(StockpileSizes[currentPeriod].Item1), pos.Add(StockpileSizes[currentPeriod].Item2), Shared.EAreaMeshType.ThreeD, Shared.EServerAreaType.Default));
                 }
             }
 
@@ -118,6 +118,8 @@ namespace Pandaros.Civ.Storage
                 tryChangeBlockData.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player &&
                 tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony != null)
             {
+                var cs = ColonyState.GetColonyState(tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony);
+                cs.Positions.Remove(Name);
                 //TODO: handle moving of stockpile
             }
         }
