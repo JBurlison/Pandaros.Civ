@@ -86,6 +86,7 @@
     <Compile Include="Storage\IStorageUpgradeBlock.cs" />
     <Compile Include="Storage\StorageUpgradeBlockBase.cs" />
     <Compile Include="TextureType.cs" />
+    <Compile Include="TimePeriod.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="modInfo.json">
@@ -100,9 +101,7 @@
     <Folder Include="TimePeriod\IndustrialAge\" />
     <Folder Include="TimePeriod\InformationAge\" />
     <Folder Include="TimePeriod\IronAge\" />
-    <Folder Include="TimePeriod\MachineAge\" />
     <Folder Include="TimePeriod\PreHistory\" />
-    <Folder Include="TimePeriod\Renaissance\" />
     <Folder Include="TimePeriod\RenewablesAge\" />
     <Folder Include="TimePeriod\StoneAge\" />
   </ItemGroup>

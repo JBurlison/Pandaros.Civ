@@ -14,7 +14,7 @@ namespace Pandaros.Civ.Storage
         {
             name = Name;
             GlobalUpgrade = 8;
-            CategoryUpgrades.Add("food", 16);
+            CategoryUpgrades.Add("food", 8);
         }
     }
 }
