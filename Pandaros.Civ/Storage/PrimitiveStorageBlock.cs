@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,10 @@ namespace Pandaros.Civ.Storage
             name = Name;
             GlobalUpgrade = 8;
             CategoryUpgrades.Add("food", 8);
+            sideall = StockpileBlock.Name;
+            isSolid = true;
+            customData = JObject.Parse("{ \"attachBehaviour\" : [{\"id\":\"crate\"}] }");
+            icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
         }
     }
 }

@@ -90,7 +90,9 @@ namespace Pandaros.Civ.Storage
                 if (cs.Positions.TryGetValue(Name, out var pos))
                 {
                     var currentPeriod = PeriodFactory.GetTimePeriod(player.ActiveColony);
-                    list.Add(new AreaJobTracker.AreaHighlight(pos.Add(StockpileSizes[currentPeriod].Item1), pos.Add(StockpileSizes[currentPeriod].Item2), Shared.EAreaMeshType.ThreeD, Shared.EServerAreaType.Default));
+                    CivLogger.Log($"{currentPeriod}, {pos.Add(StockpileSizes[currentPeriod].Item1)}, {pos.Add(StockpileSizes[currentPeriod].Item2)}");
+                    list.Add(new AreaJobTracker.AreaHighlight(pos.Add(StockpileSizes[currentPeriod].Item1), 
+                                                              pos.Add(StockpileSizes[currentPeriod].Item2), Shared.EAreaMeshType.ThreeD, Shared.EServerAreaType.Default));
                 }
             }
 

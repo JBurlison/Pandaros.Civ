@@ -3,6 +3,7 @@ using Pandaros.API.Entities;
 using Pandaros.API.Extender;
 using Pandaros.API.WorldGen;
 using Pandaros.Civ.TimePeriods;
+using Pipliz.JSON;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Storage
 {
-    public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender
+    public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad
     {
         public double NextUpdateTimeMin => 4;
 
@@ -58,6 +59,8 @@ namespace Pandaros.Civ.Storage
                             colony.Stockpile.Items[itemId] = max;
                     }
                 }
+
+                colony.Stockpile.SendToOwners();
             }
         }
 
@@ -70,55 +73,63 @@ namespace Pandaros.Civ.Storage
                     (StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeNew.Name) ||
                     StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeOld.Name)))
             {
-                var pos = GetStockpilePosition(colony);
-                var blocksAroundStockpile = WorldHelper.GetBlocksInArea(pos.Min, pos.Max);
-                int total = 0;
-                Dictionary<string, int> byCategory = new Dictionary<string, int>();
-                Dictionary<string, int> byType = new Dictionary<string, int>();
+                RecalcMax(colony);
+            }
+        }
 
-                foreach (var blockType in blocksAroundStockpile.Values)
+        private static void RecalcMax(Colony colony)
+        {
+            var pos = GetStockpilePosition(colony);
+            var blocksAroundStockpile = WorldHelper.GetBlocksInArea(pos.Min, pos.Max);
+            int total = 0;
+            Dictionary<string, int> byCategory = new Dictionary<string, int>();
+            Dictionary<string, int> byType = new Dictionary<string, int>();
+
+            foreach (var blockType in blocksAroundStockpile.Values)
+            {
+                if (StorageBlockTypes.TryGetValue(blockType.Name, out var storageUpgradeBlock))
                 {
-                    if (StorageBlockTypes.TryGetValue(blockType.Name, out var storageUpgradeBlock))
-                    {
-                        total += storageUpgradeBlock.GlobalUpgrade;
+                    total += storageUpgradeBlock.GlobalUpgrade;
 
-                        if (storageUpgradeBlock.CategoryUpgrades != null)
-                            foreach(var kvp in storageUpgradeBlock.CategoryUpgrades)
-                            {
-                                if (!byCategory.ContainsKey(kvp.Key))
-                                    byCategory.Add(kvp.Key, 0);
+                    if (storageUpgradeBlock.CategoryUpgrades != null)
+                        foreach (var kvp in storageUpgradeBlock.CategoryUpgrades)
+                        {
+                            if (!byCategory.ContainsKey(kvp.Key))
+                                byCategory.Add(kvp.Key, 0);
 
-                                byCategory[kvp.Key] = byCategory[kvp.Key] + kvp.Value;
-                            }
+                            byCategory[kvp.Key] = byCategory[kvp.Key] + kvp.Value;
+                        }
 
-                        if (storageUpgradeBlock.ItemUpgrades != null)
-                            foreach (var kvp in storageUpgradeBlock.ItemUpgrades)
-                            {
-                                if (!byType.ContainsKey(kvp.Key))
-                                    byType.Add(kvp.Key, 0);
+                    if (storageUpgradeBlock.ItemUpgrades != null)
+                        foreach (var kvp in storageUpgradeBlock.ItemUpgrades)
+                        {
+                            if (!byType.ContainsKey(kvp.Key))
+                                byType.Add(kvp.Key, 0);
 
-                                byType[kvp.Key] = byType[kvp.Key] + kvp.Value;
-                            }
-                    }
+                            byType[kvp.Key] = byType[kvp.Key] + kvp.Value;
+                        }
                 }
+            }
 
-                if (!MaxStackSize.ContainsKey(colony))
-                    MaxStackSize[colony] = new Dictionary<ushort, int>();
+            if (!MaxStackSize.ContainsKey(colony))
+                MaxStackSize[colony] = new Dictionary<ushort, int>();
 
-                foreach (var item in ItemTypes._TypeByUShort.Values)
+            foreach (var item in ItemTypes._TypeByUShort.Values)
+            {
+                var totalStack = total;
+                DefaultMax[colony] = total;
+
+                if (item.Categories != null)
                 {
-                    var totalStack = total;
-                    DefaultMax[colony] = total;
-
                     foreach (var cat in item.Categories)
-                        if (byCategory.TryGetValue(cat, out int catTotal))
-                            totalStack += catTotal;
-
-                    if (byType.TryGetValue(item.Name, out int itemTotal))
-                        totalStack += itemTotal;
-
-                    MaxStackSize[colony][item.ItemIndex] = totalStack;
+                    if (byCategory.TryGetValue(cat, out int catTotal))
+                        totalStack += catTotal;
                 }
+
+                if (byType.TryGetValue(item.Name, out int itemTotal))
+                    totalStack += itemTotal;
+
+                MaxStackSize[colony][item.ItemIndex] = totalStack;
             }
         }
 
@@ -146,6 +157,14 @@ namespace Pandaros.Civ.Storage
                 {
                     StorageBlockTypes[sb.name] = sb;
                 }
+            }
+        }
+
+        public void AfterWorldLoad()
+        {
+            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
+            {
+                RecalcMax(colony);
             }
         }
     }
