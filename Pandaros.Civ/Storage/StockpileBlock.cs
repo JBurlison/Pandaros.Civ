@@ -25,7 +25,7 @@ namespace Pandaros.Civ.Storage
         public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "StockpileBlock.png");
     }
 
-    public class StockpileBlock : StorageUpgradeBlockBase, IAfterItemTypesDefined, IOnSendAreaHighlights, IOnTryChangeBlock, IOnLoadingColony, IOnSavingColony
+    public class StockpileBlock : CSType, IStorageUpgradeBlock, IAfterItemTypesDefined, IOnSendAreaHighlights, IOnTryChangeBlock, IOnLoadingColony, IOnSavingColony
     {
         public static string Name { get; } = GameSetup.GetNamespace("Storage", "StockpileBlock");
         public static LocalizationHelper LocalizationHelper { get; set; } = new LocalizationHelper(GameSetup.NAMESPACE, "Stockpile");
@@ -59,7 +59,9 @@ namespace Pandaros.Civ.Storage
                 TimePeriod.FusionAge, (new Vector3Int(10,0,7), new Vector3Int(-10, 7, -7))
             }
         };
-
+        public Dictionary<string, int> CategoryUpgrades { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> ItemUpgrades { get; set; } = new Dictionary<string, int>();
+        public int GlobalUpgrade { get; set; }
 
         public StockpileBlock()
         {
@@ -68,7 +70,8 @@ namespace Pandaros.Civ.Storage
             isSolid = true;
             categories = new List<string>()
             {
-                "essential"
+                "essential",
+                "storage"
             };
             customData = JObject.Parse("{ \"attachBehaviour\" : [{\"id\":\"crate\"}] }");
             icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
