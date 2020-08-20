@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Storage
 {
-    public class PrimitiveStorageBlockTexture : CSTextureMapping
+    public class BasketTexture : CSTextureMapping
     {
-        public override string name => PrimitiveStorageBlock.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "StockpileBlock.png");
-        public override string height => GameSetup.Textures.GetPath(TextureType.height, "StockpileBlock.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "StockpileBlock.png");
+        public override string name => Basket.Name;
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "basket.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "basket.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "basket.png");
     }
 
-    public class PrimitiveStorageBlock : CSType, IStorageUpgradeBlock
+    public class Basket : CSType, IStorageUpgradeBlock
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "PrimitiveStorageBlock");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "Basket");
         public Dictionary<string, int> CategoryUpgrades { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ItemUpgrades { get; set; } = new Dictionary<string, int>();
         public int GlobalUpgrade { get; set; }
 
-        public PrimitiveStorageBlock()
+        public Basket()
         {
             name = Name;
             GlobalUpgrade = 8;
@@ -35,7 +35,7 @@ namespace Pandaros.Civ.Storage
             };
             isSolid = true;
             customData = JObject.Parse("{ \"attachBehaviour\" : [{\"id\":\"crate\"}] }");
-            icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
+            icon = GameSetup.Textures.GetPath(TextureType.icon, "basket.png");
         }
     }
 }

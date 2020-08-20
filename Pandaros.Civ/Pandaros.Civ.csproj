@@ -80,7 +80,10 @@
     <Compile Include="CivLogger.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Storage\PrimitiveStorageBlock.cs" />
+    <Compile Include="Storage\Basket.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Storage\CarvedLog.cs" />
     <Compile Include="Storage\StockpileBlock.cs" />
     <Compile Include="Storage\StockpilePosition.cs" />
     <Compile Include="Storage\StorageFactory.cs" />
@@ -107,16 +110,40 @@
     <Folder Include="TimePeriods\StoneAge\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icons\basket.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\CarvedLog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icons\StockpileBlock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="pdb2mdb.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\albedo\basket.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\albedo\CarvedLog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\albedo\StockpileBlock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\basket.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\CarvedLog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\heightSmoothnessSpecularity\StockpileBlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\basket.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\CarvedLog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\normal\StockpileBlock.png">
