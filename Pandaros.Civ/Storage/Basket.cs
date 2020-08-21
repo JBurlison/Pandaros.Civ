@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
+using Pandaros.API;
 using Pandaros.API.Models;
+using Recipes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +39,23 @@ namespace Pandaros.Civ.Storage
             customData = JObject.Parse("{ \"attachBehaviour\" : [{\"id\":\"crate\"}] }");
             icon = GameSetup.Textures.GetPath(TextureType.icon, "basket.png");
         }
+    }
+
+    public class BasketRecipe : ICSPlayerRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Id),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(Basket.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => Basket.Name;
     }
 }

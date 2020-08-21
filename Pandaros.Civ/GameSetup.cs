@@ -19,7 +19,8 @@ using System.Reflection;
 namespace Pandaros.Civ
 {
     [ModLoader.ModManager]
-    public class GameSetup : IAfterItemTypesDefined
+    [LoadPriority(double.MaxValue)]
+    public class GameSetup : IAfterItemTypesDefined, IAfterModsLoaded
     {
         public const string NAMESPACE = "Pandaros.Civ";
         public static string MESH_PATH = "Meshes/";
@@ -115,15 +116,26 @@ namespace Pandaros.Civ
                 //ServerManager.RecipeStorage.SourceBlockTypesPerProductionItem.Clear();
                 //ServerManager.RecipeStorage.BlockNameToLimitTypeMapping.Clear();
                 //ServerManager.RecipeStorage.SetFieldValue<uint>("NextRecipeKey", 1u);
-                ServerManager.RecipeStorage = new Recipes.RecipeStorage();
-                ServerManager.ScienceManager.ScienceKeyToResearchableMapping.Clear();
-                ServerManager.ScienceManager.ScienceStringToKeyMapping.Clear();
-                ServerManager.ScienceManager.SetFieldValue<uint>("NextUnusedID", 1u);
-                ServerManager.ScienceManager.SetFieldValue<uint>("HighestUsedKey", 0);
+                //ServerManager.RecipeStorage = new Recipes.RecipeStorage();
+                //ServerManager.ScienceManager.ScienceKeyToResearchableMapping.Clear();
+                //ServerManager.ScienceManager.ScienceStringToKeyMapping.Clear();
+                //ServerManager.ScienceManager.SetFieldValue<uint>("NextUnusedID", 1u);
+                //ServerManager.ScienceManager.SetFieldValue<uint>("HighestUsedKey", 0);
             }
             catch (Exception ex)
             {
                 CivLogger.LogError(ex);
+            }
+        }
+
+        public void AfterModsLoaded(List<ModLoader.ModDescription> list)
+        {
+            foreach(var mod in list)
+            {
+                if (mod.name == "Colony Survival")
+                {
+                   
+                }
             }
         }
     }

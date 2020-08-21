@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
+using Pandaros.API;
 using Pandaros.API.Models;
+using Recipes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +39,23 @@ namespace Pandaros.Civ.Storage
             customData = JObject.Parse("{ \"attachBehaviour\" : [{\"id\":\"crate\"}] }");
             icon = GameSetup.Textures.GetPath(TextureType.icon, "CarvedLog.png");
         }
+    }
+
+    public class CarvedLogRecipe : ICSPlayerRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 1)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(CarvedLog.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => CarvedLog.Name;
     }
 }
