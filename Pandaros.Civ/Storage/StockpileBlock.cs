@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,7 +82,7 @@ namespace Pandaros.Civ.Storage
 
         public void AfterItemTypesDefined()
         {
-            StarterPacks.Manager.PrimaryStockpileStart.Items.Add(new InventoryItem(name));
+            StarterPacks.Manager.PrimaryStockpileStart.Items = new List<InventoryItem>() { new InventoryItem(name) };
         }
 
         public void OnSendAreaHighlights(Players.Player player, List<AreaJobTracker.AreaHighlight> list, List<ushort> showWhileHoldingTypes)

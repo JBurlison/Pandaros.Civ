@@ -1,4 +1,5 @@
 ﻿using Chatting;
+using Newtonsoft.Json.Linq;
 using Pandaros.API;
 using Pandaros.API.AI;
 using Pandaros.API.ColonyManagement;
@@ -14,13 +15,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Pandaros.Civ
 {
     [ModLoader.ModManager]
     [LoadPriority(double.MaxValue)]
-    public class GameSetup : IAfterItemTypesDefined, IAfterModsLoaded
+    public class GameSetup : IAfterItemTypesDefined, ModLoaderInterfaces.IOnLoadModJSONFiles
     {
         public const string NAMESPACE = "Pandaros.Civ";
         public static string MESH_PATH = "Meshes/";
@@ -107,9 +109,9 @@ namespace Pandaros.Civ
         {
             try
             {
-                StarterPacks.Manager.PrimaryStockpileStart.Items?.Clear();
-                StarterPacks.Manager.PrimaryPlayerStart.Items?.Clear();
-                StarterPacks.Manager.ItemPacks?.Clear();
+                //StarterPacks.Manager.PrimaryStockpileStart.Items?.Clear();
+                //StarterPacks.Manager.PrimaryPlayerStart.Items?.Clear();
+                //StarterPacks.Manager.ItemPacks?.Clear();
                 //ServerManager.RecipeStorage.PlayerRecipes.Clear();
                 //ServerManager.RecipeStorage.RecipeKeys.Clear();
                 //ServerManager.RecipeStorage.RecipesPerLimitType.Clear();
@@ -128,15 +130,44 @@ namespace Pandaros.Civ
             }
         }
 
-        public void AfterModsLoaded(List<ModLoader.ModDescription> list)
+        [ModLoader.ModCallback(NAMESPACE + ".OnLoadModJSONFiles")]
+        public void OnLoadModJSONFiles(List<ModLoader.LoadModJSONFileContext> contexts)
         {
-            foreach(var mod in list)
+            var blacklistTypes = new List<string>()
             {
-                if (mod.name == "Colony Survival")
+                "addOrReplaceNPCRecipes",
+                "addScience",
+                "addOrReplacePlayerRecipes",
+                "addOrReplaceStarterPack",
+                "scienceBiomePatches"
+            };
+
+            List<ModLoader.LoadModJSONFileContext> remove = new List<ModLoader.LoadModJSONFileContext>();
+
+            foreach (var context in contexts)
+            {
+                if (context.Mod.name == "Colony Survival")
                 {
-                   
+                    List<JObject> keep = new List<JObject>();
+
+                    foreach (var json in context.Mod.jsonFiles)
+                    {
+                        var ft = json.Value<string>("fileType");
+
+                        if (!blacklistTypes.Any(b => b.Equals(ft, StringComparison.InvariantCultureIgnoreCase)))
+                            keep.Add(json);
+                    }
+
+                    context.Mod.jsonFiles = keep.ToArray();
+
+
+                    if (blacklistTypes.Any(b => b.Equals(context.FileType, StringComparison.InvariantCultureIgnoreCase)))
+                        remove.Add(context);
                 }
             }
+
+            foreach (var r in remove)
+                contexts.Remove(r);
         }
     }
 }
