@@ -2,8 +2,10 @@
 using Pandaros.API;
 using Pandaros.API.Entities;
 using Pandaros.API.Extender;
+using Pandaros.API.Models;
 using Pandaros.API.WorldGen;
 using Pandaros.Civ.TimePeriods;
+using Pipliz;
 using Pipliz.JSON;
 using System;
 using System.Collections.Generic;
@@ -21,22 +23,29 @@ namespace Pandaros.Civ.Storage
         public double NextUpdateTimeMax => 7;
 
         public double NextUpdateTime { get; set; }
-        public static Dictionary<Colony, Dictionary<ushort, int>> MaxStackSize { get; set; } = new Dictionary<Colony, Dictionary<ushort, int>>();
+        public static Dictionary<Colony, Dictionary<ushort, int>> StockpileMaxStackSize { get; set; } = new Dictionary<Colony, Dictionary<ushort, int>>();
         public static Dictionary<Colony, int> DefaultMax = new Dictionary<Colony, int>();
+        public static Dictionary<Vector3Int, CrateInventory> CrateLocations { get; set; } = new Dictionary<Vector3Int, CrateInventory>();
+        public static Dictionary<string, IStorageUpgradeBlock> StorageBlockTypes { get; set; } = new Dictionary<string, IStorageUpgradeBlock>();
+        public static Dictionary<string, ICrate> CrateTypes { get; set; } = new Dictionary<string, ICrate>();
+        public static Dictionary<ushort, List<Vector3Int>> ItemCrateLocations { get; set; } = new Dictionary<ushort, List<Vector3Int>>();
 
         public List<Type> LoadedAssembalies { get; } = new List<Type>();
 
-        public string InterfaceName { get; } = "IStorageUpgradeBlock";
+        public string InterfaceName { get; } = nameof(IStorageUpgradeBlock);
 
         public Type ClassType { get; }
 
-        public static Dictionary<string, IStorageUpgradeBlock> StorageBlockTypes { get; set; } = new Dictionary<string, IStorageUpgradeBlock>();
-
+        bool _worldLoaded = false;
+        
         public void OnTimedUpdate()
         {
+            if (!_worldLoaded)
+                return;
+            
             foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
             {
-                if (MaxStackSize.TryGetValue(colony, out var maxStockpile))
+                if (StockpileMaxStackSize.TryGetValue(colony, out var maxStockpile))
                 {
                     foreach(var itemId in colony.Stockpile.Items.Keys)
                     {
@@ -75,7 +84,22 @@ namespace Pandaros.Civ.Storage
                     StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeOld.Name)))
             {
                 RecalcMax(colony);
+                return;
             }
+
+            if (tryChangeBlockData.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player &&
+                colony != null)
+                if (CrateTypes.TryGetValue(tryChangeBlockData.TypeOld.Name, out var oldCrate))
+                {
+                    CrateLocations.Remove(tryChangeBlockData.Position);
+
+                    foreach (var item in ItemCrateLocations)
+                        item.Value.Remove(tryChangeBlockData.Position);
+                }
+                else if (CrateTypes.TryGetValue(tryChangeBlockData.TypeNew.Name, out var newCrate))
+                {
+                    CrateLocations.Add(tryChangeBlockData.Position, new CrateInventory(newCrate, tryChangeBlockData.Position));
+                }
         }
 
         private static void RecalcMax(Colony colony)
@@ -112,8 +136,8 @@ namespace Pandaros.Civ.Storage
                 }
             }
 
-            if (!MaxStackSize.ContainsKey(colony))
-                MaxStackSize[colony] = new Dictionary<ushort, int>();
+            if (!StockpileMaxStackSize.ContainsKey(colony))
+                StockpileMaxStackSize[colony] = new Dictionary<ushort, int>();
 
             foreach (var item in ItemTypes._TypeByUShort.Values)
             {
@@ -130,7 +154,7 @@ namespace Pandaros.Civ.Storage
                 if (byType.TryGetValue(item.Name, out int itemTotal))
                     totalStack += itemTotal;
 
-                MaxStackSize[colony][item.ItemIndex] = totalStack;
+                StockpileMaxStackSize[colony][item.ItemIndex] = totalStack;
             }
         }
 
@@ -167,6 +191,8 @@ namespace Pandaros.Civ.Storage
             {
                 RecalcMax(colony);
             }
+
+            _worldLoaded = true;
         }
     }
 }

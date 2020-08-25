@@ -36,7 +36,6 @@ namespace Pandaros.Civ.Storage
                 "storage"
             };
             isSolid = true;
-            customData = JObject.Parse("{ \"attachBehaviour\" : [{\"id\":\"crate\"}] }");
             icon = GameSetup.Textures.GetPath(TextureType.icon, "basket.png");
         }
     }

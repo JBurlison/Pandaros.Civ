@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Storage
 {
-    public interface ICrate
+    public interface ICrate : ICSType
     {
-        int MaxStackSize { get; set; }
+        int MaxCrateStackSize { get; set; }
         int MaxNumberOfStacks { get; set; }
     }
 }
