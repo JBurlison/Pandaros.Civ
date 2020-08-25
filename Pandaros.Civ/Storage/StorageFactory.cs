@@ -1,4 +1,5 @@
-﻿using Pandaros.API;
+﻿using ModLoaderInterfaces;
+using Pandaros.API;
 using Pandaros.API.Entities;
 using Pandaros.API.Extender;
 using Pandaros.API.WorldGen;
@@ -42,7 +43,7 @@ namespace Pandaros.Civ.Storage
                         if (!maxStockpile.TryGetValue(itemId, out var max))
                         {
                             if (!DefaultMax.TryGetValue(colony, out max))
-                                max = StorageBlockTypes[StockpileBlock.Name].GlobalUpgrade;
+                                max = StorageBlockTypes[StockpileBlock.Name].GlobalStorageUpgrade;
                         }
 
                         if (colony.Stockpile.Items[itemId] > max)
@@ -53,7 +54,7 @@ namespace Pandaros.Civ.Storage
                 {
                     foreach (var itemId in colony.Stockpile.Items.Keys)
                     {
-                        var max = StorageBlockTypes[StockpileBlock.Name].GlobalUpgrade;
+                        var max = StorageBlockTypes[StockpileBlock.Name].GlobalStorageUpgrade;
 
                         if (colony.Stockpile.Items[itemId] > max)
                             colony.Stockpile.Items[itemId] = max;
@@ -89,10 +90,10 @@ namespace Pandaros.Civ.Storage
             {
                 if (StorageBlockTypes.TryGetValue(blockType.Name, out var storageUpgradeBlock))
                 {
-                    total += storageUpgradeBlock.GlobalUpgrade;
+                    total += storageUpgradeBlock.GlobalStorageUpgrade;
 
-                    if (storageUpgradeBlock.CategoryUpgrades != null)
-                        foreach (var kvp in storageUpgradeBlock.CategoryUpgrades)
+                    if (storageUpgradeBlock.CategoryStorageUpgrades != null)
+                        foreach (var kvp in storageUpgradeBlock.CategoryStorageUpgrades)
                         {
                             if (!byCategory.ContainsKey(kvp.Key))
                                 byCategory.Add(kvp.Key, 0);
@@ -100,8 +101,8 @@ namespace Pandaros.Civ.Storage
                             byCategory[kvp.Key] = byCategory[kvp.Key] + kvp.Value;
                         }
 
-                    if (storageUpgradeBlock.ItemUpgrades != null)
-                        foreach (var kvp in storageUpgradeBlock.ItemUpgrades)
+                    if (storageUpgradeBlock.ItemStorageUpgrades != null)
+                        foreach (var kvp in storageUpgradeBlock.ItemStorageUpgrades)
                         {
                             if (!byType.ContainsKey(kvp.Key))
                                 byType.Add(kvp.Key, 0);

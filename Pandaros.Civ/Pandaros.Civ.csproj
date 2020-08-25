@@ -78,12 +78,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CivLogger.cs" />
+    <Compile Include="Extender\IPandaJobEvents.cs" />
+    <Compile Include="Extender\Providers\PandaJobEventsProvider.cs" />
     <Compile Include="GameSetup.cs" />
+    <Compile Include="Jobs\INpcGoal.cs" />
+    <Compile Include="Jobs\IPandaJob.cs" />
+    <Compile Include="Jobs\PandaJobFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\Basket.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Storage\CarvedLog.cs" />
+    <Compile Include="Storage\ICrate.cs" />
     <Compile Include="Storage\StockpileBlock.cs" />
     <Compile Include="Storage\StockpilePosition.cs" />
     <Compile Include="Storage\StorageFactory.cs" />

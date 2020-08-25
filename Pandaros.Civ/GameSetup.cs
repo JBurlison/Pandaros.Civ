@@ -1,4 +1,5 @@
 ﻿using Chatting;
+using ModLoaderInterfaces;
 using Newtonsoft.Json.Linq;
 using Pandaros.API;
 using Pandaros.API.AI;
@@ -22,7 +23,7 @@ namespace Pandaros.Civ
 {
     [ModLoader.ModManager]
     [LoadPriority(double.MaxValue)]
-    public class GameSetup : IAfterItemTypesDefined, ModLoaderInterfaces.IOnLoadModJSONFiles
+    public class GameSetup : IAfterItemTypesDefined, IOnLoadModJSONFiles
     {
         public const string NAMESPACE = "Pandaros.Civ";
         public static string MESH_PATH = "Meshes/";

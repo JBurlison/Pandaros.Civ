@@ -9,8 +9,8 @@ namespace Pandaros.Civ.Storage
 {
     public interface IStorageUpgradeBlock : ICSType
     {
-        Dictionary<string, int> CategoryUpgrades { get; set; }
-        Dictionary<string, int> ItemUpgrades { get; set; }
-        int GlobalUpgrade { get; set; }
+        Dictionary<string, int> CategoryStorageUpgrades { get; set; }
+        Dictionary<string, int> ItemStorageUpgrades { get; set; }
+        int GlobalStorageUpgrade { get; set; }
     }
 }

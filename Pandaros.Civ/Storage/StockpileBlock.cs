@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BlockTypes;
+using ModLoaderInterfaces;
 using Newtonsoft.Json.Linq;
 using Pandaros.API;
 using Pandaros.API.Entities;
@@ -60,9 +61,9 @@ namespace Pandaros.Civ.Storage
                 TimePeriod.FusionAge, (new Vector3Int(10,0,7), new Vector3Int(-10, 7, -7))
             }
         };
-        public Dictionary<string, int> CategoryUpgrades { get; set; } = new Dictionary<string, int>();
-        public Dictionary<string, int> ItemUpgrades { get; set; } = new Dictionary<string, int>();
-        public int GlobalUpgrade { get; set; }
+        public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
+        public int GlobalStorageUpgrade { get; set; }
 
         public StockpileBlock()
         {
@@ -76,8 +77,8 @@ namespace Pandaros.Civ.Storage
             };
             customData = JObject.Parse("{ \"attachBehaviour\" : [{\"id\":\"crate\"}] }");
             icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
-            GlobalUpgrade = 32;
-            CategoryUpgrades.Add("food", 32);
+            GlobalStorageUpgrade = 32;
+            CategoryStorageUpgrades.Add("food", 32);
         }
 
         public void AfterItemTypesDefined()

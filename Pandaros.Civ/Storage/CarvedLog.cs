@@ -21,15 +21,15 @@ namespace Pandaros.Civ.Storage
     public class CarvedLog : CSType, IStorageUpgradeBlock
     {
         public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "CarvedLog");
-        public Dictionary<string, int> CategoryUpgrades { get; set; } = new Dictionary<string, int>();
-        public Dictionary<string, int> ItemUpgrades { get; set; } = new Dictionary<string, int>();
-        public int GlobalUpgrade { get; set; }
+        public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
+        public int GlobalStorageUpgrade { get; set; }
 
         public CarvedLog()
         {
             name = Name;
-            GlobalUpgrade = 4;
-            CategoryUpgrades.Add("food", 4);
+            GlobalStorageUpgrade = 4;
+            CategoryStorageUpgrades.Add("food", 4);
             sideall = GameSetup.Textures.SELF;
             categories = new List<string>()
             {
