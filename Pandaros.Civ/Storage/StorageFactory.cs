@@ -25,10 +25,10 @@ namespace Pandaros.Civ.Storage
         public ServerTimeStamp NextUpdateTime { get; set; }
         public static Dictionary<Colony, Dictionary<ushort, int>> StockpileMaxStackSize { get; set; } = new Dictionary<Colony, Dictionary<ushort, int>>();
         public static Dictionary<Colony, int> DefaultMax = new Dictionary<Colony, int>();
-        public static Dictionary<Vector3Int, CrateInventory> CrateLocations { get; set; } = new Dictionary<Vector3Int, CrateInventory>();
+        public static Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>> CrateLocations { get; set; } = new Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>>();
         public static Dictionary<string, IStorageUpgradeBlock> StorageBlockTypes { get; set; } = new Dictionary<string, IStorageUpgradeBlock>();
         public static Dictionary<string, ICrate> CrateTypes { get; set; } = new Dictionary<string, ICrate>();
-        public static Dictionary<ushort, List<Vector3Int>> ItemCrateLocations { get; set; } = new Dictionary<ushort, List<Vector3Int>>();
+        public static Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>> ItemCrateLocations { get; set; } = new Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>>();
 
         public List<Type> LoadedAssembalies { get; } = new List<Type>();
 
@@ -91,14 +91,14 @@ namespace Pandaros.Civ.Storage
                 colony != null)
                 if (CrateTypes.TryGetValue(tryChangeBlockData.TypeOld.Name, out var oldCrate))
                 {
-                    CrateLocations.Remove(tryChangeBlockData.Position);
+                    CrateLocations[colony].Remove(tryChangeBlockData.Position);
 
-                    foreach (var item in ItemCrateLocations)
+                    foreach (var item in ItemCrateLocations[colony])
                         item.Value.Remove(tryChangeBlockData.Position);
                 }
                 else if (CrateTypes.TryGetValue(tryChangeBlockData.TypeNew.Name, out var newCrate))
                 {
-                    CrateLocations.Add(tryChangeBlockData.Position, new CrateInventory(newCrate, tryChangeBlockData.Position));
+                    CrateLocations[colony].Add(tryChangeBlockData.Position, new CrateInventory(newCrate, tryChangeBlockData.Position, colony));
                 }
         }
 
@@ -189,6 +189,12 @@ namespace Pandaros.Civ.Storage
         {
             foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
             {
+                if (!CrateLocations.ContainsKey(colony))
+                    CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
+
+                if (!ItemCrateLocations.ContainsKey(colony))
+                    ItemCrateLocations.Add(colony, new Dictionary<ushort, List<Vector3Int>>());
+
                 RecalcMax(colony);
             }
 

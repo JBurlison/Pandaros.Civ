@@ -9,18 +9,13 @@ namespace Pandaros.Civ.Jobs
 {
     public interface INpcGoal
     {
-        string GoalName { get; set; }
         IPandaJob Job { get; set; }
         string Name { get; set; }
         string LocalizationKey { get; set; }
-        Vector3Int Location { get; set; }
+        Vector3Int GetPosition();
 
-        void AtGoal();
-
-        void PerformGoal();
+        void PerformGoal(ref NPC.NPCBase.NPCState state);
 
         void LeavingGoal();
-
-        INpcGoal NewGoalInstance();
     }
 }

@@ -15,11 +15,12 @@ namespace Pandaros.Civ.Storage
         public ICrate CrateType { get; set; }
 
         public Vector3Int Position { get; set; }
-
-        public CrateInventory(ICrate crateType, Vector3Int position)
+        public Colony Colony { get; set; }
+        public CrateInventory(ICrate crateType, Vector3Int position, Colony c)
         {
             CrateType = crateType;
             Position = position;
+            Colony = c;
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Pandaros.Civ.Storage
                 if (Contents[item.Id] == 0)
                     Contents.Remove(item.Id);
 
-                if (StorageFactory.ItemCrateLocations.TryGetValue(item.Id, out var posList))
+                if (StorageFactory.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
                     posList.Remove(Position);
             }
 
@@ -93,10 +94,10 @@ namespace Pandaros.Civ.Storage
                     }
                 }
 
-                if (!StorageFactory.ItemCrateLocations.ContainsKey(item.Id))
-                    StorageFactory.ItemCrateLocations.Add(item.Id, new List<Pipliz.Vector3Int>());
+                if (!StorageFactory.ItemCrateLocations[Colony].ContainsKey(item.Id))
+                    StorageFactory.ItemCrateLocations[Colony].Add(item.Id, new List<Pipliz.Vector3Int>());
 
-                var listRef = StorageFactory.ItemCrateLocations[item.Id];
+                var listRef = StorageFactory.ItemCrateLocations[Colony][item.Id];
 
                 if (!listRef.Contains(Position))
                     listRef.Add(Position);

@@ -8,28 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ModLoaderInterfaces;
+using Pandaros.API.Extender;
+using BlockEntities;
 
 namespace Pandaros.Civ.Jobs
 {
-    public interface IPandaJob : IOnUpdate
+    public interface IPandaJob : IJob, IBlockEntityKeepLoaded
     {
         /// <summary>
         ///     Old npc, new npc
         /// </summary>
-        event EventHandler<(NPCBase, NPCBase)> NPCSet;
+        event Action<IPandaJob, NPCBase, NPCBase> NPCSet;
         /// <summary>
         ///     Old goal, new goal
         /// </summary>
-        event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
+        event Action<IPandaJob, INpcGoal, INpcGoal> GoalChanged;
         int JobId { get; set; }
         INpcGoal CurrentGoal { get; }
-        Colony Owner { get; set; }
         string LocalizationKey { get; set; }
-        NPCBase NPC { get; set; }
-        NPCType NPCType { get; set; }
-
+        string JobBlock { get; set; }
         void SetGoal(INpcGoal npcGoal);
-        void SetNPC(NPCBase npc);
 
     }
 }
