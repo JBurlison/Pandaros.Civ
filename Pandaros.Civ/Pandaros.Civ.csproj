@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="CivLogger.cs" />
     <Compile Include="Extender\IPandaJobEvents.cs" />
+    <Compile Include="Extender\Providers\NPCGoalProvider.cs" />
     <Compile Include="Extender\Providers\PandaJobEventsProvider.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="Jobs\INpcGoal.cs" />

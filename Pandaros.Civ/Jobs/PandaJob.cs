@@ -1,4 +1,5 @@
 ﻿using NPC;
+using Pandaros.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs
 {
-    public abstract class PandaJob : IPandaJob
+    public class PandaJob : IPandaJob
     {
         public INpcGoal CurrentGoal { get; set; }
 
@@ -27,6 +28,10 @@ namespace Pandaros.Civ.Jobs
         public virtual void SetGoal(INpcGoal npcGoal)
         {
             var oldGoal = CurrentGoal;
+
+            if (oldGoal != null)
+                oldGoal.LeavingGoal();
+
             CurrentGoal = npcGoal;
 
             if (GoalChanged != null)

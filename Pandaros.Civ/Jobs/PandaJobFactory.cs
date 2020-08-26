@@ -13,9 +13,10 @@ namespace Pandaros.Civ.Jobs
 {
     public class PandaJobFactory : IOnNPCRecruited, IOnNPCDied, IOnNPCLoaded, IOnNPCSaved, IOnSavingColony, IOnLoadingColony
     {
-        public Dictionary<IPandaJob, Vector3Int> JobLocations { get; set; } = new Dictionary<IPandaJob, Vector3Int>();
-        public List<IPandaJob> AvailableJobs { get; set; } = new List<IPandaJob>();
-        public List<IPandaJob> TakenJobs { get; set; } = new List<IPandaJob>();
+        public static Dictionary<string, INpcGoal> NPCGoals { get; set; } = new Dictionary<string, INpcGoal>();
+        public static Dictionary<IPandaJob, Vector3Int> JobLocations { get; set; } = new Dictionary<IPandaJob, Vector3Int>();
+        public static List<IPandaJob> AvailableJobs { get; set; } = new List<IPandaJob>();
+        public static List<IPandaJob> TakenJobs { get; set; } = new List<IPandaJob>();
 
 
         public void OnNPCDied(NPCBase npc)

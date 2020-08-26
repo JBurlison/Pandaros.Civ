@@ -23,7 +23,7 @@ namespace Pandaros.Civ
 {
     [ModLoader.ModManager]
     [LoadPriority(double.MaxValue)]
-    public class GameSetup : IAfterItemTypesDefined, IOnLoadModJSONFiles
+    public class GameSetup : IOnLoadModJSONFiles
     {
         public const string NAMESPACE = "Pandaros.Civ";
         public static string MESH_PATH = "Meshes/";
@@ -106,30 +106,6 @@ namespace Pandaros.Civ
             return NAMESPACE + "." + string.Join(".", paths);
         }
 
-        public void AfterItemTypesDefined()
-        {
-            try
-            {
-                //StarterPacks.Manager.PrimaryStockpileStart.Items?.Clear();
-                //StarterPacks.Manager.PrimaryPlayerStart.Items?.Clear();
-                //StarterPacks.Manager.ItemPacks?.Clear();
-                //ServerManager.RecipeStorage.PlayerRecipes.Clear();
-                //ServerManager.RecipeStorage.RecipeKeys.Clear();
-                //ServerManager.RecipeStorage.RecipesPerLimitType.Clear();
-                //ServerManager.RecipeStorage.SourceBlockTypesPerProductionItem.Clear();
-                //ServerManager.RecipeStorage.BlockNameToLimitTypeMapping.Clear();
-                //ServerManager.RecipeStorage.SetFieldValue<uint>("NextRecipeKey", 1u);
-                //ServerManager.RecipeStorage = new Recipes.RecipeStorage();
-                //ServerManager.ScienceManager.ScienceKeyToResearchableMapping.Clear();
-                //ServerManager.ScienceManager.ScienceStringToKeyMapping.Clear();
-                //ServerManager.ScienceManager.SetFieldValue<uint>("NextUnusedID", 1u);
-                //ServerManager.ScienceManager.SetFieldValue<uint>("HighestUsedKey", 0);
-            }
-            catch (Exception ex)
-            {
-                CivLogger.LogError(ex);
-            }
-        }
 
         [ModLoader.ModCallback(NAMESPACE + ".OnLoadModJSONFiles")]
         public void OnLoadModJSONFiles(List<ModLoader.LoadModJSONFileContext> contexts)
