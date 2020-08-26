@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs
 {
-    public class PandaJob : IPandaJob
+    public abstract class PandaJob : IPandaJob
     {
         public INpcGoal CurrentGoal { get; set; }
 
@@ -24,18 +24,22 @@ namespace Pandaros.Civ.Jobs
            
         }
 
-        public void SetGoal(INpcGoal npcGoal)
+        public virtual void SetGoal(INpcGoal npcGoal)
         {
-            
-            if (NPCSet != null)
-            {
+            var oldGoal = CurrentGoal;
+            CurrentGoal = npcGoal;
 
-            }
+            if (GoalChanged != null)
+                GoalChanged.Invoke(this, (oldGoal, npcGoal));
         }
 
-        public void SetNPC(NPCBase npc)
+        public virtual void SetNPC(NPCBase npc)
         {
-            
+            var oldNpc = NPC;
+            NPC = npc;
+
+            if (NPCSet != null)
+                NPCSet.Invoke(this, (oldNpc, npc));
         }
     }
 }
