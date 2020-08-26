@@ -84,6 +84,7 @@
     <Compile Include="GameSetup.cs" />
     <Compile Include="Jobs\INpcGoal.cs" />
     <Compile Include="Jobs\IPandaJob.cs" />
+    <Compile Include="NPCExtentions.cs" />
     <Compile Include="Jobs\PandaJob.cs" />
     <Compile Include="Jobs\PandaJobFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -21,6 +21,7 @@ namespace Pandaros.Civ.Jobs
         ///     Old goal, new goal
         /// </summary>
         event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
+        int JobId { get; set; }
         INpcGoal CurrentGoal { get; }
         Colony Owner { get; set; }
         string LocalizationKey { get; set; }

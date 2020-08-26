@@ -18,11 +18,11 @@ namespace Pandaros.Civ.Storage
 {
     public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad
     {
-        public double NextUpdateTimeMin => 4;
+        public int NextUpdateTimeMinMs => 2000;
 
-        public double NextUpdateTimeMax => 7;
+        public int NextUpdateTimeMaxMs => 5000;
 
-        public double NextUpdateTime { get; set; }
+        public ServerTimeStamp NextUpdateTime { get; set; }
         public static Dictionary<Colony, Dictionary<ushort, int>> StockpileMaxStackSize { get; set; } = new Dictionary<Colony, Dictionary<ushort, int>>();
         public static Dictionary<Colony, int> DefaultMax = new Dictionary<Colony, int>();
         public static Dictionary<Vector3Int, CrateInventory> CrateLocations { get; set; } = new Dictionary<Vector3Int, CrateInventory>();

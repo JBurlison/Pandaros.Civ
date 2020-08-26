@@ -10,8 +10,8 @@ namespace Pandaros.Civ.Jobs
 {
     public class PandaJob : IPandaJob
     {
+        public int JobId { get; set; }
         public INpcGoal CurrentGoal { get; set; }
-
         public Colony Owner { get; set; }
         public string LocalizationKey { get; set; }
         public NPCBase NPC { get; set; }
