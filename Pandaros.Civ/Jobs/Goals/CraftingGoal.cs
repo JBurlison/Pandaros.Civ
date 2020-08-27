@@ -102,7 +102,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     CurrentRecipe = null;
 
                     if (!state.Inventory.IsEmpty)
-                        GetItemsFromCrate();
+                        GetItemsFromCrate(ref state);
 
                     state.SetCooldown(0.05, 0.15);
 
@@ -140,7 +140,7 @@ namespace Pandaros.Civ.Jobs.Goals
                         }
                         else
                         {
-                            GetItemsFromCrate();
+                            GetItemsFromCrate(ref state);
                         }
 
                         Job.Owner.Stats.RecordNPCIdleSeconds(Job.NPCType, cooldown);
@@ -149,7 +149,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 case Recipe.RecipeMatchType.FoundCraftable:
                     CurrentRecipe = recipeMatch.FoundRecipe;
                     CurrentRecipeCount = recipeMatch.FoundRecipeCount;
-                    GetItemsFromCrate();
+                    GetItemsFromCrate(ref state);
                     state.SetCooldown(0.2, 0.4);
                     break;
                 default:
@@ -158,8 +158,9 @@ namespace Pandaros.Civ.Jobs.Goals
             }
         }
 
-        public virtual void GetItemsFromCrate()
+        public virtual void GetItemsFromCrate(ref NPCBase.NPCState state)
         {
+            state.Inventory.Add(CurrentRecipe.Requirements);
             Job.SetGoal(new GetItemsFromCrateGoal(Job, this, CurrentRecipe.Requirements));
         }
 
