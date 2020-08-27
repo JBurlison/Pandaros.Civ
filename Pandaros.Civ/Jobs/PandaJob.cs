@@ -24,6 +24,7 @@ namespace Pandaros.Civ.Jobs
             SleepAtNight = sleepNight;
             RecruitmentItem = recruitmentItem;
             JobBlock = jobBlock;
+            Position = pos;
         }
 
         public INpcGoal CurrentGoal { get; set; }
@@ -32,7 +33,7 @@ namespace Pandaros.Civ.Jobs
         public NPCBase NPC { get; set; }
         public NPCType NPCType { get; set; }
         public bool SleepAtNight { get; set; }
-
+        public Vector3Int Position { get; set; }
         public float NPCShopGameHourMinimum => TimeCycle.Settings.SleepTimeEnd;
 
         public float NPCShopGameHourMaximum => TimeCycle.Settings.SleepTimeStart;
@@ -44,7 +45,7 @@ namespace Pandaros.Civ.Jobs
         public bool IsValid { get; set; } = true;
         public string JobBlock { get; set; }
 
-        public event Action<IPandaJob, INpcGoal, INpcGoal> GoalChanged;
+        public event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
 
         public virtual void SetGoal(INpcGoal npcGoal)
         {
@@ -54,7 +55,7 @@ namespace Pandaros.Civ.Jobs
                 oldGoal.LeavingGoal();
 
             CurrentGoal = npcGoal;
-            GoalChanged?.Invoke(this, oldGoal, npcGoal);
+            GoalChanged?.Invoke(this, (oldGoal, npcGoal));
         }
 
 

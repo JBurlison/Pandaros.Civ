@@ -21,16 +21,28 @@ namespace Pandaros.Civ.Storage
             Id = id;
             Amount = amount;
             MaxAmount = maxAmount;
-
-            if (amount > maxAmount)
-                Amount = maxAmount;
+            EnsureWithinMax(maxAmount);
         }
 
-        public StoredItem(StoredItem item)
+        public StoredItem(InventoryItem item, int maxAmount = int.MaxValue)
+        {
+            Id = item.Type;
+            Amount = item.Amount;
+            EnsureWithinMax(maxAmount);
+        }
+
+        public StoredItem(StoredItem item, int maxAmount = int.MaxValue)
         {
             Id = item.Id;
             Amount = item.Amount;
             MaxAmount = item.MaxAmount;
+            EnsureWithinMax(maxAmount);
+        }
+
+        private void EnsureWithinMax(int maxAmount)
+        {
+            if (Amount > maxAmount)
+                Amount = maxAmount;
         }
 
         /// <summary>

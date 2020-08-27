@@ -18,10 +18,11 @@ namespace Pandaros.Civ.Jobs
         /// <summary>
         ///     Old goal, new goal
         /// </summary>
-        event Action<IPandaJob, INpcGoal, INpcGoal> GoalChanged;
+        event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
         INpcGoal CurrentGoal { get; }
         string LocalizationKey { get; set; }
         void SetGoal(INpcGoal npcGoal);
         string JobBlock { get; set; }
+        Vector3Int Position { get; set; }
     }
 }

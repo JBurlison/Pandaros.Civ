@@ -18,12 +18,22 @@ namespace Pandaros.Civ.Jobs.Goals
             ItemsToGet = itemsToGet;
         }
 
+        public GetItemsFromCrateGoal(IPandaJob job, INpcGoal nextGoal, List<InventoryItem> itemsToGet)
+        {
+            Job = job;
+            NextGoal = nextGoal;
+            ItemsToGet = itemsToGet.Select(i => new StoredItem(i)).ToArray();
+        }
+
         public StoredItem[] ItemsToGet { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IPandaJob Job { get; set; }
         public string Name { get; set; } = nameof(GetItemsFromCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(GetItemsFromCrateGoal));
         public Vector3Int LastCratePosition { get; set; }
+
+        float _waitTime = Pipliz.Random.NextFloat(8, 16);
+
         public Vector3Int GetPosition()
         {
             List<Vector3Int> cratesWithItems = new List<Vector3Int>();
@@ -54,8 +64,8 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (remaining.Length != 0)
             {
-                state.SetCooldown(6);
-                state.SetIndicator(new Shared.IndicatorState(6, remaining.FirstOrDefault().Id.Name, true, false));
+                state.SetCooldown(_waitTime);
+                state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
                 ItemsToGet = remaining;
             }
             else
