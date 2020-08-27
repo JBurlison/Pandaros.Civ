@@ -11,11 +11,14 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class GetItemsFromCrateGoal : INpcGoal
     {
+        public static List<GetItemsFromCrateGoal> CurrentItemsNeeded { get; set; } = new List<GetItemsFromCrateGoal>();
+
         public GetItemsFromCrateGoal(IPandaJob job, INpcGoal nextGoal, StoredItem[] itemsToGet)
         {
             Job = job;
             NextGoal = nextGoal;
             ItemsToGet = itemsToGet;
+            CurrentItemsNeeded.Add(this);
         }
 
         public GetItemsFromCrateGoal(IPandaJob job, INpcGoal nextGoal, List<InventoryItem> itemsToGet)
@@ -23,6 +26,7 @@ namespace Pandaros.Civ.Jobs.Goals
             Job = job;
             NextGoal = nextGoal;
             ItemsToGet = itemsToGet.Select(i => new StoredItem(i)).ToArray();
+            CurrentItemsNeeded.Add(this);
         }
 
         public StoredItem[] ItemsToGet { get; set; }
@@ -52,7 +56,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingGoal()
         {
-            
+            CurrentItemsNeeded.Remove(this);
         }
 
         public void PerformGoal(ref NPC.NPCBase.NPCState state)

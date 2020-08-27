@@ -21,8 +21,9 @@ namespace Pandaros.Civ.Jobs
         event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
         INpcGoal CurrentGoal { get; }
         string LocalizationKey { get; set; }
-        void SetGoal(INpcGoal npcGoal);
         string JobBlock { get; set; }
         Vector3Int Position { get; set; }
+        void SetGoal(INpcGoal npcGoal);
+        void JobRemoved();
     }
 }

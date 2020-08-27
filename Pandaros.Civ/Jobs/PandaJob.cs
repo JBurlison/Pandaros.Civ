@@ -80,6 +80,11 @@ namespace Pandaros.Civ.Jobs
             CurrentGoal.PerformGoal(ref state);
         }
 
+        public virtual void JobRemoved()
+        {
+            SetGoal(null);
+        }
+
         public virtual NPCBase.NPCGoal CalculateGoal(ref NPCBase.NPCState state)
         {
             var nPCGoal = NPCBase.NPCGoal.Job;

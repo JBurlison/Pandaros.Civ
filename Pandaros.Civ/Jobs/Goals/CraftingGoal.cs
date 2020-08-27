@@ -13,6 +13,8 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class CraftingGoal : INpcGoal
     {
+        public List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
+
         public CraftingGoal(IPandaJob job, string recipieKey, string onCraftedAudio, float craftingCooldown, RecipeSettingsGroup.GroupID recipeGroupID)
         {
             Job = job;
@@ -27,6 +29,7 @@ namespace Pandaros.Civ.Jobs.Goals
             AvailableRecipes = Job.Owner.RecipeData.GetAvailableRecipes(RecipeKey);
             OnCraftedAudio = onCraftedAudio;
             CraftingCooldown = craftingCooldown;
+            CurrentlyCrafing.Add(this);
         }
 
         public List<RecipeResult> CraftingResults { get; set; } = new List<RecipeResult>();
@@ -50,7 +53,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void LeavingGoal()
         {
-            
+            CurrentlyCrafing.Remove(this);
         }
 
         public virtual void PerformGoal(ref NPCBase.NPCState state)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ModLoaderInterfaces;
 using NPC;
@@ -13,17 +14,10 @@ using Pipliz.JSON;
 
 namespace Pandaros.Civ.Jobs
 {
-    public class PandaJobFactory : IOnTryChangeBlock, IOnNPCDied
+    public class PandaJobFactory : IOnTryChangeBlock
     {
         public static Dictionary<string, IPandaJobType> JobTypes { get; set; } = new Dictionary<string, IPandaJobType>();
-
-        public void OnNPCDied(NPCBase npc)
-        {
-            if (npc.Job != null && npc.Job is PandaJob pandaJob)
-            {
-                pandaJob.GoalChanged -= Job_GoalChanged;
-            }
-        }
+        public static Dictionary<Colony, Dictionary<Vector3Int, IPandaJob>> JobsByLocation { get; set; } = new Dictionary<Colony, Dictionary<Vector3Int, IPandaJob>>();
 
         public void OnTryChangeBlock(ModLoader.OnTryChangeBlockData data)
         {
@@ -32,13 +26,21 @@ namespace Pandaros.Civ.Jobs
             if (data.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player &&
                 colony != null)
             {
+                if (!JobsByLocation.ContainsKey(colony))
+                    JobsByLocation.Add(colony, new Dictionary<Vector3Int, IPandaJob>());
+
                 if (JobTypes.TryGetValue(data.TypeNew.Name, out var jobType))
                 {
                     var job = new PandaJob(colony, data.Position, jobType.NPCTypeName, jobType.RecruitmentItem, jobType.JobBlock, jobType.StartingGoal, jobType.SleepNight);
 
                     job.GoalChanged += Job_GoalChanged;
+                    JobsByLocation[colony][data.Position] = job;
 
                     colony.JobFinder.Add(job);
+                }
+                else if (JobsByLocation[colony].TryGetValue(data.Position, out var job))
+                {
+                    job.GoalChanged -= Job_GoalChanged;
                 }
             }
         }
