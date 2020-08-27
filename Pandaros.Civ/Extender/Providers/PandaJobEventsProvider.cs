@@ -32,11 +32,5 @@ namespace Pandaros.Civ.Extender.Providers
             foreach (var instance in LoadedInstances)
                 instance.GoalChanged(job, oldGold, newGoal);
         }
-
-        public void NPCSet(IPandaJob job, NPCBase oldNpc, NPCBase newNpc)
-        {
-            foreach (var instance in LoadedInstances)
-                instance.NPCSet(job, oldNpc, newNpc);
-        }
     }
 }

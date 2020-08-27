@@ -16,26 +16,24 @@ namespace Pandaros.Civ.Jobs
 {
     public class PandaJob : IPandaJob
     {
-        public PandaJob(Colony c, Vector3Int pos, NPCType nPCType, InventoryItem recruitmentItem, bool sleepNight = true)
+        public PandaJob(Colony c, Vector3Int pos, string npcTypekey, InventoryItem recruitmentItem, string jobBlock, bool sleepNight = true)
         {
-            JobId = PandaJobFactory.GetNextIndex(c);
             Owner = c;
-            NPCType = nPCType;
+            NPCType = NPCType.GetByKeyNameOrDefault(npcTypekey);
             DefaultGoal = new StandAtJobGoal(this, pos);
             SetGoal(DefaultGoal);
             SleepAtNight = sleepNight;
             RecruitmentItem = recruitmentItem;
+            JobBlock = jobBlock;
         }
 
         public INpcGoal DefaultGoal { get; set; }
-        public int JobId { get; set; }
         public INpcGoal CurrentGoal { get; set; }
         public Colony Owner { get; set; }
         public string LocalizationKey { get; set; }
         public NPCBase NPC { get; set; }
         public NPCType NPCType { get; set; }
         public bool SleepAtNight { get; set; }
-        public string JobBlock { get; set; }
 
         public float NPCShopGameHourMinimum => TimeCycle.Settings.SleepTimeEnd;
 
@@ -46,8 +44,8 @@ namespace Pandaros.Civ.Jobs
         public InventoryItem RecruitmentItem { get; set; }
 
         public bool IsValid { get; set; } = true;
+        public string JobBlock { get; set; }
 
-        public event Action<IPandaJob, NPCBase, NPCBase> NPCSet;
         public event Action<IPandaJob, INpcGoal, INpcGoal> GoalChanged;
 
         public virtual void SetGoal(INpcGoal npcGoal)
@@ -71,8 +69,6 @@ namespace Pandaros.Civ.Jobs
             {
                 npc.TakeJob(this);
             }
-
-            NPCSet?.Invoke(this, oldNpc, npc);
         }
 
         public virtual Vector3Int GetJobLocation()
@@ -114,6 +110,11 @@ namespace Pandaros.Civ.Jobs
         public virtual EKeepChunkLoadedResult OnKeepChunkLoaded(Vector3Int blockPosition)
         {
             return EKeepChunkLoadedResult.YesLong;
+        }
+
+        public IPandaJob GetNewJob(Colony c, Vector3Int pos, string nPCType, InventoryItem recruitmentItem, string jobBlock, bool sleepNight = true)
+        {
+            return new PandaJob(c, pos, nPCType, recruitmentItem, jobBlock, sleepNight);
         }
     }
 }

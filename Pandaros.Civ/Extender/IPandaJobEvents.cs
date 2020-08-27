@@ -11,13 +11,11 @@ namespace Pandaros.Civ.Extender
 {
     public interface IPandaJobEventsExtender : IPandarosExtention
     {
-        void NPCSet(IPandaJob job, NPCBase oldNpc, NPCBase newNpc);
         void GoalChanged(IPandaJob job, INpcGoal oldGold, INpcGoal newGoal);
     }
 
     public interface IPandaJobEvents
     {
-        void NPCSet(IPandaJob job, NPCBase oldNpc, NPCBase newNpc);
         void GoalChanged(IPandaJob job, INpcGoal oldGold, INpcGoal newGoal);
     }
 }

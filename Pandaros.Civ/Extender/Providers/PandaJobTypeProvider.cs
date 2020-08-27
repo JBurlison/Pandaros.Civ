@@ -10,20 +10,24 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Extender.Providers
 {
-    public class NPCGoalProvider : IAfterModsLoadedExtention
+    [LoadPriority(2)]
+    public class PandaJobTypeProvider : IAfterItemTypesDefinedExtender
     {
         public List<Type> LoadedAssembalies { get; } = new List<Type>();
 
-        public string InterfaceName => nameof(INpcGoal);
+        public string InterfaceName => nameof(IPandaJobType);
 
         public Type ClassType => null;
 
-        public void AfterModsLoaded(List<ModLoader.ModDescription> list)
+        public void AfterItemTypesDefined()
         {
+            var defaults = new NPCTypeStandardSettings();
+
             foreach (var jobExtender in LoadedAssembalies)
-                if (Activator.CreateInstance(jobExtender) is INpcGoal pandaGoal)
+                if (Activator.CreateInstance(jobExtender) is IPandaJobType jobType &&
+                    !string.IsNullOrEmpty(jobType.NPCTypeName))
                 {
-                    PandaJobFactory.NPCGoals[pandaGoal.GoalName] = pandaGoal;
+                    
                 }
         }
     }
