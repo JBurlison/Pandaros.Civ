@@ -15,11 +15,11 @@ namespace Pandaros.Civ.Jobs.Goals
     {
         public List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
 
-        public CraftingGoal(IPandaJob job, string recipieKey, string onCraftedAudio, float craftingCooldown, RecipeSettingsGroup.GroupID recipeGroupID)
+        public CraftingGoal(IPandaJob job, string recipieKey, string onCraftedAudio, float craftingCooldown, uint recipeGroupID)
         {
             Job = job;
             RecipeKey = recipieKey;
-            RecipeGroupID = recipeGroupID;
+            RecipeGroupID = new RecipeSettingsGroup.GroupID(recipeGroupID);
 
             if (Job.Owner.RecipeData.TryGetRecipeGroup(RecipeGroupID, out var recipeSettingsGroup))
                 RecipeSettingsGroup = recipeSettingsGroup;
@@ -77,18 +77,12 @@ namespace Pandaros.Civ.Jobs.Goals
                         RecipeResult toShow = RecipeResult.GetWeightedRandom(CraftingResults);
 
                         if (toShow.Amount > 0)
-                        {
                             state.SetIndicator(new IndicatorState(cd, toShow.Type));
-                        }
                         else
-                        {
                             state.SetCooldown(cd);
-                        }
 
                         if (OnCraftedAudio != null)
-                        {
                             AudioManager.SendAudio(Job.Position.Vector, OnCraftedAudio);
-                        }
                     }
                     else
                     {
@@ -108,9 +102,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     CurrentRecipe = null;
 
                     if (!state.Inventory.IsEmpty)
-                    {
                         GetItemsFromCrate();
-                    }
 
                     state.SetCooldown(0.05, 0.15);
 
@@ -135,7 +127,8 @@ namespace Pandaros.Civ.Jobs.Goals
                     {
                         if (!state.Inventory.IsEmpty)
                         {
-                            GetItemsFromCrate();
+                            //TODO ///state.Inventory.
+                            Job.SetGoal(new PutItemsInCrateGoal(Job, this, new Storage.StoredItem[0]));
                             state.SetCooldown(0.2, 0.4);
                             break;
                         }
