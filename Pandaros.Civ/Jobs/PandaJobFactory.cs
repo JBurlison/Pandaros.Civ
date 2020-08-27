@@ -14,6 +14,8 @@ namespace Pandaros.Civ.Jobs
 {
     public class PandaJobFactory : IOnTryChangeBlock
     {
+        public static Dictionary<string, IPandaJobType> JobTypes { get; set; } = new Dictionary<string, IPandaJobType>();
+
         public void OnTryChangeBlock(ModLoader.OnTryChangeBlockData data)
         {
             var colony = data?.RequestOrigin.AsPlayer?.ActiveColony;
@@ -21,7 +23,10 @@ namespace Pandaros.Civ.Jobs
             if (data.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player &&
                 colony != null)
             {
-
+                if (JobTypes.TryGetValue(data.TypeNew.Name, out var jobType))
+                {
+                    colony.JobFinder.Add(new PandaJob(colony, data.Position, jobType.NPCTypeName, jobType.RecruitmentItem, jobType.JobBlock, jobType.StartingGoal, jobType.SleepNight));
+                }
             }
         }
     }

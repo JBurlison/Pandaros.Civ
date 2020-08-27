@@ -16,18 +16,16 @@ namespace Pandaros.Civ.Jobs
 {
     public class PandaJob : IPandaJob
     {
-        public PandaJob(Colony c, Vector3Int pos, string npcTypekey, InventoryItem recruitmentItem, string jobBlock, bool sleepNight = true)
+        public PandaJob(Colony c, Vector3Int pos, string npcTypekey, InventoryItem recruitmentItem, string jobBlock, INpcGoal startingGoal, bool sleepNight = true)
         {
             Owner = c;
             NPCType = NPCType.GetByKeyNameOrDefault(npcTypekey);
-            DefaultGoal = new StandAtJobGoal(this, pos);
-            SetGoal(DefaultGoal);
+            SetGoal(startingGoal);
             SleepAtNight = sleepNight;
             RecruitmentItem = recruitmentItem;
             JobBlock = jobBlock;
         }
 
-        public INpcGoal DefaultGoal { get; set; }
         public INpcGoal CurrentGoal { get; set; }
         public Colony Owner { get; set; }
         public string LocalizationKey { get; set; }
@@ -110,11 +108,6 @@ namespace Pandaros.Civ.Jobs
         public virtual EKeepChunkLoadedResult OnKeepChunkLoaded(Vector3Int blockPosition)
         {
             return EKeepChunkLoadedResult.YesLong;
-        }
-
-        public IPandaJob GetNewJob(Colony c, Vector3Int pos, string nPCType, InventoryItem recruitmentItem, string jobBlock, bool sleepNight = true)
-        {
-            return new PandaJob(c, pos, nPCType, recruitmentItem, jobBlock, sleepNight);
         }
     }
 }

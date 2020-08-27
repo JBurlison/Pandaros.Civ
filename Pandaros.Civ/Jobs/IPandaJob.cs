@@ -23,6 +23,5 @@ namespace Pandaros.Civ.Jobs
         string LocalizationKey { get; set; }
         void SetGoal(INpcGoal npcGoal);
         string JobBlock { get; set; }
-        IPandaJob GetNewJob(Colony c, Vector3Int pos, string nPCType, InventoryItem recruitmentItem, string jobBlock, bool sleepNight = true);
     }
 }

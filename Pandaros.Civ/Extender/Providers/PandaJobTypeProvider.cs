@@ -25,9 +25,9 @@ namespace Pandaros.Civ.Extender.Providers
 
             foreach (var jobExtender in LoadedAssembalies)
                 if (Activator.CreateInstance(jobExtender) is IPandaJobType jobType &&
-                    !string.IsNullOrEmpty(jobType.NPCTypeName))
+                    !string.IsNullOrEmpty(jobType.JobBlock))
                 {
-                    
+                    PandaJobFactory.JobTypes[jobType.JobBlock] = jobType;
                 }
         }
     }
