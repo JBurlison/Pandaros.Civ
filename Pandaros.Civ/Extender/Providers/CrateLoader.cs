@@ -1,12 +1,13 @@
 ﻿using ModLoaderInterfaces;
 using Pandaros.API.Extender;
+using Pandaros.Civ.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.Storage
+namespace Pandaros.Civ.Extender.Providers
 {
     public class CrateLoader : IAfterItemTypesDefinedExtender
     {

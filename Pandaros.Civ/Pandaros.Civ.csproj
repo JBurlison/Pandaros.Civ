@@ -103,7 +103,7 @@
     </Compile>
     <Compile Include="Storage\CarvedLog.cs" />
     <Compile Include="Storage\CrateInventory.cs" />
-    <Compile Include="Storage\CrateLoader.cs" />
+    <Compile Include="Extender\Providers\CrateLoader.cs" />
     <Compile Include="Storage\ICrate.cs" />
     <Compile Include="Storage\StockpileBlock.cs" />
     <Compile Include="Storage\StockpilePosition.cs" />
