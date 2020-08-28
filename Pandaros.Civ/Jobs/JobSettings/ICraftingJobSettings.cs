@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.Jobs.Goals
+namespace Pandaros.Civ.Jobs.JobSettings
 {
-    public interface ICraftingJobSettings
+    public interface ICraftingJobSettings : IPandaJobSettings
     {
         string RecipieKey { get; set; }
         string OnCraftedAudio { get; set; }

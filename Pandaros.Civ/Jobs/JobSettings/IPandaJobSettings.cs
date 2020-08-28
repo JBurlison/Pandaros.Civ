@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs
 {
-    public interface IPandaJobType
+    public interface IPandaJobSettings
     {
         /// <summary>
         ///     The NPC Type name. Can register with <see cref="INPCTypeStandardSettings"/>. This is required.
         /// </summary>
-        string NPCTypeName { get; set; }
+        string keyName { get; set; }
 
         /// <summary>
         ///     Item required to recrut the job. Can be null.
@@ -22,6 +22,7 @@ namespace Pandaros.Civ.Jobs
         ///     Item Name of the job block
         /// </summary>
         string JobBlock { get; set; }
+
         /// <summary>
         ///     When true job sleeps at night, when false job sleeps during the day.
         /// </summary>
@@ -31,5 +32,10 @@ namespace Pandaros.Civ.Jobs
         ///     Set the starting goal for the job.
         /// </summary>
         INpcGoal StartingGoal { get; set; }
+
+        /// <summary>
+        ///  Localization 
+        /// </summary>
+        string LocalizationKey { get; set; }
     }
 }

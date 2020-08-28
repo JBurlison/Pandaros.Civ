@@ -15,11 +15,18 @@ namespace Pandaros.Civ.Jobs.Goals
     {
         public static List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
 
-        public CraftingGoal(IPandaJob job, string recipieKey, string onCraftedAudio, float craftingCooldown, uint recipeGroupID)
+        public CraftingGoal(string recipieKey, string onCraftedAudio, float craftingCooldown, uint recipeGroupID)
         {
-            Job = job;
             RecipeKey = recipieKey;
             RecipeGroupID = new RecipeSettingsGroup.GroupID(recipeGroupID);
+            OnCraftedAudio = onCraftedAudio;
+            CraftingCooldown = craftingCooldown;
+            CurrentlyCrafing.Add(this);
+        }
+
+        public void SetJob(IPandaJob job)
+        {
+            Job = job;
 
             if (Job.Owner.RecipeData.TryGetRecipeGroup(RecipeGroupID, out var recipeSettingsGroup))
                 RecipeSettingsGroup = recipeSettingsGroup;
@@ -27,16 +34,13 @@ namespace Pandaros.Civ.Jobs.Goals
                 RecipeSettingsGroup = defaultGroup;
 
             AvailableRecipes = Job.Owner.RecipeData.GetAvailableRecipes(RecipeKey);
-            OnCraftedAudio = onCraftedAudio;
-            CraftingCooldown = craftingCooldown;
-            CurrentlyCrafing.Add(this);
         }
 
         public List<RecipeResult> CraftingResults { get; set; } = new List<RecipeResult>();
         public AvailableRecipesEnumerator AvailableRecipes { get; set; }
         public IPandaJob Job { get; set; }
-        public string Name { get; set; }
-        public string LocalizationKey { get; set; }
+        public string Name { get; set; } = nameof(CraftingGoal);
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(CraftingGoal));
         public string RecipeKey { get; set; }
         public RecipeSettingsGroup.GroupID RecipeGroupID { get; set; }
         public RecipeSettingsGroup RecipeSettingsGroup { get; set; }
@@ -176,5 +180,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
 
         }
+
+       
     }
 }

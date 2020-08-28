@@ -20,11 +20,12 @@ namespace Pandaros.Civ.Jobs
         {
             Owner = c;
             NPCType = NPCType.GetByKeyNameOrDefault(npcTypekey);
-            SetGoal(startingGoal);
             SleepAtNight = sleepNight;
             RecruitmentItem = recruitmentItem;
             JobBlock = jobBlock;
             Position = pos;
+            startingGoal.SetJob(this);
+            SetGoal(startingGoal);
         }
 
         public INpcGoal CurrentGoal { get; set; }

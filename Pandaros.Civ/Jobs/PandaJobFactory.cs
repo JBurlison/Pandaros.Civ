@@ -16,7 +16,7 @@ namespace Pandaros.Civ.Jobs
 {
     public class PandaJobFactory : IOnTryChangeBlock
     {
-        public static Dictionary<string, IPandaJobType> JobTypes { get; set; } = new Dictionary<string, IPandaJobType>();
+        public static Dictionary<string, IPandaJobSettings> JobTypes { get; set; } = new Dictionary<string, IPandaJobSettings>();
         public static Dictionary<Colony, Dictionary<Vector3Int, IPandaJob>> JobsByLocation { get; set; } = new Dictionary<Colony, Dictionary<Vector3Int, IPandaJob>>();
 
         public void OnTryChangeBlock(ModLoader.OnTryChangeBlockData data)
@@ -31,7 +31,7 @@ namespace Pandaros.Civ.Jobs
 
                 if (JobTypes.TryGetValue(data.TypeNew.Name, out var jobType))
                 {
-                    var job = new PandaJob(colony, data.Position, jobType.NPCTypeName, jobType.RecruitmentItem, jobType.JobBlock, jobType.StartingGoal, jobType.SleepNight);
+                    var job = new PandaJob(colony, data.Position, jobType.keyName, jobType.RecruitmentItem, jobType.JobBlock, jobType.StartingGoal, jobType.SleepNight);
 
                     job.GoalChanged += Job_GoalChanged;
                     JobsByLocation[colony][data.Position] = job;

@@ -14,13 +14,15 @@ namespace Pandaros.Civ.Jobs.Goals
     {
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
 
+        public CrateToStockpikeGoal() { }
+
         public CrateToStockpikeGoal(IPandaJob job)
         {
             Job = job;
         }
 
         public IPandaJob Job { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = nameof(CrateToStockpikeGoal);
         public string LocalizationKey { get; set; }
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
@@ -92,6 +94,11 @@ namespace Pandaros.Civ.Jobs.Goals
                 InProgress.Remove(CurrentCratePosition);
                 CurrentCratePosition = Vector3Int.invalidPos;
             }
+        }
+
+        public void SetJob(IPandaJob job)
+        {
+            Job = job;
         }
     }
 }

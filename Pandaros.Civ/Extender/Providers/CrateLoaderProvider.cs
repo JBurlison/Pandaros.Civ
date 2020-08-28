@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Extender.Providers
 {
-    public class CrateLoader : IAfterItemTypesDefinedExtender
+    public class CrateLoaderProvider : IAfterItemTypesDefinedExtender
     {
         public List<Type> LoadedAssembalies { get; set; } = new List<Type>();
 

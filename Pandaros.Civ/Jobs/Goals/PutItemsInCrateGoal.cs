@@ -86,5 +86,10 @@ namespace Pandaros.Civ.Jobs.Goals
             else
                 Job.SetGoal(NextGoal);
         }
+
+        public void SetJob(IPandaJob job)
+        {
+            
+        }
     }
 }

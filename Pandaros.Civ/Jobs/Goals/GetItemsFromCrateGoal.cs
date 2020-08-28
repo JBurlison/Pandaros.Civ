@@ -29,6 +29,11 @@ namespace Pandaros.Civ.Jobs.Goals
             CurrentItemsNeeded.Add(this);
         }
 
+        public void SetJob(IPandaJob job)
+        {
+            Job = job;
+        }
+
         public StoredItem[] ItemsToGet { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IPandaJob Job { get; set; }

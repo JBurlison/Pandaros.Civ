@@ -15,16 +15,14 @@ namespace Pandaros.Civ.Extender.Providers
     {
         public List<Type> LoadedAssembalies { get; } = new List<Type>();
 
-        public string InterfaceName => nameof(IPandaJobType);
+        public string InterfaceName => nameof(IPandaJobSettings);
 
         public Type ClassType => null;
 
         public void AfterItemTypesDefined()
         {
-            var defaults = new NPCTypeStandardSettings();
-
             foreach (var jobExtender in LoadedAssembalies)
-                if (Activator.CreateInstance(jobExtender) is IPandaJobType jobType &&
+                if (Activator.CreateInstance(jobExtender) is IPandaJobSettings jobType &&
                     !string.IsNullOrEmpty(jobType.JobBlock))
                 {
                     PandaJobFactory.JobTypes[jobType.JobBlock] = jobType;

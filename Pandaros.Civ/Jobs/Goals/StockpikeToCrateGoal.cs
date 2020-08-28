@@ -16,14 +16,16 @@ namespace Pandaros.Civ.Jobs.Goals
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
         public static Dictionary<Vector3Int, List<StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, List<StoredItem>>();
 
+        public StockpikeToCrateGoal() { }
+
         public StockpikeToCrateGoal(IPandaJob job)
         {
             Job = job;
         }
 
         public IPandaJob Job { get; set; }
-        public string Name { get; set; }
-        public string LocalizationKey { get; set; }
+        public string Name { get; set; } = nameof(StockpikeToCrateGoal);
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(StockpikeToCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Stockpile;
@@ -139,6 +141,11 @@ namespace Pandaros.Civ.Jobs.Goals
                 }
             }
 
+        }
+
+        public void SetJob(IPandaJob job)
+        {
+            Job = job;
         }
     }
 }
