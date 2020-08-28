@@ -51,12 +51,64 @@ namespace Pandaros.Civ.Storage
         }
 
         /// <summary>
+        ///     Stores items and discards any items that could not fit.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="storedItems"></param>
+        public static void StoreItems(Colony c, IEnumerable<StoredItem> storedItems)
+        {
+            foreach (var item in storedItems)
+                c.Stockpile.Add(item.Id, item.Amount);
+        }
+
+        /// <summary>
+        ///     Stores items and discards any items that could not fit.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="storedItems"></param>
+        public static void StoreItems(Colony c, IEnumerable<InventoryItem> storedItems)
+        {
+            foreach (var item in storedItems)
+                c.Stockpile.Add(item);
+        }
+
+        /// <summary>
+        ///     Tries to take items, returns items that the stickpile has.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="storedItems"></param>
+        /// <returns></returns>
+        public static StoredItem[] TryTakeItems(Colony c, IEnumerable<StoredItem> storedItems)
+        {
+            List<StoredItem> retVal = new List<StoredItem>();
+
+            foreach (var item in storedItems)
+                if (c.Stockpile.Items.TryGetValue(item.Id, out var count))
+                {
+                    if (count >= item.Amount)
+                    {
+                        c.Stockpile.TryRemove(item.Id, item.Amount, false);
+                        retVal.Add(new StoredItem(item));
+                    }
+                    else
+                    {
+                        retVal.Add(new StoredItem(item.Id, count));
+                        c.Stockpile.TryRemove(item.Id, count, false);
+                    }
+                }
+
+            c.Stockpile.SendToOwners();
+
+            return retVal.ToArray();
+        }
+
+        /// <summary>
         ///     Tries to take items, returns items that it COULD NOT get.
         /// </summary>
         /// <param name="c"></param>
         /// <param name="storedItems"></param>
         /// <returns></returns>
-        public static StoredItem[] TryTakeItems(Colony c, params StoredItem[] storedItems)
+        public static StoredItem[] TryTakeItemsReturnRemaining(Colony c, params StoredItem[] storedItems)
         {
             List<StoredItem> retVal = new List<StoredItem>();
 

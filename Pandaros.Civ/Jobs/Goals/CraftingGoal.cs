@@ -13,7 +13,7 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class CraftingGoal : INpcGoal
     {
-        public List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
+        public static List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
 
         public CraftingGoal(IPandaJob job, string recipieKey, string onCraftedAudio, float craftingCooldown, uint recipeGroupID)
         {
@@ -41,6 +41,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public RecipeSettingsGroup.GroupID RecipeGroupID { get; set; }
         public RecipeSettingsGroup RecipeSettingsGroup { get; set; }
         public Recipe CurrentRecipe { get; set; }
+        public Recipe.RecipeMatch NextRecipe { get; set; }
         public int CurrentRecipeCount { get; set; }
         public bool IsCrafting { get; set; }
         public float CraftingCooldown { get; set; }
@@ -118,9 +119,10 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void GetNextRecipe(ref NPCBase.NPCState state)
         {
-            Recipe.RecipeMatch recipeMatch = Recipe.MatchRecipe(AvailableRecipes, Job.Owner, RecipeSettingsGroup);
+            if (NextRecipe.MatchType == Recipe.RecipeMatchType.Invalid)
+                NextRecipe = Recipe.MatchRecipe(AvailableRecipes, Job.Owner, RecipeSettingsGroup);
 
-            switch (recipeMatch.MatchType)
+            switch (NextRecipe.MatchType)
             {
                 case Recipe.RecipeMatchType.FoundMissingRequirements:
                 case Recipe.RecipeMatchType.AllDone:
@@ -134,7 +136,7 @@ namespace Pandaros.Civ.Jobs.Goals
                         }
 
                         float cooldown = Pipliz.Random.NextFloat(8f, 16f);
-                        if (recipeMatch.MatchType == Recipe.RecipeMatchType.AllDone)
+                        if (NextRecipe.MatchType == Recipe.RecipeMatchType.AllDone)
                         {
                             state.SetIndicator(new IndicatorState(cooldown, BuiltinBlocks.Indices.erroridle));
                         }
@@ -147,13 +149,14 @@ namespace Pandaros.Civ.Jobs.Goals
                         break;
                     }
                 case Recipe.RecipeMatchType.FoundCraftable:
-                    CurrentRecipe = recipeMatch.FoundRecipe;
-                    CurrentRecipeCount = recipeMatch.FoundRecipeCount;
+                    CurrentRecipe = NextRecipe.FoundRecipe;
+                    CurrentRecipeCount = NextRecipe.FoundRecipeCount;
                     GetItemsFromCrate(ref state);
                     state.SetCooldown(0.2, 0.4);
+                    NextRecipe = Recipe.MatchRecipe(AvailableRecipes, Job.Owner, RecipeSettingsGroup);
                     break;
                 default:
-                    UnityEngine.Assertions.Assert.IsTrue(condition: false, "Unexpected RecipeMatchType: " + recipeMatch.MatchType);
+                    UnityEngine.Assertions.Assert.IsTrue(condition: false, "Unexpected RecipeMatchType: " + NextRecipe.MatchType);
                     break;
             }
         }

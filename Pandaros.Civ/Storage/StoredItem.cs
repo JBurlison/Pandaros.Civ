@@ -109,5 +109,15 @@ namespace Pandaros.Civ.Storage
         {
             return itemId.Amount;
         }
+
+        public static implicit operator InventoryItem(StoredItem itemId)
+        {
+            return new InventoryItem(itemId.Id.Id, itemId.Amount);
+        }
+
+        public static implicit operator StoredItem(InventoryItem itemId)
+        {
+            return new StoredItem(itemId);
+        }
     }
 }

@@ -80,7 +80,7 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
-                remaining = StorageFactory.TryTakeItems(Job.Owner, remaining);
+                remaining = StorageFactory.TryTakeItemsReturnRemaining(Job.Owner, remaining);
                 state.SetCooldown(_waitTime);
                 state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
                 LastCratePosition.Clear();

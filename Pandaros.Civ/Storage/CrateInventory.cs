@@ -3,6 +3,7 @@ using Pipliz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,26 @@ namespace Pandaros.Civ.Storage
 
             StorageTypeLookup[StorageType.Stockpile] = new List<StoredItem>();
             StorageTypeLookup[StorageType.Crate] = new List<StoredItem>();
+        }
+
+        public bool IsAlmostFull
+        {
+            get
+            {
+                if (Contents.Count >= CrateType.MaxNumberOfStacks - 2)
+                    return true;
+
+                int numberAtMax = 0;
+
+                foreach (var item in Contents.Values)
+                    if (item.Amount >= item.MaxAmount - 5)
+                        numberAtMax++;
+
+                if (numberAtMax >= CrateType.MaxNumberOfStacks - 2)
+                    return true;
+
+                return false;
+            }
         }
 
         /// <summary>
@@ -61,6 +82,16 @@ namespace Pandaros.Civ.Storage
             }
 
             return retval;
+        }
+
+        /// <summary>
+        ///     Stores items in the crate
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns>Retuns the items that could not be stored.</returns>
+        public List<StoredItem> TryAdd(List<InventoryItem> items)
+        {
+            return TryAdd(items.Select(ii => new StoredItem(ii)).ToArray());
         }
 
         /// <summary>

@@ -82,6 +82,7 @@
     <Compile Include="Extender\Providers\PandaJobTypeProvider.cs" />
     <Compile Include="Extender\Providers\NPCTypeStandardSettingProvider.cs" />
     <Compile Include="Extender\Providers\PandaJobEventsProvider.cs" />
+    <Compile Include="ExtentionMethods.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="Jobs\Goals\CraftingGoal.cs" />
     <Compile Include="Jobs\Goals\StockpikeToCrateGoal.cs" />
