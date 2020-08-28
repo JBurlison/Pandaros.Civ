@@ -26,6 +26,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Crate;
         public StoredItem[] ToStockpike { get; set; }
+
         public Vector3Int GetPosition()
         {
             if (WalkingTo == StorageType.Crate)

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,10 +39,46 @@ namespace Pandaros.Civ.Storage
 
         bool _worldLoaded = false;
 
+        /// <summary>
+        ///     Stores items and discards any items that could not fit.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="storedItems"></param>
         public static void StoreItems(Colony c, params StoredItem[] storedItems)
         {
             foreach (var item in storedItems)
                 c.Stockpile.Add(item.Id, item.Amount);
+        }
+
+        /// <summary>
+        ///     Tries to take items, returns items that it COULD NOT get.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="storedItems"></param>
+        /// <returns></returns>
+        public static StoredItem[] TryTakeItems(Colony c, params StoredItem[] storedItems)
+        {
+            List<StoredItem> retVal = new List<StoredItem>();
+
+            foreach (var item in storedItems)
+                if (c.Stockpile.Items.TryGetValue(item.Id, out var count))
+                {
+                    if (count >= item.Amount)
+                        c.Stockpile.TryRemove(item.Id, item.Amount, false);
+                    else
+                    {
+                        retVal.Add(new StoredItem(item.Id, item.Amount - count));
+                        c.Stockpile.TryRemove(item.Id, count);
+                    }
+                }
+                else
+                {
+                    retVal.Add(new StoredItem(item));
+                }
+
+            c.Stockpile.SendToOwners();
+
+            return retVal.ToArray();
         }
         
         public void OnTimedUpdate()

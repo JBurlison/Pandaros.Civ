@@ -34,8 +34,9 @@ namespace Pandaros.Civ.Jobs.Goals
         public IPandaJob Job { get; set; }
         public string Name { get; set; } = nameof(GetItemsFromCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(GetItemsFromCrateGoal));
-        public Vector3Int LastCratePosition { get; set; }
-
+        public Vector3Int CurrentCratePosition { get; set; }
+        public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
+        public StorageType WalkingTo { get; set; } = StorageType.Crate;
         float _waitTime = Pipliz.Random.NextFloat(8, 16);
 
         public Vector3Int GetPosition()
@@ -46,12 +47,21 @@ namespace Pandaros.Civ.Jobs.Goals
             {
                 if (StorageFactory.ItemCrateLocations[Job.Owner].TryGetValue(item.Id, out var locations))
                     foreach(var loc in locations)
-                        cratesWithItems.AddIfUnique(loc);
+                        if (!LastCratePosition.Contains(loc))
+                            cratesWithItems.AddIfUnique(loc);
             }
 
-            LastCratePosition = Job.NPC.Position.GetClosestPosition(cratesWithItems);
 
-            return LastCratePosition;
+            if (cratesWithItems.Count == 0)
+            {
+                WalkingTo = StorageType.Stockpile;
+                return StorageFactory.GetStockpilePosition(Job.Owner).Position;
+            }
+            else
+            {
+                CurrentCratePosition = Job.NPC.Position.GetClosestPosition(cratesWithItems);
+                return CurrentCratePosition;
+            }
         }
 
         public void LeavingGoal()
@@ -63,14 +73,26 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             StoredItem[] remaining = new StoredItem[0];
 
-            if (StorageFactory.CrateLocations[Job.Owner].TryGetValue(LastCratePosition, out CrateInventory ci))
-                remaining = ci.TryTake(ItemsToGet).Values.ToArray();
+            if (WalkingTo == StorageType.Crate)
+            {
+                if (StorageFactory.CrateLocations[Job.Owner].TryGetValue(CurrentCratePosition, out CrateInventory ci))
+                    remaining = ci.TryTake(ItemsToGet).Values.ToArray();
+            }
+            else
+            {
+                remaining = StorageFactory.TryTakeItems(Job.Owner, remaining);
+                state.SetCooldown(_waitTime);
+                state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
+                LastCratePosition.Clear();
+                WalkingTo = StorageType.Crate;
+            }
 
             if (remaining.Length != 0)
             {
                 state.SetCooldown(_waitTime);
                 state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
                 ItemsToGet = remaining;
+                LastCratePosition.Add(CurrentCratePosition);
             }
             else
             {

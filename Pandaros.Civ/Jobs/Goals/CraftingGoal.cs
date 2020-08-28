@@ -127,8 +127,8 @@ namespace Pandaros.Civ.Jobs.Goals
                     {
                         if (!state.Inventory.IsEmpty)
                         {
-                            //TODO ///state.Inventory.
-                            Job.SetGoal(new PutItemsInCrateGoal(Job, this, new Storage.StoredItem[0]));
+                            Job.SetGoal(new PutItemsInCrateGoal(Job, this, state.Inventory.Inventory));
+                            state.Inventory.Inventory.Clear();
                             state.SetCooldown(0.2, 0.4);
                             break;
                         }
