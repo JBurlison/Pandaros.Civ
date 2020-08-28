@@ -11,6 +11,8 @@ namespace Pandaros.Civ.Storage
     public class CrateInventory
     {
         public Dictionary<ushort, StoredItem> Contents { get; set; } = new Dictionary<ushort, StoredItem>();
+        public Dictionary<StorageType, List<StoredItem>> StorageTypeLookup = new Dictionary<StorageType, List<StoredItem>>();
+
 
         public ICrate CrateType { get; set; }
 
@@ -21,6 +23,9 @@ namespace Pandaros.Civ.Storage
             CrateType = crateType;
             Position = position;
             Colony = c;
+
+            StorageTypeLookup[StorageType.Stockpile] = new List<StoredItem>();
+            StorageTypeLookup[StorageType.Crate] = new List<StoredItem>();
         }
 
         /// <summary>
@@ -45,10 +50,14 @@ namespace Pandaros.Civ.Storage
                 }
 
                 if (Contents[item.Id] == 0)
+                {
                     Contents.Remove(item.Id);
+                    StorageTypeLookup[item.StorageType].Remove(item);
+                    if (StorageFactory.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
+                        posList.Remove(Position);
+                }
 
-                if (StorageFactory.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
-                    posList.Remove(Position);
+               
             }
 
             return retval;
@@ -91,6 +100,8 @@ namespace Pandaros.Civ.Storage
                         {
                             Contents[item.Id] = new StoredItem(item.Id, item, CrateType.MaxCrateStackSize);
                         }
+
+                        StorageTypeLookup[item.StorageType].Add(Contents[item.Id]);
                     }
                 }
 

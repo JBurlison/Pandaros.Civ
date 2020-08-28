@@ -14,7 +14,7 @@ namespace Pandaros.Civ.Storage
         public int MaxAmount { get; set; } = int.MaxValue;
         public int Amount { get; set; }
         public ItemId Id { get; set; }
-
+        public StorageType StorageType { get; set; }
 
         public StoredItem(ItemId id, int amount, int maxAmount = int.MaxValue)
         {

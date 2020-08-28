@@ -37,6 +37,12 @@ namespace Pandaros.Civ.Storage
         public Type ClassType { get; }
 
         bool _worldLoaded = false;
+
+        public static void StoreItems(Colony c, params StoredItem[] storedItems)
+        {
+            foreach (var item in storedItems)
+                c.Stockpile.Add(item.Id, item.Amount);
+        }
         
         public void OnTimedUpdate()
         {

@@ -84,6 +84,8 @@
     <Compile Include="Extender\Providers\PandaJobEventsProvider.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="Jobs\Goals\CraftingGoal.cs" />
+    <Compile Include="Jobs\Goals\StockpikeToCrateGoal.cs" />
+    <Compile Include="Jobs\Goals\CrateToStockpikeGoal.cs" />
     <Compile Include="Jobs\Goals\PutItemsInCrateGoal.cs" />
     <Compile Include="Jobs\Goals\GetItemsFromCrateGoal.cs" />
     <Compile Include="Jobs\Goals\ICraftingJobSettings.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="Storage\StockpilePosition.cs" />
     <Compile Include="Storage\StorageFactory.cs" />
     <Compile Include="Storage\IStorageUpgradeBlock.cs" />
+    <Compile Include="Storage\StorageType.cs" />
     <Compile Include="Storage\StoredItem.cs" />
     <Compile Include="TextureType.cs" />
     <Compile Include="TimePeriod.cs" />
