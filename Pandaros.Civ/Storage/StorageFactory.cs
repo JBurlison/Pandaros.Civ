@@ -167,6 +167,14 @@ namespace Pandaros.Civ.Storage
 
                 colony.Stockpile.SendToOwners();
             }
+
+            foreach (var cKvp in CrateLocations.Values)
+            {
+                foreach (var inv in cKvp.Values)
+                {
+                    inv.CaclulateTimeouts();
+                }
+            }
         }
 
         public void OnChangedBlock(ModLoader.OnTryChangeBlockData tryChangeBlockData)

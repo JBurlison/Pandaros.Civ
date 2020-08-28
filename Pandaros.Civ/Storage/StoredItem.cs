@@ -15,28 +15,41 @@ namespace Pandaros.Civ.Storage
         public int Amount { get; set; }
         public ItemId Id { get; set; }
         public StorageType StorageType { get; set; }
+        public ServerTimeStamp TTL { get; set; }
 
-        public StoredItem(ItemId id, int amount, int maxAmount = int.MaxValue)
+
+        public StoredItem(ItemId id, int amount, int maxAmount = int.MaxValue, StorageType type = StorageType.Stockpile)
         {
             Id = id;
             Amount = amount;
             MaxAmount = maxAmount;
+            StorageType = type;
             EnsureWithinMax(maxAmount);
+            SetTTL(type);
         }
 
-        public StoredItem(InventoryItem item, int maxAmount = int.MaxValue)
+        public StoredItem(InventoryItem item, int maxAmount = int.MaxValue, StorageType type = StorageType.Stockpile)
         {
             Id = item.Type;
             Amount = item.Amount;
+            StorageType = type;
             EnsureWithinMax(maxAmount);
+            SetTTL(type);
         }
 
-        public StoredItem(StoredItem item, int maxAmount = int.MaxValue)
+        public StoredItem(StoredItem item, int maxAmount = int.MaxValue, StorageType type = StorageType.Stockpile)
         {
             Id = item.Id;
             Amount = item.Amount;
             MaxAmount = item.MaxAmount;
             EnsureWithinMax(maxAmount);
+            SetTTL(type);
+        }
+
+        private void SetTTL(StorageType type)
+        {
+            if (type == StorageType.Crate)
+                TTL = ServerTimeStamp.Now.Add(Convert.ToInt64(TimeCycle.TotalDayLength.Value.TotalMilliseconds));
         }
 
         private void EnsureWithinMax(int maxAmount)

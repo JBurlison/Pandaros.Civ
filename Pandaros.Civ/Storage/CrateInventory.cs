@@ -49,6 +49,19 @@ namespace Pandaros.Civ.Storage
             }
         }
 
+        public void CaclulateTimeouts()
+        {
+            var now = ServerTimeStamp.Now;
+
+            foreach (var item in Contents.Values)
+                if (item.StorageType == StorageType.Crate && item.TTL < now)
+                {
+                    item.StorageType = StorageType.Stockpile;
+                    StorageTypeLookup[StorageType.Crate].Remove(item);
+                    StorageTypeLookup[StorageType.Stockpile].Add(item);
+                }
+        }
+
         /// <summary>
         ///     Takes items from the crate inventory
         /// </summary>
@@ -89,16 +102,6 @@ namespace Pandaros.Civ.Storage
         /// </summary>
         /// <param name="items"></param>
         /// <returns>Retuns the items that could not be stored.</returns>
-        public List<StoredItem> TryAdd(List<InventoryItem> items)
-        {
-            return TryAdd(items.Select(ii => new StoredItem(ii)).ToArray());
-        }
-
-        /// <summary>
-        ///     Stores items in the crate
-        /// </summary>
-        /// <param name="items"></param>
-        /// <returns>Retuns the items that could not be stored.</returns>
         public List<StoredItem> TryAdd(params StoredItem[] items)
         {
             List<StoredItem> retval = new List<StoredItem>();
@@ -117,7 +120,7 @@ namespace Pandaros.Civ.Storage
                 else
                 {
                     if (Contents.Count >= CrateType.MaxNumberOfStacks)
-                        retval.Add(new StoredItem(item));
+                        retval.Add(new StoredItem(item, CrateType.MaxCrateStackSize));
                     else
                     {
                         if (item.Amount > CrateType.MaxCrateStackSize)

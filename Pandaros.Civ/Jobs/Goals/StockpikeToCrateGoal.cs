@@ -99,7 +99,7 @@ namespace Pandaros.Civ.Jobs.Goals
             {
                 if (StorageFactory.CrateLocations[Job.Owner].TryGetValue(CurrentCratePosition, out var crateInventory))
                 {
-                    var leftovers = crateInventory.TryAdd(Job.NPC.Inventory.Inventory);
+                    var leftovers = crateInventory.TryAdd(Job.NPC.Inventory.Inventory.Select(ii => new StoredItem(ii, int.MaxValue, StorageType.Crate)).ToArray());
 
                     if (leftovers.Count > 0)
                     {
