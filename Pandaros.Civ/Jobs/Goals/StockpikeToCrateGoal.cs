@@ -31,8 +31,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
             foreach (var location in locations)
                 if (!LastCratePosition.Contains(location) && 
-                    !InProgress.Contains(location) &&
-                    StorageFactory.CrateLocations[Job.Owner][location].StorageTypeLookup[StorageType.Stockpile].Count > 0)
+                    !InProgress.Contains(location))
                 {
                     CurrentCratePosition = location;
                     InProgress.Add(location);
