@@ -112,11 +112,11 @@ namespace Pandaros.Civ
         {
             var blacklistTypes = new List<string>()
             {
-                "addOrReplaceNPCRecipes",
-                "addScience",
-                "addOrReplacePlayerRecipes",
-                "addOrReplaceStarterPack",
-                "scienceBiomePatches"
+                //"addOrReplaceNPCRecipes",
+                //"addScience",
+                //"addOrReplacePlayerRecipes",
+                //"addOrReplaceStarterPack",
+                //"scienceBiomePatches"
             };
 
             List<ModLoader.LoadModJSONFileContext> remove = new List<ModLoader.LoadModJSONFileContext>();

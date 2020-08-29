@@ -1,4 +1,5 @@
-﻿using NPC;
+﻿using Jobs;
+using NPC;
 using Pandaros.API;
 using Pandaros.Civ.Storage;
 using Pipliz;
@@ -14,14 +15,15 @@ namespace Pandaros.Civ.Jobs.Goals
     {
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
 
-        public CrateToStockpikeGoal() { }
-
-        public CrateToStockpikeGoal(IPandaJob job)
+ 
+        public CrateToStockpikeGoal(IJob job, IPandaJobSettings jobSettings)
         {
             Job = job;
+            JobSettings = jobSettings;
         }
 
-        public IPandaJob Job { get; set; }
+        public IPandaJobSettings JobSettings { get; set; }
+        public IJob Job { get; set; }
         public string Name { get; set; } = nameof(CrateToStockpikeGoal);
         public string LocalizationKey { get; set; }
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
@@ -49,7 +51,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 // No new goal. go back to job pos.
                 if (CurrentCratePosition == Vector3Int.invalidPos)
                 {
-                    CurrentCratePosition = Job.Position;
+                    CurrentCratePosition = Job.NPC.Position;// TODO
                 }
 
                 return CurrentCratePosition;
@@ -69,10 +71,10 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (WalkingTo == StorageType.Crate)
             {
-                if (CurrentCratePosition == Job.Position)
+                if (CurrentCratePosition == Job.NPC.Position)
                 {
                     state.SetCooldown(10);
-                    Job.SetGoal(new StockpikeToCrateGoal(Job));
+                    JobSettings.SetGoal(Job, new StockpikeToCrateGoal(Job, JobSettings));
                 }
                 else
                 {
@@ -94,11 +96,6 @@ namespace Pandaros.Civ.Jobs.Goals
                 InProgress.Remove(CurrentCratePosition);
                 CurrentCratePosition = Vector3Int.invalidPos;
             }
-        }
-
-        public void SetJob(IPandaJob job)
-        {
-            Job = job;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pandaros.API;
+using Jobs;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
@@ -13,30 +14,33 @@ namespace Pandaros.Civ.Jobs.Goals
     {
         public static List<GetItemsFromCrateGoal> CurrentItemsNeeded { get; set; } = new List<GetItemsFromCrateGoal>();
 
-        public GetItemsFromCrateGoal(IPandaJob job, INpcGoal nextGoal, StoredItem[] itemsToGet)
+        public GetItemsFromCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, StoredItem[] itemsToGet)
         {
             Job = job;
             NextGoal = nextGoal;
             ItemsToGet = itemsToGet;
+            JobSettings = jobSettings;
             CurrentItemsNeeded.Add(this);
         }
 
-        public GetItemsFromCrateGoal(IPandaJob job, INpcGoal nextGoal, List<InventoryItem> itemsToGet)
+        public GetItemsFromCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, List<InventoryItem> itemsToGet)
         {
             Job = job;
             NextGoal = nextGoal;
             ItemsToGet = itemsToGet.Select(i => new StoredItem(i)).ToArray();
+            JobSettings = jobSettings;
             CurrentItemsNeeded.Add(this);
         }
 
-        public void SetJob(IPandaJob job)
+        public void SetJob(IJob job)
         {
             Job = job;
         }
 
         public StoredItem[] ItemsToGet { get; set; }
         public INpcGoal NextGoal { get; set; }
-        public IPandaJob Job { get; set; }
+        public IJob Job { get; set; }
+        public IPandaJobSettings JobSettings { get; set; }
         public string Name { get; set; } = nameof(GetItemsFromCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(GetItemsFromCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; }
@@ -85,9 +89,7 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
-                remaining = StorageFactory.TryTakeItemsReturnRemaining(Job.Owner, remaining);
-                state.SetCooldown(_waitTime);
-                state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
+                remaining = StorageFactory.TryTakeItemsReturnRemaining(Job.Owner, ItemsToGet);
                 LastCratePosition.Clear();
                 WalkingTo = StorageType.Crate;
             }
@@ -101,7 +103,8 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
-                Job.SetGoal(NextGoal);
+                state.SetCooldown(0.2, 0.4);
+                JobSettings.SetGoal(Job, NextGoal);
             }
         }
     }

@@ -6,29 +6,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pandaros.API;
+using Jobs;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
     public class PutItemsInCrateGoal : INpcGoal
     {
 
-        public PutItemsInCrateGoal(IPandaJob job, INpcGoal nextGoal, StoredItem[] itemsToStore)
+        public PutItemsInCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, StoredItem[] itemsToStore)
         {
             Job = job;
             NextGoal = nextGoal;
+            JobSettings = jobSettings;
             ItemsToStore = itemsToStore;
         }
 
-        public PutItemsInCrateGoal(IPandaJob job, INpcGoal nextGoal, List<InventoryItem> itemsToStore)
+        public PutItemsInCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, List<InventoryItem> itemsToStore)
         {
             Job = job;
             NextGoal = nextGoal;
+            JobSettings = jobSettings;
             ItemsToStore = itemsToStore.Select(i => new StoredItem(i)).ToArray();
         }
 
+        public IPandaJobSettings JobSettings { get; set; }
         public StoredItem[] ItemsToStore { get; set; }
         public INpcGoal NextGoal { get; set; }
-        public IPandaJob Job { get; set; }
+        public IJob Job { get; set; }
         public string Name { get; set; } = nameof(PutItemsInCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(PutItemsInCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; }
@@ -69,6 +73,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public virtual void PerformGoal(ref NPC.NPCBase.NPCState state)
         {
             StoredItem[] remaining = new StoredItem[0];
+            state.SetCooldown(4);
 
             if (WalkingTo == StorageType.Crate)
             {
@@ -84,12 +89,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 LastCratePosition.Add(CurrentCratePosition);
             }
             else
-                Job.SetGoal(NextGoal);
-        }
-
-        public void SetJob(IPandaJob job)
-        {
-            
+                JobSettings.SetGoal(Job, NextGoal);
         }
     }
 }

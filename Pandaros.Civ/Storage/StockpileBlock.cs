@@ -75,7 +75,6 @@ namespace Pandaros.Civ.Storage
                 "essential",
                 "storage"
             };
-            customData = JObject.Parse("{ \"attachBehaviour\" : [{\"id\":\"crate\"}] }");
             icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
             GlobalStorageUpgrade = 32;
             CategoryStorageUpgrades.Add("food", 32);

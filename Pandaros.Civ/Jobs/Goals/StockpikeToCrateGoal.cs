@@ -1,4 +1,5 @@
-﻿using NPC;
+﻿using Jobs;
+using NPC;
 using Pandaros.API;
 using Pandaros.API.Extender;
 using Pandaros.Civ.Storage;
@@ -16,14 +17,14 @@ namespace Pandaros.Civ.Jobs.Goals
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
         public static Dictionary<Vector3Int, List<StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, List<StoredItem>>();
 
-        public StockpikeToCrateGoal() { }
-
-        public StockpikeToCrateGoal(IPandaJob job)
+        public StockpikeToCrateGoal(IJob job, IPandaJobSettings jobSettings)
         {
             Job = job;
+            JobSettings = jobSettings;
         }
 
-        public IPandaJob Job { get; set; }
+        public IPandaJobSettings JobSettings { get; set; }
+        public IJob Job { get; set; }
         public string Name { get; set; } = nameof(StockpikeToCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(StockpikeToCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
@@ -40,7 +41,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int GetPosition()
         {
             if (CurrentCratePosition == Vector3Int.invalidPos)
-                CurrentCratePosition = Job.Position;
+                CurrentCratePosition = Job.NPC.Position; //TODO
 
             if (WalkingTo == StorageType.Crate)
                 return CurrentCratePosition;
@@ -95,7 +96,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 CurrentCratePosition = nexPos;
 
                 if (nexPos == Vector3Int.invalidPos)
-                    Job.SetGoal(new CrateToStockpikeGoal(Job));
+                    JobSettings.SetGoal(Job, new CrateToStockpikeGoal(Job, JobSettings));
             }
             else
             {
@@ -127,25 +128,21 @@ namespace Pandaros.Civ.Jobs.Goals
 
             foreach (var crafter in CraftingGoal.CurrentlyCrafing)
             {
-                ItemsNeeded[crafter.Job.Position] = new List<StoredItem>();
+                var jobLoc = crafter.Job.GetJobLocation();
+                ItemsNeeded[jobLoc] = new List<StoredItem>();
 
-                if (!crafter.IsCrafting)
+                if (!crafter.CraftingJobInstance.IsCrafting)
                 {
-                    ItemsNeeded[crafter.Job.Position].AddRange(crafter.CurrentRecipe.Requirements);
+                    ItemsNeeded[jobLoc].AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements);
                 }
                 else
                 {
                     if (crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundMissingRequirements ||
                         crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundCraftable)
-                        ItemsNeeded[crafter.Job.Position].AddRange(crafter.NextRecipe.FoundRecipe.Requirements);
+                        ItemsNeeded[jobLoc].AddRange(crafter.NextRecipe.FoundRecipe.Requirements);
                 }
             }
 
-        }
-
-        public void SetJob(IPandaJob job)
-        {
-            Job = job;
         }
     }
 }

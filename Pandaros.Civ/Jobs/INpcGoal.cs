@@ -1,4 +1,5 @@
-﻿using ModLoaderInterfaces;
+﻿using Jobs;
+using ModLoaderInterfaces;
 using Pipliz;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,13 @@ namespace Pandaros.Civ.Jobs
 {
     public interface INpcGoal
     {
-
-        IPandaJob Job { get; set; }
+        IJob Job { get; set; }
+        IPandaJobSettings JobSettings { get; set; }
         string Name { get; set; }
         string LocalizationKey { get; set; }
         Vector3Int GetPosition();
 
         void PerformGoal(ref NPC.NPCBase.NPCState state);
-
-        void SetJob(IPandaJob job);
 
         void LeavingGoal();
     }

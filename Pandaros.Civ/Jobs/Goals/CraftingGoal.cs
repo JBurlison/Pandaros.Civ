@@ -1,4 +1,5 @@
 ﻿using BlockTypes;
+using Jobs;
 using NPC;
 using Pipliz;
 using Recipes;
@@ -15,45 +16,34 @@ namespace Pandaros.Civ.Jobs.Goals
     {
         public static List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
 
-        public CraftingGoal(string recipieKey, string onCraftedAudio, float craftingCooldown, uint recipeGroupID)
+        public CraftingGoal(IJob job, IPandaJobSettings jobSettings, CraftingJobSettings settings)
         {
-            RecipeKey = recipieKey;
-            RecipeGroupID = new RecipeSettingsGroup.GroupID(recipeGroupID);
-            OnCraftedAudio = onCraftedAudio;
-            CraftingCooldown = craftingCooldown;
+            CraftingJobInstance = job as CraftingJobInstance;
+            RecipeGroupID = CraftingJobInstance.CraftingGroupID;
+            JobSettings = jobSettings;
             CurrentlyCrafing.Add(this);
-        }
-
-        public void SetJob(IPandaJob job)
-        {
             Job = job;
-
+            CraftingJobSettings = settings;
             if (Job.Owner.RecipeData.TryGetRecipeGroup(RecipeGroupID, out var recipeSettingsGroup))
                 RecipeSettingsGroup = recipeSettingsGroup;
             else if (Job.Owner.RecipeData.TryGetRecipeGroup(RecipeSettingsGroup.GroupID.Default, out var defaultGroup))
                 RecipeSettingsGroup = defaultGroup;
-
-            AvailableRecipes = Job.Owner.RecipeData.GetAvailableRecipes(RecipeKey);
         }
 
+        public CraftingJobInstance CraftingJobInstance { get; set; }
+        public CraftingJobSettings CraftingJobSettings { get; set; }
+        public IPandaJobSettings JobSettings { get; set; }
         public List<RecipeResult> CraftingResults { get; set; } = new List<RecipeResult>();
-        public AvailableRecipesEnumerator AvailableRecipes { get; set; }
-        public IPandaJob Job { get; set; }
+        public IJob Job { get; set; }
         public string Name { get; set; } = nameof(CraftingGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(CraftingGoal));
-        public string RecipeKey { get; set; }
         public RecipeSettingsGroup.GroupID RecipeGroupID { get; set; }
         public RecipeSettingsGroup RecipeSettingsGroup { get; set; }
-        public Recipe CurrentRecipe { get; set; }
         public Recipe.RecipeMatch NextRecipe { get; set; }
-        public int CurrentRecipeCount { get; set; }
-        public bool IsCrafting { get; set; }
-        public float CraftingCooldown { get; set; }
-        public string OnCraftedAudio { get; set; }
 
         public virtual Vector3Int GetPosition()
         {
-            return Job.Position;
+            return ((BlockJobInstance)Job).Position;
         }
 
         public virtual void LeavingGoal()
@@ -63,18 +53,22 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void PerformGoal(ref NPCBase.NPCState state)
         {
-            if (CurrentRecipe == null)
+            if (CraftingJobInstance.SelectedRecipe == null)
                 GetNextRecipe(ref state);
 
-            if (CurrentRecipe != null)
+            CraftingJobInstance.NPC.LookAt(CraftingJobInstance.Position.Vector);
+            state.JobIsDone = true;
+            state.SetCooldown(0.05, 0.15);
+
+            if (CraftingJobInstance.SelectedRecipe != null)
             {
-                if (CurrentRecipeCount > 0 && CurrentRecipe.IsPossible(Job.Owner, state.Inventory, RecipeSettingsGroup))
+                if (CraftingJobInstance.SelectedRecipeCount > 0 && CraftingJobInstance.SelectedRecipe.IsPossible(Job.Owner, state.Inventory, RecipeSettingsGroup))
                 {
-                    state.Inventory.Remove(CurrentRecipe.Requirements);
+                    state.Inventory.Remove(CraftingJobInstance.SelectedRecipe.Requirements);
                     CraftingResults.Clear();
-                    CraftingResults.Add(CurrentRecipe.Results);
-                    ModLoader.Callbacks.OnNPCCraftedRecipe.Invoke(Job, CurrentRecipe, CraftingResults);
-                    float cd = CraftingCooldown * Pipliz.Random.NextFloat(0.9f, 1.1f);
+                    CraftingResults.Add(CraftingJobInstance.SelectedRecipe.Results);
+                    ModLoader.Callbacks.OnNPCCraftedRecipe.Invoke(Job, CraftingJobInstance.SelectedRecipe, CraftingResults);
+                    float cd = CraftingJobSettings.CraftingCooldown * Pipliz.Random.NextFloat(0.9f, 1.1f);
 
                     if (CraftingResults.Count > 0)
                     {
@@ -86,37 +80,36 @@ namespace Pandaros.Civ.Jobs.Goals
                         else
                             state.SetCooldown(cd);
 
-                        if (OnCraftedAudio != null)
-                            AudioManager.SendAudio(Job.Position.Vector, OnCraftedAudio);
+                        if (CraftingJobSettings.OnCraftedAudio != null)
+                            AudioManager.SendAudio(GetPosition().Vector, CraftingJobSettings.OnCraftedAudio);
                     }
                     else
                     {
                         state.SetIndicator(new IndicatorState(cd, NPCIndicatorType.None));
                     }
 
-                    if (!IsCrafting)
+                    if (!CraftingJobInstance.IsCrafting)
                     {
-                        IsCrafting = true;
+                        CraftingJobInstance.IsCrafting = true;
                         OnStartCrafting();
                     }
 
-                    CurrentRecipeCount--;
+                    state.JobIsDone = false;
+                    CraftingJobInstance.SelectedRecipeCount--;
                 }
                 else
                 {
-                    CurrentRecipe = null;
-
-                    if (!state.Inventory.IsEmpty)
-                        GetItemsFromCrate(ref state);
+                    CraftingJobInstance.SelectedRecipe = null;
 
                     state.SetCooldown(0.05, 0.15);
 
-                    if (IsCrafting)
+                    if (CraftingJobInstance.IsCrafting)
                     {
-                        IsCrafting = false;
+                        CraftingJobInstance.IsCrafting = false;
                         OnStopCrafting();
                     }
                 }
+
                 return;
             }
         }
@@ -124,7 +117,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public virtual void GetNextRecipe(ref NPCBase.NPCState state)
         {
             if (NextRecipe.MatchType == Recipe.RecipeMatchType.Invalid)
-                NextRecipe = Recipe.MatchRecipe(AvailableRecipes, Job.Owner, RecipeSettingsGroup);
+                NextRecipe = Recipe.MatchRecipe(CraftingJobSettings.GetPossibleRecipes(CraftingJobInstance), Job.Owner, RecipeSettingsGroup);
 
             switch (NextRecipe.MatchType)
             {
@@ -133,7 +126,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     {
                         if (!state.Inventory.IsEmpty)
                         {
-                            Job.SetGoal(new PutItemsInCrateGoal(Job, this, state.Inventory.Inventory));
+                            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory));
                             state.Inventory.Inventory.Clear();
                             state.SetCooldown(0.2, 0.4);
                             break;
@@ -153,11 +146,11 @@ namespace Pandaros.Civ.Jobs.Goals
                         break;
                     }
                 case Recipe.RecipeMatchType.FoundCraftable:
-                    CurrentRecipe = NextRecipe.FoundRecipe;
-                    CurrentRecipeCount = NextRecipe.FoundRecipeCount;
+                    CraftingJobInstance.SelectedRecipe = NextRecipe.FoundRecipe;
+                    CraftingJobInstance.SelectedRecipeCount = NextRecipe.FoundRecipeCount;
                     GetItemsFromCrate(ref state);
                     state.SetCooldown(0.2, 0.4);
-                    NextRecipe = Recipe.MatchRecipe(AvailableRecipes, Job.Owner, RecipeSettingsGroup);
+                    NextRecipe = Recipe.MatchRecipe(CraftingJobSettings.GetPossibleRecipes(CraftingJobInstance), Job.Owner, RecipeSettingsGroup);
                     break;
                 default:
                     UnityEngine.Assertions.Assert.IsTrue(condition: false, "Unexpected RecipeMatchType: " + NextRecipe.MatchType);
@@ -167,8 +160,8 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void GetItemsFromCrate(ref NPCBase.NPCState state)
         {
-            state.Inventory.Add(CurrentRecipe.Requirements);
-            Job.SetGoal(new GetItemsFromCrateGoal(Job, this, CurrentRecipe.Requirements));
+            state.Inventory.Add(CraftingJobInstance.SelectedRecipe.Requirements);
+            JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements));
         }
 
         public virtual void OnStopCrafting()
