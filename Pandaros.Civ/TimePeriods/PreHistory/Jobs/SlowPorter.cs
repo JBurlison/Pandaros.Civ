@@ -41,9 +41,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
                 printName = "Pre-History Porter",
                 maskColor1 = new UnityEngine.Color32(242, 132, 29, 255),
                 type = NPCTypeID.GetNextID(),
-                inventoryCapacity = 32f
+                inventoryCapacity = 350f
             });
-
 
             NPCType = NPCType.GetByKeyNameOrDefault(Name);
         }
