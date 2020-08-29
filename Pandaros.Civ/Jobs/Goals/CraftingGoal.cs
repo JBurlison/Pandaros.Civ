@@ -19,15 +19,11 @@ namespace Pandaros.Civ.Jobs.Goals
         public CraftingGoal(IJob job, IPandaJobSettings jobSettings, CraftingJobSettings settings)
         {
             CraftingJobInstance = job as CraftingJobInstance;
-            RecipeGroupID = CraftingJobInstance.CraftingGroupID;
             JobSettings = jobSettings;
             CurrentlyCrafing.Add(this);
             Job = job;
             CraftingJobSettings = settings;
-            if (Job.Owner.RecipeData.TryGetRecipeGroup(RecipeGroupID, out var recipeSettingsGroup))
-                RecipeSettingsGroup = recipeSettingsGroup;
-            else if (Job.Owner.RecipeData.TryGetRecipeGroup(RecipeSettingsGroup.GroupID.Default, out var defaultGroup))
-                RecipeSettingsGroup = defaultGroup;
+           
         }
 
         public CraftingJobInstance CraftingJobInstance { get; set; }
@@ -37,7 +33,6 @@ namespace Pandaros.Civ.Jobs.Goals
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(CraftingGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(CraftingGoal));
-        public RecipeSettingsGroup.GroupID RecipeGroupID { get; set; }
         public RecipeSettingsGroup RecipeSettingsGroup { get; set; }
         public Recipe.RecipeMatch NextRecipe { get; set; }
 
@@ -51,73 +46,88 @@ namespace Pandaros.Civ.Jobs.Goals
             CurrentlyCrafing.Remove(this);
         }
 
+        public virtual void SetAsGoal()
+        {
+            CurrentlyCrafing.Add(this);
+        }
+
         public virtual void PerformGoal(ref NPCBase.NPCState state)
         {
-            if (CraftingJobInstance.SelectedRecipe == null)
-                GetNextRecipe(ref state);
-
             CraftingJobInstance.NPC.LookAt(CraftingJobInstance.Position.Vector);
+            RecipeSettingsGroup = Job.Owner.RecipeData.GetRecipeGroup(CraftingJobInstance.CraftingGroupID);
             state.JobIsDone = true;
-            state.SetCooldown(0.05, 0.15);
 
             if (CraftingJobInstance.SelectedRecipe != null)
             {
                 if (CraftingJobInstance.SelectedRecipeCount > 0 && CraftingJobInstance.SelectedRecipe.IsPossible(Job.Owner, state.Inventory, RecipeSettingsGroup))
                 {
-                    state.Inventory.Remove(CraftingJobInstance.SelectedRecipe.Requirements);
-                    CraftingResults.Clear();
-                    CraftingResults.Add(CraftingJobInstance.SelectedRecipe.Results);
-                    ModLoader.Callbacks.OnNPCCraftedRecipe.Invoke(Job, CraftingJobInstance.SelectedRecipe, CraftingResults);
-                    float cd = CraftingJobSettings.CraftingCooldown * Pipliz.Random.NextFloat(0.9f, 1.1f);
-
-                    if (CraftingResults.Count > 0)
+                    if (!state.Inventory.TryRemove(CraftingJobInstance.SelectedRecipe.Requirements))
                     {
-                        state.Inventory.Add(CraftingResults);
-                        RecipeResult toShow = RecipeResult.GetWeightedRandom(CraftingResults);
-
-                        if (toShow.Amount > 0)
-                            state.SetIndicator(new IndicatorState(cd, toShow.Type));
-                        else
-                            state.SetCooldown(cd);
-
-                        if (CraftingJobSettings.OnCraftedAudio != null)
-                            AudioManager.SendAudio(GetPosition().Vector, CraftingJobSettings.OnCraftedAudio);
+                        GetItemsFromCrate(ref state);
                     }
                     else
                     {
-                        state.SetIndicator(new IndicatorState(cd, NPCIndicatorType.None));
-                    }
+                        CraftingResults.Clear();
+                        CraftingResults.Add(CraftingJobInstance.SelectedRecipe.Results);
+                        ModLoader.Callbacks.OnNPCCraftedRecipe.Invoke(Job, CraftingJobInstance.SelectedRecipe, CraftingResults);
+                        float cd = CraftingJobSettings.CraftingCooldown * Pipliz.Random.NextFloat(0.9f, 1.1f);
 
-                    if (!CraftingJobInstance.IsCrafting)
-                    {
-                        CraftingJobInstance.IsCrafting = true;
-                        OnStartCrafting();
-                    }
+                        if (CraftingResults.Count > 0)
+                        {
+                            state.Inventory.Add(CraftingResults);
+                            RecipeResult toShow = RecipeResult.GetWeightedRandom(CraftingResults);
 
-                    state.JobIsDone = false;
-                    CraftingJobInstance.SelectedRecipeCount--;
+                            if (toShow.Amount > 0)
+                                state.SetIndicator(new IndicatorState(cd, toShow.Type));
+                            else
+                                state.SetCooldown(cd);
+
+                            if (CraftingJobSettings.OnCraftedAudio != null)
+                                AudioManager.SendAudio(GetPosition().Vector, CraftingJobSettings.OnCraftedAudio);
+                        }
+                        else
+                        {
+                            state.SetIndicator(new IndicatorState(cd, NPCIndicatorType.None));
+                        }
+
+                        if (!CraftingJobInstance.IsCrafting)
+                        {
+                            CraftingJobInstance.IsCrafting = true;
+                            OnStartCrafting();
+                        }
+
+                        state.JobIsDone = false;
+                        CraftingJobInstance.SelectedRecipeCount--;
+                    }
                 }
                 else
                 {
                     CraftingJobInstance.SelectedRecipe = null;
+                    CraftingJobInstance.SelectedRecipeCount = 0;
 
                     state.SetCooldown(0.05, 0.15);
-
-                    if (CraftingJobInstance.IsCrafting)
-                    {
-                        CraftingJobInstance.IsCrafting = false;
-                        OnStopCrafting();
-                    }
+                    StopCrafting();
                 }
 
                 return;
+            }
+
+            StopCrafting();
+            GetNextRecipe(ref state);
+        }
+
+        private void StopCrafting()
+        {
+            if (CraftingJobInstance.IsCrafting)
+            {
+                CraftingJobInstance.IsCrafting = false;
+                OnStopCrafting();
             }
         }
 
         public virtual void GetNextRecipe(ref NPCBase.NPCState state)
         {
-            if (NextRecipe.MatchType == Recipe.RecipeMatchType.Invalid)
-                NextRecipe = Recipe.MatchRecipe(CraftingJobSettings.GetPossibleRecipes(CraftingJobInstance), Job.Owner, RecipeSettingsGroup);
+            NextRecipe = Recipe.MatchRecipe(CraftingJobSettings.GetPossibleRecipes(CraftingJobInstance), Job.Owner, RecipeSettingsGroup);
 
             switch (NextRecipe.MatchType)
             {
@@ -126,9 +136,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     {
                         if (!state.Inventory.IsEmpty)
                         {
-                            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory));
-                            state.Inventory.Inventory.Clear();
-                            state.SetCooldown(0.2, 0.4);
+                            PutItemsInCrate(ref state);
                             break;
                         }
 
@@ -158,10 +166,25 @@ namespace Pandaros.Civ.Jobs.Goals
             }
         }
 
+        private void PutItemsInCrate(ref NPCBase.NPCState state)
+        {
+            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList()));
+            state.Inventory.Inventory.Clear();
+            state.SetCooldown(0.2, 0.4);
+        }
+
         public virtual void GetItemsFromCrate(ref NPCBase.NPCState state)
         {
-            state.Inventory.Add(CraftingJobInstance.SelectedRecipe.Requirements);
-            JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements));
+            if (CraftingJobInstance.SelectedRecipe != null)
+            {
+                state.Inventory.Add(CraftingJobInstance.SelectedRecipe.Requirements.ToList());
+                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements));
+            }
+            else if (NextRecipe.MatchType != Recipe.RecipeMatchType.Invalid)
+            {
+                state.Inventory.Add(NextRecipe.FoundRecipe.Requirements.ToList());
+                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, NextRecipe.FoundRecipe.Requirements));
+            }
         }
 
         public virtual void OnStopCrafting()

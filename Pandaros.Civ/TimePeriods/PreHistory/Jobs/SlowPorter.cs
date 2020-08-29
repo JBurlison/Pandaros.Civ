@@ -44,6 +44,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
                 inventoryCapacity = 32f
             });
 
+
+            NPCType = NPCType.GetByKeyNameOrDefault(Name);
         }
     }
 

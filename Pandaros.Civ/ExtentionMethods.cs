@@ -33,10 +33,13 @@ namespace Pandaros.Civ
             return retval;
         }
 
-        public static void AddRange(this List<StoredItem> storedItem, List<InventoryItem> items)
+        public static void AddRange(this List<StoredItem> storedItem, List<InventoryItem> items, int stackCount = -1)
         {
             foreach (var item in items)
-                storedItem.Add(item);
+                if (stackCount < 0)
+                    storedItem.Add(item);
+                else
+                    storedItem.Add(new StoredItem(item.Type, stackCount));
         }
     }
 }

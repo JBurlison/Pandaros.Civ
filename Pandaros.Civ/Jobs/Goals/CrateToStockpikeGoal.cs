@@ -43,7 +43,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     if (!LastCratePosition.Contains(location) &&
                         !InProgress.Contains(location) &&
                         StorageFactory.CrateLocations[Job.Owner][location].IsAlmostFull &&
-                        StorageFactory.CrateLocations[Job.Owner][location].StorageTypeLookup[StorageType.Stockpile].Count > 1)
+                        StorageFactory.CrateLocations[Job.Owner][location].StorageTypeLookup[StorageType.Stockpile].Count > 0)
                     {
                         CurrentCratePosition = location;
                         InProgress.Add(location);
@@ -69,11 +69,16 @@ namespace Pandaros.Civ.Jobs.Goals
            
         }
 
+        public virtual void SetAsGoal()
+        {
+            
+        }
+
         public void PerformGoal(ref NPCBase.NPCState state)
         {
             if (WalkingTo == StorageType.Crate)
             {
-                if (CurrentCratePosition == PorterJob.OriginalPosition)
+                if (CurrentCratePosition == PorterJob.OriginalPosition || CurrentCratePosition == Vector3Int.invalidPos)
                 {
                     state.SetCooldown(10);
                     JobSettings.SetGoal(Job, new StockpikeToCrateGoal(Job, JobSettings));
@@ -82,10 +87,20 @@ namespace Pandaros.Civ.Jobs.Goals
                 {
                     state.SetCooldown(5);
                     state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
-                    var crate = StorageFactory.CrateLocations[Job.Owner][CurrentCratePosition];
-                    ToStockpike = crate.StorageTypeLookup[StorageType.Stockpile].ToArray();
-                    crate.TryTake(ToStockpike);
-                    WalkingTo = StorageType.Stockpile;
+
+                    if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var locs))
+                    {
+                        if (locs.TryGetValue(CurrentCratePosition, out var crate))
+                        {
+                            ToStockpike = crate.StorageTypeLookup[StorageType.Stockpile].ToArray();
+                            crate.TryTake(ToStockpike);
+                            WalkingTo = StorageType.Stockpile;
+                        }
+                        else
+                            CivLogger.Log(ChatColor.red, "Crate locations does not contain location {0}", CurrentCratePosition);
+                    }
+                    else
+                        CivLogger.Log(ChatColor.red, "Crate locations does not contain colony id {0}", Job.Owner.ColonyID);
                 }
             }
             else
@@ -97,6 +112,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 WalkingTo = StorageType.Crate;
                 InProgress.Remove(CurrentCratePosition);
                 CurrentCratePosition = Vector3Int.invalidPos;
+                GetPosition();
             }
         }
     }

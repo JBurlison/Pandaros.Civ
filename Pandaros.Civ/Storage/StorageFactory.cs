@@ -21,9 +21,9 @@ namespace Pandaros.Civ.Storage
 {
     public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad, IOnSavingColony, IOnLoadingColony
     {
-        public int NextUpdateTimeMinMs => 20;
+        public int NextUpdateTimeMinMs => 2000;
 
-        public int NextUpdateTimeMaxMs => 50;
+        public int NextUpdateTimeMaxMs => 5000;
 
         public ServerTimeStamp NextUpdateTime { get; set; }
         public static Dictionary<Colony, Dictionary<ushort, int>> StockpileMaxStackSize { get; set; } = new Dictionary<Colony, Dictionary<ushort, int>>();
@@ -39,21 +39,24 @@ namespace Pandaros.Civ.Storage
 
         public Type ClassType { get; }
 
-        bool _worldLoaded = false;
+        static bool _worldLoaded = false;
 
         public void OnSavingColony(Colony colony, JSONNode data)
         {
-            //data[nameof(CrateLocations)] = CrateLocations.JsonSerialize();
-            //data[nameof(ItemCrateLocations)] = ItemCrateLocations.JsonSerialize();
+            //if (CrateLocations.TryGetValue(colony, out var cl))
+            //    data[nameof(CrateLocations)] = cl.ToDictionary(kvp => new SerializableVector3Int(kvp.Key), kvp => kvp.Value).JsonSerialize();
+
+            //if (ItemCrateLocations.TryGetValue(colony, out var icl))
+            //    data[nameof(ItemCrateLocations)] = icl.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Select(v => new SerializableVector3Int(v)).ToList()).JsonSerialize();
         }
 
         public void OnLoadingColony(Colony colony, JSONNode data)
         {
             //if (data.TryGetAs<JSONNode>(nameof(CrateLocations), out var crateJson))
-            //    CrateLocations = crateJson.JsonDeerialize<Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>>>();
+            //    CrateLocations[colony] = crateJson.JsonDeerialize<Dictionary<SerializableVector3Int, CrateInventory>>().ToDictionary(kvp => (Vector3Int)kvp.Key, kvp => kvp.Value);
 
             //if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var icl))
-            //    ItemCrateLocations = icl.JsonDeerialize<Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>>>();
+            //    ItemCrateLocations[colony] = icl.JsonDeerialize<Dictionary<ushort, List<SerializableVector3Int>>>().ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Select(v => (Vector3Int)v).ToList());
         }
 
         /// <summary>
@@ -207,8 +210,7 @@ namespace Pandaros.Civ.Storage
                 return;
             }
 
-            if (tryChangeBlockData.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player &&
-                colony != null)
+            if (tryChangeBlockData.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player && colony != null)
                 if (CrateTypes.TryGetValue(tryChangeBlockData.TypeOld.Name, out var oldCrate))
                 {
                     CrateLocations[colony].Remove(tryChangeBlockData.Position);
@@ -310,6 +312,8 @@ namespace Pandaros.Civ.Storage
 
         public void AfterWorldLoad()
         {
+            _worldLoaded = true;
+
             foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
             {
                 if (!CrateLocations.ContainsKey(colony))
@@ -320,8 +324,6 @@ namespace Pandaros.Civ.Storage
 
                 RecalcMax(colony);
             }
-
-            _worldLoaded = true;
         }
     }
 }

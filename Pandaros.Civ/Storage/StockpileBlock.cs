@@ -76,7 +76,7 @@ namespace Pandaros.Civ.Storage
                 "storage"
             };
             icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
-            GlobalStorageUpgrade = 32;
+            GlobalStorageUpgrade = 50;
             CategoryStorageUpgrades.Add("food", 32);
         }
 
@@ -109,7 +109,7 @@ namespace Pandaros.Civ.Storage
                 tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony != null)
             {
                 var cs = ColonyState.GetColonyState(tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony);
-
+                AreaJobTracker.SendData(tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony);
                 if (cs.Positions.ContainsKey(Name))
                 {
                     tryChangeBlockData.CallbackConsumedResult = EServerChangeBlockResult.CancelledByCallback;
@@ -126,6 +126,7 @@ namespace Pandaros.Civ.Storage
             {
                 var cs = ColonyState.GetColonyState(tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony);
                 cs.Positions.Remove(Name);
+                AreaJobTracker.SendData(tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony);
                 //TODO: handle moving of stockpile
             }
         }

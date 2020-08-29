@@ -2,6 +2,7 @@
 using NPC;
 using Pandaros.API;
 using Pandaros.API.Extender;
+using Pandaros.API.Models;
 using Pandaros.Civ.Storage;
 using Pipliz;
 using System;
@@ -16,7 +17,7 @@ namespace Pandaros.Civ.Jobs.Goals
     {
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
         public static Dictionary<Vector3Int, List<StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, List<StoredItem>>();
-
+        public StockpikeToCrateGoal() { }
         public StockpikeToCrateGoal(IJob job, IPandaJobSettings jobSettings)
         {
             Job = job;
@@ -33,9 +34,9 @@ namespace Pandaros.Civ.Jobs.Goals
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Stockpile;
 
-        public int NextUpdateTimeMinMs => 50;
+        public int NextUpdateTimeMinMs => 2500;
 
-        public int NextUpdateTimeMaxMs => 70;
+        public int NextUpdateTimeMaxMs => 2500;
 
         public ServerTimeStamp NextUpdateTime { get; set; }
         public bool CrateFull { get; set; }
@@ -54,6 +55,10 @@ namespace Pandaros.Civ.Jobs.Goals
         public void LeavingGoal()
         {
            
+        }
+        public virtual void SetAsGoal()
+        {
+
         }
 
         public void PerformGoal(ref NPCBase.NPCState state)
@@ -89,13 +94,12 @@ namespace Pandaros.Civ.Jobs.Goals
                                 Job.NPC.Inventory.Add(item);
 
                         StorageFactory.StoreItems(Job.Owner, leftovers);
-                        state.SetCooldown(5);
-                        state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
-
                         break;
                     }
 
                 CurrentCratePosition = nexPos;
+                state.SetCooldown(5);
+                state.SetIndicator(new Shared.IndicatorState(5, ItemId.GetItemId(StockpileBlock.Name).Id));
 
                 if (nexPos == Vector3Int.invalidPos)
                     JobSettings.SetGoal(Job, new CrateToStockpikeGoal(Job, JobSettings));
@@ -104,8 +108,10 @@ namespace Pandaros.Civ.Jobs.Goals
             {
                 if (StorageFactory.CrateLocations[Job.Owner].TryGetValue(CurrentCratePosition, out var crateInventory))
                 {
+                    WalkingTo = StorageType.Stockpile;
                     var leftovers = crateInventory.TryAdd(Job.NPC.Inventory.Inventory.Select(ii => new StoredItem(ii, int.MaxValue, StorageType.Crate)).ToArray());
-
+                    state.SetCooldown(5);
+                    state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
                     if (leftovers.Count > 0)
                     {
                         Job.NPC.Inventory.Inventory.Clear();
@@ -119,6 +125,8 @@ namespace Pandaros.Civ.Jobs.Goals
                 else
                 {
                     CrateFull = true;
+                    state.SetCooldown(5);
+                    state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id, true, false));
                 }
             }
 
@@ -131,17 +139,19 @@ namespace Pandaros.Civ.Jobs.Goals
             foreach (var crafter in CraftingGoal.CurrentlyCrafing)
             {
                 var jobLoc = crafter.Job.GetJobLocation();
-                ItemsNeeded[jobLoc] = new List<StoredItem>();
+                var crate = jobLoc.GetClosestPosition(StorageFactory.CrateLocations[crafter.Job.Owner].Keys.ToList());
+                ItemsNeeded[crate] = new List<StoredItem>();
 
-                if (!crafter.CraftingJobInstance.IsCrafting)
+                if (!crafter.CraftingJobInstance.IsCrafting && crafter.CraftingJobInstance.SelectedRecipe != null)
                 {
-                    ItemsNeeded[jobLoc].AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements);
+                    ItemsNeeded[crate].AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements, StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize);
                 }
-                else
+                else if ((crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundMissingRequirements ||
+                        crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundCraftable) &&
+                        crafter.NextRecipe.FoundRecipe != null)
                 {
-                    if (crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundMissingRequirements ||
-                        crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundCraftable)
-                        ItemsNeeded[jobLoc].AddRange(crafter.NextRecipe.FoundRecipe.Requirements);
+                    
+                    ItemsNeeded[crate].AddRange(crafter.NextRecipe.FoundRecipe.Requirements, StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize);
                 }
             }
 

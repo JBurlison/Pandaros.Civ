@@ -20,5 +20,6 @@ namespace Pandaros.Civ.Jobs
         void PerformGoal(ref NPC.NPCBase.NPCState state);
 
         void LeavingGoal();
+        void SetAsGoal();
     }
 }

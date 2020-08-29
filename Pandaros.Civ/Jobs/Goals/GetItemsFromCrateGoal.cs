@@ -78,6 +78,11 @@ namespace Pandaros.Civ.Jobs.Goals
             CurrentItemsNeeded.Remove(this);
         }
 
+        public virtual void SetAsGoal()
+        {
+            CurrentItemsNeeded.Add(this);
+        }
+
         public void PerformGoal(ref NPC.NPCBase.NPCState state)
         {
             StoredItem[] remaining = new StoredItem[0];

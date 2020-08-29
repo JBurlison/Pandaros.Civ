@@ -48,6 +48,7 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
                 oldGoal.LeavingGoal();
 
             CurrentGoal[job] = npcGoal;
+            npcGoal.SetAsGoal();
             GoalChanged?.Invoke(this, (oldGoal, npcGoal));
         }
     }
