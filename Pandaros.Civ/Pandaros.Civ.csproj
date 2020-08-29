@@ -92,12 +92,15 @@
     <Compile Include="Jobs\IPandaJobSettings.cs" />
     <Compile Include="Jobs\NPCTypeStandardSettings.cs" />
     <Compile Include="Jobs\PandaJobFactory.cs" />
+    <Compile Include="Jobs\PorterJob.cs" />
+    <Compile Include="Jobs\PorterJobSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Storage\BasicCrate.cs" />
-    <Compile Include="Storage\Basket.cs">
+    <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\Basket.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Storage\CarvedLog.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\CarvedLog.cs" />
     <Compile Include="Storage\CrateInventory.cs" />
     <Compile Include="Extender\Providers\CrateLoaderProvider.cs" />
     <Compile Include="Storage\ICrate.cs" />
@@ -110,9 +113,16 @@
     <Compile Include="TextureType.cs" />
     <Compile Include="TimePeriod.cs" />
     <Compile Include="TimePeriods\PeriodFactory.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\LeafBag.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icons\Backpack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icons\crate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\SlowPorter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Meshes\crate.obj">
@@ -130,9 +140,7 @@
     <Folder Include="TimePeriods\IndustrialAge\" />
     <Folder Include="TimePeriods\InformationAge\" />
     <Folder Include="TimePeriods\IronAge\" />
-    <Folder Include="TimePeriods\PreHistory\" />
     <Folder Include="TimePeriods\RenewablesAge\" />
-    <Folder Include="TimePeriods\StoneAge\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\basket.png">
@@ -153,6 +161,9 @@
     <Content Include="Textures\albedo\CarvedLog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\albedo\MachinistBenchTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\albedo\StockpileBlock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -162,6 +173,9 @@
     <Content Include="Textures\heightSmoothnessSpecularity\CarvedLog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\MachinistBenchTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\heightSmoothnessSpecularity\StockpileBlock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -169,6 +183,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\normal\CarvedLog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\MachinistBenchTop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\normal\StockpileBlock.png">

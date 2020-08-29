@@ -20,8 +20,10 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             Job = job;
             JobSettings = jobSettings;
+            PorterJob = job as PorterJob;
         }
 
+        public PorterJob PorterJob { get; set; }
         public IPandaJobSettings JobSettings { get; set; }
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(CrateToStockpikeGoal);
@@ -51,7 +53,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 // No new goal. go back to job pos.
                 if (CurrentCratePosition == Vector3Int.invalidPos)
                 {
-                    CurrentCratePosition = Job.NPC.Position;// TODO
+                    CurrentCratePosition = PorterJob.OriginalPosition;
                 }
 
                 return CurrentCratePosition;
@@ -71,7 +73,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (WalkingTo == StorageType.Crate)
             {
-                if (CurrentCratePosition == Job.NPC.Position)
+                if (CurrentCratePosition == PorterJob.OriginalPosition)
                 {
                     state.SetCooldown(10);
                     JobSettings.SetGoal(Job, new StockpikeToCrateGoal(Job, JobSettings));

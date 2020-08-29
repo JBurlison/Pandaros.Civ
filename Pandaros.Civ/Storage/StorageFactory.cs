@@ -21,17 +21,17 @@ namespace Pandaros.Civ.Storage
 {
     public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad, IOnSavingColony, IOnLoadingColony
     {
-        public int NextUpdateTimeMinMs => 2000;
+        public int NextUpdateTimeMinMs => 20;
 
-        public int NextUpdateTimeMaxMs => 5000;
+        public int NextUpdateTimeMaxMs => 50;
 
         public ServerTimeStamp NextUpdateTime { get; set; }
         public static Dictionary<Colony, Dictionary<ushort, int>> StockpileMaxStackSize { get; set; } = new Dictionary<Colony, Dictionary<ushort, int>>();
         public static Dictionary<Colony, int> DefaultMax = new Dictionary<Colony, int>();
-        public static Dictionary<Colony, Dictionary<SerializableVector3Int, CrateInventory>> CrateLocations { get; set; } = new Dictionary<Colony, Dictionary<SerializableVector3Int, CrateInventory>>();
+        public static Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>> CrateLocations { get; set; } = new Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>>();
         public static Dictionary<string, IStorageUpgradeBlock> StorageBlockTypes { get; set; } = new Dictionary<string, IStorageUpgradeBlock>();
         public static Dictionary<string, ICrate> CrateTypes { get; set; } = new Dictionary<string, ICrate>();
-        public static Dictionary<Colony, Dictionary<ushort, List<SerializableVector3Int>>> ItemCrateLocations { get; set; } = new Dictionary<Colony, Dictionary<ushort, List<SerializableVector3Int>>>();
+        public static Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>> ItemCrateLocations { get; set; } = new Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>>();
 
         public List<Type> LoadedAssembalies { get; } = new List<Type>();
 
@@ -43,17 +43,17 @@ namespace Pandaros.Civ.Storage
 
         public void OnSavingColony(Colony colony, JSONNode data)
         {
-            data[nameof(CrateLocations)] = CrateLocations.JsonSerialize();
-            data[nameof(ItemCrateLocations)] = ItemCrateLocations.JsonSerialize();
+            //data[nameof(CrateLocations)] = CrateLocations.JsonSerialize();
+            //data[nameof(ItemCrateLocations)] = ItemCrateLocations.JsonSerialize();
         }
 
         public void OnLoadingColony(Colony colony, JSONNode data)
         {
-            if (data.TryGetAs<JSONNode>(nameof(CrateLocations), out var crateJson))
-                CrateLocations = crateJson.JsonDeerialize<Dictionary<Colony, Dictionary<SerializableVector3Int, CrateInventory>>>();
+            //if (data.TryGetAs<JSONNode>(nameof(CrateLocations), out var crateJson))
+            //    CrateLocations = crateJson.JsonDeerialize<Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>>>();
 
-            if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var icl))
-                ItemCrateLocations = icl.JsonDeerialize<Dictionary<Colony, Dictionary<ushort, List<SerializableVector3Int>>>>();
+            //if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var icl))
+            //    ItemCrateLocations = icl.JsonDeerialize<Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>>>();
         }
 
         /// <summary>
@@ -310,10 +310,10 @@ namespace Pandaros.Civ.Storage
             foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
             {
                 if (!CrateLocations.ContainsKey(colony))
-                    CrateLocations.Add(colony, new Dictionary<SerializableVector3Int, CrateInventory>());
+                    CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
 
                 if (!ItemCrateLocations.ContainsKey(colony))
-                    ItemCrateLocations.Add(colony, new Dictionary<ushort, List<SerializableVector3Int>>());
+                    ItemCrateLocations.Add(colony, new Dictionary<ushort, List<Vector3Int>>());
 
                 RecalcMax(colony);
             }

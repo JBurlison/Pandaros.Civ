@@ -21,8 +21,10 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             Job = job;
             JobSettings = jobSettings;
+            PorterJob = job as PorterJob;
         }
 
+        public PorterJob PorterJob { get; set; }
         public IPandaJobSettings JobSettings { get; set; }
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(StockpikeToCrateGoal);
@@ -31,9 +33,9 @@ namespace Pandaros.Civ.Jobs.Goals
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Stockpile;
 
-        public int NextUpdateTimeMinMs => 5000;
+        public int NextUpdateTimeMinMs => 50;
 
-        public int NextUpdateTimeMaxMs => 7000;
+        public int NextUpdateTimeMaxMs => 70;
 
         public ServerTimeStamp NextUpdateTime { get; set; }
         public bool CrateFull { get; set; }
@@ -41,7 +43,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int GetPosition()
         {
             if (CurrentCratePosition == Vector3Int.invalidPos)
-                CurrentCratePosition = Job.NPC.Position; //TODO
+                CurrentCratePosition = PorterJob.OriginalPosition;
 
             if (WalkingTo == StorageType.Crate)
                 return CurrentCratePosition;

@@ -1,5 +1,6 @@
 ﻿using Pandaros.API;
 using Pandaros.API.Models;
+using Pandaros.Civ.Storage;
 using Recipes;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.Storage
+namespace Pandaros.Civ.PreHistory.Items
 {
 
     public class BasicCrate : CSType, ICrate

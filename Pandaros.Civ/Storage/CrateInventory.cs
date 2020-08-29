@@ -140,7 +140,7 @@ namespace Pandaros.Civ.Storage
                 }
 
                 if (!StorageFactory.ItemCrateLocations[Colony].ContainsKey(item.Id))
-                    StorageFactory.ItemCrateLocations[Colony].Add(item.Id, new List<SerializableVector3Int>());
+                    StorageFactory.ItemCrateLocations[Colony].Add(item.Id, new List<Vector3Int>());
 
                 var listRef = StorageFactory.ItemCrateLocations[Colony][item.Id];
 
