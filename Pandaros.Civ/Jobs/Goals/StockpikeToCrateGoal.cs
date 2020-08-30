@@ -61,6 +61,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
         }
 
+        public virtual void LeavingJob()
+        {
+
+        }
+
         public void PerformGoal(ref NPCBase.NPCState state)
         {
             if (WalkingTo == StorageType.Stockpile)

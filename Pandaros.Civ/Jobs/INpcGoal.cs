@@ -21,5 +21,7 @@ namespace Pandaros.Civ.Jobs
 
         void LeavingGoal();
         void SetAsGoal();
+
+        void LeavingJob();
     }
 }

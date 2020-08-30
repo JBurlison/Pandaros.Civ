@@ -51,5 +51,13 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             npcGoal.SetAsGoal();
             GoalChanged?.Invoke(this, (oldGoal, npcGoal));
         }
+
+        public override void OnGoalChanged(BlockJobInstance instanceBlock, NPCBase.NPCGoal oldGoal, NPCBase.NPCGoal newGoal)
+        {
+            if (!instanceBlock.IsValid)
+                CurrentGoal[instanceBlock].LeavingJob();
+
+            base.OnGoalChanged(instanceBlock, oldGoal, newGoal);
+        }
     }
 }

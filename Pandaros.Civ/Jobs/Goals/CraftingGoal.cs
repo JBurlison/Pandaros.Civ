@@ -40,19 +40,26 @@ namespace Pandaros.Civ.Jobs.Goals
             if (!CraftingJobInstance.IsValid)
             {
                 CurrentlyCrafing.Remove(this);
+                LeavingJob();
                 return Job.Owner.Banners.First().Position;
             }
+
             return ((BlockJobInstance)Job).Position;
         }
 
         public virtual void LeavingGoal()
         {
-            CurrentlyCrafing.Remove(this);
+            
         }
 
         public virtual void SetAsGoal()
         {
             CurrentlyCrafing.Add(this);
+        }
+
+        public virtual void LeavingJob()
+        {
+            CurrentlyCrafing.Remove(this);
         }
 
         public virtual void PerformGoal(ref NPCBase.NPCState state)
@@ -117,6 +124,13 @@ namespace Pandaros.Civ.Jobs.Goals
             }
 
             StopCrafting();
+
+            if (!state.Inventory.IsEmpty)
+            {
+                PutItemsInCrate(ref state);
+                return;
+            }
+
             GetNextRecipe(ref state);
         }
 

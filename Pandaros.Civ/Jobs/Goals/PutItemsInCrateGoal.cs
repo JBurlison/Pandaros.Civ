@@ -75,6 +75,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
         }
 
+        public virtual void LeavingJob()
+        {
+           
+        }
+
         public virtual void PerformGoal(ref NPC.NPCBase.NPCState state)
         {
             StoredItem[] remaining = new StoredItem[0];

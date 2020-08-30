@@ -41,6 +41,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
         }
 
+        public virtual void LeavingJob()
+        {
+
+        }
+
         public void PerformGoal(ref NPC.NPCBase.NPCState state)
         {
             if (!HasWaited)

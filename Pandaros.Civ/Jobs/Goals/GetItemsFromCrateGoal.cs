@@ -75,7 +75,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingGoal()
         {
-            CurrentItemsNeeded.Remove(this);
+            
         }
 
         public virtual void SetAsGoal()
@@ -83,9 +83,15 @@ namespace Pandaros.Civ.Jobs.Goals
             CurrentItemsNeeded.Add(this);
         }
 
+        public virtual void LeavingJob()
+        {
+            CurrentItemsNeeded.Remove(this);
+        }
+
         public void PerformGoal(ref NPC.NPCBase.NPCState state)
         {
             StoredItem[] remaining = new StoredItem[0];
+            state.JobIsDone = true;
 
             if (WalkingTo == StorageType.Crate)
             {
