@@ -26,6 +26,7 @@ namespace Pandaros.Civ.Jobs
             NPCType = NPCType.GetByKeyNameOrDefault(npcTypeKey);
             RecruitmentItem = new InventoryItem(LeafBag.NAME);
         }
+        public Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
 
         public virtual ItemTypes.ItemType[] BlockTypes { get; set; }
 
@@ -47,6 +48,9 @@ namespace Pandaros.Civ.Jobs
             if (!CurrentGoal.ContainsKey(instance))
                 CurrentGoal.Add(instance, new StockpikeToCrateGoal(instance, this));
 
+            if (!OriginalPosition.ContainsKey(instance))
+                OriginalPosition.Add(instance, instance.Position);
+
             return CurrentGoal[instance].GetPosition();
         }
 
@@ -57,6 +61,9 @@ namespace Pandaros.Civ.Jobs
 
         public virtual void OnNPCAtJob(BlockJobInstance instance, ref NPCBase.NPCState state)
         {
+            if (!OriginalPosition.ContainsKey(instance))
+                OriginalPosition.Add(instance, instance.Position);
+
             CurrentGoal[instance].PerformGoal(ref state);
         }
 

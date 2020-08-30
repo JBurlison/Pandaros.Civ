@@ -29,7 +29,7 @@ namespace Pandaros.Civ.StoneAge.Items
         public Basket()
         {
             name = Name;
-            GlobalStorageUpgrade = 8;
+            GlobalStorageUpgrade = 800000;
             CategoryStorageUpgrades.Add("food", 8);
             sideall = GameSetup.Textures.SELF;
             categories = new List<string>()

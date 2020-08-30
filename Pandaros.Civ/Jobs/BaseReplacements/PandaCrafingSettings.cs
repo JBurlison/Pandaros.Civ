@@ -24,6 +24,7 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
         }
 
         public Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
+        public Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
 
         public event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
 
@@ -32,11 +33,17 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             if (!CurrentGoal.ContainsKey(instance))
                 CurrentGoal.Add(instance, new CraftingGoal(instance, this, this));
 
+            if (!OriginalPosition.ContainsKey(instance))
+                OriginalPosition.Add(instance, instance.Position);
+
             return CurrentGoal[instance].GetPosition();
         }
 
         public override void OnNPCAtJob(BlockJobInstance blockJobInstance, ref NPCBase.NPCState state)
         {
+            if (!OriginalPosition.ContainsKey(blockJobInstance))
+                OriginalPosition.Add(blockJobInstance, blockJobInstance.Position);
+
             CurrentGoal[blockJobInstance].PerformGoal(ref state);
         }
 

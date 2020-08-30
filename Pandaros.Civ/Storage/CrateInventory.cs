@@ -105,14 +105,14 @@ namespace Pandaros.Civ.Storage
                     {
                         retval[item.Id] = new StoredItem(item.Id, remaining);
                     }
-                }
 
-                if (Contents[item.Id] == 0)
-                {
-                    Contents.Remove(item.Id);
-                    StorageTypeLookup[item.StorageType].Remove(item);
-                    if (StorageFactory.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
-                        posList.Remove(Position);
+                    if (Contents[item.Id] == 0)
+                    {
+                        Contents.Remove(item.Id);
+                        StorageTypeLookup[item.StorageType].Remove(item);
+                        if (StorageFactory.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
+                            posList.Remove(Position);
+                    }
                 }
 
                

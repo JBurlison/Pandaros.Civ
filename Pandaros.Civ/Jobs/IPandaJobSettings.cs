@@ -1,4 +1,5 @@
 ﻿using Jobs;
+using Pipliz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Pandaros.Civ.Jobs
 {
     public interface IPandaJobSettings
     {
+        Dictionary<IJob, Vector3Int> OriginalPosition { get; set; }
+
         Dictionary<IJob, INpcGoal> CurrentGoal { get; set; }
 
         event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;

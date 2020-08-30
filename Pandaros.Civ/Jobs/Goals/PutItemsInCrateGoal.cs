@@ -33,6 +33,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public StoredItem[] ItemsToStore { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
+        public PorterJob Porter { get; set; }
         public string Name { get; set; } = nameof(PutItemsInCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(PutItemsInCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; }
@@ -44,7 +45,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (WalkingTo == StorageType.Crate)
             {
-                var locations = Job.NPC.Position.SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
+                var locations = JobSettings.OriginalPosition[Job].SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
 
                 foreach (var location in locations)
                     if (!LastCratePosition.Contains(location))

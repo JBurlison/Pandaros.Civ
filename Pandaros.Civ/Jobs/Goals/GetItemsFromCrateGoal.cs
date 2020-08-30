@@ -32,11 +32,6 @@ namespace Pandaros.Civ.Jobs.Goals
             CurrentItemsNeeded.Add(this);
         }
 
-        public void SetJob(IJob job)
-        {
-            Job = job;
-        }
-
         public StoredItem[] ItemsToGet { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
@@ -68,7 +63,7 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
-                CurrentCratePosition = Job.NPC.Position.GetClosestPosition(cratesWithItems);
+                CurrentCratePosition = JobSettings.OriginalPosition[Job].GetClosestPosition(cratesWithItems);
                 return CurrentCratePosition;
             }
         }

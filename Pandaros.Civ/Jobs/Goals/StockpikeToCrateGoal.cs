@@ -16,7 +16,7 @@ namespace Pandaros.Civ.Jobs.Goals
     public class StockpikeToCrateGoal : INpcGoal, IOnTimedUpdate
     {
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
-        public static Dictionary<Vector3Int, List<StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, List<StoredItem>>();
+        public static Dictionary<Vector3Int, Dictionary<ushort, StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, Dictionary<ushort, StoredItem>>();
         public StockpikeToCrateGoal() { }
         public StockpikeToCrateGoal(IJob job, IPandaJobSettings jobSettings)
         {
@@ -76,7 +76,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     CrateFull = false;
                 }
 
-                var locations = Job.NPC.Position.SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
+                var locations = PorterJob.OriginalPosition.SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys);
                 var nexPos = Vector3Int.invalidPos;
 
                 foreach (var location in locations)
@@ -89,7 +89,7 @@ namespace Pandaros.Civ.Jobs.Goals
                         InProgress.Add(location);
                         WalkingTo = StorageType.Crate;
 
-                        var addToInv = StorageFactory.TryTakeItems(Job.Owner, itemsNeeded);
+                        var addToInv = StorageFactory.TryTakeItems(Job.Owner, itemsNeeded.Values);
                         var leftovers = new List<StoredItem>();
 
                         foreach (var item in addToInv)
@@ -150,24 +150,23 @@ namespace Pandaros.Civ.Jobs.Goals
                     {
                         var jobLoc = crafter.Job.GetJobLocation();
                         var crate = jobLoc.GetClosestPosition(StorageFactory.CrateLocations[crafter.Job.Owner].Keys.ToList());
-                        ItemsNeeded[crate] = new List<StoredItem>();
+                        ItemsNeeded[crate] = new Dictionary<ushort, StoredItem>();
+                        var maxSize = StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize;
 
-                        if (!crafter.CraftingJobInstance.IsCrafting && crafter.CraftingJobInstance.SelectedRecipe != null)
+                        if (crafter.CraftingJobInstance.SelectedRecipe != null)
                         {
-                            ItemsNeeded[crate].AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements, StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize);
+                            ItemsNeeded[crate].AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements, maxSize);
                         }
-                        else if ((crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundMissingRequirements ||
-                                crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundCraftable) &&
-                                crafter.NextRecipe.FoundRecipe != null)
-                        {
 
-                            ItemsNeeded[crate].AddRange(crafter.NextRecipe.FoundRecipe.Requirements, StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize);
+                        if (crafter.NextRecipe.FoundRecipe != null)
+                        {
+                            ItemsNeeded[crate].AddRange(crafter.NextRecipe.FoundRecipe.Requirements, maxSize);
                         }
                     }
 
                     retry = int.MaxValue;
                 }
-                catch (Exception)
+                catch (Exception) // a job could have been removed.
                 {
                     retry++;
                 }
