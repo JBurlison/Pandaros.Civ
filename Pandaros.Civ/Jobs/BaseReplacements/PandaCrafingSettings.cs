@@ -47,13 +47,14 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             CurrentGoal[blockJobInstance].PerformGoal(ref state);
         }
 
-        public void SetGoal(IJob job, INpcGoal npcGoal)
+        public void SetGoal(IJob job, INpcGoal npcGoal, ref NPCBase.NPCState state)
         {
             var oldGoal = CurrentGoal[job];
 
             if (oldGoal != null)
                 oldGoal.LeavingGoal();
 
+            state.JobIsDone = true;
             CurrentGoal[job] = npcGoal;
             npcGoal.SetAsGoal();
             GoalChanged?.Invoke(this, (oldGoal, npcGoal));

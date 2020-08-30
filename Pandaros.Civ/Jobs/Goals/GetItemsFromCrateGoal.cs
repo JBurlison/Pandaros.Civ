@@ -63,6 +63,7 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
+                WalkingTo = StorageType.Crate;
                 CurrentCratePosition = JobSettings.OriginalPosition[Job].GetClosestPosition(cratesWithItems);
                 return CurrentCratePosition;
             }
@@ -110,7 +111,7 @@ namespace Pandaros.Civ.Jobs.Goals
             else
             {
                 state.SetCooldown(0.2, 0.4);
-                JobSettings.SetGoal(Job, NextGoal);
+                JobSettings.SetGoal(Job, NextGoal, ref state);
             }
         }
     }

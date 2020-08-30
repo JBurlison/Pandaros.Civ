@@ -107,7 +107,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 state.SetIndicator(new Shared.IndicatorState(5, ItemId.GetItemId(StockpileBlock.Name).Id));
 
                 if (nexPos == Vector3Int.invalidPos)
-                    JobSettings.SetGoal(Job, new CrateToStockpikeGoal(Job, JobSettings));
+                    JobSettings.SetGoal(Job, new CrateToStockpikeGoal(Job, JobSettings), ref state);
             }
             else
             {

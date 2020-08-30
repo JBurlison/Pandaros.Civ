@@ -16,6 +16,6 @@ namespace Pandaros.Civ.Jobs
 
         event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
 
-        void SetGoal(IJob job, INpcGoal npcGoal);
+        void SetGoal(IJob job, INpcGoal npcGoal, ref NPC.NPCBase.NPCState state);
     }
 }

@@ -186,7 +186,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         private void PutItemsInCrate(ref NPCBase.NPCState state)
         {
-            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList()));
+            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList()), ref state);
             state.Inventory.Inventory.Clear();
             state.SetCooldown(0.2, 0.4);
         }
@@ -196,12 +196,12 @@ namespace Pandaros.Civ.Jobs.Goals
             if (CraftingJobInstance.SelectedRecipe != null)
             {
                 state.Inventory.Add(CraftingJobInstance.SelectedRecipe.Requirements.ToList());
-                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements));
+                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements), ref state);
             }
             else if (NextRecipe.MatchType != Recipe.RecipeMatchType.Invalid)
             {
                 state.Inventory.Add(NextRecipe.FoundRecipe.Requirements.ToList());
-                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, NextRecipe.FoundRecipe.Requirements));
+                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, NextRecipe.FoundRecipe.Requirements), ref state);
             }
         }
 

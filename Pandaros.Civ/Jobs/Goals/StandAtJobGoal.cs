@@ -54,7 +54,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 HasWaited = true;
             }
             else
-                JobSettings.SetGoal(Job, NextGoal);
+                JobSettings.SetGoal(Job, NextGoal, ref state);
         }
     }
 }

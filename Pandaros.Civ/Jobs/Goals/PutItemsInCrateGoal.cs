@@ -100,7 +100,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 LastCratePosition.Add(CurrentCratePosition);
             }
             else
-                JobSettings.SetGoal(Job, NextGoal);
+                JobSettings.SetGoal(Job, NextGoal, ref state);
         }
     }
 }

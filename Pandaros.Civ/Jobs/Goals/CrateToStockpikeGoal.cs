@@ -86,7 +86,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 if (CurrentCratePosition == PorterJob.OriginalPosition || CurrentCratePosition == Vector3Int.invalidPos)
                 {
                     state.SetCooldown(10);
-                    JobSettings.SetGoal(Job, new StockpikeToCrateGoal(Job, JobSettings));
+                    JobSettings.SetGoal(Job, new StockpikeToCrateGoal(Job, JobSettings), ref state);
                 }
                 else
                 {
