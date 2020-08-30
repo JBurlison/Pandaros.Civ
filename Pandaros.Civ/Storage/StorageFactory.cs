@@ -43,20 +43,68 @@ namespace Pandaros.Civ.Storage
 
         public void OnSavingColony(Colony colony, JSONNode data)
         {
-            //if (CrateLocations.TryGetValue(colony, out var cl))
-            //    data[nameof(CrateLocations)] = cl.ToDictionary(kvp => new SerializableVector3Int(kvp.Key), kvp => kvp.Value).JsonSerialize();
+            if (CrateLocations.TryGetValue(colony, out var cl))
+            {
+                if (!data.HasChild(nameof(CrateLocations)))
+                    data[nameof(CrateLocations)] = new JSONNode();
 
-            //if (ItemCrateLocations.TryGetValue(colony, out var icl))
-            //    data[nameof(ItemCrateLocations)] = icl.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Select(v => new SerializableVector3Int(v)).ToList()).JsonSerialize();
+                var locationsNode = new JSONNode();
+
+                foreach (var crateLocation in cl)
+                    locationsNode[crateLocation.Key.ToString()] = crateLocation.Value.ToJSON();
+
+                data[nameof(CrateLocations)][colony.ColonyID.ToString()] = locationsNode;
+            }
+
+            if (ItemCrateLocations.TryGetValue(colony, out var icl))
+            {
+                if (!data.HasChild(nameof(ItemCrateLocations)))
+                    data[nameof(ItemCrateLocations)] = new JSONNode();
+
+                var itemsLocs = new JSONNode();
+
+                foreach(var kvp in icl)
+                {
+                    var locs = new JSONNode(NodeType.Array);
+
+                    foreach (var l in kvp.Value)
+                        locs.AddToArray((JSONNode)l);
+
+                    itemsLocs[kvp.Key.ToString()] = locs;
+                }
+
+                data[nameof(ItemCrateLocations)][colony.ColonyID.ToString()] = itemsLocs;
+            }
         }
 
         public void OnLoadingColony(Colony colony, JSONNode data)
         {
-            //if (data.TryGetAs<JSONNode>(nameof(CrateLocations), out var crateJson))
-            //    CrateLocations[colony] = crateJson.JsonDeerialize<Dictionary<SerializableVector3Int, CrateInventory>>().ToDictionary(kvp => (Vector3Int)kvp.Key, kvp => kvp.Value);
+            if (data.TryGetAs<JSONNode>(nameof(CrateLocations), out var colc) &&
+                colc.TryGetAs<JSONNode>(colony.ColonyID.ToString(), out var crateJson))
+            {
+                    if (!CrateLocations.ContainsKey(colony))
+                        CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
 
-            //if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var icl))
-            //    ItemCrateLocations[colony] = icl.JsonDeerialize<Dictionary<ushort, List<SerializableVector3Int>>>().ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Select(v => (Vector3Int)v).ToList());
+                    foreach (var loc in crateJson.LoopObject())
+                        CrateLocations[colony][Vector3Int.invalidPos.Parse(loc.Key)] = new CrateInventory(loc.Value, colony);
+            }
+
+            if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var col) &&
+                col.TryGetAs<JSONNode>(colony.ColonyID.ToString(), out var icl))
+            {
+                if (!ItemCrateLocations.ContainsKey(colony))
+                    ItemCrateLocations.Add(colony, new Dictionary<ushort, List<Vector3Int>>());
+
+                foreach (var kvp in icl.LoopObject())
+                {
+                    List<Vector3Int> locs = new List<Vector3Int>();
+
+                    foreach (var l in kvp.Value.LoopArray())
+                        locs.Add((Vector3Int)l);
+
+                    ItemCrateLocations[colony][Convert.ToUInt16(kvp.Key)] = locs;
+                }
+            }
         }
 
         /// <summary>

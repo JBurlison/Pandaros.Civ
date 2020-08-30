@@ -1,5 +1,7 @@
-﻿using Pandaros.API.Models;
+﻿using Pandaros.API;
+using Pandaros.API.Models;
 using Pipliz;
+using Pipliz.JSON;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Storage
 {
-    public class CrateInventory
+    public class CrateInventory 
     {
         public Dictionary<ushort, StoredItem> Contents { get; set; } = new Dictionary<ushort, StoredItem>();
         public Dictionary<StorageType, List<StoredItem>> StorageTypeLookup = new Dictionary<StorageType, List<StoredItem>>();
@@ -19,6 +21,16 @@ namespace Pandaros.Civ.Storage
 
         public Vector3Int Position { get; set; }
         public Colony Colony { get; set; }
+
+        public CrateInventory(JSONNode node, Colony c)
+        {
+            Colony = c;
+            Position = (Vector3Int)node[nameof(Position)];
+            CrateType = StorageFactory.CrateTypes[node.GetAs<string>(nameof(CrateType))];
+            Contents = node[nameof(Contents)].JsonDeerialize<Dictionary<ushort, StoredItem>>();
+            StorageTypeLookup = node[nameof(StorageTypeLookup)].JsonDeerialize<Dictionary<StorageType, List<StoredItem>>>();
+        }
+
         public CrateInventory(ICrate crateType, Vector3Int position, Colony c)
         {
             CrateType = crateType;
@@ -48,6 +60,18 @@ namespace Pandaros.Civ.Storage
                 return false;
             }
         }
+
+        public JSONNode ToJSON()
+        {
+            JSONNode  node = new JSONNode();
+            node[nameof(Colony)] = new JSONNode(Colony.ColonyID);
+            node[nameof(Position)] = (JSONNode)Position;
+            node[nameof(CrateType)] = new JSONNode(CrateType.name);
+            node[nameof(Contents)] = Contents.JsonSerialize();
+            node[nameof(StorageTypeLookup)] = StorageTypeLookup.JsonSerialize();
+            return node;
+        }
+
 
         public void CaclulateTimeouts()
         {

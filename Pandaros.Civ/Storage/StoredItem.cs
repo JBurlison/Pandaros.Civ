@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using Newtonsoft.Json;
 using Pandaros.API.Models;
 using Steamworks;
 using System;
@@ -13,10 +14,23 @@ namespace Pandaros.Civ.Storage
     {
         public int MaxAmount { get; set; } = int.MaxValue;
         public int Amount { get; set; }
+        public string Name 
+        { 
+            get
+            {
+                return Id;
+            }
+            set
+            {
+                Id = ItemId.GetItemId(value);
+            }
+        }
+        [JsonIgnore]
         public ItemId Id { get; set; }
         public StorageType StorageType { get; set; }
         public ServerTimeStamp TTL { get; set; }
 
+        public StoredItem() { }
 
         public StoredItem(ItemId id, int amount, int maxAmount = int.MaxValue, StorageType type = StorageType.Stockpile)
         {
