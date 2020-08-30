@@ -134,27 +134,39 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void OnTimedUpdate()
         {
-            ItemsNeeded.Clear();
+            int retry = 0;
 
-            foreach (var crafter in CraftingGoal.CurrentlyCrafing)
+            while (retry < 3)
             {
-                var jobLoc = crafter.Job.GetJobLocation();
-                var crate = jobLoc.GetClosestPosition(StorageFactory.CrateLocations[crafter.Job.Owner].Keys.ToList());
-                ItemsNeeded[crate] = new List<StoredItem>();
+                ItemsNeeded.Clear();
+                try
+                {
+                    foreach (var crafter in CraftingGoal.CurrentlyCrafing)
+                    {
+                        var jobLoc = crafter.Job.GetJobLocation();
+                        var crate = jobLoc.GetClosestPosition(StorageFactory.CrateLocations[crafter.Job.Owner].Keys.ToList());
+                        ItemsNeeded[crate] = new List<StoredItem>();
 
-                if (!crafter.CraftingJobInstance.IsCrafting && crafter.CraftingJobInstance.SelectedRecipe != null)
-                {
-                    ItemsNeeded[crate].AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements, StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize);
+                        if (!crafter.CraftingJobInstance.IsCrafting && crafter.CraftingJobInstance.SelectedRecipe != null)
+                        {
+                            ItemsNeeded[crate].AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements, StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize);
+                        }
+                        else if ((crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundMissingRequirements ||
+                                crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundCraftable) &&
+                                crafter.NextRecipe.FoundRecipe != null)
+                        {
+
+                            ItemsNeeded[crate].AddRange(crafter.NextRecipe.FoundRecipe.Requirements, StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize);
+                        }
+                    }
+
+                    retry = int.MaxValue;
                 }
-                else if ((crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundMissingRequirements ||
-                        crafter.NextRecipe.MatchType == Recipes.Recipe.RecipeMatchType.FoundCraftable) &&
-                        crafter.NextRecipe.FoundRecipe != null)
+                catch (Exception)
                 {
-                    
-                    ItemsNeeded[crate].AddRange(crafter.NextRecipe.FoundRecipe.Requirements, StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize);
+                    retry++;
                 }
             }
-
         }
     }
 }

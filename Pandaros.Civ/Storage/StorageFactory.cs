@@ -53,7 +53,7 @@ namespace Pandaros.Civ.Storage
                 foreach (var crateLocation in cl)
                     locationsNode[crateLocation.Key.ToString()] = crateLocation.Value.ToJSON();
 
-                data[nameof(CrateLocations)][colony.ColonyID.ToString()] = locationsNode;
+                data[nameof(CrateLocations)] = locationsNode;
             }
 
             if (ItemCrateLocations.TryGetValue(colony, out var icl))
@@ -73,14 +73,13 @@ namespace Pandaros.Civ.Storage
                     itemsLocs[kvp.Key.ToString()] = locs;
                 }
 
-                data[nameof(ItemCrateLocations)][colony.ColonyID.ToString()] = itemsLocs;
+                data[nameof(ItemCrateLocations)] = itemsLocs;
             }
         }
 
         public void OnLoadingColony(Colony colony, JSONNode data)
         {
-            if (data.TryGetAs<JSONNode>(nameof(CrateLocations), out var colc) &&
-                colc.TryGetAs<JSONNode>(colony.ColonyID.ToString(), out var crateJson))
+            if (data.TryGetAs<JSONNode>(nameof(CrateLocations), out var crateJson))
             {
                     if (!CrateLocations.ContainsKey(colony))
                         CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
@@ -89,8 +88,7 @@ namespace Pandaros.Civ.Storage
                         CrateLocations[colony][Vector3Int.invalidPos.Parse(loc.Key)] = new CrateInventory(loc.Value, colony);
             }
 
-            if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var col) &&
-                col.TryGetAs<JSONNode>(colony.ColonyID.ToString(), out var icl))
+            if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var icl))
             {
                 if (!ItemCrateLocations.ContainsKey(colony))
                     ItemCrateLocations.Add(colony, new Dictionary<ushort, List<Vector3Int>>());
@@ -261,6 +259,10 @@ namespace Pandaros.Civ.Storage
             if (tryChangeBlockData.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player && colony != null)
                 if (CrateTypes.TryGetValue(tryChangeBlockData.TypeOld.Name, out var oldCrate))
                 {
+                    /// empty the crate. TODO may want to do something other than magically teleporting.
+                    if(CrateLocations[colony].TryGetValue(tryChangeBlockData.Position, out var inv))
+                        StoreItems(colony, inv.Contents.Values);
+
                     CrateLocations[colony].Remove(tryChangeBlockData.Position);
 
                     foreach (var item in ItemCrateLocations[colony])

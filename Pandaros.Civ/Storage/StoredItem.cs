@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Newtonsoft.Json;
+using Pandaros.API;
 using Pandaros.API.Models;
 using Steamworks;
 using System;
@@ -18,15 +19,16 @@ namespace Pandaros.Civ.Storage
         { 
             get
             {
-                return Id;
+                return Id.Name;
             }
             set
             {
                 Id = ItemId.GetItemId(value);
             }
         }
+
         [JsonIgnore]
-        public ItemId Id { get; set; }
+        public ItemId Id { get; set; } = ColonyBuiltIn.ItemTypes.AIR;
         public StorageType StorageType { get; set; }
         public ServerTimeStamp TTL { get; set; }
 

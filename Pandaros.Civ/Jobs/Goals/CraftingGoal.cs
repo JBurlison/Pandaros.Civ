@@ -23,7 +23,6 @@ namespace Pandaros.Civ.Jobs.Goals
             CurrentlyCrafing.Add(this);
             Job = job;
             CraftingJobSettings = settings;
-           
         }
 
         public CraftingJobInstance CraftingJobInstance { get; set; }
@@ -38,6 +37,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual Vector3Int GetPosition()
         {
+            if (!CraftingJobInstance.IsValid)
+            {
+                CurrentlyCrafing.Remove(this);
+                return Job.Owner.Banners.First().Position;
+            }
             return ((BlockJobInstance)Job).Position;
         }
 
