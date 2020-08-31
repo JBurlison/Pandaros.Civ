@@ -1,6 +1,8 @@
 ﻿using BlockTypes;
 using Jobs;
 using NPC;
+using Pandaros.API;
+using Pandaros.Civ.Storage;
 using Pipliz;
 using Recipes;
 using Shared;
@@ -12,6 +14,39 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
+
+    public class CraftingRequests : ICrateRequest
+    {
+        public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
+        {
+            var items = new Dictionary<ushort, StoredItem>();
+            foreach (var crafter in CraftingGoal.CurrentlyCrafing)
+            {
+                if (StorageFactory.CrateLocations.TryGetValue(crafter.Job.Owner, out var crateLocs))
+                {
+                    if (!crateLocs.ContainsKey(crafter.ClosestCrate))
+                        crafter.ClosestCrate = crafter.CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[crafter.Job.Owner].Keys.ToList());
+
+                    if (crafter.ClosestCrate == crateLocation)
+                    {
+                        var maxSize = StorageFactory.CrateLocations[crafter.Job.Owner][crateLocation].CrateType.MaxCrateStackSize;
+
+                        if (crafter.CraftingJobInstance.SelectedRecipe != null)
+                        {
+                            items.AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements, maxSize);
+                        }
+
+                        if (crafter.NextRecipe.FoundRecipe != null)
+                        {
+                            items.AddRange(crafter.NextRecipe.FoundRecipe.Requirements, maxSize);
+                        }
+                    }
+                }
+            }
+
+            return items;
+        }
+    }
     public class CraftingGoal : INpcGoal
     {
         public static List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
@@ -23,8 +58,10 @@ namespace Pandaros.Civ.Jobs.Goals
             CurrentlyCrafing.Add(this);
             Job = job;
             CraftingJobSettings = settings;
+            ClosestCrate = CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
         }
 
+        public Vector3Int ClosestCrate { get; set; }
         public CraftingJobInstance CraftingJobInstance { get; set; }
         public CraftingJobSettings CraftingJobSettings { get; set; }
         public IPandaJobSettings JobSettings { get; set; }

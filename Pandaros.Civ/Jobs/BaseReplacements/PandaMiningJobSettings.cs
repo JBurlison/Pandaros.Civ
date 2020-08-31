@@ -36,10 +36,13 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
 			if (!OriginalPosition.ContainsKey(instance))
 				OriginalPosition[instance] = instance.Position;
 
-			if (!CurrentGoal.ContainsKey(instance))
-				CurrentGoal[instance] = new MiningGoal(instance, this);
+            if (!CurrentGoal.TryGetValue(instance, out var goal))
+            {
+                goal = new MiningGoal(instance, this);
+                CurrentGoal[instance] = goal;
+            }
 
-			return CurrentGoal[instance].GetPosition();
+			return goal.GetPosition();
 		}
 
 		public override void OnNPCAtJob(BlockJobInstance blockJobInstance, ref NPCBase.NPCState state)

@@ -1,4 +1,6 @@
-﻿using Pandaros.Civ.Storage;
+﻿using NPC;
+using Pandaros.Civ.Storage;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +54,12 @@ namespace Pandaros.Civ
                         storedItem.Add(item.Type, new StoredItem(item.Type, stackCount));
                 }
             }
+        }
+
+        public static void Add(this NPCInventory inventory, IEnumerable<StoredItem> items)
+        {
+            foreach (var item in items)
+                inventory.Add(item);
         }
     }
 }

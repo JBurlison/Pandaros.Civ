@@ -5,6 +5,7 @@ using Pandaros.API.Entities;
 using Pandaros.API.Extender;
 using Pandaros.API.Models;
 using Pandaros.API.WorldGen;
+using Pandaros.Civ.Jobs;
 using Pandaros.Civ.TimePeriods;
 using Pipliz;
 using Pipliz.JSON;
@@ -31,6 +32,7 @@ namespace Pandaros.Civ.Storage
         public static Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>> CrateLocations { get; set; } = new Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>>();
         public static Dictionary<string, IStorageUpgradeBlock> StorageBlockTypes { get; set; } = new Dictionary<string, IStorageUpgradeBlock>();
         public static Dictionary<string, ICrate> CrateTypes { get; set; } = new Dictionary<string, ICrate>();
+        public static List<ICrateRequest> CrateRequests { get; set; } = new List<ICrateRequest>();
         public static Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>> ItemCrateLocations { get; set; } = new Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>>();
 
         public List<Type> LoadedAssembalies { get; } = new List<Type>();

@@ -78,20 +78,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CivLogger.cs" />
+    <Compile Include="Extender\Providers\CrateRequestProvider.cs" />
     <Compile Include="Extender\Providers\NPCTypeStandardSettingProvider.cs" />
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaCrafingSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaFarmingJob.cs" />
+    <Compile Include="Jobs\BaseReplacements\PandaGuardJobSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaMiningJobSettings.cs" />
     <Compile Include="Jobs\Goals\CraftingGoal.cs" />
     <Compile Include="Jobs\Goals\FarmingGoal.cs" />
+    <Compile Include="Jobs\Goals\GuardGoal.cs" />
     <Compile Include="Jobs\Goals\MiningGoal.cs" />
     <Compile Include="Jobs\Goals\StockpikeToCrateGoal.cs" />
     <Compile Include="Jobs\Goals\CrateToStockpikeGoal.cs" />
     <Compile Include="Jobs\Goals\PutItemsInCrateGoal.cs" />
     <Compile Include="Jobs\Goals\GetItemsFromCrateGoal.cs" />
     <Compile Include="Jobs\Goals\StandAtJobGoal.cs" />
+    <Compile Include="Jobs\ICrateRequest.cs" />
     <Compile Include="Jobs\INpcGoal.cs" />
     <Compile Include="Jobs\IPandaJobSettings.cs" />
     <Compile Include="Jobs\NPCTypeStandardSettings.cs" />

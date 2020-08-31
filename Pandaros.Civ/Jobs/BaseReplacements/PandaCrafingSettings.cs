@@ -1,6 +1,8 @@
 ﻿using Jobs;
 using NPC;
+using Pandaros.API;
 using Pandaros.Civ.Jobs.Goals;
+using Pandaros.Civ.Storage;
 using Pipliz;
 using System;
 using System.Collections.Generic;
@@ -30,20 +32,20 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
 
         public override Vector3Int GetJobLocation(BlockJobInstance instance)
         {
-            if (!CurrentGoal.ContainsKey(instance))
-                CurrentGoal.Add(instance, new CraftingGoal(instance, this, this));
+            if (!CurrentGoal.TryGetValue(instance, out var goal))
+            {
+                goal = new CraftingGoal(instance, this, this);
+                CurrentGoal.Add(instance, goal);
+            }
 
             if (!OriginalPosition.ContainsKey(instance))
                 OriginalPosition.Add(instance, instance.Position);
 
-            return CurrentGoal[instance].GetPosition();
+            return goal.GetPosition();
         }
 
         public override void OnNPCAtJob(BlockJobInstance blockJobInstance, ref NPCBase.NPCState state)
         {
-            if (!OriginalPosition.ContainsKey(blockJobInstance))
-                OriginalPosition.Add(blockJobInstance, blockJobInstance.Position);
-
             CurrentGoal[blockJobInstance].PerformGoal(ref state);
         }
 

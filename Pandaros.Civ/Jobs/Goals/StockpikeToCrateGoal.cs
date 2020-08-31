@@ -1,4 +1,5 @@
 ﻿using Jobs;
+using ModLoaderInterfaces;
 using NPC;
 using Pandaros.API;
 using Pandaros.API.Extender;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class StockpikeToCrateGoal : INpcGoal, IOnTimedUpdate
+    public class StockpikeToCrateGoal : INpcGoal, IAfterWorldLoad, IOnQuit
     {
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
         public static Dictionary<Vector3Int, Dictionary<ushort, StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, Dictionary<ushort, StoredItem>>();
@@ -33,13 +34,8 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Stockpile;
-
-        public int NextUpdateTimeMinMs => 2500;
-
-        public int NextUpdateTimeMaxMs => 2500;
-
-        public ServerTimeStamp NextUpdateTime { get; set; }
         public bool CrateFull { get; set; }
+        bool _worldLoaded = false;
 
         public Vector3Int GetPosition()
         {
@@ -137,40 +133,58 @@ namespace Pandaros.Civ.Jobs.Goals
 
         }
 
-        public void OnTimedUpdate()
+        public void AfterWorldLoad()
         {
-            int retry = 0;
+            _worldLoaded = true;
 
-            while (retry < 3)
+            Task.Run(() =>
             {
-                ItemsNeeded.Clear();
-                try
+                while (_worldLoaded)
                 {
-                    foreach (var crafter in CraftingGoal.CurrentlyCrafing)
+                    int retry = 0;
+
+                    while (retry < 3)
                     {
-                        var jobLoc = crafter.Job.GetJobLocation();
-                        var crate = jobLoc.GetClosestPosition(StorageFactory.CrateLocations[crafter.Job.Owner].Keys.ToList());
-                        ItemsNeeded[crate] = new Dictionary<ushort, StoredItem>();
-                        var maxSize = StorageFactory.CrateLocations[crafter.Job.Owner][crate].CrateType.MaxCrateStackSize;
-
-                        if (crafter.CraftingJobInstance.SelectedRecipe != null)
+                        ItemsNeeded.Clear();
+                        try
                         {
-                            ItemsNeeded[crate].AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements, maxSize);
+                            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.ValsRaw)
+                                foreach (var crate in StorageFactory.CrateLocations[colony].Keys)
+                                    foreach (var request in StorageFactory.CrateRequests)
+                                    {
+                                        var needed = request.GetItemsNeeded(crate);
+                                       
+                                        foreach (var need in needed)
+                                        {
+                                            if (!ItemsNeeded.TryGetValue(crate, out var items))
+                                            {
+                                                items = new Dictionary<ushort, StoredItem>();
+                                                ItemsNeeded[crate] = items;
+                                            }
+
+                                            if (items.TryGetValue(need.Key, out var storedItem))
+                                                storedItem.Add(needed.Count);
+                                            else
+                                                items[need.Key] = need.Value;
+                                        }
+                                    }
+
+                            retry = int.MaxValue;
                         }
-
-                        if (crafter.NextRecipe.FoundRecipe != null)
+                        catch (Exception) // a job could have been removed.
                         {
-                            ItemsNeeded[crate].AddRange(crafter.NextRecipe.FoundRecipe.Requirements, maxSize);
+                            retry++;
                         }
                     }
 
-                    retry = int.MaxValue;
+                    Task.Delay(5000);
                 }
-                catch (Exception) // a job could have been removed.
-                {
-                    retry++;
-                }
-            }
+            });
+        }
+
+        public void OnQuit()
+        {
+            _worldLoaded = false;
         }
     }
 }
