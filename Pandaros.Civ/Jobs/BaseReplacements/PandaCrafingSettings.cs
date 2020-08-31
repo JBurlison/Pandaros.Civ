@@ -25,6 +25,14 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             RecruitmentItem = settings.RecruitmentItem;
         }
 
+        public PandaCrafingSettings()
+        {
+        }
+
+        public PandaCrafingSettings(string blockType, string npcTypeKey, float craftingCooldown = 5, int maxCraftsPerHaul = 5, string onCraftedAudio = null) : base(blockType, npcTypeKey, craftingCooldown, maxCraftsPerHaul, onCraftedAudio)
+        {
+        }
+
         public Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
         public Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
 

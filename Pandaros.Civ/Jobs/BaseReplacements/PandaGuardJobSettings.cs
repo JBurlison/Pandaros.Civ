@@ -34,6 +34,14 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             OnHitAudio = settings.OnHitAudio;
         }
 
+        public PandaGuardJobSettings()
+        {
+        }
+
+        public PandaGuardJobSettings(GuardJobSettingData data) : base(data)
+        {
+        }
+
         public Dictionary<IJob, Pipliz.Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Pipliz.Vector3Int>();
         public Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
 
@@ -41,10 +49,15 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
 
         public override Pipliz.Vector3Int GetJobLocation(BlockJobInstance instance)
         {
+            if (!CurrentGoal.TryGetValue(instance, out var goal))
+            {
+                goal = new GuardGoal(instance as GuardJobInstance, this);
+                CurrentGoal[instance] = goal;
+            }
             if (!OriginalPosition.ContainsKey(instance))
                 OriginalPosition[instance] = instance.Position;
 
-            return CurrentGoal[instance].GetPosition();
+            return goal.GetPosition();
         }
 
         public override void OnNPCAtJob(BlockJobInstance blockInstance, ref NPCBase.NPCState state)

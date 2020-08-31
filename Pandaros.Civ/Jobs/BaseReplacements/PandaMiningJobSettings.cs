@@ -26,6 +26,10 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             RecruitmentItem = minerJobSettings.RecruitmentItem;
         }
 
+        public PandaMiningJobSettings()
+        {
+        }
+
         public Dictionary<IJob, Pipliz.Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Pipliz.Vector3Int>();
 		public Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
 
