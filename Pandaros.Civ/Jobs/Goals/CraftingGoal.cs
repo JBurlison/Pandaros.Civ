@@ -20,16 +20,18 @@ namespace Pandaros.Civ.Jobs.Goals
         public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
         {
             var items = new Dictionary<ushort, StoredItem>();
+
+            lock(CraftingGoal.CurrentlyCrafing)
             foreach (var crafter in CraftingGoal.CurrentlyCrafing)
             {
                 if (StorageFactory.CrateLocations.TryGetValue(crafter.Job.Owner, out var crateLocs))
                 {
                     if (!crateLocs.ContainsKey(crafter.ClosestCrate))
-                        crafter.ClosestCrate = crafter.CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[crafter.Job.Owner].Keys.ToList());
+                        crafter.ClosestCrate = crafter.CraftingJobInstance.Position.GetClosestPosition(crateLocs.Keys.ToList());
 
                     if (crafter.ClosestCrate == crateLocation)
                     {
-                        var maxSize = StorageFactory.CrateLocations[crafter.Job.Owner][crateLocation].CrateType.MaxCrateStackSize;
+                        var maxSize = crateLocs[crateLocation].CrateType.MaxCrateStackSize;
 
                         if (crafter.CraftingJobInstance.SelectedRecipe != null)
                         {
@@ -55,6 +57,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             CraftingJobInstance = job as CraftingJobInstance;
             JobSettings = jobSettings;
+            lock(CraftingGoal.CurrentlyCrafing)
             CurrentlyCrafing.Add(this);
             Job = job;
             CraftingJobSettings = settings;
@@ -76,7 +79,8 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (!CraftingJobInstance.IsValid)
             {
-                CurrentlyCrafing.Remove(this);
+                lock (CraftingGoal.CurrentlyCrafing)
+                    CurrentlyCrafing.Remove(this);
                 LeavingJob();
                 return Job.Owner.Banners.First().Position;
             }
@@ -91,12 +95,15 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void SetAsGoal()
         {
-            CurrentlyCrafing.Add(this);
+            lock (CraftingGoal.CurrentlyCrafing)
+                if(!CurrentlyCrafing.Contains(this))
+                    CurrentlyCrafing.Add(this);
         }
 
         public virtual void LeavingJob()
         {
-            CurrentlyCrafing.Remove(this);
+            lock (CraftingGoal.CurrentlyCrafing)
+                CurrentlyCrafing.Remove(this);
         }
 
         public virtual void PerformGoal(ref NPCBase.NPCState state)

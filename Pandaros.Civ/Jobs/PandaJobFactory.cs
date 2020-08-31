@@ -9,6 +9,7 @@ using Jobs;
 using Jobs.Implementations;
 using ModLoaderInterfaces;
 using NPC;
+using Pandaros.API;
 using Pandaros.API.Entities;
 using Pandaros.API.Extender;
 using Pandaros.Civ.Extender;
@@ -20,7 +21,7 @@ namespace Pandaros.Civ.Jobs
 {
     public class PandaJobFactory : IOnRegisteringEntityManagers
     {
-
+        [ModLoader.ModCallbackDependsOn(GameInitializer.NAMESPACE + ".SettlerManager.OnNPCJobChanged")]
         public void OnRegisteringEntityManagers(List<object> managers)
         {
             foreach (var manager in managers)

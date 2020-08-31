@@ -29,8 +29,8 @@ namespace Pandaros.Civ.PreHistory.Items
         public CarvedLog()
         {
             name = Name;
-            GlobalStorageUpgrade = 4;
-            CategoryStorageUpgrades.Add("food", 4);
+            GlobalStorageUpgrade = 8;
+            CategoryStorageUpgrades.Add("food", 8);
             sideall = GameSetup.Textures.SELF;
             categories = new List<string>()
             {

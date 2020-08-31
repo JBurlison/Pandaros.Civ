@@ -75,6 +75,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 var locations = PorterJob.OriginalPosition.SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys);
                 var nexPos = Vector3Int.invalidPos;
 
+                lock(ItemsNeeded)
                 foreach (var location in locations)
                     if (!LastCratePosition.Contains(location) &&
                         !InProgress.Contains(location) &&
@@ -145,35 +146,39 @@ namespace Pandaros.Civ.Jobs.Goals
 
                     while (retry < 3)
                     {
-                        ItemsNeeded.Clear();
-                        try
+                        lock (ItemsNeeded)
                         {
-                            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.ValsRaw)
-                                foreach (var crate in StorageFactory.CrateLocations[colony].Keys)
-                                    foreach (var request in StorageFactory.CrateRequests)
-                                    {
-                                        var needed = request.GetItemsNeeded(crate);
-                                       
-                                        foreach (var need in needed)
-                                        {
-                                            if (!ItemsNeeded.TryGetValue(crate, out var items))
+                            ItemsNeeded.Clear();
+                            try
+                            {
+                                foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
+                                    if (colony != null && StorageFactory.CrateLocations.TryGetValue(colony, out var dict))
+                                        foreach (var crate in dict.Keys)
+                                            foreach (var request in StorageFactory.CrateRequests)
                                             {
-                                                items = new Dictionary<ushort, StoredItem>();
-                                                ItemsNeeded[crate] = items;
+                                                var needed = request.GetItemsNeeded(crate);
+
+                                                foreach (var need in needed)
+                                                {
+                                                    if (!ItemsNeeded.TryGetValue(crate, out var items))
+                                                    {
+                                                        items = new Dictionary<ushort, StoredItem>();
+                                                        ItemsNeeded[crate] = items;
+                                                    }
+
+                                                    if (items.TryGetValue(need.Key, out var storedItem))
+                                                        storedItem.Add(needed.Count);
+                                                    else
+                                                        items[need.Key] = need.Value;
+                                                }
                                             }
 
-                                            if (items.TryGetValue(need.Key, out var storedItem))
-                                                storedItem.Add(needed.Count);
-                                            else
-                                                items[need.Key] = need.Value;
-                                        }
-                                    }
-
-                            retry = int.MaxValue;
-                        }
-                        catch (Exception) // a job could have been removed.
-                        {
-                            retry++;
+                                retry = int.MaxValue;
+                            }
+                            catch (Exception) // a job could have been removed.
+                            {
+                                retry++;
+                            }
                         }
                     }
 

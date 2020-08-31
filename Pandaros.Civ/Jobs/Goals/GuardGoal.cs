@@ -23,18 +23,20 @@ namespace Pandaros.Civ.Jobs.Goals
         public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
         {
             var items = new Dictionary<ushort, StoredItem>();
+
+            lock(GuardGoal.CurrentGuards)
             foreach (var guard in GuardGoal.CurrentGuards)
             {
                 if (StorageFactory.CrateLocations.TryGetValue(guard.Job.Owner, out var crateLocs))
                 {
                     if (!crateLocs.ContainsKey(guard.ClosestCrate))
-                        guard.ClosestCrate = guard.GuardJob.Position.GetClosestPosition(StorageFactory.CrateLocations[guard.Job.Owner].Keys.ToList());
+                        guard.ClosestCrate = guard.GuardJob.Position.GetClosestPosition(crateLocs.Keys.ToList());
 
                     if (guard.ClosestCrate == crateLocation)
                     {
-                        var maxSize = StorageFactory.CrateLocations[guard.Job.Owner][crateLocation].CrateType.MaxCrateStackSize;
+                        var maxSize = crateLocs[crateLocation].CrateType.MaxCrateStackSize;
 
-                        if (guard.GuardSettings.ShootItem != null)
+                        if (guard?.GuardSettings?.ShootItem != null)
                             items.AddRange(guard.GuardSettings.ShootItem, maxSize);
                     }
                 }
@@ -54,7 +56,9 @@ namespace Pandaros.Civ.Jobs.Goals
             Job = job;
             JobSettings = settings;
             GuardSettings = settings;
-            CurrentGuards.Add(this);
+
+            lock (CurrentGuards)
+                CurrentGuards.Add(this);
         }
 
         public Vector3Int ClosestCrate { get; set; }
@@ -77,7 +81,8 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingJob()
         {
-            CurrentGuards.Remove(this);
+            lock (CurrentGuards)
+                CurrentGuards.Remove(this);
         }
 
         public void PerformGoal(ref NPCBase.NPCState state)
