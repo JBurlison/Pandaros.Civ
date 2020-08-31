@@ -14,8 +14,8 @@ namespace Pandaros.Civ.PreHistory.Items
     public class BasicCrate : CSType, ICrate
     {
         public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "BasicCrate");
-        public int MaxCrateStackSize { get; set; } = 300;
-        public int MaxNumberOfStacks { get; set; } = 32;
+        public int MaxCrateStackSize { get; set; } = 100;
+        public int MaxNumberOfStacks { get; set; } = 5;
 
         public BasicCrate()
         {

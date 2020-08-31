@@ -25,7 +25,9 @@ namespace Pandaros.Civ.Jobs
         {
             foreach (var manager in managers)
             {
-                if (manager is BlockJobManager<CraftingJobInstance> cji)
+                if (manager is BlockJobManager<MinerJobInstance> mji)
+                    mji.Settings = new PandaMiningJobSettings(mji.Settings as MinerJobSettings);
+                else if (manager is BlockJobManager<CraftingJobInstance> cji)
                     cji.Settings = new PandaCrafingSettings(cji.Settings as CraftingJobSettings);
 
             }

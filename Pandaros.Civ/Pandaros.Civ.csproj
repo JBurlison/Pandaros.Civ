@@ -82,7 +82,11 @@
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="GameSetup.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaCrafingSettings.cs" />
+    <Compile Include="Jobs\BaseReplacements\PandaFarmingJob.cs" />
+    <Compile Include="Jobs\BaseReplacements\PandaMiningJobSettings.cs" />
     <Compile Include="Jobs\Goals\CraftingGoal.cs" />
+    <Compile Include="Jobs\Goals\FarmingGoal.cs" />
+    <Compile Include="Jobs\Goals\MiningGoal.cs" />
     <Compile Include="Jobs\Goals\StockpikeToCrateGoal.cs" />
     <Compile Include="Jobs\Goals\CrateToStockpikeGoal.cs" />
     <Compile Include="Jobs\Goals\PutItemsInCrateGoal.cs" />

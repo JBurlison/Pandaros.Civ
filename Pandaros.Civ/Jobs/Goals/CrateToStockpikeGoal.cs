@@ -53,7 +53,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 // No new goal. go back to job pos.
                 if (CurrentCratePosition == Vector3Int.invalidPos)
                 {
-                    CurrentCratePosition = PorterJob.OriginalPosition;
+                    return PorterJob.OriginalPosition;
                 }
 
                 return CurrentCratePosition;
@@ -81,32 +81,29 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void PerformGoal(ref NPCBase.NPCState state)
         {
+            state.JobIsDone = true;
+
             if (WalkingTo == StorageType.Crate)
             {
-                if (CurrentCratePosition == PorterJob.OriginalPosition || CurrentCratePosition == Vector3Int.invalidPos)
-                {
-                    state.SetCooldown(10);
-                    JobSettings.SetGoal(Job, new StockpikeToCrateGoal(Job, JobSettings), ref state);
-                }
-                else
-                {
-                    state.SetCooldown(5);
-                    state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
+                state.SetCooldown(5);
 
-                    if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var locs))
+                if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var locs))
+                {
+                    if (locs.TryGetValue(CurrentCratePosition, out var crate))
                     {
-                        if (locs.TryGetValue(CurrentCratePosition, out var crate))
-                        {
-                            ToStockpike = crate.StorageTypeLookup[StorageType.Stockpile].ToArray();
-                            crate.TryTake(ToStockpike);
-                            WalkingTo = StorageType.Stockpile;
-                        }
-                        else
-                            CivLogger.Log(ChatColor.red, "Crate locations does not contain location {0}", CurrentCratePosition);
+                        state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
+                        ToStockpike = crate.StorageTypeLookup[StorageType.Stockpile].ToArray();
+                        crate.TryTake(ToStockpike);
+                        WalkingTo = StorageType.Stockpile;
                     }
                     else
-                        CivLogger.Log(ChatColor.red, "Crate locations does not contain colony id {0}", Job.Owner.ColonyID);
+                    {
+                        state.SetCooldown(10);
+                        JobSettings.SetGoal(Job, new StockpikeToCrateGoal(Job, JobSettings), ref state);
+                    }
                 }
+                else
+                    CivLogger.Log(ChatColor.red, "Crate locations does not contain colony id {0}", Job.Owner.ColonyID);
             }
             else
             {

@@ -48,14 +48,9 @@ namespace Pandaros.Civ.Storage
                 if (Contents.Count >= CrateType.MaxNumberOfStacks - 2)
                     return true;
 
-                int numberAtMax = 0;
-
                 foreach (var item in Contents.Values)
-                    if (item.Amount >= item.MaxAmount - 5)
-                        numberAtMax++;
-
-                if (numberAtMax >= CrateType.MaxNumberOfStacks - 2)
-                    return true;
+                    if (item.Amount >= item.MaxAmount / 2)
+                        return true;
 
                 return false;
             }
