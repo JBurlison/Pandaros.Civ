@@ -1,4 +1,6 @@
 ﻿using ModLoaderInterfaces;
+using NetworkUI;
+using NetworkUI.Items;
 using Newtonsoft.Json;
 using Pandaros.API;
 using Pandaros.API.Entities;
@@ -20,6 +22,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Storage
 {
+    [ModLoader.ModManager]
     public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad, IOnSavingColony, IOnLoadingColony
     {
         public int NextUpdateTimeMinMs => 2000;
@@ -42,6 +45,63 @@ namespace Pandaros.Civ.Storage
         public Type ClassType { get; }
 
         static bool _worldLoaded = false;
+
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.OnConstructTooltipUI, GameSetup.NAMESPACE + ".Storage.StorageFactory.ConstructTooltip")]
+        static void ConstructTooltip(ConstructTooltipUIData data)
+        {
+            if (data.hoverType != Shared.ETooltipHoverType.Item ||
+                data.player.ID.type == NetworkID.IDType.Server ||
+                data.player.ID.type == NetworkID.IDType.Invalid ||
+                !ItemTypes.TryGetType(data.hoverItem, out var item))
+                return;
+
+
+            if (CrateTypes.TryGetValue(item.Name, out var crate))
+            {
+                data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("storage.MaxCrateStackSize"))), 200),
+                                                        (new Label(new LabelData(crate.MaxCrateStackSize.ToString())), 60)
+                                                    }));
+                data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("storage.MaxNumberOfStacks"))), 200),
+                                                        (new Label(new LabelData(crate.MaxNumberOfStacks.ToString())), 60)
+                                                    }));
+            }
+            
+            if (StorageBlockTypes.TryGetValue(item.Name, out var upgrade))
+            {
+                data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("storage.GlobalStorageUpgrade"))), 200),
+                                                        (new Label(new LabelData(upgrade.GlobalStorageUpgrade.ToString())), 60)
+                                                    }));
+
+
+                if (upgrade.CategoryStorageUpgrades.Count > 0)
+                {
+                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("storage.CategoryStoreUpgrades"))));
+                    foreach (var csu in upgrade.CategoryStorageUpgrades)
+                        data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(csu.Key)), 200),
+                                                        (new Label(new LabelData(csu.Value.ToString())), 60)
+                                                    }));
+                }
+
+                if (upgrade.ItemStorageUpgrades.Count > 0)
+                {
+                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("storage.ItemStoreUpgrades"))));
+                    foreach (var csu in upgrade.ItemStorageUpgrades)
+                        data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(csu.Key, ELabelAlignment.Default, 16, LabelData.ELocalizationType.Type)), 200),
+                                                        (new Label(new LabelData(csu.Value.ToString())), 60)
+                                                    }));
+                }
+            }
+        }
 
         public void OnSavingColony(Colony colony, JSONNode data)
         {

@@ -27,7 +27,7 @@ namespace Pandaros.Civ.Storage
         public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "StockpileBlock.png");
     }
 
-    public class StockpileBlock : CSType, IStorageUpgradeBlock, IAfterItemTypesDefined, IOnSendAreaHighlights, IOnTryChangeBlock, IOnLoadingColony, IOnSavingColony
+    public class StockpileBlock : CSType, IStorageUpgradeBlock, IOnSendAreaHighlights, IOnTryChangeBlock, IOnLoadingColony, IOnSavingColony
     {
         public static string Name { get; } = GameSetup.GetNamespace("Storage", "StockpileBlock");
         public static LocalizationHelper LocalizationHelper { get; set; } = new LocalizationHelper(GameSetup.NAMESPACE, "Stockpile");
@@ -78,11 +78,10 @@ namespace Pandaros.Civ.Storage
             icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
             GlobalStorageUpgrade = 100;
             CategoryStorageUpgrades.Add("food", 50);
-        }
-
-        public void AfterItemTypesDefined()
-        {
-            StarterPacks.Manager.PrimaryStockpileStart.Items.Add(new InventoryItem(name)); // = new List<InventoryItem>() { new InventoryItem(name) };
+            StaticItemSettings = new API.Items.StaticItems.StaticItem()
+            {
+                Name = name
+            };
         }
 
         public void OnSendAreaHighlights(Players.Player player, List<AreaJobTracker.AreaHighlight> list, List<ushort> showWhileHoldingTypes)

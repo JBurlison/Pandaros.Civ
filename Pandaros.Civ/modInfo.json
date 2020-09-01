@@ -9,6 +9,13 @@
     "compatibleversions": [
       "0.7.4"
     ],
+    "jsonFiles": [
+      {
+        "fileType": "addOrOverrideLocalization",
+        "relativePath": "Localization/en-US/en-US.json",
+        "index": -99998
+      }
+    ],
     "website": "https://github.com/JBurlison/Pandaros.Civ/wiki",
     "about": "Civilization through the ages. A Colony Survival Mod!",
     "patchnotes": [
