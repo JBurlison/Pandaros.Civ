@@ -100,6 +100,7 @@
     <Compile Include="Jobs\Goals\PutItemsInCrateGoal.cs" />
     <Compile Include="Jobs\Goals\GetItemsFromCrateGoal.cs" />
     <Compile Include="Jobs\Goals\StandAtJobGoal.cs" />
+    <Compile Include="Jobs\Goals\WaterGatherGoal.cs" />
     <Compile Include="Jobs\ICrateRequest.cs" />
     <Compile Include="Jobs\INpcGoal.cs" />
     <Compile Include="Jobs\IPandaJobSettings.cs" />

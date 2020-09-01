@@ -30,6 +30,8 @@ namespace Pandaros.Civ.Jobs
                     mji.Settings = new PandaMiningJobSettings(mji.Settings as MinerJobSettings);
                 else if (manager is BlockJobManager<GuardJobInstance> gji)
                     gji.Settings = new PandaGuardJobSettings(gji.Settings as GuardJobSettings);
+                else if (manager is BlockJobManager<CraftingJobWaterInstance> cjwi)
+                    cjwi.Settings = new PandaCraftingJobWaterSettings(cjwi.Settings as CraftingJobWaterSettings);
                 else if (manager is BlockJobManager<CraftingJobInstance> cji)
                 {
                     if (cji.Settings is CraftingJobRotatedLitSettings cjrls)

@@ -23,7 +23,8 @@ namespace Pandaros.Civ.PreHistory.Items
             sideall = "planks";
             categories = new List<string>()
             {
-                "storage"
+                "storage",
+                GameSetup.NAMESPACE
             };
             isSolid = true;
             icon = GameSetup.Textures.GetPath(TextureType.icon, "crate.png");

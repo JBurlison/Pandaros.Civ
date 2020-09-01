@@ -75,13 +75,6 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual Vector3Int GetPosition()
         {
-            if (!CraftingJobInstance.IsValid)
-            {
-                CurrentlyCrafing.Remove(this);
-                LeavingJob();
-                return Job.Owner.Banners.First().Position;
-            }
-
             return ((BlockJobInstance)Job).Position;
         }
 
@@ -98,8 +91,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void LeavingJob()
         {
-            lock (CraftingGoal.CurrentlyCrafing)
-                CurrentlyCrafing.Remove(this);
+            CurrentlyCrafing.Remove(this);
         }
 
         public virtual void PerformGoal(ref NPCBase.NPCState state)
@@ -236,12 +228,12 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (CraftingJobInstance.SelectedRecipe != null)
             {
-                state.Inventory.Add(CraftingJobInstance.SelectedRecipe.Requirements.ToList());
+                state.Inventory.Add(CraftingJobInstance.SelectedRecipe.Requirements.ToList(), CraftingJobInstance.SelectedRecipeCount);
                 JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements), ref state);
             }
             else if (NextRecipe.MatchType != Recipe.RecipeMatchType.Invalid)
             {
-                state.Inventory.Add(NextRecipe.FoundRecipe.Requirements.ToList());
+                state.Inventory.Add(NextRecipe.FoundRecipe.Requirements.ToList(), NextRecipe.FoundRecipeCount);
                 JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, NextRecipe.FoundRecipe.Requirements), ref state);
             }
         }

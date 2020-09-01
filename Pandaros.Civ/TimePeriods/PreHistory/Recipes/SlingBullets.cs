@@ -33,5 +33,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
         public int defaultLimit => 50;
 
         public string Job => StonePuncher.Name;
+
+        public string JobBlock => StonePuncher.Name;
     }
 }

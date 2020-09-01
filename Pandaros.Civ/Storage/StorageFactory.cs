@@ -316,6 +316,9 @@ namespace Pandaros.Civ.Storage
             if (!StockpileMaxStackSize.ContainsKey(colony))
                 StockpileMaxStackSize[colony] = new Dictionary<ushort, int>();
 
+            if (total == 0)
+                total = StorageBlockTypes[StockpileBlock.Name].GlobalStorageUpgrade;
+
             foreach (var item in ItemTypes._TypeByUShort.Values)
             {
                 var totalStack = total;

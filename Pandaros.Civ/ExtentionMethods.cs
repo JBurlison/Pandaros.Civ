@@ -61,5 +61,13 @@ namespace Pandaros.Civ
             foreach (var item in items)
                 inventory.Add(item);
         }
+
+        public static void Add(this NPCInventory inventory, IEnumerable<InventoryItem> items, int multiplier)
+        {
+            foreach (var item in items)
+            {
+                inventory.Add(item * multiplier);
+            }
+        }
     }
 }
