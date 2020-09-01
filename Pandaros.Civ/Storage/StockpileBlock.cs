@@ -90,7 +90,13 @@ namespace Pandaros.Civ.Storage
             if (player.ActiveColony != null)
             {
                 var cs = ColonyState.GetColonyState(player.ActiveColony);
-                
+
+                foreach (var item in StorageFactory.StorageBlockTypes.Values)
+                    showWhileHoldingTypes.AddIfUnique(ItemId.GetItemId(item.name));
+
+                foreach (var item in StorageFactory.CrateTypes.Values)
+                    showWhileHoldingTypes.AddIfUnique(ItemId.GetItemId(item.name));
+
                 if (cs.Positions.TryGetValue(Name, out var pos))
                 {
                     var currentPeriod = PeriodFactory.GetTimePeriod(player.ActiveColony);
