@@ -89,7 +89,9 @@ namespace Pandaros.Civ.Jobs.Goals
             StoredItem[] remaining = new StoredItem[0];
             state.JobIsDone = true;
             state.SetCooldown(_waitTime);
-            state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
+
+            if (remaining != null && remaining.Length != 0)
+                state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
 
             if (WalkingTo == StorageType.Crate)
             {
