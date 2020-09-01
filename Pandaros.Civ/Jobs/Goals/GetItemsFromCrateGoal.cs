@@ -88,6 +88,8 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             StoredItem[] remaining = new StoredItem[0];
             state.JobIsDone = true;
+            state.SetCooldown(_waitTime);
+            state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
 
             if (WalkingTo == StorageType.Crate)
             {
@@ -103,14 +105,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (remaining.Length != 0)
             {
-                state.SetCooldown(_waitTime);
-                state.SetIndicator(new Shared.IndicatorState(_waitTime, remaining.FirstOrDefault().Id.Name, true, false));
                 ItemsToGet = remaining;
                 LastCratePosition.Add(CurrentCratePosition);
             }
             else
             {
-                state.SetCooldown(0.2, 0.4);
                 JobSettings.SetGoal(Job, NextGoal, ref state);
             }
         }

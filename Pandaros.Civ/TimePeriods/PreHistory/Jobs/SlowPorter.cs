@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 {
@@ -29,22 +30,23 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         }
     }
 
+    public class SlowPorterSettings : INPCTypeStandardSettings
+    {
+        public string keyName { get; set; } = SlowPorter.Name;
+        public string printName { get; set; } = "Pre-History Porter";
+        public float inventoryCapacity { get; set; } = 300f;
+        public float movementSpeed { get; set; } = 1.5f;
+        public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
+        public Color32 maskColor0 { get; set; }
+    }
+
     public class SlowPorter : PorterJobSettings
     {
         public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorter));
 
         public SlowPorter() : base(Name, Name)
         {
-            NPCType.AddSettings(new NPCTypeStandardSettings
-            {
-                keyName = Name,
-                printName = "Pre-History Porter",
-                maskColor1 = new UnityEngine.Color32(242, 132, 29, 255),
-                type = NPCTypeID.GetNextID(),
-                inventoryCapacity = 500f
-            });
-
-            NPCType = NPCType.GetByKeyNameOrDefault(Name);
+            
         }
     }
 

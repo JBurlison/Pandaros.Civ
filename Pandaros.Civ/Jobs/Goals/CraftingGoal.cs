@@ -174,7 +174,7 @@ namespace Pandaros.Civ.Jobs.Goals
             GetNextRecipe(ref state);
         }
 
-        private void StopCrafting()
+        public virtual void StopCrafting()
         {
             if (CraftingJobInstance.IsCrafting)
             {
@@ -224,7 +224,7 @@ namespace Pandaros.Civ.Jobs.Goals
             }
         }
 
-        private void PutItemsInCrate(ref NPCBase.NPCState state)
+        public virtual void PutItemsInCrate(ref NPCBase.NPCState state)
         {
             JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList()), ref state);
             state.Inventory.Inventory.Clear();
