@@ -21,7 +21,6 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             var items = new Dictionary<ushort, StoredItem>();
 
-            lock(CraftingGoal.CurrentlyCrafing)
             foreach (var crafter in CraftingGoal.CurrentlyCrafing)
             {
                 if (StorageFactory.CrateLocations.TryGetValue(crafter.Job.Owner, out var crateLocs))
@@ -57,7 +56,6 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             CraftingJobInstance = job as CraftingJobInstance;
             JobSettings = jobSettings;
-            lock(CraftingGoal.CurrentlyCrafing)
             CurrentlyCrafing.Add(this);
             Job = job;
             CraftingJobSettings = settings;
@@ -79,8 +77,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (!CraftingJobInstance.IsValid)
             {
-                lock (CraftingGoal.CurrentlyCrafing)
-                    CurrentlyCrafing.Remove(this);
+                CurrentlyCrafing.Remove(this);
                 LeavingJob();
                 return Job.Owner.Banners.First().Position;
             }
@@ -95,9 +92,8 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void SetAsGoal()
         {
-            lock (CraftingGoal.CurrentlyCrafing)
-                if(!CurrentlyCrafing.Contains(this))
-                    CurrentlyCrafing.Add(this);
+            if(!CurrentlyCrafing.Contains(this))
+                CurrentlyCrafing.Add(this);
         }
 
         public virtual void LeavingJob()

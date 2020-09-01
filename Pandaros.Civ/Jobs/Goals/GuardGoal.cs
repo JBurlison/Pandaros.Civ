@@ -24,7 +24,6 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             var items = new Dictionary<ushort, StoredItem>();
 
-            lock(GuardGoal.CurrentGuards)
             foreach (var guard in GuardGoal.CurrentGuards)
             {
                 if (StorageFactory.CrateLocations.TryGetValue(guard.Job.Owner, out var crateLocs))
@@ -56,9 +55,7 @@ namespace Pandaros.Civ.Jobs.Goals
             Job = job;
             JobSettings = settings;
             GuardSettings = settings;
-
-            lock (CurrentGuards)
-                CurrentGuards.Add(this);
+            CurrentGuards.Add(this);
         }
 
         public Vector3Int ClosestCrate { get; set; }
@@ -81,8 +78,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingJob()
         {
-            lock (CurrentGuards)
-                CurrentGuards.Remove(this);
+            CurrentGuards.Remove(this);
         }
 
         public void PerformGoal(ref NPCBase.NPCState state)

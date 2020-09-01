@@ -13,6 +13,7 @@ namespace Pandaros.Civ.Jobs
 {
     public abstract class PorterJobSettings : IBlockJobSettings, IPandaJobSettings
     {
+        public static List<BlockJobInstance> PorterJobs { get; set; } = new List<BlockJobInstance>();
         public PorterJobSettings(string blockType, string npcTypeKey)
         {
             if (blockType != null)
@@ -51,12 +52,20 @@ namespace Pandaros.Civ.Jobs
             if (!OriginalPosition.ContainsKey(instance))
                 OriginalPosition.Add(instance, instance.Position);
 
+            if (!PorterJobs.Contains(instance))
+                PorterJobs.Add(instance);
+
             return CurrentGoal[instance].GetPosition();
         }
 
         public virtual void OnGoalChanged(BlockJobInstance instance, NPCBase.NPCGoal goalOld, NPCBase.NPCGoal goalNew)
         {
-            
+            if (!instance.IsValid)
+            {
+                PorterJobs.Remove(instance);
+                CurrentGoal.Remove(instance);
+                OriginalPosition.Remove(instance);
+            }
         }
 
         public virtual void OnNPCAtJob(BlockJobInstance instance, ref NPCBase.NPCState state)

@@ -30,6 +30,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public string LocalizationKey { get; set; }
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
+        public List<Vector3Int> ClosestLocations { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Crate;
         public StoredItem[] ToStockpike { get; set; }
 
@@ -37,9 +38,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (WalkingTo == StorageType.Crate)
             {
-                var locations = PorterJob.OriginalPosition.SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys);
-
-                foreach (var location in locations)
+                foreach (var location in ClosestLocations)
                     if (!LastCratePosition.Contains(location) &&
                         !InProgress.Contains(location) &&
                         StorageFactory.CrateLocations[Job.Owner][location].IsAlmostFull &&

@@ -14,8 +14,9 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class StockpikeToCrateGoal : INpcGoal, IAfterWorldLoad, IOnQuit
+    public class StockpikeToCrateGoal : INpcGoal, IOnTimedUpdate
     {
+        
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
         public static Dictionary<Vector3Int, Dictionary<ushort, StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, Dictionary<ushort, StoredItem>>();
         public StockpikeToCrateGoal() { }
@@ -33,9 +34,15 @@ namespace Pandaros.Civ.Jobs.Goals
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(StockpikeToCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
+        public List<Vector3Int> ClosestLocations { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Stockpile;
         public bool CrateFull { get; set; }
-        bool _worldLoaded = false;
+
+        public int NextUpdateTimeMinMs => 5000;
+
+        public int NextUpdateTimeMaxMs => 7000;
+
+        public ServerTimeStamp NextUpdateTime { get; set; }
 
         public Vector3Int GetPosition()
         {
@@ -72,11 +79,9 @@ namespace Pandaros.Civ.Jobs.Goals
                     CrateFull = false;
                 }
 
-                var locations = PorterJob.OriginalPosition.SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys);
                 var nexPos = Vector3Int.invalidPos;
 
-                lock(ItemsNeeded)
-                foreach (var location in locations)
+                foreach (var location in ClosestLocations)
                     if (!LastCratePosition.Contains(location) &&
                         !InProgress.Contains(location) &&
                         !StorageFactory.CrateLocations[Job.Owner][location].IsAlmostFull &&
@@ -134,62 +139,62 @@ namespace Pandaros.Civ.Jobs.Goals
 
         }
 
-        public void AfterWorldLoad()
+        public void OnTimedUpdate()
         {
-            _worldLoaded = true;
-
-            Task.Run(() =>
+            try
             {
-                while (_worldLoaded)
+                foreach (var job in PorterJobSettings.PorterJobs)
                 {
-                    int retry = 0;
+                    var settings = job.Settings as PorterJobSettings;
 
-                    while (retry < 3)
+                    if (settings.CurrentGoal.TryGetValue(job, out var goal) &&
+                        job != null &&
+                        job.Owner == null &&
+                        StorageFactory.CrateLocations.TryGetValue(job.Owner, out var crateLocations))
                     {
-                        lock (ItemsNeeded)
-                        {
-                            ItemsNeeded.Clear();
-                            try
-                            {
-                                foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
-                                    if (colony != null && StorageFactory.CrateLocations.TryGetValue(colony, out var dict))
-                                        foreach (var crate in dict.Keys)
-                                            foreach (var request in StorageFactory.CrateRequests)
-                                            {
-                                                var needed = request.GetItemsNeeded(crate);
-
-                                                foreach (var need in needed)
-                                                {
-                                                    if (!ItemsNeeded.TryGetValue(crate, out var items))
-                                                    {
-                                                        items = new Dictionary<ushort, StoredItem>();
-                                                        ItemsNeeded[crate] = items;
-                                                    }
-
-                                                    if (items.TryGetValue(need.Key, out var storedItem))
-                                                        storedItem.Add(needed.Count);
-                                                    else
-                                                        items[need.Key] = need.Value;
-                                                }
-                                            }
-
-                                retry = int.MaxValue;
-                            }
-                            catch (Exception) // a job could have been removed.
-                            {
-                                retry++;
-                            }
-                        }
+                        if (goal is CrateToStockpikeGoal cts)
+                            cts.ClosestLocations = job.Position.SortClosestPositions(crateLocations.Keys);
+                        else if (goal is StockpikeToCrateGoal stc)
+                            stc.ClosestLocations = job.Position.SortClosestPositions(crateLocations.Keys);
                     }
-
-                    Task.Delay(5000);
                 }
-            });
-        }
 
-        public void OnQuit()
-        {
-            _worldLoaded = false;
+                int retry = 0;
+
+                while (retry < 3)
+                {
+                    ItemsNeeded.Clear();
+               
+                    foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
+                        if (colony != null && StorageFactory.CrateLocations.TryGetValue(colony, out var dict))
+                            foreach (var crate in dict.Keys)
+                                foreach (var request in StorageFactory.CrateRequests)
+                                {
+                                    var needed = request.GetItemsNeeded(crate);
+
+                                    foreach (var need in needed)
+                                    {
+                                        if (!ItemsNeeded.TryGetValue(crate, out var items))
+                                        {
+                                            items = new Dictionary<ushort, StoredItem>();
+                                            ItemsNeeded[crate] = items;
+                                        }
+
+                                        if (items.TryGetValue(need.Key, out var storedItem))
+                                            storedItem.Add(needed.Count);
+                                        else
+                                            items[need.Key] = need.Value;
+                                    }
+                                }
+
+                    retry = int.MaxValue;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                CivLogger.LogError(ex);
+            }
         }
     }
 }
