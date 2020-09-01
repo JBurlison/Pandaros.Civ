@@ -108,8 +108,15 @@
     <Compile Include="Jobs\PorterJob.cs" />
     <Compile Include="Jobs\PorterJobSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimePeriods\BronzeAge\Items\Chest.cs" />
+    <Compile Include="TimePeriods\BronzeAge\Items\Shelving.cs" />
+    <Compile Include="TimePeriods\IndustrialAge\Items\Pallet.cs" />
+    <Compile Include="TimePeriods\IronAge\Items\StorageChest.cs" />
+    <Compile Include="TimePeriods\IronAge\Items\StorageDrawers.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\StonePuncher.cs" />
+    <Compile Include="TimePeriods\PreHistory\Recipes\SlingBullets.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\Basket.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -127,6 +134,7 @@
     <Compile Include="TimePeriod.cs" />
     <Compile Include="TimePeriods\PeriodFactory.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafBag.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\Crate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\Backpack.png">
@@ -138,7 +146,28 @@
     <Content Include="icons\SlowPorter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="icons\StonePuncher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\StorageChest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\StorageDrawers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Meshes\crate.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\albedo\StorageDrawers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\StonePuncher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\StorageChest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\StorageDrawers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="modInfo.json">
@@ -148,11 +177,8 @@
   <ItemGroup>
     <Folder Include="Textures\emissiveMaskAlpha\" />
     <Folder Include="TimePeriods\AtomicAge\" />
-    <Folder Include="TimePeriods\BronzeAge\" />
     <Folder Include="TimePeriods\FusionAge\" />
-    <Folder Include="TimePeriods\IndustrialAge\" />
     <Folder Include="TimePeriods\InformationAge\" />
-    <Folder Include="TimePeriods\IronAge\" />
     <Folder Include="TimePeriods\RenewablesAge\" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +204,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\albedo\StockpileBlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\albedo\StonePuncher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\albedo\StorageChest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\heightSmoothnessSpecularity\basket.png">
