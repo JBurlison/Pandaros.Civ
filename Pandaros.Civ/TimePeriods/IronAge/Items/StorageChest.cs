@@ -13,9 +13,9 @@ namespace Pandaros.Civ.IronAge.Items
     public class StorageChestTexture : CSTextureMapping
     {
         public override string name => StorageChest.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "StorageChest.png");
-        //public override string height => GameSetup.Textures.GetPath(TextureType.height, "StorageChest.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "StorageChest.png");
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "IronChest.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "IronChest.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "IronChest.png");
     }
 
     public class StorageChest : CSType, ICrate
@@ -33,10 +33,11 @@ namespace Pandaros.Civ.IronAge.Items
                 "storage"
             };
             isSolid = true;
-            icon = GameSetup.Textures.GetPath(TextureType.icon, "crate.png");
-            //mesh = GameSetup.MESH_PATH + "crate.obj";
+            icon = GameSetup.Textures.GetPath(TextureType.icon, "IronChest.png");
+            mesh = GameSetup.MESH_PATH + "IronChest.ply";
         }
     }
+
 
     public class BasicCrateRecipe : ICSPlayerRecipe
     {
