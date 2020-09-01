@@ -76,13 +76,13 @@ namespace Pandaros.Civ.Storage
                 "storage"
             };
             icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
-            GlobalStorageUpgrade = 50;
-            CategoryStorageUpgrades.Add("food", 32);
+            GlobalStorageUpgrade = 100;
+            CategoryStorageUpgrades.Add("food", 50);
         }
 
         public void AfterItemTypesDefined()
         {
-            StarterPacks.Manager.PrimaryStockpileStart.Items = new List<InventoryItem>() { new InventoryItem(name) };
+            StarterPacks.Manager.PrimaryStockpileStart.Items.Add(new InventoryItem(name)); // = new List<InventoryItem>() { new InventoryItem(name) };
         }
 
         public void OnSendAreaHighlights(Players.Player player, List<AreaJobTracker.AreaHighlight> list, List<ushort> showWhileHoldingTypes)
@@ -94,7 +94,6 @@ namespace Pandaros.Civ.Storage
                 if (cs.Positions.TryGetValue(Name, out var pos))
                 {
                     var currentPeriod = PeriodFactory.GetTimePeriod(player.ActiveColony);
-                    CivLogger.Log($"{currentPeriod}, {pos.Add(StockpileSizes[currentPeriod].Item1)}, {pos.Add(StockpileSizes[currentPeriod].Item2)}");
                     list.Add(new AreaJobTracker.AreaHighlight(pos.Add(StockpileSizes[currentPeriod].Item1), 
                                                               pos.Add(StockpileSizes[currentPeriod].Item2), Shared.EAreaMeshType.ThreeD, Shared.EServerAreaType.Default));
                 }

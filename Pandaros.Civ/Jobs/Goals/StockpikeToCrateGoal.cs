@@ -84,7 +84,8 @@ namespace Pandaros.Civ.Jobs.Goals
                 foreach (var location in ClosestLocations)
                     if (!LastCratePosition.Contains(location) &&
                         !InProgress.Contains(location) &&
-                        !StorageFactory.CrateLocations[Job.Owner][location].IsAlmostFull &&
+                        StorageFactory.CrateLocations[Job.Owner].TryGetValue(location, out var inv) &&
+                        !inv.IsAlmostFull &&
                         ItemsNeeded.TryGetValue(location, out var itemsNeeded))
                     {
                         nexPos = location;
@@ -149,7 +150,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
                     if (settings.CurrentGoal.TryGetValue(job, out var goal) &&
                         job != null &&
-                        job.Owner == null &&
+                        job.Owner != null &&
                         StorageFactory.CrateLocations.TryGetValue(job.Owner, out var crateLocations))
                     {
                         if (goal is CrateToStockpikeGoal cts)

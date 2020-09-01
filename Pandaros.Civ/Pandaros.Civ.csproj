@@ -82,11 +82,16 @@
     <Compile Include="Extender\Providers\NPCTypeStandardSettingProvider.cs" />
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="GameSetup.cs" />
+    <Compile Include="Jobs\BaseReplacements\PandaCraftingJobRotatedSettings.cs" />
+    <Compile Include="Jobs\BaseReplacements\PandaCraftingJobRotatedLitSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaCrafingSettings.cs" />
+    <Compile Include="Jobs\BaseReplacements\PandaCraftingJobWaterSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaFarmingJob.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaGuardJobSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaMiningJobSettings.cs" />
     <Compile Include="Jobs\Goals\CraftingGoal.cs" />
+    <Compile Include="Jobs\Goals\CraftingRotatedGoal.cs" />
+    <Compile Include="Jobs\Goals\CraftingLitGoal.cs" />
     <Compile Include="Jobs\Goals\FarmingGoal.cs" />
     <Compile Include="Jobs\Goals\GuardGoal.cs" />
     <Compile Include="Jobs\Goals\MiningGoal.cs" />

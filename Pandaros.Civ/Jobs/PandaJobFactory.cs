@@ -28,10 +28,17 @@ namespace Pandaros.Civ.Jobs
             {
                 if (manager is BlockJobManager<MinerJobInstance> mji)
                     mji.Settings = new PandaMiningJobSettings(mji.Settings as MinerJobSettings);
-                if (manager is BlockJobManager<GuardJobInstance> gji)
+                else if (manager is BlockJobManager<GuardJobInstance> gji)
                     gji.Settings = new PandaGuardJobSettings(gji.Settings as GuardJobSettings);
                 else if (manager is BlockJobManager<CraftingJobInstance> cji)
-                    cji.Settings = new PandaCrafingSettings(cji.Settings as CraftingJobSettings);
+                {
+                    if (cji.Settings is CraftingJobRotatedLitSettings cjrls)
+                        cji.Settings = new PandaCraftingJobRotatedLitSettings(cjrls);
+                    else if (cji.Settings is CraftingJobRotatedSettings cjrs)
+                        cji.Settings = new PandaCraftingJobRotatedSettings(cjrs);
+                    else
+                        cji.Settings = new PandaCrafingSettings(cji.Settings as CraftingJobSettings);
+                }
 
             }
         }

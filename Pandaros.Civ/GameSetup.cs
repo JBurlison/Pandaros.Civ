@@ -110,41 +110,41 @@ namespace Pandaros.Civ
         [ModLoader.ModCallback(NAMESPACE + ".OnLoadModJSONFiles")]
         public void OnLoadModJSONFiles(List<ModLoader.LoadModJSONFileContext> contexts)
         {
-            var blacklistTypes = new List<string>()
-            {
-                //"addOrReplaceNPCRecipes",
-                //"addScience",
-                //"addOrReplacePlayerRecipes",
-                //"addOrReplaceStarterPack",
-                //"scienceBiomePatches"
-            };
+            //var blacklistTypes = new List<string>()
+            //{
+            //    //"addOrReplaceNPCRecipes",
+            //    //"addScience",
+            //    //"addOrReplacePlayerRecipes",
+            //    //"addOrReplaceStarterPack",
+            //    //"scienceBiomePatches"
+            //};
 
-            List<ModLoader.LoadModJSONFileContext> remove = new List<ModLoader.LoadModJSONFileContext>();
+            //List<ModLoader.LoadModJSONFileContext> remove = new List<ModLoader.LoadModJSONFileContext>();
 
-            foreach (var context in contexts)
-            {
-                if (context.Mod.name == "Colony Survival")
-                {
-                    List<JObject> keep = new List<JObject>();
+            //foreach (var context in contexts)
+            //{
+            //    if (context.Mod.name == "Colony Survival")
+            //    {
+            //        List<JObject> keep = new List<JObject>();
 
-                    foreach (var json in context.Mod.jsonFiles)
-                    {
-                        var ft = json.Value<string>("fileType");
+            //        foreach (var json in context.Mod.jsonFiles)
+            //        {
+            //            var ft = json.Value<string>("fileType");
 
-                        if (!blacklistTypes.Any(b => b.Equals(ft, StringComparison.InvariantCultureIgnoreCase)))
-                            keep.Add(json);
-                    }
+            //            if (!blacklistTypes.Any(b => b.Equals(ft, StringComparison.InvariantCultureIgnoreCase)))
+            //                keep.Add(json);
+            //        }
 
-                    context.Mod.jsonFiles = keep.ToArray();
+            //        context.Mod.jsonFiles = keep.ToArray();
 
 
-                    if (blacklistTypes.Any(b => b.Equals(context.FileType, StringComparison.InvariantCultureIgnoreCase)))
-                        remove.Add(context);
-                }
-            }
+            //        if (blacklistTypes.Any(b => b.Equals(context.FileType, StringComparison.InvariantCultureIgnoreCase)))
+            //            remove.Add(context);
+            //    }
+            //}
 
-            foreach (var r in remove)
-                contexts.Remove(r);
+            //foreach (var r in remove)
+            //    contexts.Remove(r);
         }
     }
 }

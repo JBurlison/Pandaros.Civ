@@ -10,7 +10,7 @@ namespace Pandaros.Civ.TimePeriods
     {
         public static TimePeriod GetTimePeriod(Colony c)
         {
-            return TimePeriod.PreHistory;
+            return TimePeriod.IndustrialAge;
         }
     }
 }

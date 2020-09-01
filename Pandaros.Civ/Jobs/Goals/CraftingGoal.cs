@@ -107,6 +107,7 @@ namespace Pandaros.Civ.Jobs.Goals
             CraftingJobInstance.NPC.LookAt(CraftingJobInstance.Position.Vector);
             RecipeSettingsGroup = Job.Owner.RecipeData.GetRecipeGroup(CraftingJobInstance.CraftingGroupID);
             state.JobIsDone = true;
+            state.SetCooldown(0.05, 0.15);
 
             if (CraftingJobInstance.SelectedRecipe != null)
             {
