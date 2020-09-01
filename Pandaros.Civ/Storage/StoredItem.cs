@@ -15,19 +15,6 @@ namespace Pandaros.Civ.Storage
     {
         public int MaxAmount { get; set; } = int.MaxValue;
         public int Amount { get; set; }
-        public string Name 
-        { 
-            get
-            {
-                return Id.Name;
-            }
-            set
-            {
-                Id = ItemId.GetItemId(value);
-            }
-        }
-
-        [JsonIgnore]
         public ItemId Id { get; set; } = ColonyBuiltIn.ItemTypes.AIR;
         public StorageType StorageType { get; set; }
         public ServerTimeStamp TTL { get; set; }
