@@ -17,7 +17,7 @@ namespace Pandaros.Civ.Jobs.Goals
             NextGoal = nextGoal;
             JobSettings = jobSettings;
         }
-
+        public Vector3Int ClosestCrate { get; set; }
         public IPandaJobSettings JobSettings { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }

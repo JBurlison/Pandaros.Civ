@@ -23,6 +23,7 @@ namespace Pandaros.Civ.Jobs.Goals
             PorterJob = job as PorterJob;
         }
 
+        public Vector3Int ClosestCrate { get; set; }
         public PorterJob PorterJob { get; set; }
         public IPandaJobSettings JobSettings { get; set; }
         public IJob Job { get; set; }

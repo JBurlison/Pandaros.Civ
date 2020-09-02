@@ -14,25 +14,29 @@ namespace Pandaros.Civ.Jobs.Goals
     {
         public static List<GetItemsFromCrateGoal> CurrentItemsNeeded { get; set; } = new List<GetItemsFromCrateGoal>();
 
-        public GetItemsFromCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, StoredItem[] itemsToGet)
+        public GetItemsFromCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, StoredItem[] itemsToGet, INpcGoal itemsForGoal)
         {
             Job = job;
             NextGoal = nextGoal;
             ItemsToGet = itemsToGet;
             JobSettings = jobSettings;
+            ItemsForGoal = itemsForGoal;
             CurrentItemsNeeded.Add(this);
         }
 
-        public GetItemsFromCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, List<InventoryItem> itemsToGet)
+        public GetItemsFromCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, List<InventoryItem> itemsToGet, INpcGoal itemsForGoal)
         {
             Job = job;
             NextGoal = nextGoal;
             ItemsToGet = itemsToGet.Select(i => new StoredItem(i)).ToArray();
             JobSettings = jobSettings;
+            ItemsForGoal = itemsForGoal;
             CurrentItemsNeeded.Add(this);
         }
 
+        public Vector3Int ClosestCrate { get; set; }
         public StoredItem[] ItemsToGet { get; set; }
+        public INpcGoal ItemsForGoal { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
         public IPandaJobSettings JobSettings { get; set; }
@@ -50,9 +54,12 @@ namespace Pandaros.Civ.Jobs.Goals
             foreach (var item in ItemsToGet)
             {
                 if (StorageFactory.ItemCrateLocations[Job.Owner].TryGetValue(item.Id, out var locations))
-                    foreach(var loc in locations)
-                        if (!LastCratePosition.Contains(loc))
-                            cratesWithItems.AddIfUnique(loc);
+                    if (!LastCratePosition.Contains(ItemsForGoal.ClosestCrate) && locations.Contains(ItemsForGoal.ClosestCrate))
+                        cratesWithItems.Add(ItemsForGoal.ClosestCrate);
+                    else
+                        foreach(var loc in locations)
+                            if (!LastCratePosition.Contains(loc))
+                                cratesWithItems.AddIfUnique(loc);
             }
 
 
@@ -64,7 +71,12 @@ namespace Pandaros.Civ.Jobs.Goals
             else
             {
                 WalkingTo = StorageType.Crate;
-                CurrentCratePosition = JobSettings.OriginalPosition[Job].GetClosestPosition(cratesWithItems);
+
+                if (cratesWithItems.Count == 1)
+                    CurrentCratePosition = cratesWithItems[0];
+                else
+                    CurrentCratePosition = JobSettings.OriginalPosition[Job].GetClosestPosition(cratesWithItems);
+
                 return CurrentCratePosition;
             }
         }

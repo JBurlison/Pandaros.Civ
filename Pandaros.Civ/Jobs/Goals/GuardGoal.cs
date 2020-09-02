@@ -68,6 +68,10 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public Pipliz.Vector3Int GetPosition()
         {
+            if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
+                (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
+                ClosestCrate = GuardJob.Position.GetClosestPosition(crateLocs.Keys.ToList());
+
             return GuardJob.Position;
         }
 
@@ -130,7 +134,7 @@ namespace Pandaros.Civ.Jobs.Goals
             if (!Job.NPC.Inventory.Contains(GuardSettings.ShootItem))
             {
                 var items = GuardSettings.ShootItem.Select(i => new StoredItem(i.Type, i.Amount * 50)).ToArray();
-                var getitemsfromCrate = new GetItemsFromCrateGoal(Job, JobSettings, this, items);
+                var getitemsfromCrate = new GetItemsFromCrateGoal(Job, JobSettings, this, items, this);
                 JobSettings.SetGoal(Job, getitemsfromCrate, ref Job.NPC.state);
             }
         }
@@ -161,8 +165,8 @@ namespace Pandaros.Civ.Jobs.Goals
             else
             {
                 var items = GuardSettings.ShootItem.Select(i => new StoredItem(i.Type, i.Amount * 50)).ToArray();
-                var getitemsfromCrate = new GetItemsFromCrateGoal(instance, JobSettings, this, items);
-                JobSettings.SetGoal(instance, new PutItemsInCrateGoal(Job, JobSettings, getitemsfromCrate, state.Inventory.Inventory), ref state);
+                var getitemsfromCrate = new GetItemsFromCrateGoal(instance, JobSettings, this, items, this);
+                JobSettings.SetGoal(instance, new PutItemsInCrateGoal(Job, JobSettings, getitemsfromCrate, state.Inventory.Inventory, this), ref state);
                 state.Inventory.Add(items);
             }
         }

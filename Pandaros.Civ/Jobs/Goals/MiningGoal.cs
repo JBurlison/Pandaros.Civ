@@ -2,7 +2,9 @@
 using Jobs;
 using Jobs.Implementations;
 using NPC;
+using Pandaros.API;
 using Pandaros.Civ.Jobs.BaseReplacements;
+using Pandaros.Civ.Storage;
 using Pipliz;
 using Shared;
 using System;
@@ -24,7 +26,7 @@ namespace Pandaros.Civ.Jobs.Goals
 		}
 
 		protected static List<ItemTypes.ItemTypeDrops> GatherResults = new List<ItemTypes.ItemTypeDrops>();
-
+		public Vector3Int ClosestCrate { get; set; }
 		public MinerJobSettings MinerSettings { get; set; }
 		public BlockJobInstance BlockJobInstance { get; set; }
         public IJob Job { get; set; }
@@ -34,6 +36,10 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public Vector3Int GetPosition()
         {
+			if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
+				(ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
+				ClosestCrate = BlockJobInstance.Position.GetClosestPosition(crateLocs.Keys.ToList());
+
 			return BlockJobInstance.Position;
 		}
 
@@ -128,7 +134,7 @@ namespace Pandaros.Civ.Jobs.Goals
 			instance.GatheredItemCount++;
 			if (instance.GatheredItemCount >= MinerSettings.MaxCraftsPerRun)
 			{
-				JobSettings.SetGoal(BlockJobInstance, new PutItemsInCrateGoal(BlockJobInstance, JobSettings, this, state.Inventory.Inventory), ref state);
+				JobSettings.SetGoal(BlockJobInstance, new PutItemsInCrateGoal(BlockJobInstance, JobSettings, this, state.Inventory.Inventory, this), ref state);
 				state.Inventory.Inventory.Clear();
 			}
 		}

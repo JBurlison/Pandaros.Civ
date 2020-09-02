@@ -82,6 +82,7 @@
     <Compile Include="Extender\Providers\NPCTypeStandardSettingProvider.cs" />
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="GameSetup.cs" />
+    <Compile Include="Jobs\BaseReplacements\PandaBlockFarmAreaJob.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaCraftingJobRotatedSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaCraftingJobRotatedLitSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaCrafingSettings.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Jobs\BaseReplacements\PandaFarmingJob.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaGuardJobSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaMiningJobSettings.cs" />
+    <Compile Include="Jobs\Goals\BlockFarmGoal.cs" />
     <Compile Include="Jobs\Goals\CraftingGoal.cs" />
     <Compile Include="Jobs\Goals\CraftingRotatedGoal.cs" />
     <Compile Include="Jobs\Goals\CraftingLitGoal.cs" />

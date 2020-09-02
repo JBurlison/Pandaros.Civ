@@ -15,6 +15,7 @@ namespace Pandaros.Civ.Jobs
         IPandaJobSettings JobSettings { get; set; }
         string Name { get; set; }
         string LocalizationKey { get; set; }
+        Vector3Int ClosestCrate { get; set; }
         Vector3Int GetPosition();
 
         void PerformGoal(ref NPC.NPCBase.NPCState state);

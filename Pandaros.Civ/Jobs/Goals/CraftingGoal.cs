@@ -48,6 +48,7 @@ namespace Pandaros.Civ.Jobs.Goals
             return items;
         }
     }
+
     public class CraftingGoal : INpcGoal
     {
         public static List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
@@ -75,7 +76,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual Vector3Int GetPosition()
         {
-            return ((BlockJobInstance)Job).Position;
+            if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
+                (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
+                ClosestCrate = CraftingJobInstance.Position.GetClosestPosition(crateLocs.Keys.ToList());
+
+            return CraftingJobInstance.Position;
         }
 
         public virtual void LeavingGoal()
@@ -219,7 +224,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void PutItemsInCrate(ref NPCBase.NPCState state)
         {
-            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList()), ref state);
+            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList(), this), ref state);
             state.Inventory.Inventory.Clear();
             state.SetCooldown(0.2, 0.4);
         }
@@ -229,12 +234,12 @@ namespace Pandaros.Civ.Jobs.Goals
             if (CraftingJobInstance.SelectedRecipe != null)
             {
                 state.Inventory.Add(CraftingJobInstance.SelectedRecipe.Requirements.ToList(), CraftingJobInstance.SelectedRecipeCount);
-                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements), ref state);
+                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements, this), ref state);
             }
             else if (NextRecipe.MatchType != Recipe.RecipeMatchType.Invalid)
             {
                 state.Inventory.Add(NextRecipe.FoundRecipe.Requirements.ToList(), NextRecipe.FoundRecipeCount);
-                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, NextRecipe.FoundRecipe.Requirements), ref state);
+                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, NextRecipe.FoundRecipe.Requirements, this), ref state);
             }
         }
 

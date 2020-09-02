@@ -13,24 +13,28 @@ namespace Pandaros.Civ.Jobs.Goals
     public class PutItemsInCrateGoal : INpcGoal
     {
 
-        public PutItemsInCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, StoredItem[] itemsToStore)
+        public PutItemsInCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, StoredItem[] itemsToStore, INpcGoal goalStoring)
         {
             Job = job;
             NextGoal = nextGoal;
             JobSettings = jobSettings;
             ItemsToStore = itemsToStore;
+            GoalStoring = goalStoring;
         }
 
-        public PutItemsInCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, List<InventoryItem> itemsToStore)
+        public PutItemsInCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, List<InventoryItem> itemsToStore, INpcGoal goalStoring)
         {
             Job = job;
             NextGoal = nextGoal;
             JobSettings = jobSettings;
             ItemsToStore = itemsToStore.Select(i => new StoredItem(i)).ToArray();
+            GoalStoring = goalStoring;
         }
 
+        public Vector3Int ClosestCrate { get; set; }
         public IPandaJobSettings JobSettings { get; set; }
         public StoredItem[] ItemsToStore { get; set; }
+        public INpcGoal GoalStoring { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
         public PorterJob Porter { get; set; }
@@ -45,21 +49,26 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (WalkingTo == StorageType.Crate)
             {
-                var locations = JobSettings.OriginalPosition[Job].SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
-
-                foreach (var location in locations)
-                    if (!LastCratePosition.Contains(location))
-                    {
-                        CurrentCratePosition = location;
-                        break;
-                    }
-
-                // we have checked every crate, they are all full.
-                // put items in stockpile.
-                if (LastCratePosition.Contains(CurrentCratePosition))
+                if (!LastCratePosition.Contains(GoalStoring.ClosestCrate) && StorageFactory.CrateLocations[Job.Owner].ContainsKey(GoalStoring.ClosestCrate))
+                    CurrentCratePosition = GoalStoring.ClosestCrate;
+                else
                 {
-                    WalkingTo = StorageType.Stockpile;
-                    CurrentCratePosition = StorageFactory.GetStockpilePosition(Job.Owner).Position;
+                    var locations = JobSettings.OriginalPosition[Job].SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
+
+                    foreach (var location in locations)
+                        if (!LastCratePosition.Contains(location))
+                        {
+                            CurrentCratePosition = location;
+                            break;
+                        }
+
+                    // we have checked every crate, they are all full.
+                    // put items in stockpile.
+                    if (LastCratePosition.Contains(CurrentCratePosition))
+                    {
+                        WalkingTo = StorageType.Stockpile;
+                        CurrentCratePosition = StorageFactory.GetStockpilePosition(Job.Owner).Position;
+                    }
                 }
             }
 
@@ -87,7 +96,7 @@ namespace Pandaros.Civ.Jobs.Goals
             state.SetCooldown(4);
 
             if (ItemsToStore != null && ItemsToStore.Length != 0)
-                state.SetIndicator(new Shared.IndicatorState(_waitTime, ItemsToStore.FirstOrDefault().Id.Name, true, false));
+                state.SetIndicator(new Shared.IndicatorState(_waitTime, ItemsToStore.FirstOrDefault().Id.Name));
 
             if (WalkingTo == StorageType.Crate)
             {

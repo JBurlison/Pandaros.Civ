@@ -3,6 +3,7 @@ using NPC;
 using Pandaros.API;
 using Pandaros.API.Models;
 using Pandaros.Civ.Jobs;
+using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Recipes;
 using System;
 using System.Collections.Generic;
@@ -73,7 +74,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Id, 10),
+            new RecipeItem(Wood.NAME, 10),
             new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5),
             new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5)
         };

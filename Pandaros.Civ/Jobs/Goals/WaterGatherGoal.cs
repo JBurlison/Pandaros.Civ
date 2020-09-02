@@ -67,6 +67,10 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public Vector3Int GetPosition()
         {
+            if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
+                (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
+                ClosestCrate = JobInstance.Position.GetClosestPosition(crateLocs.Keys.ToList());
+
             return JobInstance.Position;
         }
 
@@ -82,6 +86,9 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void PerformGoal(ref NPCBase.NPCState state)
         {
+            if (!CurrentlyGathering.Contains(this))
+                CurrentlyGathering.Add(this);
+
             CraftingJobWaterInstance instance = JobInstance;
             Colony owner = instance.Owner;
             state.JobIsDone = true;
@@ -166,7 +173,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void PutItemsInCrate(ref NPCBase.NPCState state)
         {
-            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList()), ref state);
+            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList(), this), ref state);
             state.Inventory.Inventory.Clear();
             state.SetCooldown(0.2, 0.4);
         }
@@ -177,7 +184,7 @@ namespace Pandaros.Civ.Jobs.Goals
             {
                 state.SetCooldown(0.4, 0.6);
                 state.Inventory.Add(recipeMatch.FoundRecipe.Requirements.ToList(), recipeMatch.FoundRecipeCount);
-                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, recipeMatch.FoundRecipe.Requirements), ref state);
+                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, recipeMatch.FoundRecipe.Requirements, this), ref state);
             }
         }
 

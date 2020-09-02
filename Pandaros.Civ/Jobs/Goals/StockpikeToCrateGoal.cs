@@ -16,7 +16,6 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class StockpikeToCrateGoal : INpcGoal, IOnTimedUpdate
     {
-        
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
         public static Dictionary<Vector3Int, Dictionary<ushort, StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, Dictionary<ushort, StoredItem>>();
         public StockpikeToCrateGoal() { }
@@ -43,6 +42,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public int NextUpdateTimeMaxMs => 7000;
 
         public ServerTimeStamp NextUpdateTime { get; set; }
+        public Vector3Int ClosestCrate { get; set; }
 
         public Vector3Int GetPosition()
         {
