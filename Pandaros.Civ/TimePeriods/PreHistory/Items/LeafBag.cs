@@ -18,9 +18,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public override int? maxStackSize => 1;
         public override List<string> categories { get; set; } = new List<string>()
         {
+            "essential",
             "storage",
             "bag",
             "backpack", 
+            "aa",
+            "prehistory",
             GameSetup.NAMESPACE
         };
     }

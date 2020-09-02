@@ -23,11 +23,28 @@ namespace Pandaros.Civ.PreHistory.Items
             sideall = "planks";
             categories = new List<string>()
             {
+                "essential",
                 "storage",
+                "crate",
+                "aa",
+                "prehistory",
                 GameSetup.NAMESPACE
             };
             isSolid = true;
-            icon = GameSetup.Textures.GetPath(TextureType.icon, "crate.png");
+            colliders = new Colliders()
+            {
+                collidePlayer = true,
+                collideSelection = true,
+                boxes = new List<Colliders.Boxes>()
+                {
+                    new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, -0.4f }, new List<float>(){ -0.5f, -0.5f, -0.5f }),
+                    new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, 0.5f }, new List<float>(){ -0.5f, -0.5f, 0.4f }),
+                    new Colliders.Boxes(new List<float>(){ -0.4f, 0.5f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f }),
+                    new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, 0.5f }, new List<float>(){ 0.4f, -0.5f, -0.5f }),
+                    new Colliders.Boxes(new List<float>(){ 0.5f, -0.4f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f })
+                }
+            };
+            icon = GameSetup.Textures.GetPath(TextureType.icon, "BasicCrate.png");
             mesh = GameSetup.MESH_PATH + "crate.obj";
         }
     }

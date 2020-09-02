@@ -34,7 +34,11 @@ namespace Pandaros.Civ.PreHistory.Items
             sideall = GameSetup.Textures.SELF;
             categories = new List<string>()
             {
-                "storage", 
+                "essential",
+                "storage",
+                "upgrade",
+                "aa",
+                "prehistory",
                 GameSetup.NAMESPACE
             };
             isSolid = true;

@@ -35,7 +35,11 @@ namespace Pandaros.Civ.IronAge.Items
             sideall = "planks";
             categories = new List<string>()
             {
+                "essential",
                 "storage",
+                "upgrade",
+                "da",
+                "ironage",
                 GameSetup.NAMESPACE
             };
             isSolid = true;

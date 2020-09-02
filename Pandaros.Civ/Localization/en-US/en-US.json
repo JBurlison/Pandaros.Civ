@@ -31,6 +31,7 @@
   "types": {
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StonePuncher": "Stone Shaper",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.LeafBag": "Leaf Bag",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorter": "Slow Porter",
     "Pandaros.Civ.Storage.BasicCrate": "Basic Crate",
     "Pandaros.Civ.Storage.Crate": "Sturdy Crate",
     "Pandaros.Civ.Storage.StockpileBlock": "Stockpile Block",
@@ -45,6 +46,7 @@
   "typeuses": {
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StonePuncher": "Shapes stone into things such as slinger ammo.",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.LeafBag": "A bag made of leaves for porters to carry items in.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorter": "A basic porter to cart resources around.",
     "Pandaros.Civ.Storage.BasicCrate": "Can store a very small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
     "Pandaros.Civ.Storage.Crate": "Can store a small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
     "Pandaros.Civ.Storage.Chest": "Can store a moderate amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",

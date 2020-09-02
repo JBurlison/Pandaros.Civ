@@ -23,7 +23,12 @@ namespace Pandaros.Civ.BronzeAge.Items
             sideall = "crate";
             categories = new List<string>()
             {
-                "storage"
+                "essential",
+                "storage",
+                "crate",
+                "ca",
+                "bronzeage",
+                GameSetup.NAMESPACE
             };
             isSolid = true;
             icon = GameSetup.Textures.GetPath(TextureType.icon, "crate.png");

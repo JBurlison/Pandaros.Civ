@@ -32,9 +32,14 @@ namespace Pandaros.Civ.BronzeAge.Items
             GlobalStorageUpgrade = 32;
             CategoryStorageUpgrades.Add("food", 32);
             sideall = GameSetup.Textures.SELF;
+            mesh = GameSetup.MESH_PATH + "Shelving.ply";
             categories = new List<string>()
             {
+                "essential",
                 "storage",
+                "upgrade",
+                "ca",
+                "bronzeage",
                 GameSetup.NAMESPACE
             };
             isSolid = true;

@@ -34,7 +34,11 @@ namespace Pandaros.Civ.StoneAge.Items
             sideall = GameSetup.Textures.SELF;
             categories = new List<string>()
             {
+                "essential",
                 "storage",
+                "upgrade",
+                "ba",
+                "stoneage",
                 GameSetup.NAMESPACE
             };
             isSolid = true;

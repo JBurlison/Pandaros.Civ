@@ -35,7 +35,11 @@ namespace Pandaros.Civ.IndustrialAge.Items
             //sideall = GameSetup.Textures.SELF;
             categories = new List<string>()
             {
+                "essential",
                 "storage",
+                "upgrade",
+                "ea",
+                "industrialage",
                 GameSetup.NAMESPACE
             };
             isSolid = true;

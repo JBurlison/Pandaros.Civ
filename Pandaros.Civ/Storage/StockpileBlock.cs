@@ -73,7 +73,9 @@ namespace Pandaros.Civ.Storage
             categories = new List<string>()
             {
                 "essential",
-                "storage"
+                "storage",
+                "aaa",
+                GameSetup.NAMESPACE
             };
             icon = GameSetup.Textures.GetPath(TextureType.icon, "StockpileBlock.png");
             GlobalStorageUpgrade = 100;
