@@ -119,6 +119,7 @@
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\StonePuncher.cs" />
     <Compile Include="TimePeriods\PreHistory\Recipes\SlingBullets.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\Basket.cs">
@@ -169,6 +170,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\StorageDrawers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Wood.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Meshes\crate.obj">

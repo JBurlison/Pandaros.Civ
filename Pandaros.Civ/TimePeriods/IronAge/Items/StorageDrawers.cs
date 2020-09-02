@@ -42,6 +42,8 @@ namespace Pandaros.Civ.IronAge.Items
                 "ironage",
                 GameSetup.NAMESPACE
             };
+            onPlaceAudio = "woodPlace";
+            onRemoveAudio = "woodDeleteHeavy";
             isSolid = true;
             icon = GameSetup.Textures.GetPath(TextureType.icon, "StorageDrawers.png");
         }

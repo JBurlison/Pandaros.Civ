@@ -44,6 +44,8 @@ namespace Pandaros.Civ.StoneAge.Items
                     new Colliders.Boxes(new List<float>(){ 0.5f, -0.4f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f })
                 }
             };
+            onPlaceAudio = "woodPlace";
+            onRemoveAudio = "woodDeleteLight";
             icon = GameSetup.Textures.GetPath(TextureType.icon, "SturdyCrate.png");
             mesh = GameSetup.MESH_PATH + "crate.obj";
         }
