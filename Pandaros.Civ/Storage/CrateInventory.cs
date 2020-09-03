@@ -16,7 +16,7 @@ namespace Pandaros.Civ.Storage
         public Dictionary<ushort, StoredItem> Contents { get; set; } = new Dictionary<ushort, StoredItem>();
         public Dictionary<StorageType, List<StoredItem>> StorageTypeLookup = new Dictionary<StorageType, List<StoredItem>>();
 
-
+        public Dictionary<ushort, StoredItem> ContentCopy { get { return new Dictionary<ushort, StoredItem>(Contents); } }
         public ICrate CrateType { get; set; }
 
         public Vector3Int Position { get; set; }

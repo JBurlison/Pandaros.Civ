@@ -11,12 +11,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ModLoaderInterfaces;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
 
-    public class CraftingRequests : ICrateRequest
+    public class CraftingRequests : ICrateRequest, ICratePlacementUpdate
     {
+        public void CratePlacementUpdate(Colony colony, PlacementEventType eventType, Vector3Int position)
+        {
+            if (eventType == PlacementEventType.Removed)
+            {
+                foreach (var goal in CraftingGoal.CurrentlyCrafing)
+                    if (goal.ClosestCrate == position)
+                        goal.ClosestCrate = goal.CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
+            }
+            else
+            {
+                foreach (var goal in CraftingGoal.CurrentlyCrafing)
+                    goal.ClosestCrate = goal.CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
+            }
+        }
+
         public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
         {
             var items = new Dictionary<ushort, StoredItem>();

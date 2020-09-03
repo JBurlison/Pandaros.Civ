@@ -11,7 +11,7 @@ namespace Pandaros.Civ
 {
     public static class ExtentionMethods
     {
-        public static List<StoredItem> ToStoredItemList(this List<InventoryItem> inventoryItems)
+        public static List<StoredItem> ToStoredItemList(this IEnumerable<InventoryItem> inventoryItems)
         {
             List<StoredItem> retval = new List<StoredItem>();
 
@@ -35,39 +35,56 @@ namespace Pandaros.Civ
             return retval;
         }
 
-        public static void AddRange(this Dictionary<ushort, StoredItem> storedItem, List<InventoryItem> items, int stackCount = -1)
+        public static void AddRange(this Dictionary<ushort, StoredItem> storedItem, IEnumerable<InventoryItem> items, int stackCount = -1)
         {
-            foreach (var item in items)
-            {
-                if (storedItem.TryGetValue(item.Type, out var exisiting))
+            if (items != null)
+                foreach (var item in items)
                 {
-                    if (stackCount < 0)
-                        exisiting.Amount += item.Amount;
+                    if (storedItem.TryGetValue(item.Type, out var exisiting))
+                    {
+                        if (stackCount < 0)
+                            exisiting.Amount += item.Amount;
+                        else
+                            exisiting.Amount = stackCount;
+                    }
                     else
-                        exisiting.Amount = stackCount;
+                    {
+                        if (stackCount < 0)
+                            storedItem.Add(item.Type, item);
+                        else
+                            storedItem.Add(item.Type, new StoredItem(item.Type, stackCount));
+                    }
                 }
-                else
-                {
-                    if (stackCount < 0)
-                        storedItem.Add(item.Type, item);
-                    else
-                        storedItem.Add(item.Type, new StoredItem(item.Type, stackCount));
-                }
-            }
         }
 
         public static void Add(this NPCInventory inventory, IEnumerable<StoredItem> items)
         {
-            foreach (var item in items)
-                inventory.Add(item);
+            if (items != null)
+                foreach (var item in items)
+                    inventory.Add(item);
         }
 
         public static void Add(this NPCInventory inventory, IEnumerable<InventoryItem> items, int multiplier)
         {
-            foreach (var item in items)
-            {
-                inventory.Add(item * multiplier);
-            }
+            if (items != null)
+                foreach (var item in items)
+                {
+                    inventory.Add(item * multiplier);
+                }
+        }
+
+        public static void Add(this Stockpile stockpile, IEnumerable<StoredItem> items)
+        {
+            if (items != null)
+                foreach (var item in items)
+                    stockpile.Add(item.Id, item.Amount);
+        }
+
+        public static void Add(this Inventory inventory, IEnumerable<StoredItem> items)
+        {
+            if (items != null)
+                foreach (var item in items)
+                    inventory.TryAdd(item.Id, item.Amount);
         }
     }
 }

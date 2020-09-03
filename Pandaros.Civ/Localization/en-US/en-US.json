@@ -7,7 +7,20 @@
           "MaxNumberOfStacks": "Max Number Of Stacks",
           "GlobalStorageUpgrade": "Global Storage Upgrade",
           "CategoryStoreUpgrades": "Category Storage Upgrade",
-          "ItemStoreUpgrades": "Item Storage Upgrade"
+          "ItemStoreUpgrades": "Item Storage Upgrade",
+          "MoveItemsToCrate": "Move Items To Crate",
+          "MoveItemsToStockpile": "Move Items To Stockpile",
+          "MoveItemsToToolbar": "Move Items To Toolbar",
+          "invalidNumber": "Input was an invalid number",
+          "Numberofitems": "Number of Items",
+          "Back": "Back",
+          "SelectNone": "Select None",
+          "SelectAll": "Select All",
+          "Crate": "Crate",
+          "Select": "Select",
+          "CannotLocateCrateData": "Cannot Locate Crate Data",
+          "GetItemsFromStockpile": "Get Items From Stockpile",
+          "GetItemsFromToolbar": "Get Items From Toolbar"
         }
       }
     },
@@ -31,7 +44,7 @@
   },
   "types": {
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StonePuncher": "Stone Shaper",
-    "Pandaros.Civ.TimePeriods.StoneAge.Items.LeafBag": "Leaf Bag",
+    "Pandaros.Civ.TimePeriods.StoneAge.Items.LeafBag": "Leaf Bag",  
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorter": "Slow Porter",
     "Pandaros.Civ.Storage.BasicCrate": "Basic Crate",
     "Pandaros.Civ.Storage.Crate": "Sturdy Crate",
