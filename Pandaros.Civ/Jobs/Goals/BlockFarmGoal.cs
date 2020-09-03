@@ -17,8 +17,22 @@ using static Pandaros.Civ.Jobs.BaseReplacements.PandaBlockFarmAreaJobDefinition;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class BlockFarmRequests : ICrateRequest
+    public class BlockFarmRequests : ICrateRequest, ICratePlacementUpdate
     {
+        public void CratePlacementUpdate(Colony colony, PlacementEventType eventType, Vector3Int position)
+        {
+            if (eventType == PlacementEventType.Removed)
+            {
+                foreach (var goal in BlockFarmGoal.CurrentlyFarming)
+                    if (goal.ClosestCrate == position)
+                        goal.ClosestCrate = goal.FarmingJob.KeyLocation.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
+            }
+            else
+            {
+                foreach (var goal in BlockFarmGoal.CurrentlyFarming)
+                    goal.ClosestCrate = goal.FarmingJob.KeyLocation.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
+            }
+        }
         public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
         {
             var items = new Dictionary<ushort, StoredItem>();

@@ -309,8 +309,10 @@ namespace Pandaros.Civ.Storage
         {
             var colony = tryChangeBlockData?.RequestOrigin.AsPlayer?.ActiveColony;
 
-            if (tryChangeBlockData.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player &&
-                colony != null &&
+            if (colony == null)
+                colony = tryChangeBlockData.RequestOrigin.AsColony;
+
+            if (colony != null &&
                     (StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeNew.Name) ||
                     StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeOld.Name)))
             {
@@ -318,25 +320,24 @@ namespace Pandaros.Civ.Storage
                 return;
             }
 
-            if (tryChangeBlockData.RequestOrigin.Type == BlockChangeRequestOrigin.EType.Player && colony != null)
-                if (CrateTypes.TryGetValue(tryChangeBlockData.TypeOld.Name, out var oldCrate))
-                {
-                    /// empty the crate. TODO may want to do something other than magically teleporting.
-                    if(CrateLocations[colony].TryGetValue(tryChangeBlockData.Position, out var inv))
-                        StoreItems(colony, inv.Contents.Values);
+            if (colony != null && CrateTypes.TryGetValue(tryChangeBlockData.TypeOld.Name, out var oldCrate))
+            {
+                /// empty the crate. TODO may want to do something other than magically teleporting.
+                if (CrateLocations[colony].TryGetValue(tryChangeBlockData.Position, out var inv))
+                    StoreItems(colony, inv.Contents.Values);
 
-                    CrateLocations[colony].Remove(tryChangeBlockData.Position);
+                CrateLocations[colony].Remove(tryChangeBlockData.Position);
 
-                    foreach (var item in ItemCrateLocations[colony])
-                        item.Value.Remove(tryChangeBlockData.Position);
-                }
-                else if (CrateTypes.TryGetValue(tryChangeBlockData.TypeNew.Name, out var newCrate))
-                {
-                    if (!CrateLocations.ContainsKey(colony))
-                        CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
+                foreach (var item in ItemCrateLocations[colony])
+                    item.Value.Remove(tryChangeBlockData.Position);
+            }
+            else if (CrateTypes.TryGetValue(tryChangeBlockData.TypeNew.Name, out var newCrate))
+            {
+                if (!CrateLocations.ContainsKey(colony))
+                    CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
 
-                    CrateLocations[colony].Add(tryChangeBlockData.Position, new CrateInventory(newCrate, tryChangeBlockData.Position, colony));
-                }
+                CrateLocations[colony].Add(tryChangeBlockData.Position, new CrateInventory(newCrate, tryChangeBlockData.Position, colony));
+            }
         }
 
         private static void RecalcMax(Colony colony)
