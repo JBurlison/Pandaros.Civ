@@ -49,10 +49,7 @@ namespace Pandaros.Civ.Storage
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnConstructTooltipUI, GameSetup.NAMESPACE + ".Storage.StorageFactory.ConstructTooltip")]
         static void ConstructTooltip(ConstructTooltipUIData data)
         {
-            if (data.hoverType != Shared.ETooltipHoverType.Item ||
-                data.player.ID.type == NetworkID.IDType.Server ||
-                data.player.ID.type == NetworkID.IDType.Invalid ||
-                !ItemTypes.TryGetType(data.hoverItem, out var item))
+            if (!ItemTypes.TryGetType(data.hoverItem, out var item))
                 return;
 
 

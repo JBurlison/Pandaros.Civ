@@ -1,5 +1,22 @@
 {
   "sentences": {
+    "popup": {
+      "limits": {
+        "Pandaros": {
+          "Civ": {
+            "DecorBuilder": "Decor Builder",
+            "TimePeriods": {
+              "PreHistory": {
+                "Jobs": {
+                  "StonePuncher": "Stone Shaper Limits",
+                  "WoodWorker": "Wood Worker Limits"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Pandaros": {
       "Civ": {
         "storage": {
@@ -21,23 +38,6 @@
           "CannotLocateCrateData": "Cannot Locate Crate Data",
           "GetItemsFromStockpile": "Get Items From Stockpile",
           "GetItemsFromToolbar": "Get Items From Toolbar"
-        }
-      }
-    },
-    "popup": {
-      "limits": {
-        "Pandaros": {
-          "Civ": {
-            "DecorBuilder": "Decor Builder",
-            "TimePeriods": {
-              "PreHistory": {
-                "Jobs": {
-                  "StonePuncher": "Stone Shaper Limits",
-                  "WoodWorker":  "Wood Worker Limits"
-                }
-              }
-            }
-          }
         }
       }
     }
