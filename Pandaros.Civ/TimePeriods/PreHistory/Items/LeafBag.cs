@@ -15,7 +15,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public override string name { get; set; } = NAME;
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "Backpack.png");
         public override bool? isPlaceable => false;
-        public override int? maxStackSize => 1;
+        public override int? maxStackSize => 5;
         public override List<string> categories { get; set; } = new List<string>()
         {
             "essential",

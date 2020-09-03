@@ -150,6 +150,7 @@
     <Compile Include="TimePeriods\PreHistory\Items\LeafBag.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\Crate.cs" />
     <Compile Include="WorldGen\IMineTypeOverride.cs" />
+    <Compile Include="WorldGen\StoneOverride.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\Backpack.png">

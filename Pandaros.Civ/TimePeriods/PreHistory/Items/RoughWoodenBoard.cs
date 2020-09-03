@@ -15,7 +15,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(RoughWoodenBoard));
         public override string name { get; set; } = NAME;
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "RoughWoodBoard.png");
-        public override int? maxStackSize => 1;
+        public override int? maxStackSize => 300;
         public override string sideall { get; set; } = NAME;
         public override List<string> categories { get; set; } = new List<string>()
         {

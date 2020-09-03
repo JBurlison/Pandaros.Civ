@@ -1,4 +1,5 @@
 ﻿using ModLoaderInterfaces;
+using Pandaros.API;
 using Pandaros.API.Extender;
 using Pandaros.API.Models;
 using Pandaros.Civ.Storage;
@@ -13,44 +14,64 @@ namespace Pandaros.Civ.Extender.Providers
 {
     public class MiningOverrideExtender : IOnTryChangeBlockExtender, IAfterWorldLoad
     {
-        public List<Type> LoadedAssembalies { get; set; } = new List<Type>();
+        public static List<Type> Loaded { get; set; } = new List<Type>();
+        public List<Type> LoadedAssembalies { get { return Loaded; } set { } }
 
         public string InterfaceName => nameof(IMineTypeOverride);
 
         public Type ClassType { get; set; } = null;
-
-        static Dictionary<ushort, Dictionary<string, Dictionary<string, StoredItem>>> callbacks = new Dictionary<ushort, Dictionary<string, Dictionary<string, StoredItem>>>(); 
+        // block broken, holding type, replacement Items
+        static Dictionary<string, Dictionary<string, Dictionary<string, StoredItem>>> callbacks = new Dictionary<string, Dictionary<string, Dictionary<string, StoredItem>>>(); 
 
         public void OnTryChangeBlock(ModLoader.OnTryChangeBlockData tryChangeBlockData)
         {
             if (tryChangeBlockData.PlayerClickedData != null && tryChangeBlockData.PlayerClickedData.HitType != Shared.PlayerClickedData.EHitType.Block)
                 return;
 
-            
+            if (callbacks.TryGetValue(tryChangeBlockData.TypeOld.Name, out var holdingType))
+            {
+                var holdingItem = ItemId.GetItemId(tryChangeBlockData.PlayerClickedData.TypeSelected).Name;
+
+                if (!holdingType.TryGetValue(holdingItem, out var replacements) && !holdingType.TryGetValue(ColonyBuiltIn.ItemTypes.AIR, out replacements))
+                {
+                    return;
+                }
+                else
+                {
+                    tryChangeBlockData.InventoryItemResults = replacements.Values.Select(s => new InventoryItem(s.Name, s.Amount)).ToList();
+                }
+            }
         }
 
         public void AfterWorldLoad()
         {
-            foreach (var s in LoadedAssembalies)
+            foreach (var s in Loaded)
             {
                 if (Activator.CreateInstance(s) is IMineTypeOverride sb)
                 {
                     foreach (var block in sb.BlockNames)
                     {
-                        var id = ItemId.GetItemId(block);
-
-                        if (!callbacks.TryGetValue(id, out var holdingTypes))
+                        if (!callbacks.TryGetValue(block, out var holdingTypes))
                         {
                             holdingTypes = new Dictionary<string, Dictionary<string, StoredItem>>();
-                            callbacks[id] = holdingTypes;
+                            callbacks[block] = holdingTypes;
+                        }
+
+                        if (!holdingTypes.TryGetValue(sb.HoldingItemType, out var replacementItems))
+                        {
+                            replacementItems = new Dictionary<string, StoredItem>();
+                            holdingTypes[sb.HoldingItemType] = replacementItems;
                         }
 
                         foreach (var item in sb.Replacement)
                         {
-                            if (holdingTypes.TryGetValue(item.Name, out var si))
-                            {
+                            if (string.IsNullOrEmpty(item.Name))
+                                item.Name = "air";
 
-                            }
+                            if (replacementItems.TryGetValue(item.Name, out var si))
+                                si.Add(item.Amount);
+                            else
+                                replacementItems[item.Name] = new StoredItem(item.Name, item.Amount);
                         }
                     }
                 }
