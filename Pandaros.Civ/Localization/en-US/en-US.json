@@ -43,7 +43,8 @@
     "Pandaros.Civ.Storage.Basket": "Woven Basket",
     "Pandaros.Civ.Storage.StorageChest": "Iron Bound Chest",
     "Pandaros.Civ.Storage.StorageDrawers": "Orginized Drawers",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "Wood Worker"
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "Wood Worker",
+    "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "Wood"
   },
   "typeuses": {
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StonePuncher": "Shapes stone into things such as slinger ammo.",
@@ -59,6 +60,7 @@
     "Pandaros.Civ.Storage.Basket": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
     "Pandaros.Civ.Storage.StorageDrawers": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
     "Pandaros.Civ.Storage.StorageChest": "Can store a decent amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "A crafter that makes basic things out of wood."
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "A crafter that makes basic things out of wood.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "A log that hs been split up, useful to make basic things."
   }
 }
