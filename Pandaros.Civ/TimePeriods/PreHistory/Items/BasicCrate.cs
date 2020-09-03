@@ -45,6 +45,8 @@ namespace Pandaros.Civ.PreHistory.Items
                     new Colliders.Boxes(new List<float>(){ 0.5f, -0.4f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f })
                 }
             };
+            onPlaceAudio = "woodPlace";
+            onRemoveAudio = "woodDeleteLight";
             icon = GameSetup.Textures.GetPath(TextureType.icon, "BasicCrate.png");
             mesh = GameSetup.MESH_PATH + "crate.obj";
         }
@@ -66,5 +68,28 @@ namespace Pandaros.Civ.PreHistory.Items
         public bool isOptional => false;
 
         public string name => BasicCrate.Name;
+    }
+    public class BasicCrateWoodWorkerRecipe : ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(Wood.NAME, 10),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(BasicCrate.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => BasicCrate.Name + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+        public CraftPriority defaultPriority => CraftPriority.Low;
+        public int defaultLimit => 5;
+
+        public string Job => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+
+        public string JobBlock => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
     }
 }

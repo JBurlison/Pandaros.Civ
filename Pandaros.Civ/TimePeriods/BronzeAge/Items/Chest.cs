@@ -30,6 +30,8 @@ namespace Pandaros.Civ.BronzeAge.Items
                 "bronzeage",
                 GameSetup.NAMESPACE
             };
+            onPlaceAudio = "woodPlace";
+            onRemoveAudio = "woodDeleteHeavy";
             isSolid = true;
             icon = GameSetup.Textures.GetPath(TextureType.icon, "crate.png");
             //mesh = GameSetup.MESH_PATH + "crate.obj";

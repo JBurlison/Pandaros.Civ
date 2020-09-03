@@ -66,7 +66,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public override string onRemoveAudio => "stoneDelete";
         public override string sideall => ColonyBuiltIn.ItemTypes.STONEBLOCK;
         public override string sideyp => StonePuncher.Name;
-        public override List<string> categories => new List<string>() { "job", GameSetup.NAMESPACE };
+        public override List<string> categories => new List<string>() { "job", "stone", "aa", "prehistory", GameSetup.NAMESPACE };
     }
 
     public class StonePuncherRecipe : ICSPlayerRecipe

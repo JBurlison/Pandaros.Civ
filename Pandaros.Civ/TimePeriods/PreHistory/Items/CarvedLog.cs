@@ -46,7 +46,7 @@ namespace Pandaros.Civ.PreHistory.Items
         }
     }
 
-    public class CarvedLogRecipe : ICSPlayerRecipe
+    public class CarvedLogTaigaRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -62,5 +62,69 @@ namespace Pandaros.Civ.PreHistory.Items
         public bool isOptional => false;
 
         public string name => CarvedLog.Name;
+    }
+    public class CarvedLogTemperateRecipe : ICSPlayerRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 1)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(CarvedLog.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => CarvedLog.Name;
+    }
+    public class CarvedLogTaigaWoodWorkerRecipe : ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 1)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(CarvedLog.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => CarvedLog.Name + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+        public CraftPriority defaultPriority => CraftPriority.Low;
+        public int defaultLimit => 5;
+
+        public string Job => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+
+        public string JobBlock => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+    }
+
+    public class CarvedLogTemperateWoodWorkerRecipe : ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 1)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(CarvedLog.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => CarvedLog.Name + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+        public CraftPriority defaultPriority => CraftPriority.Low;
+        public int defaultLimit => 5;
+
+        public string Job => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+
+        public string JobBlock => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
     }
 }

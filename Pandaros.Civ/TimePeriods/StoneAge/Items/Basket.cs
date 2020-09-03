@@ -41,6 +41,8 @@ namespace Pandaros.Civ.StoneAge.Items
                 "stoneage",
                 GameSetup.NAMESPACE
             };
+            onPlaceAudio = "woodPlace";
+            onRemoveAudio = "woodDeleteLight";
             isSolid = true;
             icon = GameSetup.Textures.GetPath(TextureType.icon, "basket.png");
         }

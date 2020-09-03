@@ -40,7 +40,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public bool isOptional => false;
 
-        public string name => Wood.NAME;
+        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name;
     }
     public class WoodTaigaRecipe : ICSPlayerRecipe
     {
@@ -56,6 +56,51 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public bool isOptional => false;
 
-        public string name => Wood.NAME;
+        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name;
+    }
+
+    public class WoodTaigaJobRecipe : ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id, 1)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(Wood.NAME, 4)
+        };
+
+        public bool isOptional => false;
+
+        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name + Jobs.WoodWorker.Name;
+        public CraftPriority defaultPriority => CraftPriority.Medium;
+        public int defaultLimit => 50;
+
+        public string Job => Jobs.WoodWorker.Name;
+
+        public string JobBlock => Jobs.WoodWorker.Name;
+    }
+    public class WoodTemperateJobRecipe : ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id, 1)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(Wood.NAME, 4)
+        };
+
+        public bool isOptional => false;
+
+        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name + Jobs.WoodWorker.Name;
+        public CraftPriority defaultPriority => CraftPriority.Medium;
+        public int defaultLimit => 50;
+
+        public string Job => Jobs.WoodWorker.Name;
+
+        public string JobBlock => Jobs.WoodWorker.Name;
     }
 }

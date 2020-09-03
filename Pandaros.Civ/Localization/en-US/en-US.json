@@ -32,7 +32,8 @@
             "TimePeriods": {
               "PreHistory": {
                 "Jobs": {
-                  "StonePuncher": "Stone Shaper"
+                  "StonePuncher": "Stone Shaper Limits",
+                  "WoodWorker":  "Wood Worker Limits"
                 }
               }
             }
@@ -54,7 +55,8 @@
     "Pandaros.Civ.Storage.CarvedLog": "Hollowed Out Log",
     "Pandaros.Civ.Storage.Basket": "Woven Basket",
     "Pandaros.Civ.Storage.StorageChest": "Iron Bound Chest",
-    "Pandaros.Civ.Storage.StorageDrawers": "Orginized Drawers"
+    "Pandaros.Civ.Storage.StorageDrawers": "Orginized Drawers",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "Wood Worker"
   },
   "typeuses": {
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StonePuncher": "Shapes stone into things such as slinger ammo.",
@@ -69,6 +71,7 @@
     "Pandaros.Civ.Storage.CarvedLog": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
     "Pandaros.Civ.Storage.Basket": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
     "Pandaros.Civ.Storage.StorageDrawers": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
-    "Pandaros.Civ.Storage.StorageChest": "Can store a decent amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these."
+    "Pandaros.Civ.Storage.StorageChest": "Can store a decent amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "A crafter that makes basic things out of wood."
   }
 }

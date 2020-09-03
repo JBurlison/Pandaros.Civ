@@ -42,6 +42,8 @@ namespace Pandaros.Civ.BronzeAge.Items
                 "bronzeage",
                 GameSetup.NAMESPACE
             };
+            onPlaceAudio = "woodPlace";
+            onRemoveAudio = "woodDeleteLight";
             isSolid = true;
             icon = GameSetup.Textures.GetPath(TextureType.icon, "Shelving.png");
         }
