@@ -12,6 +12,12 @@ namespace Pandaros.Civ.Jobs
 {
     public class PorterJob : BlockJobInstance
     {
+        public enum PorterJobType
+        {
+            FromCrate,
+            ToCrate
+        }
+
         public Vector3Int OriginalPosition { get; private set; }
 
         public PorterJob(IBlockJobSettings settings, Vector3Int position, ItemTypes.ItemType type, ByteReader reader) : base(settings, position, type, reader)

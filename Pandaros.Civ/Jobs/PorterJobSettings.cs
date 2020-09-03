@@ -1,6 +1,7 @@
 ﻿using Jobs;
 using NPC;
 using Pandaros.Civ.Jobs.Goals;
+using Pandaros.Civ.Storage;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Pipliz;
 using System;
@@ -8,13 +9,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Pandaros.Civ.Jobs.PorterJob;
 
 namespace Pandaros.Civ.Jobs
 {
     public abstract class PorterJobSettings : IBlockJobSettings, IPandaJobSettings
     {
         public static List<BlockJobInstance> PorterJobs { get; set; } = new List<BlockJobInstance>();
-        public PorterJobSettings(string blockType, string npcTypeKey)
+        public PorterJobSettings(string blockType, string npcTypeKey, PorterJobType storageType)
         {
             if (blockType != null)
             {
@@ -26,7 +28,10 @@ namespace Pandaros.Civ.Jobs
 
             NPCType = NPCType.GetByKeyNameOrDefault(npcTypeKey);
             RecruitmentItem = new InventoryItem(LeafBag.NAME);
+            StorageType = storageType;
         }
+
+        public PorterJobType StorageType { get; set; }
         public Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
 
         public virtual ItemTypes.ItemType[] BlockTypes { get; set; }
@@ -47,7 +52,10 @@ namespace Pandaros.Civ.Jobs
         public virtual Vector3Int GetJobLocation(BlockJobInstance instance)
         {
             if (!CurrentGoal.ContainsKey(instance))
-                CurrentGoal.Add(instance, new StockpikeToCrateGoal(instance, this));
+                if (StorageType == PorterJobType.ToCrate)
+                    CurrentGoal.Add(instance, new StockpikeToCrateGoal(instance, this));
+                else
+                    CurrentGoal.Add(instance, new CrateToStockpikeGoal(instance, this));
 
             if (!OriginalPosition.ContainsKey(instance))
                 OriginalPosition.Add(instance, instance.Position);

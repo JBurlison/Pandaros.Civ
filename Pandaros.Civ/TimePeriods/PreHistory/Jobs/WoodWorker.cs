@@ -30,6 +30,16 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         }
     }
 
+
+    /*public class WoodWorkerTexture : CSTextureMapping
+    {
+        public override string name => StonePuncher.Name;
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "WoodWorker.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "WoodWorker.png");
+        //public override string height => GameSetup.Textures.GetPath(TextureType.height, "WoodWorker.png");
+    }*/
+
+
     public class WoodWorker : PandaCrafingSettings
     {
         public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(WoodWorker));
@@ -49,15 +59,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
         }
     }
-
-    /*public class WoodWorkerTexture : CSTextureMapping
-    {
-        public override string name => StonePuncher.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "WoodWorker.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "WoodWorker.png");
-        //public override string height => GameSetup.Textures.GetPath(TextureType.height, "WoodWorker.png");
-    }*/
-
     public class WoodWorkerJobBlock : CSType
     {
         public override string name => WoodWorker.Name;

@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.PreHistory.Items
 {
-    public class CarvedLogTexture : CSTextureMapping
+    public class CarvedLogTextureTop : CSTextureMapping
     {
         public override string name => CarvedLog.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "CarvedLog.png");
-        public override string height => GameSetup.Textures.GetPath(TextureType.height, "CarvedLog.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "CarvedLog.png");
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "CarvedLogTop.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "CarvedLogTop.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "CarvedLogTop.png");
     }
 
     public class CarvedLog : CSType, IStorageUpgradeBlock
@@ -31,14 +31,16 @@ namespace Pandaros.Civ.PreHistory.Items
             name = Name;
             GlobalStorageUpgrade = 8;
             CategoryStorageUpgrades.Add("food", 8);
-            sideall = GameSetup.Textures.SELF;
+            sideall = Name;
+            sideyp = ColonyBuiltIn.ItemTypes.LOGTAIGA;
+            sideyn = ColonyBuiltIn.ItemTypes.LOGTAIGA;
             categories = new List<string>()
             {
-                "essential",
-                "storage",
-                "upgrade",
-                "aa",
-                "prehistory",
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.HighPriority,
+                CommonCategories.StockpileUpgrade,
+                nameof(TimePeriod.PreHistory),
                 GameSetup.NAMESPACE
             };
             isSolid = true;

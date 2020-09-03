@@ -40,7 +40,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public PorterJob Porter { get; set; }
         public string Name { get; set; } = nameof(PutItemsInCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(PutItemsInCrateGoal));
-        public Vector3Int CurrentCratePosition { get; set; }
+        public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Crate;
         float _waitTime = Pipliz.Random.NextFloat(8, 16);
@@ -70,6 +70,12 @@ namespace Pandaros.Civ.Jobs.Goals
                         CurrentCratePosition = StorageFactory.GetStockpilePosition(Job.Owner).Position;
                     }
                 }
+            }
+
+            if (CurrentCratePosition == Vector3Int.invalidPos)
+            {
+                WalkingTo = StorageType.Stockpile;
+                CurrentCratePosition = StorageFactory.GetStockpilePosition(Job.Owner).Position;
             }
 
             return CurrentCratePosition;

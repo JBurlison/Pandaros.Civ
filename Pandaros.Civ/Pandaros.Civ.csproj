@@ -78,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CivLogger.cs" />
+    <Compile Include="CommonCategories.cs" />
+    <Compile Include="CommonSounds.cs" />
+    <Compile Include="Extender\Providers\MiningOverrideExtender.cs" />
     <Compile Include="Extender\Providers\CratePlacementUpdateProvider.cs" />
     <Compile Include="Extender\Providers\CrateRequestProvider.cs" />
     <Compile Include="Extender\Providers\NPCTypeStandardSettingProvider.cs" />
@@ -121,6 +124,8 @@
     <Compile Include="TimePeriods\IronAge\Items\StorageChest.cs" />
     <Compile Include="TimePeriods\IronAge\Items\StorageDrawers.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
@@ -144,12 +149,25 @@
     <Compile Include="TimePeriods\PeriodFactory.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafBag.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\Crate.cs" />
+    <Compile Include="WorldGen\IMineTypeOverride.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\Backpack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\BasicCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\SlowPorterFromCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\SlowPorterToCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Rock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\RoughWoodBoard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\Shelving.png">
@@ -182,7 +200,19 @@
     <Content Include="Meshes\crate.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\albedo\CarvedLogTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\albedo\IronChest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\albedo\PorterFromCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\albedo\PorterToCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\albedo\RoughWoodBoard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\albedo\Shelving.png">
@@ -191,13 +221,37 @@
     <Content Include="Textures\albedo\StorageDrawers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\CarvedLogTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\heightSmoothnessSpecularity\IronChest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\PorterFromCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\PorterToCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\RoughWoodBoard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\heightSmoothnessSpecularity\Shelving.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\normal\CarvedLogTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\normal\IronChest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\PorterFromCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\PorterToCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\RoughWoodBoard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\normal\Shelving.png">

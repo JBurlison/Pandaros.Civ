@@ -99,8 +99,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     }
                     else
                     {
-                        state.SetCooldown(10);
-                        JobSettings.SetGoal(Job, new StockpikeToCrateGoal(Job, JobSettings), ref state);
+                        LastCratePosition.Clear();
                     }
                 }
                 else

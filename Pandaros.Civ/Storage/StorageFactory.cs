@@ -1,4 +1,5 @@
-﻿using ModLoaderInterfaces;
+﻿using BlockTypes;
+using ModLoaderInterfaces;
 using NetworkUI;
 using NetworkUI.Items;
 using Newtonsoft.Json;
@@ -49,9 +50,28 @@ namespace Pandaros.Civ.Storage
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnConstructTooltipUI, GameSetup.NAMESPACE + ".Storage.StorageFactory.ConstructTooltip")]
         static void ConstructTooltip(ConstructTooltipUIData data)
         {
-            if (!ItemTypes.TryGetType(data.hoverItem, out var item))
+            ItemTypes.ItemType item = BuiltinBlocks.Types.air;
+
+            if (data.hoverType == Shared.ETooltipHoverType.Item && !ItemTypes.TryGetType(data.hoverItem, out item))
                 return;
 
+            if (data.hoverType == Shared.ETooltipHoverType.PlayerRecipe && !ItemTypes.TryGetType(data.hoverKey, out item))
+                return;
+
+            if (data.hoverType == Shared.ETooltipHoverType.NPCRecipe && !ItemTypes.TryGetType(data.hoverKey, out item))
+                return;
+
+            if (data.hoverType == Shared.ETooltipHoverType.Science && !ItemTypes.TryGetType(data.hoverKey, out item))
+                return;
+
+            if (data.hoverType == Shared.ETooltipHoverType.ScienceCondition && !ItemTypes.TryGetType(data.hoverKey, out item))
+                return;
+
+            if (data.hoverType == Shared.ETooltipHoverType.ScienceUnlock && !ItemTypes.TryGetType(data.hoverKey, out item))
+                return;
+
+            if (item == BuiltinBlocks.Types.air)
+                return;
 
             if (CrateTypes.TryGetValue(item.Name, out var crate))
             {

@@ -2,6 +2,7 @@
 using Pandaros.API;
 using Pandaros.API.Models;
 using Pandaros.Civ.Storage;
+using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using Recipes;
 using System;
@@ -17,12 +18,12 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.STONEBRICKS.Id)
+            new RecipeItem(Rock.NAME, 5)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(ColonyBuiltIn.ItemTypes.SLINGBULLET.Id)
+            new RecipeResult(ColonyBuiltIn.ItemTypes.SLINGBULLET.Id, 5)
         };
 
         public bool isOptional => false;

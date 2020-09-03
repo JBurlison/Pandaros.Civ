@@ -2,6 +2,7 @@
 using NPC;
 using Pandaros.API;
 using Pandaros.API.Models;
+using Pandaros.Civ;
 using Pandaros.Civ.Jobs;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Recipes;
@@ -23,69 +24,141 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         {
             ServerManager.BlockEntityCallbacks.RegisterEntityManager(
                 new BlockJobManager<PorterJob>(
-                    new SlowPorter(),
+                    new SlowPorterToCrate(),
                     (setting, pos, type, bytedata) => new PorterJob(setting, pos, type, bytedata),
                     (setting, pos, type, colony) => new PorterJob(setting, pos, type, colony)
                 )
             );
+
+            ServerManager.BlockEntityCallbacks.RegisterEntityManager(
+               new BlockJobManager<PorterJob>(
+                   new SlowPorterFromCrate(),
+                   (setting, pos, type, bytedata) => new PorterJob(setting, pos, type, bytedata),
+                   (setting, pos, type, colony) => new PorterJob(setting, pos, type, colony)
+               )
+           );
         }
     }
 
-    public class SlowPorterSettings : INPCTypeStandardSettings
+    public class SlowPorterToCrateSettings : INPCTypeStandardSettings
     {
-        public string keyName { get; set; } = SlowPorter.Name;
-        public string printName { get; set; } = "Pre-History Porter";
+        public string keyName { get; set; } = SlowPorterToCrate.Name;
+        public string printName { get; set; } = "Pre-History Porter to Crate";
         public float inventoryCapacity { get; set; } = 300f;
         public float movementSpeed { get; set; } = 1.5f;
-        public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
+        public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(66, 255, 129, 255);
         public Color32 maskColor0 { get; set; }
     }
 
-    public class SlowPorter : PorterJobSettings
-    {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorter));
 
-        public SlowPorter() : base(Name, Name)
+    public class SlowPorterToCrate : PorterJobSettings
+    {
+        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterToCrate));
+
+        public SlowPorterToCrate() : base(Name, Name, PorterJob.PorterJobType.ToCrate)
         {
-            
+
         }
     }
 
-    public class SlowPorterTexture : CSTextureMapping
+    public class SlowPorterToCrateTexture : CSTextureMapping
     {
-        public override string name => SlowPorter.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "MachinistBenchTop.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "MachinistBenchTop.png");
-        public override string height => GameSetup.Textures.GetPath(TextureType.height, "MachinistBenchTop.png");
+        public override string name => SlowPorterToCrate.Name;
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "PorterToCrate.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "PorterToCrate.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "PorterToCrate.png");
     }
 
-    public class MachinistJobType : CSType
+    public class SlowPorterJobType : CSType
     {
-        public override string name => SlowPorter.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "SlowPorter.png");
-        public override string onPlaceAudio => "stonePlace";
-        public override string onRemoveAudio => "stoneDelete";
-        public override string sideall => ColonyBuiltIn.ItemTypes.STONEBRICKS;
-        public override string sideyp => SlowPorter.Name;
-        public override List<string> categories => new List<string>() { "job", "porter", "aa", "prehistory", GameSetup.NAMESPACE };
+        public override string name => SlowPorterToCrate.Name;
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "SlowPorterToCrate.png");
+        public override string onPlaceAudio => CommonSounds.WoodPlace;
+        public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
+        public override string sideall => SlowPorterToCrate.Name;
+        public override string sideyp => RoughWoodenBoard.NAME;
+        public override string sideyn => RoughWoodenBoard.NAME;
+        public override List<string> categories => new List<string>() { CommonCategories.Job, "porter", CommonCategories.HighPriority, nameof(TimePeriod.PreHistory), GameSetup.NAMESPACE };
     }
 
-    public class BasketRecipe : ICSPlayerRecipe
+    public class SlowPorterToCrateRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Wood.NAME, 10),
+            new RecipeItem(Wood.NAME, 2),
+            new RecipeItem(RoughWoodenBoard.NAME, 4),
             new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5),
             new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(SlowPorter.Name)
+            new RecipeResult(SlowPorterToCrate.Name)
         };
 
         public bool isOptional => false;
 
-        public string name => SlowPorter.Name;
+        public string name => SlowPorterToCrate.Name;
+    }
+
+    public class SlowPorterFromCrate : PorterJobSettings
+    {
+        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterFromCrate));
+
+        public SlowPorterFromCrate() : base(Name, Name, PorterJob.PorterJobType.FromCrate)
+        {
+
+        }
+    }
+
+    public class SlowPorterFromCrateSettings : INPCTypeStandardSettings
+    {
+        public string keyName { get; set; } = SlowPorterFromCrate.Name;
+        public string printName { get; set; } = "Pre-History Porter from Crate";
+        public float inventoryCapacity { get; set; } = 300f;
+        public float movementSpeed { get; set; } = 1.5f;
+        public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
+        public Color32 maskColor0 { get; set; }
+    }
+
+    public class SlowPorterFromCrateTexture : CSTextureMapping
+    {
+        public override string name => SlowPorterFromCrate.Name;
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "PorterFromCrate.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "PorterFromCrate.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "PorterFromCrate.png");
+    }
+
+    public class PorterJobFromCrateType : CSType
+    {
+        public override string name => SlowPorterFromCrate.Name;
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "SlowPorterFromCrate.png");
+        public override string onPlaceAudio => CommonSounds.WoodPlace;
+        public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
+        public override string sideall => SlowPorterFromCrate.Name;
+        public override string sideyp => RoughWoodenBoard.NAME;
+        public override string sideyn => RoughWoodenBoard.NAME;
+        public override List<string> categories => new List<string>() { CommonCategories.Job, "porter", CommonCategories.HighPriority, nameof(TimePeriod.PreHistory), GameSetup.NAMESPACE };
+    }
+
+    public class SlowPorterFromCrateRecipe : ICSPlayerRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(Wood.NAME, 2),
+            new RecipeItem(RoughWoodenBoard.NAME, 4),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(SlowPorterFromCrate.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => SlowPorterFromCrate.Name;
     }
 }
+

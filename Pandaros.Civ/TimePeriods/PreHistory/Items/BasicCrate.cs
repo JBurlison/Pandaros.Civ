@@ -24,11 +24,11 @@ namespace Pandaros.Civ.PreHistory.Items
             sideall = "planks";
             categories = new List<string>()
             {
-                "essential",
-                "storage",
-                "crate",
-                "aa",
-                "prehistory",
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.Crate,
+                CommonCategories.HighPriority,
+                nameof(TimePeriod.PreHistory),
                 GameSetup.NAMESPACE
             };
             isSolid = true;
@@ -56,7 +56,8 @@ namespace Pandaros.Civ.PreHistory.Items
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Wood.NAME, 10),
+            new RecipeItem(Wood.NAME, 2),
+            new RecipeItem(RoughWoodenBoard.NAME, 5),
             new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
         };
 
@@ -69,11 +70,13 @@ namespace Pandaros.Civ.PreHistory.Items
 
         public string name => BasicCrate.Name;
     }
+
     public class BasicCrateWoodWorkerRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Wood.NAME, 10),
+            new RecipeItem(Wood.NAME, 2),
+            new RecipeItem(RoughWoodenBoard.NAME, 5),
             new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
         };
 

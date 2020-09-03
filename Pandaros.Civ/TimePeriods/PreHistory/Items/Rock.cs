@@ -1,5 +1,6 @@
 ﻿using Pandaros.API;
 using Pandaros.API.Models;
+using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using Recipes;
 using System;
 using System.Collections.Generic;
@@ -9,40 +10,44 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 {
-    public class LeafBag : CSType 
+    public class Rock : CSType 
     {
-        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(LeafBag));
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(Rock));
         public override string name { get; set; } = NAME;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "Backpack.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "Rock.png");
         public override bool? isPlaceable => false;
         public override int? maxStackSize => 1;
         public override List<string> categories { get; set; } = new List<string>()
         {
-            "essential",
-            "storage",
-            "bag",
-            "backpack", 
-            "aa",
+            CommonCategories.Ingredient,
+            CommonCategories.Stone,
             nameof(TimePeriod.PreHistory),
             GameSetup.NAMESPACE
         };
     }
 
-    public class LeafBagRecipe : ICSPlayerRecipe
+    public class RockRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Wood.NAME, 1),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 10)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.STONEBRICKS.Id, 1)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(LeafBag.NAME)
+            new RecipeResult(Rock.NAME, 5)
         };
 
         public bool isOptional => false;
 
-        public string name => LeafBag.NAME;
+        public string name => Rock.NAME;
+
+        public CraftPriority defaultPriority => CraftPriority.Medium;
+
+        public int defaultLimit => 10;
+
+        public string Job => StonePuncher.Name;
+
+        public string JobBlock => StonePuncher.Name;
     }
 }

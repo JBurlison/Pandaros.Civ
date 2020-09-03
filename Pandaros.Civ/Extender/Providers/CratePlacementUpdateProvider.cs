@@ -21,7 +21,7 @@ namespace Pandaros.Civ.Extender.Providers
 
         public void OnTryChangeBlock(ModLoader.OnTryChangeBlockData tryChangeBlockData)
         {
-            if (tryChangeBlockData.PlayerClickedData.HitType != Shared.PlayerClickedData.EHitType.Block)
+            if (tryChangeBlockData.PlayerClickedData != null && tryChangeBlockData.PlayerClickedData.HitType != Shared.PlayerClickedData.EHitType.Block)
                 return;
 
             var colony = tryChangeBlockData?.RequestOrigin.AsPlayer?.ActiveColony;

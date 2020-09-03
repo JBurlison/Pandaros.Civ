@@ -18,10 +18,9 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public override int? maxStackSize => 200;
         public override List<string> categories { get; set; } = new List<string>()
         {
-            "ingredient",
-            "wood",
-            "aa",
-            "prehistory", 
+            CommonCategories.Ingredient,
+            CommonCategories.Wood,
+            nameof(TimePeriod.PreHistory), 
             GameSetup.NAMESPACE
         };
     }
@@ -75,7 +74,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
-        public int defaultLimit => 50;
+        public int defaultLimit => 10;
 
         public string Job => Jobs.WoodWorker.Name;
 
@@ -97,7 +96,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
-        public int defaultLimit => 50;
+        public int defaultLimit => 10;
 
         public string Job => Jobs.WoodWorker.Name;
 

@@ -50,6 +50,8 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int GetPosition()
         {
             List<Vector3Int> cratesWithItems = new List<Vector3Int>();
+            var stockpileLoc = StorageFactory.GetStockpilePosition(Job.Owner);
+            cratesWithItems.Add(stockpileLoc.Position);
 
             foreach (var item in ItemsToGet)
             {
@@ -62,11 +64,10 @@ namespace Pandaros.Civ.Jobs.Goals
                                 cratesWithItems.AddIfUnique(loc);
             }
 
-
-            if (cratesWithItems.Count == 0)
+            if (cratesWithItems.Count == 0 || cratesWithItems[0] == stockpileLoc.Position)
             {
                 WalkingTo = StorageType.Stockpile;
-                return StorageFactory.GetStockpilePosition(Job.Owner).Position;
+                return stockpileLoc.Position;
             }
             else
             {
@@ -75,7 +76,17 @@ namespace Pandaros.Civ.Jobs.Goals
                 if (cratesWithItems.Count == 1)
                     CurrentCratePosition = cratesWithItems[0];
                 else
-                    CurrentCratePosition = JobSettings.OriginalPosition[Job].GetClosestPosition(cratesWithItems);
+                {
+                    var pos = JobSettings.OriginalPosition[Job].GetClosestPosition(cratesWithItems);
+
+                    if (pos == stockpileLoc.Position)
+                    {
+                        WalkingTo = StorageType.Stockpile;
+                        return stockpileLoc.Position;
+                    }
+                    else
+                        CurrentCratePosition = pos;
+                }
 
                 return CurrentCratePosition;
             }
