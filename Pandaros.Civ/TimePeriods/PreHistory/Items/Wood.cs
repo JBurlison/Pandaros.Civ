@@ -78,7 +78,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string Job => Jobs.WoodWorker.Name;
 
-        public string JobBlock => Jobs.WoodWorker.Name;
+        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
     }
     public class WoodTemperateJobRecipe : ICSRecipe
     {
@@ -100,6 +100,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string Job => Jobs.WoodWorker.Name;
 
-        public string JobBlock => Jobs.WoodWorker.Name;
+        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
     }
 }

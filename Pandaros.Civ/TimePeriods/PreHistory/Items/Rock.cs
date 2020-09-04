@@ -48,6 +48,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string Job => StoneShaper.Name;
 
-        public string JobBlock => StoneShaper.Name;
+        public List<string> JobBlock => new List<string> { StoneShaper.Name };
     }
 }

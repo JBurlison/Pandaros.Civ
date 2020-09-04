@@ -111,12 +111,18 @@ namespace Pandaros.Civ
         [ModLoader.ModCallback(NAMESPACE + ".OnLoadModJSONFiles")]
         public void OnLoadModJSONFiles(List<ModLoader.LoadModJSONFileContext> contexts)
         {
-            var blacklistTypes = new List<string>()
+            var blacklistTypes = new HashSet<string>()
             {
-                "addOrReplaceNPCRecipes",
                 "addScience",
                 "addOrReplacePlayerRecipes",
                 "addOrReplaceStarterPack"
+            };
+
+            var blackListJobRecipes = new HashSet<string>()
+            {
+                "pipliz.minter",
+                "pipliz.merchant",
+                "pipliz.crafter"
             };
 
             List<ModLoader.LoadModJSONFileContext> remove = new List<ModLoader.LoadModJSONFileContext>();
@@ -130,8 +136,20 @@ namespace Pandaros.Civ
                     foreach (var json in context.Mod.jsonFiles)
                     {
                         var ft = json.Value<string>("fileType");
+                        bool keepType = true;
 
-                        if (!blacklistTypes.Any(b => b.Equals(ft, StringComparison.InvariantCultureIgnoreCase)))
+                        if (blacklistTypes.Contains(ft))
+                            keepType = false;
+
+                        if(keepType && ft == "addOrReplaceNPCRecipes")
+                        {
+                            var npcType = json.Value<string>("npcType");
+
+                            if (npcType != null && blackListJobRecipes.Contains(npcType))
+                                keepType =false;
+                        }
+
+                        if (keepType)
                             keep.Add(json);
                     }
 

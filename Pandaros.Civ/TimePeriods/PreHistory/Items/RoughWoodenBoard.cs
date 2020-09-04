@@ -58,6 +58,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string Job => WoodWorker.Name;
 
-        public string JobBlock => WoodWorker.Name;
+        public List<string> JobBlock => new List<string>() { WoodWorker.Name };
     }
 }
