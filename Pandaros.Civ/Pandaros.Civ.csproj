@@ -168,6 +168,9 @@
     <Content Include="icons\PaddedCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="icons\Pandaros.Civ.TimePeriods.PreHistory.Research.StoneAgeResearch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icons\SlowPorterFromCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
