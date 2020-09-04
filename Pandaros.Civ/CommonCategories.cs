@@ -12,11 +12,13 @@ namespace Pandaros.Civ
         public static string Wood = "wood";
         public static string Stone = "stone";
         public static string HighPriority = "aa";
+        public static string MediumPriority = "aa";
         public static string Crate = "crate";
         public static string Storage = "storage";
         public static string Essential = "essential";
         public static string StockpileUpgrade = "upgrade";
         public static string RecruitmentItem = "recruitment";
         public static string Job = "job";
+        public static string Food = "food";
     }
 }

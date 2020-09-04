@@ -37,4 +37,22 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
 
         public string JobBlock => StonePuncher.Name;
     }
+
+    public class SlingBulletRecipePlayer : ICSPlayerRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(Rock.NAME, 5)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(ColonyBuiltIn.ItemTypes.SLINGBULLET.Id, 5)
+        };
+
+        public bool isOptional => false;
+
+        public string name => ColonyBuiltIn.ItemTypes.SLINGBULLET.Name;
+
+    }
 }

@@ -11,6 +11,7 @@ using Pandaros.API.Jobs.Roaming;
 using Pandaros.API.Monsters;
 using Pandaros.API.Research;
 using Pandaros.API.Server;
+using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using Pipliz.JSON;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Pandaros.Civ
 {
     [ModLoader.ModManager]
     [LoadPriority(double.MaxValue)]
-    public class GameSetup : IOnLoadModJSONFiles
+    public class GameSetup : IOnLoadModJSONFiles, IAfterItemTypesDefined
     {
         public const string NAMESPACE = "Pandaros.Civ";
         public static string MESH_PATH = "Meshes/";
@@ -110,41 +111,55 @@ namespace Pandaros.Civ
         [ModLoader.ModCallback(NAMESPACE + ".OnLoadModJSONFiles")]
         public void OnLoadModJSONFiles(List<ModLoader.LoadModJSONFileContext> contexts)
         {
-            //var blacklistTypes = new List<string>()
-            //{
-            //    //"addOrReplaceNPCRecipes",
-            //    //"addScience",
-            //    //"addOrReplacePlayerRecipes",
-            //    //"addOrReplaceStarterPack",
-            //    //"scienceBiomePatches"
-            //};
+            var blacklistTypes = new List<string>()
+            {
+                "addOrReplaceNPCRecipes",
+                "addScience",
+                "addOrReplacePlayerRecipes",
+                "addOrReplaceStarterPack"
+            };
 
-            //List<ModLoader.LoadModJSONFileContext> remove = new List<ModLoader.LoadModJSONFileContext>();
+            List<ModLoader.LoadModJSONFileContext> remove = new List<ModLoader.LoadModJSONFileContext>();
 
-            //foreach (var context in contexts)
-            //{
-            //    if (context.Mod.name == "Colony Survival")
-            //    {
-            //        List<JObject> keep = new List<JObject>();
+            foreach (var context in contexts)
+            {
+                if (context.Mod.name == "Colony Survival")
+                {
+                    List<JObject> keep = new List<JObject>();
 
-            //        foreach (var json in context.Mod.jsonFiles)
-            //        {
-            //            var ft = json.Value<string>("fileType");
+                    foreach (var json in context.Mod.jsonFiles)
+                    {
+                        var ft = json.Value<string>("fileType");
 
-            //            if (!blacklistTypes.Any(b => b.Equals(ft, StringComparison.InvariantCultureIgnoreCase)))
-            //                keep.Add(json);
-            //        }
+                        if (!blacklistTypes.Any(b => b.Equals(ft, StringComparison.InvariantCultureIgnoreCase)))
+                            keep.Add(json);
+                    }
 
-            //        context.Mod.jsonFiles = keep.ToArray();
+                    context.Mod.jsonFiles = keep.ToArray();
 
 
-            //        if (blacklistTypes.Any(b => b.Equals(context.FileType, StringComparison.InvariantCultureIgnoreCase)))
-            //            remove.Add(context);
-            //    }
-            //}
+                    if (blacklistTypes.Any(b => b.Equals(context.FileType, StringComparison.InvariantCultureIgnoreCase)))
+                        remove.Add(context);
+                }
+            }
 
-            //foreach (var r in remove)
-            //    contexts.Remove(r);
+            foreach (var r in remove)
+                contexts.Remove(r);
+        }
+
+        public void AfterItemTypesDefined()
+        {
+            StarterPacks.Manager.PrimaryStockpileStart = new StarterPacks.StarterPack(new List<InventoryItem>()
+            {
+                new InventoryItem(ColonyBuiltIn.ItemTypes.BREAD.Name, 100),
+                new InventoryItem(ColonyBuiltIn.ItemTypes.BERRY.Name, 100),
+                new InventoryItem(ColonyBuiltIn.ItemTypes.BED.Name, 50),
+            });
+
+            StarterPacks.Manager.PrimaryPlayerStart = new StarterPacks.StarterPack(new List<InventoryItem>()
+            {
+                new InventoryItem(ColonyBuiltIn.ItemTypes.TORCH.Name, 100),
+            });
         }
     }
 }

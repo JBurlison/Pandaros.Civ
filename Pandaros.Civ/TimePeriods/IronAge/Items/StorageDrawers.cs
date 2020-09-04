@@ -62,7 +62,7 @@ namespace Pandaros.Civ.IronAge.Items
             new RecipeResult(StorageDrawers.Name)
         };
 
-        public bool isOptional => false;
+        public bool isOptional => true;
 
         public string name => StorageDrawers.Name;
     }

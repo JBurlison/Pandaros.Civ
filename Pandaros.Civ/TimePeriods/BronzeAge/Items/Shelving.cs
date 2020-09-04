@@ -62,7 +62,7 @@ namespace Pandaros.Civ.BronzeAge.Items
             new RecipeResult(Shelving.Name)
         };
 
-        public bool isOptional => false;
+        public bool isOptional => true;
 
         public string name => Shelving.Name;
     }

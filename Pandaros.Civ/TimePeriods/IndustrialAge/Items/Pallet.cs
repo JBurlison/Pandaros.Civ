@@ -61,7 +61,7 @@ namespace Pandaros.Civ.IndustrialAge.Items
             new RecipeResult(Pallet.Name)
         };
 
-        public bool isOptional => false;
+        public bool isOptional => true;
 
         public string name => Pallet.Name;
     }

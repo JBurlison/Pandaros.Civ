@@ -34,15 +34,15 @@ namespace Pandaros.Civ.StoneAge.Items
             sideall = GameSetup.Textures.SELF;
             categories = new List<string>()
             {
-                "essential",
-                "storage",
-                "upgrade",
-                "ba",
-                "stoneage",
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.StockpileUpgrade,
+                CommonCategories.MediumPriority,
+                nameof(TimePeriod.StoneAge),
                 GameSetup.NAMESPACE
             };
-            onPlaceAudio = "woodPlace";
-            onRemoveAudio = "woodDeleteLight";
+            onPlaceAudio = CommonSounds.WoodPlace;
+            onRemoveAudio = CommonSounds.WoodDeleteLight;
             isSolid = true;
             icon = GameSetup.Textures.GetPath(TextureType.icon, "basket.png");
         }
@@ -61,7 +61,7 @@ namespace Pandaros.Civ.StoneAge.Items
             new RecipeResult(Basket.Name)
         };
 
-        public bool isOptional => false;
+        public bool isOptional => true;
 
         public string name => Basket.Name;
     }

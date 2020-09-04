@@ -54,20 +54,15 @@ namespace Pandaros.Civ.Storage
 
             if (data.hoverType == Shared.ETooltipHoverType.Item && !ItemTypes.TryGetType(data.hoverItem, out item))
                 return;
-
-            if (data.hoverType == Shared.ETooltipHoverType.PlayerRecipe && !ItemTypes.TryGetType(data.hoverKey, out item))
+            else if (data.hoverType == Shared.ETooltipHoverType.PlayerRecipe && !ItemTypes.TryGetType(data.hoverKey, out item))
                 return;
-
-            if (data.hoverType == Shared.ETooltipHoverType.NPCRecipe && !ItemTypes.TryGetType(data.hoverKey, out item))
+            else if (data.hoverType == Shared.ETooltipHoverType.NPCRecipe && !ItemTypes.TryGetType(data.hoverKey, out item))
                 return;
-
-            if (data.hoverType == Shared.ETooltipHoverType.Science && !ItemTypes.TryGetType(data.hoverKey, out item))
+            else if (data.hoverType == Shared.ETooltipHoverType.Science && !ItemTypes.TryGetType(data.hoverKey, out item))
                 return;
-
-            if (data.hoverType == Shared.ETooltipHoverType.ScienceCondition && !ItemTypes.TryGetType(data.hoverKey, out item))
+            else if (data.hoverType == Shared.ETooltipHoverType.ScienceCondition && !ItemTypes.TryGetType(data.hoverKey, out item))
                 return;
-
-            if (data.hoverType == Shared.ETooltipHoverType.ScienceUnlock && !ItemTypes.TryGetType(data.hoverKey, out item))
+            else if (data.hoverType == Shared.ETooltipHoverType.ScienceUnlock && !ItemTypes.TryGetType(data.hoverKey, out item))
                 return;
 
             if (item == BuiltinBlocks.Types.air)
@@ -164,7 +159,7 @@ namespace Pandaros.Civ.Storage
                         CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
 
                     foreach (var loc in crateJson.LoopObject())
-                        CrateLocations[colony][Vector3Int.invalidPos.Parse(loc.Key)] = new CrateInventory(loc.Value, colony);
+                        CrateLocations[colony][Vector3Int.Parse(loc.Key)] = new CrateInventory(loc.Value, colony);
             }
 
             if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var icl))

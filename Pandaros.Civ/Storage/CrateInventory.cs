@@ -25,8 +25,13 @@ namespace Pandaros.Civ.Storage
         public CrateInventory(JSONNode node, Colony c)
         {
             Colony = c;
-            Position = (Vector3Int)node[nameof(Position)];
-            CrateType = StorageFactory.CrateTypes[node.GetAs<string>(nameof(CrateType))];
+
+            if (node.TryGetAs(nameof(Position), out JSONNode pos))
+                Position = (Vector3Int)pos;
+
+            if (node.TryGetAs(nameof(CrateType), out string ctype) && StorageFactory.CrateTypes.TryGetValue(ctype, out var crate))
+                CrateType = crate;
+
             Contents = node[nameof(Contents)].JsonDeerialize<Dictionary<ushort, StoredItem>>();
             StorageTypeLookup = node[nameof(StorageTypeLookup)].JsonDeerialize<Dictionary<StorageType, List<StoredItem>>>();
         }
