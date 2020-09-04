@@ -13,12 +13,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Recipes
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Name, 2)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Name, 5)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(ColonyBuiltIn.ItemTypes.SLING.Id, 5)
+            new RecipeResult(ColonyBuiltIn.ItemTypes.SLING.Id, 1)
         };
 
         public bool isOptional => false;
@@ -31,12 +31,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Recipes
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Name, 2)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Name, 5)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(ColonyBuiltIn.ItemTypes.SLING.Id, 5)
+            new RecipeResult(ColonyBuiltIn.ItemTypes.SLING.Id, 1)
         };
 
         public bool isOptional => false;

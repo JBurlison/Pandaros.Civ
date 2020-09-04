@@ -130,6 +130,7 @@
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\StoneShaper.cs" />
+    <Compile Include="TimePeriods\PreHistory\Recipes\Sling.cs" />
     <Compile Include="TimePeriods\PreHistory\Recipes\SlingBullets.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\Basket.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
