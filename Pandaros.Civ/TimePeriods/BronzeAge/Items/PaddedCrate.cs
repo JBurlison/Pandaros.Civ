@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 namespace Pandaros.Civ.BronzeAge.Items
 {
 
-    public class Chest : CSType, ICrate
+    public class PaddedCrate : CSType, ICrate
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "Chest");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "PaddedCrate");
         public int MaxCrateStackSize { get; set; } = 300;
         public int MaxNumberOfStacks { get; set; } = 15;
 
-        public Chest()
+        public PaddedCrate()
         {
             name = Name;
-            sideall = "crate";
+            sideall = "coatedplanks";
             categories = new List<string>()
             {
                 "essential",
@@ -33,26 +33,27 @@ namespace Pandaros.Civ.BronzeAge.Items
             onPlaceAudio = "woodPlace";
             onRemoveAudio = "woodDeleteHeavy";
             isSolid = true;
-            icon = GameSetup.Textures.GetPath(TextureType.icon, "crate.png");
-            //mesh = GameSetup.MESH_PATH + "crate.obj";
+            icon = GameSetup.Textures.GetPath(TextureType.icon, "PaddedCrate.png");
+            mesh = GameSetup.MESH_PATH + "SturdyCrate.obj";
         }
     }
 
-    public class BasicCrateRecipe : ICSPlayerRecipe
+    public class PaddedCrateRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Id, 10),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.COPPERPARTS.Id, 3)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.COATEDPLANKS.Id, 6),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.COPPERPARTS.Id, 3),
+            new RecipeItem(StoneAge.Items.SturdyCrate.Name)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(Chest.Name)
+            new RecipeResult(PaddedCrate.Name)
         };
 
         public bool isOptional => false;
 
-        public string name => Chest.Name;
+        public string name => PaddedCrate.Name;
     }
 }

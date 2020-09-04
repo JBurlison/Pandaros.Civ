@@ -118,10 +118,10 @@
     <Compile Include="Storage\CrateViewer.cs" />
     <Compile Include="Storage\ICratePlacementUpdate.cs" />
     <Compile Include="Storage\PlacementEventType.cs" />
-    <Compile Include="TimePeriods\BronzeAge\Items\Chest.cs" />
+    <Compile Include="TimePeriods\BronzeAge\Items\PaddedCrate.cs" />
     <Compile Include="TimePeriods\BronzeAge\Items\Shelving.cs" />
     <Compile Include="TimePeriods\IndustrialAge\Items\Pallet.cs" />
-    <Compile Include="TimePeriods\IronAge\Items\StorageChest.cs" />
+    <Compile Include="TimePeriods\IronAge\Items\IronChest.cs" />
     <Compile Include="TimePeriods\IronAge\Items\StorageDrawers.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
@@ -148,7 +148,7 @@
     <Compile Include="TimePeriod.cs" />
     <Compile Include="TimePeriods\PeriodFactory.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafBag.cs" />
-    <Compile Include="TimePeriods\StoneAge\Items\Crate.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\SturdyCrate.cs" />
     <Compile Include="WorldGen\IMineTypeOverride.cs" />
     <Compile Include="WorldGen\StoneOverride.cs" />
   </ItemGroup>
@@ -157,6 +157,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\BasicCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\PaddedCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\SlowPorterFromCrate.png">
@@ -198,7 +201,7 @@
     <Content Include="icons\Wood.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Meshes\crate.obj">
+    <Content Include="Meshes\SturdyCrate.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\albedo\CarvedLogTop.png">
@@ -268,6 +271,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Localization\en-US\en-US.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Meshes\Crate.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Meshes\IronChest.ply">

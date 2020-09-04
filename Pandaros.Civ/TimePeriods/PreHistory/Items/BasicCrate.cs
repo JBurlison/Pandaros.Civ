@@ -21,7 +21,7 @@ namespace Pandaros.Civ.PreHistory.Items
         public BasicCrate()
         {
             name = Name;
-            sideall = "planks";
+            sideall = RoughWoodenBoard.NAME;
             categories = new List<string>()
             {
                 CommonCategories.Essential,
@@ -48,7 +48,7 @@ namespace Pandaros.Civ.PreHistory.Items
             onPlaceAudio = "woodPlace";
             onRemoveAudio = "woodDeleteLight";
             icon = GameSetup.Textures.GetPath(TextureType.icon, "BasicCrate.png");
-            mesh = GameSetup.MESH_PATH + "crate.obj";
+            mesh = GameSetup.MESH_PATH + "Crate.ply";
         }
     }
 
