@@ -40,6 +40,16 @@
           "CannotLocateCrateData": "Cannot Locate Crate Data",
           "GetItemsFromStockpile": "Get Items From Stockpile",
           "GetItemsFromToolbar": "Get Items From Toolbar"
+        },
+        "TimePeriods": {
+          "PreHistory": {
+            "Research": {
+              "StoneAgeResearch1": {
+                "name": "Enter The Stone Age!",
+                "description": "Your first step to civilization! Go ahead and invent the wheel, discover hammers and cooked food!"
+              }
+            }
+          }
         }
       }
     }
