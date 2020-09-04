@@ -47,7 +47,7 @@ namespace Pandaros.Civ.StoneAge.Items
             onPlaceAudio = "woodPlace";
             onRemoveAudio = "woodDeleteLight";
             icon = GameSetup.Textures.GetPath(TextureType.icon, "SturdyCrate.png");
-            mesh = GameSetup.MESH_PATH + "SturdyCrate.obj";
+            mesh = GameSetup.MESH_PATH + "SturdyCrate.ply";
         }
     }
 

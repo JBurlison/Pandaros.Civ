@@ -24,6 +24,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             nameof(TimePeriod.PreHistory),
             GameSetup.NAMESPACE
         };
+        public override string onPlaceAudio => "woodPlace";
+        public override string onRemoveAudio => "woodDeleteLight";
     }
 
     public class RoughWoodenBoardTexture : CSTextureMapping

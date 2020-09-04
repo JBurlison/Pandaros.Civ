@@ -46,8 +46,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public int defaultLimit => 10;
 
-        public string Job => StonePuncher.Name;
+        public string Job => StoneShaper.Name;
 
-        public string JobBlock => StonePuncher.Name;
+        public string JobBlock => StoneShaper.Name;
     }
 }

@@ -33,8 +33,8 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 50;
 
-        public string Job => StonePuncher.Name;
+        public string Job => StoneShaper.Name;
 
-        public string JobBlock => StonePuncher.Name;
+        public string JobBlock => StoneShaper.Name;
     }
 }

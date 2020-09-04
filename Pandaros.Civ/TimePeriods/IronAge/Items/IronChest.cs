@@ -37,7 +37,7 @@ namespace Pandaros.Civ.IronAge.Items
             collideSelection = true,
             boxes = new List<Colliders.Boxes>()
             {
-                new Colliders.Boxes(new List<float>(){ 0.5f, 0.18f, 0.28f }, new List<float>(){ -0.5f, -0.5f, -0.28f })
+                new Colliders.Boxes(new List<float>(){ 0.28f, 0.18f, 0.5f }, new List<float>(){ -0.28f, -0.5f, -0.5f })
             }
         };
         public override bool? isSolid => true;

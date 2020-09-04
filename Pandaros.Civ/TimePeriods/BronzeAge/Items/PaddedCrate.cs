@@ -34,7 +34,7 @@ namespace Pandaros.Civ.BronzeAge.Items
             onRemoveAudio = "woodDeleteHeavy";
             isSolid = true;
             icon = GameSetup.Textures.GetPath(TextureType.icon, "PaddedCrate.png");
-            mesh = GameSetup.MESH_PATH + "SturdyCrate.obj";
+            mesh = GameSetup.MESH_PATH + "SturdyCrate.ply";
         }
     }
 

@@ -45,7 +45,7 @@
     }
   },
   "types": {
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StonePuncher": "Stone Shaper",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StoneShaper": "Stone Shaper",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafBag": "Leaf Basket",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterToCrate": "Slow Porter to Crate",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterFromCrate": "Slow Porter from Crate",
@@ -65,7 +65,7 @@
     "Pandaros.Civ.TimePeriods.PreHistory.Items.RoughWoodenBoard": "Rough Wooden Board"
   },
   "typeuses": {
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StonePuncher": "Shapes stone into things such as slinger ammo.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StoneShaper": "Shapes stone into things such as slinger ammo.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafBag": "A bag made of leaves and sticks for slow porters to carry items in.",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterToCrate": "A basic porter to move resources from the crate to stockpile. Hire him to empty crates!",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterFromCrate": "A basic porter to move resources from the stockpile to crate. Hire him to move items required for other jobs to crates near them!",
