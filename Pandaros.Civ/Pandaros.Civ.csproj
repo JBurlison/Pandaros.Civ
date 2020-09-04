@@ -86,10 +86,6 @@
     <Compile Include="Extender\Providers\NPCTypeStandardSettingProvider.cs" />
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="GameSetup.cs" />
-    <Compile Include="Research\FoodStoredCondition.cs" />
-    <Compile Include="Research\ItemsInStockpileCondition.cs" />
-    <Compile Include="Research\JobsPlacedCondition.cs" />
-    <Compile Include="Research\StockpileSizeGoal.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaBlockFarmAreaJob.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaCraftingJobRotatedSettings.cs" />
     <Compile Include="Jobs\BaseReplacements\PandaCraftingJobRotatedLitSettings.cs" />
@@ -133,10 +129,8 @@
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
-    <Compile Include="TimePeriods\PreHistory\Jobs\StonePuncher.cs" />
-    <Compile Include="TimePeriods\PreHistory\Recipes\Sling.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\StoneShaper.cs" />
     <Compile Include="TimePeriods\PreHistory\Recipes\SlingBullets.cs" />
-    <Compile Include="TimePeriods\PreHistory\Research\StoneAgeResearch.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\Basket.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -168,9 +162,6 @@
     <Content Include="icons\PaddedCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\Pandaros.Civ.TimePeriods.PreHistory.Research.StoneAgeResearch.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="icons\SlowPorterFromCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -189,28 +180,19 @@
     <Content Include="icons\SturdyCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\crate.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="icons\IronChest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\SlowPorter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\StonePuncher.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icons\StorageChest.png">
+    <Content Include="icons\StoneShaper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\StorageDrawers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\Wood.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Meshes\SturdyCrate.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\albedo\CarvedLogTop.png">
@@ -270,7 +252,7 @@
     <Content Include="Textures\normal\Shelving.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\normal\StonePuncher.png">
+    <Content Include="Textures\normal\StoneShaper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\normal\StorageChest.png">
@@ -289,6 +271,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Meshes\Shelving.ply">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Meshes\SturdyCrate.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="modInfo.json">
@@ -327,7 +312,7 @@
     <Content Include="Textures\albedo\StockpileBlock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\albedo\StonePuncher.png">
+    <Content Include="Textures\albedo\StoneShaper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\albedo\StorageChest.png">

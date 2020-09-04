@@ -14,15 +14,15 @@ using System.Threading.Tasks;
 namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 {
     [ModLoader.ModManager]
-    public static class StonePuncherModEntries
+    public static class StoneShaperModEntries
     {
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.StonePuncherModEntry")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.StoneShaperModEntries")]
         [ModLoader.ModCallbackProvidesFor("create_savemanager")]
         public static void AfterDefiningNPCTypes()
         {
             ServerManager.BlockEntityCallbacks.RegisterEntityManager(
                 new BlockJobManager<CraftingJobInstance>(
-                    new StonePuncher(),
+                    new StoneShaper(),
                     (setting, pos, type, bytedata) => new CraftingJobInstance(setting, pos, type, bytedata),
                     (setting, pos, type, colony) => new CraftingJobInstance(setting, pos, type, colony)
                 )
@@ -30,16 +30,16 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         }
     }
 
-    public class StonePuncher : PandaCrafingSettings
+    public class StoneShaper : PandaCrafingSettings
     {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(StonePuncher));
+        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(StoneShaper));
 
-        public StonePuncher() : base(Name, Name)
+        public StoneShaper() : base(Name, Name)
         {
             NPCType.AddSettings(new NPCTypeStandardSettings
             {
                 keyName = Name,
-                printName = "Stone Puncher",
+                printName = "Stone Shaper",
                 maskColor1 = new UnityEngine.Color32(51, 51, 77, 255),
                 type = NPCTypeID.GetNextID(),
                 inventoryCapacity = 500f
@@ -50,26 +50,26 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         }
     }
 
-    public class StonePuncherTexture : CSTextureMapping
+    public class StoneShaperTexture : CSTextureMapping
     {
-        public override string name => StonePuncher.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "StonePuncher.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "StonePuncher.png");
-        //public override string height => GameSetup.Textures.GetPath(TextureType.height, "StonePuncher.png");
+        public override string name => StoneShaper.Name;
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "StoneShaper.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "StoneShaper.png");
+        //public override string height => GameSetup.Textures.GetPath(TextureType.height, "StoneShaper.png");
     }
 
-    public class StonePuncherJobBlock : CSType
+    public class StoneShaperJobBlock : CSType
     {
-        public override string name => StonePuncher.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "StonePuncher.png");
+        public override string name => StoneShaper.Name;
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "StoneShaper.png");
         public override string onPlaceAudio => "stonePlace";
         public override string onRemoveAudio => "stoneDelete";
         public override string sideall => ColonyBuiltIn.ItemTypes.STONEBLOCK;
-        public override string sideyp => StonePuncher.Name;
+        public override string sideyp => StoneShaper.Name;
         public override List<string> categories => new List<string>() { "job", "stone", "aa", nameof(TimePeriod.PreHistory), GameSetup.NAMESPACE };
     }
 
-    public class StonePuncherRecipe : ICSPlayerRecipe
+    public class StoneShaperRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -78,11 +78,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(StonePuncher.Name)
+            new RecipeResult(StoneShaper.Name)
         };
 
         public bool isOptional => false;
 
-        public string name => StonePuncher.Name;
+        public string name => StoneShaper.Name;
     }
 }
