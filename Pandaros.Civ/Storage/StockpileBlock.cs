@@ -115,7 +115,6 @@ namespace Pandaros.Civ.Storage
                 tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony != null)
             {
                 var cs = ColonyState.GetColonyState(tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony);
-                AreaJobTracker.SendData(tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony);
                 if (cs.Positions.ContainsKey(Name))
                 {
                     tryChangeBlockData.CallbackConsumedResult = EServerChangeBlockResult.CancelledByCallback;
@@ -124,6 +123,8 @@ namespace Pandaros.Civ.Storage
                 }
                 else
                     cs.Positions[Name] = tryChangeBlockData.Position;
+
+                AreaJobTracker.SendData(tryChangeBlockData.RequestOrigin.AsPlayer.ActiveColony);
             }
             else if (tryChangeBlockData.TypeOld.Name == Name &&
                 tryChangeBlockData.TypeNew == ColonyBuiltIn.ItemTypes.AIR &&
