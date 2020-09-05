@@ -1,8 +1,9 @@
 ﻿using Pandaros.API;
 using Pandaros.API.Research;
-using Pandaros.Civ.Research;
+using Pandaros.API.Research.Conditions;
 using Pandaros.Civ.StoneAge.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
+using Pandaros.Civ.TimePeriods.PreHistory.Quests;
 using Science;
 using System;
 using System.Collections.Generic;
@@ -26,10 +27,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
                 0, 
                 new List<IResearchableCondition>()
                 {
-                    new ColonistCountCondition() { Threshold = 10 },
-                    new StockpileSizeGoal(150),
-                    new JobsPlacedCondition(SlowPorterFromCrate.Name, 1),
-                    new JobsPlacedCondition(SlowPorterToCrate.Name, 1)
+                    new ColonistCountCondition() { Threshold = 20 },
+                    new QuestCompleteGoal(StoneAgeQuest.NAME)
                 }
             }
         };

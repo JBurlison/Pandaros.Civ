@@ -21,6 +21,9 @@
     },
     "Pandaros": {
       "Civ": {
+        "Quests": {
+          "StockpileSizeObjective": "Max stockpile size of {0} out of {1}"
+        },
         "storage": {
           "MaxCrateStackSize": "Max Crate Stack Size",
           "MaxNumberOfStacks": "Max Number Of Stacks",
@@ -43,10 +46,14 @@
         },
         "TimePeriods": {
           "PreHistory": {
+            "Quests": {
+              "StoneAgeQuest": "Setup for the Stone Age!",
+              "StoneAgeQuestText": "This quests prepares you for the next chapter in your civilization, the Stone Age!"
+            },
             "Research": {
               "StoneAgeResearch1": {
                 "name": "Enter The Stone Age!",
-                "description": "Your first step to civilization! Go ahead and invent the wheel, discover hammers and cooked food!"
+                "description": "Your first step to civilization! Go ahead and invent the wheel, invent hammers, different types of stone and cooked food! Also requires Stone Age quest to be complete."
               }
             }
           }

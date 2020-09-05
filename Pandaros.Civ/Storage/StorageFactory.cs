@@ -93,7 +93,9 @@ namespace Pandaros.Civ.Storage
 
                 if (upgrade.CategoryStorageUpgrades.Count > 0)
                 {
-                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("storage.CategoryStoreUpgrades"))));
+                    data.menu.Items.Add(new EmptySpace(5));
+                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("storage.CategoryStoreUpgrades"), ELabelAlignment.MiddleCenter, 18)));
+                    data.menu.Items.Add(new Line(UnityEngine.Color.white, 3));
                     foreach (var csu in upgrade.CategoryStorageUpgrades)
                         data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
                                                      {
@@ -104,7 +106,9 @@ namespace Pandaros.Civ.Storage
 
                 if (upgrade.ItemStorageUpgrades.Count > 0)
                 {
-                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("storage.ItemStoreUpgrades"))));
+                    data.menu.Items.Add(new EmptySpace(5));
+                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("storage.ItemStoreUpgrades"), ELabelAlignment.MiddleCenter, 18)));
+                    data.menu.Items.Add(new Line(UnityEngine.Color.white, 3));
                     foreach (var csu in upgrade.ItemStorageUpgrades)
                         data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
                                                      {
