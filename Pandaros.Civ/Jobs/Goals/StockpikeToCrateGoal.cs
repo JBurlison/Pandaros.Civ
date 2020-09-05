@@ -71,6 +71,8 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void PerformGoal(ref NPCBase.NPCState state)
         {
+            state.JobIsDone = true;
+
             if (WalkingTo == StorageType.Stockpile)
             {
                 if (CrateFull)
@@ -112,7 +114,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 if (nexPos == Vector3Int.invalidPos)
                 {
                     LastCratePosition.Clear();
-                    PerformGoal(ref state);
+                    state.SetCooldown(5);
                 }
             }
             else
