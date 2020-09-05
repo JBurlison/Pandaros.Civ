@@ -27,7 +27,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public int range { get; set; } = 10;
         public IRecruitmentitem recruitmentItem { get; set; } = new Recruitmentitem() { type = Rock.NAME };
         public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = Rock.NAME } };
-        public string sleepType { get; set; } = "day"; 
+        public string sleepType { get; set; } = "Day"; 
     }
 
     public class RockThrowerSettings : INPCTypeStandardSettings
