@@ -11,24 +11,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Pandaros.Civ.TimePeriods.PreHistory.Items;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 {
     [ModLoader.ModManager]
     public static class RockThrowerModEntries
     {
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.RockThrowerModEntries")]
-        [ModLoader.ModCallbackProvidesFor("create_savemanager")]
-        public static void AfterDefiningNPCTypes()
-        {
-            ServerManager.BlockEntityCallbacks.RegisterEntityManager(
-                new BlockJobManager<GuardJobInstance>(
-                    new RockThrower(),
-                    (setting, pos, type, bytedata) => new RockThrower(setting, pos, type, bytedata),
-                    (setting, pos, type, colony) => new RockThrower(setting, pos, type, colony)
-                )
-            );
-        }
+        //[ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.RockThrowerModEntries")]
+        //[ModLoader.ModCallbackProvidesFor("create_savemanager")]
+        //public static void AfterDefiningNPCTypes()
+        //{
+        //    ServerManager.BlockEntityCallbacks.RegisterEntityManager(
+        //        new BlockJobManager<GuardJobInstance>(
+        //            new RockThrower(),
+        //            (setting, pos, type, bytedata) => new GuardJobInstance(setting, pos, type, bytedata),
+        //            (setting, pos, type, colony) => new GuardJobInstance(setting, pos, type, colony)
+        //        )
+        //    );
+        //}
+    }
+
+    public class RockThrowerGuardSettingsDay : ICSGuardJobSettings
+    {
+        public string blockType { get; set; } = RockThrower.Name;
+        public int cooldownShot { get; set; } = 6;
+        public int damage { get; set; } = 30;
+        public string jobType { get; set; } = RockThrower.Name;
+        public string npcType { get; set; } = RockThrower.Name;
+        public string onHitAudio { get; set; } = "fleshHit";
+        public string onShootAudio { get; set; } = "sling";
+        public int range { get; set; } = 10;
+        public IRecruitmentitem recruitmentItem { get; set; } = new Recruitmentitem() { type = Rock.NAME };
+        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = Rock.NAME } };
+        public string sleepType { get; set; } = "day"; 
     }
 
     public class RockThrowerSettings : INPCTypeStandardSettings
@@ -41,23 +57,13 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public Color32 maskColor0 { get; set; }
     }
 
-    public class RockThrower : PandaGuardJobSettings
+    public class RockThrower //: PandaGuardJobSettings
     {
         public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(RockThrower));
 
-        public RockThrower() : base()
-        {
-            NPCType.AddSettings(new NPCTypeStandardSettings
-            {
-                keyName = Name,
-                printName = "Rock Thrower",
-                maskColor1 = new UnityEngine.Color32(51, 51, 77, 255),
-                type = NPCTypeID.GetNextID(),
-                inventoryCapacity = 500f
-        });
-
-            NPCType = NPCType.GetByKeyNameOrDefault(Name);
-        }
+        //public RockThrower(GuardJobSettings settings) : base(settings)
+        //{
+        //}
     }
 
     public class RockThrowerType : CSGenerateType
@@ -71,6 +77,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
+            new RecipeItem(Rock.NAME)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
