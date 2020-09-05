@@ -40,6 +40,9 @@ namespace Pandaros.Civ.IronAge.Items
                 new Colliders.Boxes(new List<float>(){ 0.28f, 0.18f, 0.5f }, new List<float>(){ -0.28f, -0.5f, -0.5f })
             }
         };
+
+        public override string onPlaceAudio => "woodPlace";
+        public override string onRemoveAudio => "woodDeleteHeavy";
         public override bool? isSolid => true;
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "IronChest.png");
         public override string mesh => GameSetup.MESH_PATH + "IronChest.ply";

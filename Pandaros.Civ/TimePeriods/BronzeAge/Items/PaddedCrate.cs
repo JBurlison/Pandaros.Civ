@@ -31,8 +31,21 @@ namespace Pandaros.Civ.BronzeAge.Items
                 GameSetup.NAMESPACE
             };
             onPlaceAudio = "woodPlace";
-            onRemoveAudio = "woodDeleteHeavy";
+            onRemoveAudio = "woodDeleteLight";
             isSolid = true;
+            colliders = new Colliders()
+            {
+                collidePlayer = true,
+                collideSelection = true,
+                boxes = new List<Colliders.Boxes>()
+                {
+                    new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, -0.4f }, new List<float>(){ -0.5f, -0.5f, -0.5f }),
+                    new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, 0.5f }, new List<float>(){ -0.5f, -0.5f, 0.4f }),
+                    new Colliders.Boxes(new List<float>(){ -0.4f, 0.5f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f }),
+                    new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, 0.5f }, new List<float>(){ 0.4f, -0.5f, -0.5f }),
+                    new Colliders.Boxes(new List<float>(){ 0.5f, -0.4f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f })
+                }
+            };
             icon = GameSetup.Textures.GetPath(TextureType.icon, "PaddedCrate.png");
             mesh = GameSetup.MESH_PATH + "SturdyCrate.ply";
         }
