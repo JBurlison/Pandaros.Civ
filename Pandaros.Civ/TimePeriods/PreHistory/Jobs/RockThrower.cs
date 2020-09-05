@@ -15,29 +15,12 @@ using Pandaros.Civ.TimePeriods.PreHistory.Items;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 {
-    [ModLoader.ModManager]
-    public static class RockThrowerModEntries
-    {
-        //[ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.RockThrowerModEntries")]
-        //[ModLoader.ModCallbackProvidesFor("create_savemanager")]
-        //public static void AfterDefiningNPCTypes()
-        //{
-        //    ServerManager.BlockEntityCallbacks.RegisterEntityManager(
-        //        new BlockJobManager<GuardJobInstance>(
-        //            new RockThrower(),
-        //            (setting, pos, type, bytedata) => new GuardJobInstance(setting, pos, type, bytedata),
-        //            (setting, pos, type, colony) => new GuardJobInstance(setting, pos, type, colony)
-        //        )
-        //    );
-        //}
-    }
-
     public class RockThrowerGuardSettingsDay : ICSGuardJobSettings
     {
         public string blockType { get; set; } = RockThrower.Name;
         public int cooldownShot { get; set; } = 6;
         public int damage { get; set; } = 30;
-        public string jobType { get; set; } = RockThrower.Name;
+        public string jobType { get; set; } = "guard";
         public string npcType { get; set; } = RockThrower.Name;
         public string onHitAudio { get; set; } = "fleshHit";
         public string onShootAudio { get; set; } = "sling";
@@ -57,13 +40,9 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public Color32 maskColor0 { get; set; }
     }
 
-    public class RockThrower //: PandaGuardJobSettings
+    public class RockThrower
     {
         public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(RockThrower));
-
-        //public RockThrower(GuardJobSettings settings) : base(settings)
-        //{
-        //}
     }
 
     public class RockThrowerType : CSGenerateType
