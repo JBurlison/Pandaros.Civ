@@ -48,7 +48,8 @@
           "PreHistory": {
             "Quests": {
               "StoneAgeQuest": "Setup for the Stone Age!",
-              "StoneAgeQuestText": "This quests prepares you for the next chapter in your civilization, the Stone Age!"
+              "StoneAgeQuestText": "This quests prepares you for the next chapter in your civilization, the Stone Age!",
+              "AbleToCompleteStoneAgeQuest": "Unlocks the ability to complete the stone age research."
             },
             "Research": {
               "StoneAgeResearch1": {

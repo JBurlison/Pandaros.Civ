@@ -1,6 +1,7 @@
 ﻿using Pandaros.API.localization;
 using Pandaros.API.Questing.BuiltinQuests;
 using Pandaros.API.Questing.BuiltinObjectives;
+using Pandaros.API.Questing.BuiltinRewards;
 using Pandaros.API.Questing.Models;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using System;
@@ -44,7 +45,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-
+            new TextReward("AbleToCompleteStoneAgeQuest", StoneAgeIcon.NAME, "AbleToCompleteStoneAgeQuest", HELPER)
         };
     }
 }
