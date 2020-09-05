@@ -4,6 +4,7 @@ using Pandaros.API;
 using Pandaros.API.Models;
 using Pandaros.Civ.Jobs;
 using Pandaros.Civ.Jobs.BaseReplacements;
+using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Recipes;
 using System;
 using System.Collections.Generic;
@@ -73,7 +74,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.STONEBLOCK.Id, 6)
+            new RecipeItem(Rock.NAME, 16)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
