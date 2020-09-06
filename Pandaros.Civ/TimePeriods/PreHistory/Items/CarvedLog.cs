@@ -38,8 +38,8 @@ namespace Pandaros.Civ.PreHistory.Items
             {
                 CommonCategories.Essential,
                 CommonCategories.Storage,
-                CommonCategories.HighPriority,
                 CommonCategories.StockpileUpgrade,
+                "aa",
                 nameof(TimePeriod.PreHistory),
                 GameSetup.NAMESPACE
             };

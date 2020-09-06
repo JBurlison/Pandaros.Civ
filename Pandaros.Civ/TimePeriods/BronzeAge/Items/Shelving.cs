@@ -35,11 +35,11 @@ namespace Pandaros.Civ.BronzeAge.Items
             mesh = GameSetup.MESH_PATH + "Shelving.ply";
             categories = new List<string>()
             {
-                "essential",
-                "storage",
-                "upgrade",
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.StockpileUpgrade,
                 "ca",
-                "bronzeage",
+                nameof(TimePeriod.BronzeAge),
                 GameSetup.NAMESPACE
             };
             onPlaceAudio = "woodPlace";

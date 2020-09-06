@@ -21,7 +21,9 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             CommonCategories.Ingredient,
             CommonCategories.Wood,
+            "ab",
             nameof(TimePeriod.PreHistory),
+            CommonCategories.Decorative,
             GameSetup.NAMESPACE
         };
         public override string onPlaceAudio => "woodPlace";

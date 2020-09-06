@@ -23,11 +23,11 @@ namespace Pandaros.Civ.BronzeAge.Items
             sideall = "coatedplanks";
             categories = new List<string>()
             {
-                "essential",
-                "storage",
-                "crate",
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.Crate,
                 "ca",
-                "bronzeage",
+                nameof(TimePeriod.BronzeAge),
                 GameSetup.NAMESPACE
             };
             onPlaceAudio = "woodPlace";

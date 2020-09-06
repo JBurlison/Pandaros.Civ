@@ -23,11 +23,11 @@ namespace Pandaros.Civ.StoneAge.Items
             sideall = "planks";
             categories = new List<string>()
             {
-                "essential",
-                "storage",
-                "crate",
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.Crate,
                 "ba",
-                "stoneage",
+                nameof(TimePeriod.StoneAge),
                 GameSetup.NAMESPACE
             };
             isSolid = true;

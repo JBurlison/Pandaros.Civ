@@ -67,7 +67,14 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public override string onRemoveAudio => "stoneDelete";
         public override string sideall => ColonyBuiltIn.ItemTypes.STONEBLOCK;
         public override string sideyp => StoneShaper.Name;
-        public override List<string> categories => new List<string>() { "job", "stone", "aa", nameof(TimePeriod.PreHistory), GameSetup.NAMESPACE };
+        public override List<string> categories => new List<string>()
+            {
+                CommonCategories.Job,
+                "ab",
+                nameof(TimePeriod.PreHistory),
+                CommonCategories.Stone,
+                GameSetup.NAMESPACE
+            };
     }
 
     public class StoneShaperRecipe : ICSPlayerRecipe

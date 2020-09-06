@@ -9,71 +9,74 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 {
-    public class Wood : CSType 
+    public class LeafBasket : CSType 
     {
-        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(Wood));
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(LeafBasket));
         public override string name { get; set; } = NAME;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "Wood.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "LeafBasket.png");
         public override bool? isPlaceable => false;
-        public override int? maxStackSize => 200;
+        public override int? maxStackSize => 5;
         public override List<string> categories { get; set; } = new List<string>()
         {
-            CommonCategories.Ingredient,
-            CommonCategories.Wood,
+            CommonCategories.Essential,
+            CommonCategories.Storage,
+            CommonCategories.Bag,
             "aa",
             nameof(TimePeriod.PreHistory),
             GameSetup.NAMESPACE
         };
     }
 
-    public class WoodTemperateRecipe : ICSPlayerRecipe
+    public class LeafBasketTemperateRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id, 1)
+            new RecipeItem(Wood.NAME, 1),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 10)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(Wood.NAME, 4)
+            new RecipeResult(LeafBasket.NAME)
         };
 
         public bool isOptional => false;
 
-        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE;
     }
-    public class WoodTaigaRecipe : ICSPlayerRecipe
+    public class LeafBasketTaigaRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id, 1)
+            new RecipeItem(Wood.NAME, 1),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Id, 10)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(Wood.NAME, 4)
+            new RecipeResult(LeafBasket.NAME)
         };
 
         public bool isOptional => false;
 
-        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA;
     }
-
-    public class WoodTaigaJobRecipe : ICSRecipe
+    public class LeafBasketTemperateJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id, 1)
+            new RecipeItem(Wood.NAME, 1),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 10)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(Wood.NAME, 4)
+            new RecipeResult(LeafBasket.NAME)
         };
 
         public bool isOptional => false;
 
-        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name + Jobs.WoodWorker.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 
@@ -81,21 +84,22 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
     }
-    public class WoodTemperateJobRecipe : ICSRecipe
+    public class LeafBasketTaigaJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id, 1)
+            new RecipeItem(Wood.NAME, 1),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Id, 10)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(Wood.NAME, 4)
+            new RecipeResult(LeafBasket.NAME)
         };
 
         public bool isOptional => false;
 
-        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name + Jobs.WoodWorker.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 

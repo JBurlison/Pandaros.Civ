@@ -23,14 +23,14 @@ namespace Pandaros.Civ.IronAge.Items
         public int MaxNumberOfStacks { get; set; } = 15;
         public override string sideall => IronChest.Name;
         public override List<string> categories => new List<string>()
-        {
-            "essential",
-            "storage",
-            "crate",
-            "da",
-            "ironage",
-            GameSetup.NAMESPACE
-        };
+            {
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.Crate,
+                "da",
+                nameof(TimePeriod.IronAge),
+                GameSetup.NAMESPACE
+            };
         public override Colliders colliders => new Colliders()
         {
             collidePlayer = true,

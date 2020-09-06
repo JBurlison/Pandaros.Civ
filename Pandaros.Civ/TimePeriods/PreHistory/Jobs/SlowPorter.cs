@@ -78,7 +78,16 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public override string sideall => SlowPorterToCrate.Name;
         public override string sideyp => RoughWoodenBoard.NAME;
         public override string sideyn => RoughWoodenBoard.NAME;
-        public override List<string> categories => new List<string>() { CommonCategories.Job, "porter", CommonCategories.HighPriority, nameof(TimePeriod.PreHistory), GameSetup.NAMESPACE };
+        public override List<string> categories => new List<string>()
+            {
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.Porter,
+                "aa",
+                nameof(TimePeriod.PreHistory),
+                CommonCategories.Job,
+                GameSetup.NAMESPACE
+            };
     }
 
     public class SlowPorterToCrateRecipe : ICSPlayerRecipe
@@ -87,7 +96,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         {
             new RecipeItem(Wood.NAME, 2),
             new RecipeItem(RoughWoodenBoard.NAME, 4),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5),
+            new RecipeItem(LeafBasket.NAME),
             new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5)
         };
 
@@ -99,6 +108,31 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public bool isOptional => false;
 
         public string name => SlowPorterToCrate.Name;
+    }
+    public class SlowPorterToCrateJobRecipe : ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(Wood.NAME, 2),
+            new RecipeItem(RoughWoodenBoard.NAME, 4),
+            new RecipeItem(LeafBasket.NAME),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(SlowPorterToCrate.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => SlowPorterToCrate.Name + Jobs.WoodWorker.Name;
+        public CraftPriority defaultPriority => CraftPriority.Medium;
+        public int defaultLimit => 10;
+
+        public string Job => Jobs.WoodWorker.Name;
+
+        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
     }
 
     public class SlowPorterFromCrate : PorterJobSettings
@@ -138,7 +172,16 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public override string sideall => SlowPorterFromCrate.Name;
         public override string sideyp => RoughWoodenBoard.NAME;
         public override string sideyn => RoughWoodenBoard.NAME;
-        public override List<string> categories => new List<string>() { CommonCategories.Job, "porter", CommonCategories.HighPriority, nameof(TimePeriod.PreHistory), GameSetup.NAMESPACE };
+        public override List<string> categories => new List<string>()
+            {
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.Porter,
+                "ab",
+                nameof(TimePeriod.PreHistory),
+                CommonCategories.Job,
+                GameSetup.NAMESPACE
+            };
     }
 
     public class SlowPorterFromCrateRecipe : ICSPlayerRecipe
@@ -147,7 +190,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         {
             new RecipeItem(Wood.NAME, 2),
             new RecipeItem(RoughWoodenBoard.NAME, 4),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5),
+            new RecipeItem(LeafBasket.NAME),
             new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5)
         };
 
@@ -159,6 +202,31 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public bool isOptional => false;
 
         public string name => SlowPorterFromCrate.Name;
+    }
+    public class SlowPorterFromCrateJobRecipe : ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(Wood.NAME, 2),
+            new RecipeItem(RoughWoodenBoard.NAME, 4),
+            new RecipeItem(LeafBasket.NAME),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(SlowPorterFromCrate.Name)
+        };
+
+        public bool isOptional => false;
+
+        public string name => SlowPorterFromCrate.Name + Jobs.WoodWorker.Name;
+        public CraftPriority defaultPriority => CraftPriority.Medium;
+        public int defaultLimit => 10;
+
+        public string Job => Jobs.WoodWorker.Name;
+
+        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
     }
 }
 

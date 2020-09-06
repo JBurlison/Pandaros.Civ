@@ -27,7 +27,7 @@ namespace Pandaros.Civ.Jobs
             }
 
             NPCType = NPCType.GetByKeyNameOrDefault(npcTypeKey);
-            RecruitmentItem = new InventoryItem(LeafBag.NAME);
+            RecruitmentItem = new InventoryItem(LeafBasket.NAME);
             StorageType = storageType;
         }
 

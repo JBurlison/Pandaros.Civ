@@ -67,7 +67,14 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public override string onRemoveAudio => "woodDeleteHeavy";
         public override string sideall => ColonyBuiltIn.ItemTypes.LOGTEMPERATE;
         public override string sideyp => ColonyBuiltIn.ItemTypes.SPLITTINGSTUMP;
-        public override List<string> categories => new List<string>() { "job", "wood", "aa", "prehistory", GameSetup.NAMESPACE };
+        public override List<string> categories => new List<string>()
+            {
+                CommonCategories.Job,
+                "aa",
+                nameof(TimePeriod.PreHistory),
+                CommonCategories.Wood,
+                GameSetup.NAMESPACE
+            };
     }
 
     public class WoodWorkerTemperateRecipe : ICSPlayerRecipe

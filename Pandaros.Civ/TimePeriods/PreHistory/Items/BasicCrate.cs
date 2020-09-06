@@ -27,7 +27,7 @@ namespace Pandaros.Civ.PreHistory.Items
                 CommonCategories.Essential,
                 CommonCategories.Storage,
                 CommonCategories.Crate,
-                CommonCategories.HighPriority,
+                "aa",
                 nameof(TimePeriod.PreHistory),
                 GameSetup.NAMESPACE
             };

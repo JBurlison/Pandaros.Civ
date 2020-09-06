@@ -1,6 +1,8 @@
 ﻿using Pandaros.API;
 using Pandaros.API.Research;
 using Pandaros.API.Research.Conditions;
+using Pandaros.Civ.BronzeAge.Items;
+using Pandaros.Civ.IronAge.Items;
 using Pandaros.Civ.StoneAge.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using Pandaros.Civ.TimePeriods.PreHistory.Quests;
@@ -40,7 +42,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
                 new List<RecipeUnlock>()
                 {
                     new RecipeUnlock(SturdyCrate.Name, ERecipeUnlockType.Recipe),
-                    new RecipeUnlock(Basket.Name, ERecipeUnlockType.Recipe)
+                    new RecipeUnlock(Basket.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(ColonyBuiltIn.ItemTypes.SLINGBULLET.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(ColonyBuiltIn.ItemTypes.SLING.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(StoneShaper.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(IronChest.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(PaddedCrate.Name, ERecipeUnlockType.Recipe)
                 }
             }
         };

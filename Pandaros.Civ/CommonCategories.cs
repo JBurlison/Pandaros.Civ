@@ -8,20 +8,28 @@ namespace Pandaros.Civ
 {
     public static class CommonCategories
     {
+        //main categories
+        public static string Essential = "essential";
         public static string Ingredient = "ingredient";
-        public static string Wood = "wood";
-        public static string Stone = "stone";
-        public static string HighPriority = "aa";
-        public static string MediumPriority = "aa";
+        public static string Job = "job";
+        public static string Porter = "porter";
+        public static string Food = "food";
+        public static string Decorative = "decorative";
+        public static string RecruitmentItem = "recruitment";
+        public static string Ammo = "ammo";
         public static string Crate = "crate";
         public static string Storage = "storage";
-        public static string Essential = "essential";
-        public static string StockpileUpgrade = "upgrade";
-        public static string RecruitmentItem = "recruitment";
-        public static string Job = "job";
-        public static string Food = "food";
+        public static string Bag = "bag";
 
-        public static List<string> PreHistory = new List<string>
+        //resource types
+        public static string Wood = "wood";
+        public static string Stone = "stone";
+        public static string Copper = "copper";
+        public static string Tin = "tin";
+        public static string Bronze = "bronze";
+
+        //ages
+        /*public static List<string> PreHistory = new List<string>
         {
             "aa",
             nameof(TimePeriod.PreHistory)
@@ -35,6 +43,12 @@ namespace Pandaros.Civ
         {
             "ca",
             nameof(TimePeriod.BronzeAge)
-        };
+        };*/
+
+        public static string HighPriority = "aa";
+        public static string MediumPriority = "aa";
+        public static string StockpileUpgrade = "upgrade";
+
+        
     }
 }

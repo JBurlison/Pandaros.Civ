@@ -126,9 +126,13 @@
     <Compile Include="TimePeriods\IronAge\Items\StorageDrawers.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Icons.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\LeafSash.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\SharpRock.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\WoodenSpear.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\SpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\RockThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
@@ -153,22 +157,28 @@
     <Compile Include="TextureType.cs" />
     <Compile Include="TimePeriod.cs" />
     <Compile Include="TimePeriods\PeriodFactory.cs" />
-    <Compile Include="TimePeriods\PreHistory\Items\LeafBag.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\LeafBasket.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\SturdyCrate.cs" />
     <Compile Include="WorldGen\IMineTypeOverride.cs" />
     <Compile Include="WorldGen\StoneOverride.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icons\Backpack.png">
+    <Content Include="icons\LeafBasket.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\BasicCrate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\LeafSash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\PaddedCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\Pandaros.Civ.TimePeriods.PreHistory.Research.StoneAgeResearch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\SharpRock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\SlowPorterFromCrate.png">
@@ -202,6 +212,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\Wood.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\WoodenSpear.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\albedo\CarvedLogTop.png">

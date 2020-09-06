@@ -37,7 +37,7 @@ namespace Pandaros.Civ.StoneAge.Items
                 CommonCategories.Essential,
                 CommonCategories.Storage,
                 CommonCategories.StockpileUpgrade,
-                CommonCategories.MediumPriority,
+                "ba",
                 nameof(TimePeriod.StoneAge),
                 GameSetup.NAMESPACE
             };
