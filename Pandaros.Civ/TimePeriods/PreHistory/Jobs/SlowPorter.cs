@@ -105,7 +105,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SlowPorterToCrate.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => SlowPorterToCrate.Name;
     }
@@ -124,7 +124,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SlowPorterToCrate.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => SlowPorterToCrate.Name + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
@@ -199,7 +199,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SlowPorterFromCrate.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => SlowPorterFromCrate.Name;
     }
@@ -218,7 +218,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SlowPorterFromCrate.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => SlowPorterFromCrate.Name + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;

@@ -21,8 +21,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Recipes
             new RecipeResult(ColonyBuiltIn.ItemTypes.SLING.Id, 1)
         };
 
-        public bool isOptional => false;
-
         public string name => ColonyBuiltIn.ItemTypes.SLING.Name;
 
     }
@@ -38,8 +36,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Recipes
         {
             new RecipeResult(ColonyBuiltIn.ItemTypes.SLING.Id, 1)
         };
-
-        public bool isOptional => false;
 
         public string name => ColonyBuiltIn.ItemTypes.SLING.Name;
 

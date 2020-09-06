@@ -40,7 +40,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(SharpRock.NAME, 2)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => SharpRock.NAME;
     }

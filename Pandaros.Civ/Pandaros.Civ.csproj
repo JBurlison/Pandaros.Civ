@@ -99,6 +99,7 @@
     <Compile Include="Jobs\Goals\CraftingRotatedGoal.cs" />
     <Compile Include="Jobs\Goals\CraftingLitGoal.cs" />
     <Compile Include="Jobs\Goals\FarmingGoal.cs" />
+    <Compile Include="Jobs\Goals\ForagingGoal.cs" />
     <Compile Include="Jobs\Goals\GuardGoal.cs" />
     <Compile Include="Jobs\Goals\MiningGoal.cs" />
     <Compile Include="Jobs\Goals\StockpikeToCrateGoal.cs" />

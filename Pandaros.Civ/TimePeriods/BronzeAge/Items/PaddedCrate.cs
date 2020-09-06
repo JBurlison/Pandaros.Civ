@@ -65,7 +65,7 @@ namespace Pandaros.Civ.BronzeAge.Items
             new RecipeResult(PaddedCrate.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => PaddedCrate.Name;
     }

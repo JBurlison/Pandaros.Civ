@@ -65,7 +65,7 @@ namespace Pandaros.Civ.StoneAge.Items
             new RecipeResult(SturdyCrate.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => SturdyCrate.Name;
     }

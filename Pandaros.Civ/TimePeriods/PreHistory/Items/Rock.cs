@@ -45,7 +45,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(Rock.NAME, 5)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => Rock.NAME;
 

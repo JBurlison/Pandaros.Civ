@@ -26,7 +26,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
             new RecipeResult(ColonyBuiltIn.ItemTypes.SLINGBULLET.Id, 5)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => ColonyBuiltIn.ItemTypes.SLINGBULLET.Name;
 
@@ -50,7 +50,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
             new RecipeResult(ColonyBuiltIn.ItemTypes.SLINGBULLET.Id, 5)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => ColonyBuiltIn.ItemTypes.SLINGBULLET.Name;
 

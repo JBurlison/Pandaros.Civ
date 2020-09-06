@@ -75,7 +75,7 @@ namespace Pandaros.Civ.IronAge.Items
             new RecipeResult(IronChest.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => IronChest.Name;
     }

@@ -38,7 +38,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(Wood.NAME, 4)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name;
     }
@@ -54,7 +54,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(Wood.NAME, 4)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name;
     }
@@ -71,7 +71,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(Wood.NAME, 4)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
@@ -93,7 +93,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(Wood.NAME, 4)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;

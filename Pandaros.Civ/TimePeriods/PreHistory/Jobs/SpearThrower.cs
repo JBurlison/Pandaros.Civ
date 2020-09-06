@@ -98,7 +98,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SpearThrower.NameNight)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => SpearThrower.NameNight;
     }
@@ -114,7 +114,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SpearThrower.NameDay)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => SpearThrower.NameDay;
     }

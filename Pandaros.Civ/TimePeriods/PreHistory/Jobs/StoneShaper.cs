@@ -89,7 +89,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(StoneShaper.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => StoneShaper.Name;
     }

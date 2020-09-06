@@ -66,8 +66,6 @@ namespace Pandaros.Civ.PreHistory.Items
             new RecipeResult(BasicCrate.Name)
         };
 
-        public bool isOptional => false;
-
         public string name => BasicCrate.Name;
     }
 
@@ -85,7 +83,7 @@ namespace Pandaros.Civ.PreHistory.Items
             new RecipeResult(BasicCrate.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => BasicCrate.Name + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Low;

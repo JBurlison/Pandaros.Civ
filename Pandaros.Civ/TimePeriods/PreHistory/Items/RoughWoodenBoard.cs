@@ -50,7 +50,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(RoughWoodenBoard.NAME, 1)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => RoughWoodenBoard.NAME;
 

@@ -89,7 +89,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(WoodWorker.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name;
     }
@@ -106,7 +106,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(WoodWorker.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name;
     }

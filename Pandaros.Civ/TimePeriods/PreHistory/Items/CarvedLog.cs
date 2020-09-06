@@ -61,7 +61,7 @@ namespace Pandaros.Civ.PreHistory.Items
             new RecipeResult(CarvedLog.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTAIGA;
     }
@@ -78,7 +78,7 @@ namespace Pandaros.Civ.PreHistory.Items
             new RecipeResult(CarvedLog.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE;
     }
@@ -95,7 +95,7 @@ namespace Pandaros.Civ.PreHistory.Items
             new RecipeResult(CarvedLog.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => CarvedLog.Name + + ColonyBuiltIn.ItemTypes.LOGTAIGA + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Low;
@@ -119,7 +119,7 @@ namespace Pandaros.Civ.PreHistory.Items
             new RecipeResult(CarvedLog.Name)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Low;

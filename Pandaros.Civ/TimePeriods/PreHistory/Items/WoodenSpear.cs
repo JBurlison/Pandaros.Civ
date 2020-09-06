@@ -40,7 +40,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(WoodenSpear.NAME, 3)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => WoodenSpear.NAME;
 

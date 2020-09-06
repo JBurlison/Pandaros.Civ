@@ -38,7 +38,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(LeafSash.NAME)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE;
     }
@@ -54,7 +54,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(LeafSash.NAME)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA;
     }
@@ -70,7 +70,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(LeafSash.NAME)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
@@ -92,7 +92,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(LeafSash.NAME)
         };
 
-        public bool isOptional => false;
+        
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
