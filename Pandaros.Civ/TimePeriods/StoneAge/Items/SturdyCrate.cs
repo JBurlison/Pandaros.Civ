@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.StoneAge.Items
+namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 {
 
     public class SturdyCrate : CSType, ICrate

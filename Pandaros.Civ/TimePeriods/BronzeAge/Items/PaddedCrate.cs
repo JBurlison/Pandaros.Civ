@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.BronzeAge.Items
+namespace Pandaros.Civ.TimePeriods.BronzeAge.Items
 {
 
     public class PaddedCrate : CSType, ICrate

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.IndustrialAge.Items
+namespace Pandaros.Civ.TimePeriods.IndustrialAge.Items
 {
     /*public class PalletTexture : CSTextureMapping
     {

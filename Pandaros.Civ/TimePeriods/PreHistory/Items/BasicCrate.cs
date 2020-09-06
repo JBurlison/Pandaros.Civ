@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.PreHistory.Items
+namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 {
 
     public class BasicCrate : CSType, ICrate

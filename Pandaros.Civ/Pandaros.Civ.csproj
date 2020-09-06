@@ -137,10 +137,10 @@
     <Compile Include="TimePeriods\PreHistory\Jobs\RockThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
-    <Compile Include="TimePeriods\PreHistory\Jobs\StoneShaper.cs" />
+    <Compile Include="TimePeriods\StoneAge\Jobs\StoneShaper.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\StoneAgeQuest.cs" />
-    <Compile Include="TimePeriods\PreHistory\Recipes\Sling.cs" />
-    <Compile Include="TimePeriods\PreHistory\Recipes\SlingBullets.cs" />
+    <Compile Include="TimePeriods\StoneAge\Recipes\Sling.cs" />
+    <Compile Include="TimePeriods\StoneAge\Recipes\SlingBullets.cs" />
     <Compile Include="TimePeriods\PreHistory\Research\StoneAgeResearch.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\Basket.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

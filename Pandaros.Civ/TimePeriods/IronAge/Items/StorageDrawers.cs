@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.IronAge.Items
+namespace Pandaros.Civ.TimePeriods.IronAge.Items
 {
     public class StorageDrawersTexture : CSTextureMapping
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.TimePeriods.PreHistory.Recipes
+namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
 {
     public class SlingRecipePlayer : ICSPlayerRecipe
     {
