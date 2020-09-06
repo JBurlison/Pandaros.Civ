@@ -8,12 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.BronzeAge.Items
+namespace Pandaros.Civ.TimePeriods.BronzeAge.Items
 {
 
     public class PaddedCrate : CSType, ICrate
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "PaddedCrate");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.BronzeAge.Items", nameof(PaddedCrate));
         public int MaxCrateStackSize { get; set; } = 300;
         public int MaxNumberOfStacks { get; set; } = 15;
 

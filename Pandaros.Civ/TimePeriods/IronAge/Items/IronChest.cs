@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.IronAge.Items
+namespace Pandaros.Civ.TimePeriods.IronAge.Items
 {
     public class IronChestTexture : CSTextureMapping
     {
@@ -51,7 +51,7 @@ namespace Pandaros.Civ.IronAge.Items
 
     public class IronChest : CSGenerateType
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "IronChest");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.IronAge.Items", nameof(IronChest));
         public IronChest()
         {
             typeName = Name;

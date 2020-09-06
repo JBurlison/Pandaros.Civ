@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.StoneAge.Items
+namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 {
     public class BasketTexture : CSTextureMapping
     {
@@ -21,7 +21,7 @@ namespace Pandaros.Civ.StoneAge.Items
 
     public class Basket : CSType, IStorageUpgradeBlock
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "Basket");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(Basket));
         public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public int GlobalStorageUpgrade { get; set; }

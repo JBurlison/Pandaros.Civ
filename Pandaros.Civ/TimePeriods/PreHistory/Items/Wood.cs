@@ -94,7 +94,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         };
 
         
-
         public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;

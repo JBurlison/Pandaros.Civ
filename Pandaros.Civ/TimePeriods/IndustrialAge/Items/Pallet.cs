@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.IndustrialAge.Items
+namespace Pandaros.Civ.TimePeriods.IndustrialAge.Items
 {
     /*public class PalletTexture : CSTextureMapping
     {
@@ -21,7 +21,7 @@ namespace Pandaros.Civ.IndustrialAge.Items
 
     public class Pallet : CSType, IStorageUpgradeBlock
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "Pallet");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.IndustrialAge.Items", nameof(Pallet));
         public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public int GlobalStorageUpgrade { get; set; }
@@ -35,11 +35,11 @@ namespace Pandaros.Civ.IndustrialAge.Items
             //sideall = GameSetup.Textures.SELF;
             categories = new List<string>()
             {
-                "essential",
-                "storage",
-                "upgrade",
+                CommonCategories.Essential,
+                CommonCategories.Storage,
+                CommonCategories.StockpileUpgrade,
                 "ea",
-                "industrialage",
+                nameof(TimePeriod.IndustrialAge),
                 GameSetup.NAMESPACE
             };
             isSolid = true;

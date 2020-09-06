@@ -8,12 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.StoneAge.Items
+namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 {
 
     public class SturdyCrate : CSType, ICrate
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "SturdyCrate");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(SturdyCrate));
         public int MaxCrateStackSize { get; set; } = 200;
         public int MaxNumberOfStacks { get; set; } = 10;
 

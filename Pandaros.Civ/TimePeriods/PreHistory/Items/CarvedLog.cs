@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.PreHistory.Items
+namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 {
     public class CarvedLogTextureTop : CSTextureMapping
     {
@@ -21,7 +21,7 @@ namespace Pandaros.Civ.PreHistory.Items
 
     public class CarvedLog : CSType, IStorageUpgradeBlock
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "CarvedLog");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(CarvedLog));
         public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public int GlobalStorageUpgrade { get; set; }
