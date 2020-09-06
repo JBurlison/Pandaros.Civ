@@ -23,18 +23,18 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public static void AfterDefiningNPCTypes()
         {
             ServerManager.BlockEntityCallbacks.RegisterEntityManager(
-                new BlockJobManager<PorterJob>(
+                new BlockJobManager<PandaGoalJob>(
                     new SlowPorterToCrate(),
-                    (setting, pos, type, bytedata) => new PorterJob(setting, pos, type, bytedata),
-                    (setting, pos, type, colony) => new PorterJob(setting, pos, type, colony)
+                    (setting, pos, type, bytedata) => new PandaGoalJob(setting, pos, type, bytedata),
+                    (setting, pos, type, colony) => new PandaGoalJob(setting, pos, type, colony)
                 )
             );
 
             ServerManager.BlockEntityCallbacks.RegisterEntityManager(
-               new BlockJobManager<PorterJob>(
+               new BlockJobManager<PandaGoalJob>(
                    new SlowPorterFromCrate(),
-                   (setting, pos, type, bytedata) => new PorterJob(setting, pos, type, bytedata),
-                   (setting, pos, type, colony) => new PorterJob(setting, pos, type, colony)
+                   (setting, pos, type, bytedata) => new PandaGoalJob(setting, pos, type, bytedata),
+                   (setting, pos, type, colony) => new PandaGoalJob(setting, pos, type, colony)
                )
            );
         }
@@ -55,7 +55,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterToCrate));
 
-        public SlowPorterToCrate() : base(Name, Name, PorterJob.PorterJobType.ToCrate)
+        public SlowPorterToCrate() : base(Name, Name, PandaGoalJob.PorterJobType.ToCrate)
         {
 
         }
@@ -139,7 +139,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterFromCrate));
 
-        public SlowPorterFromCrate() : base(Name, Name, PorterJob.PorterJobType.FromCrate)
+        public SlowPorterFromCrate() : base(Name, Name, PandaGoalJob.PorterJobType.FromCrate)
         {
 
         }

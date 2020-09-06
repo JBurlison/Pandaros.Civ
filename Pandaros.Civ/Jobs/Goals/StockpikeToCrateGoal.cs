@@ -23,10 +23,10 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             Job = job;
             JobSettings = jobSettings;
-            PorterJob = job as PorterJob;
+            PorterJob = job as PandaGoalJob;
         }
 
-        public PorterJob PorterJob { get; set; }
+        public PandaGoalJob PorterJob { get; set; }
         public IPandaJobSettings JobSettings { get; set; }
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(StockpikeToCrateGoal);

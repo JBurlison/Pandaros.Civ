@@ -1,5 +1,6 @@
 ﻿using Jobs;
 using NPC;
+using Pandaros.API.Models;
 using Pandaros.Civ.Jobs.Goals;
 using Pandaros.Civ.Storage;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
@@ -13,10 +14,10 @@ using static Pandaros.Civ.Jobs.PandaGoalJob;
 
 namespace Pandaros.Civ.Jobs
 {
-    public abstract class PorterJobSettings : IBlockJobSettings, IPandaJobSettings
+    public abstract class ForagingJobSettings : IBlockJobSettings, IPandaJobSettings
     {
-        public static List<BlockJobInstance> PorterJobs { get; set; } = new List<BlockJobInstance>();
-        public PorterJobSettings(string blockType, string npcTypeKey, PorterJobType storageType)
+        public static List<BlockJobInstance> ForagingJobs { get; set; } = new List<BlockJobInstance>();
+        public ForagingJobSettings(string blockType, string npcTypeKey, ILootTable lootTable, int foragingTimeMinSec, int foragingTimeMaxSec, float lootLuckModifier = 0f)
         {
             if (blockType != null)
             {
@@ -28,11 +29,17 @@ namespace Pandaros.Civ.Jobs
 
             NPCType = NPCType.GetByKeyNameOrDefault(npcTypeKey);
             RecruitmentItem = new InventoryItem(LeafBasket.NAME);
-            StorageType = storageType;
+            LootTable = lootTable;
+            ForagingTimeMaxSec = foragingTimeMaxSec;
+            ForagingTimeMinSec = foragingTimeMinSec;
+            LuckMod = lootLuckModifier;
         }
 
-        public PorterJobType StorageType { get; set; }
-        public Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
+        public virtual int ForagingTimeMinSec { get; set; }
+        public virtual int ForagingTimeMaxSec { get; set; }
+        public virtual float LuckMod { get; set; }
+        public virtual ILootTable LootTable { get; set; }
+        public virtual Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
 
         public virtual ItemTypes.ItemType[] BlockTypes { get; set; }
 
@@ -52,16 +59,13 @@ namespace Pandaros.Civ.Jobs
         public virtual Vector3Int GetJobLocation(BlockJobInstance instance)
         {
             if (!CurrentGoal.ContainsKey(instance))
-                if (StorageType == PorterJobType.ToCrate)
-                    CurrentGoal.Add(instance, new StockpikeToCrateGoal(instance, this));
-                else
-                    CurrentGoal.Add(instance, new CrateToStockpikeGoal(instance, this));
+                CurrentGoal.Add(instance, new ForagingGoal(instance, this, instance.Position, LootTable, ForagingTimeMinSec, ForagingTimeMaxSec, LuckMod));
 
             if (!OriginalPosition.ContainsKey(instance))
                 OriginalPosition.Add(instance, instance.Position);
 
-            if (!PorterJobs.Contains(instance))
-                PorterJobs.Add(instance);
+            if (!ForagingJobs.Contains(instance))
+                ForagingJobs.Add(instance);
 
             return CurrentGoal[instance].GetPosition();
         }
@@ -70,7 +74,7 @@ namespace Pandaros.Civ.Jobs
         {
             if (!instance.IsValid)
             {
-                PorterJobs.Remove(instance);
+                ForagingJobs.Remove(instance);
                 CurrentGoal.Remove(instance);
                 OriginalPosition.Remove(instance);
             }

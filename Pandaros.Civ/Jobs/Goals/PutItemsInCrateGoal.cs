@@ -37,7 +37,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public INpcGoal GoalStoring { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
-        public PorterJob Porter { get; set; }
+        public PandaGoalJob Porter { get; set; }
         public string Name { get; set; } = nameof(PutItemsInCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(PutItemsInCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs
 {
-    public class PorterJob : BlockJobInstance
+    public class PandaGoalJob : BlockJobInstance
     {
         public enum PorterJobType
         {
@@ -20,12 +20,12 @@ namespace Pandaros.Civ.Jobs
 
         public Vector3Int OriginalPosition { get; private set; }
 
-        public PorterJob(IBlockJobSettings settings, Vector3Int position, ItemTypes.ItemType type, ByteReader reader) : base(settings, position, type, reader)
+        public PandaGoalJob(IBlockJobSettings settings, Vector3Int position, ItemTypes.ItemType type, ByteReader reader) : base(settings, position, type, reader)
         {
             OriginalPosition = position;
         }
 
-        public PorterJob(IBlockJobSettings settings, Vector3Int position, ItemTypes.ItemType type, Colony colony) : base(settings, position, type, colony)
+        public PandaGoalJob(IBlockJobSettings settings, Vector3Int position, ItemTypes.ItemType type, Colony colony) : base(settings, position, type, colony)
         {
             OriginalPosition = position;
         }

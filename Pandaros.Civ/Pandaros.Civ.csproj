@@ -113,7 +113,8 @@
     <Compile Include="Jobs\IPandaJobSettings.cs" />
     <Compile Include="Jobs\NPCTypeStandardSettings.cs" />
     <Compile Include="Jobs\PandaJobFactory.cs" />
-    <Compile Include="Jobs\PorterJob.cs" />
+    <Compile Include="Jobs\PandaGoalJob.cs" />
+    <Compile Include="Jobs\ForagingJobSettings.cs" />
     <Compile Include="Jobs\PorterJobSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quests\StockpileSizeObjective.cs" />
