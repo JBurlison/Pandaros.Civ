@@ -21,7 +21,7 @@ namespace Pandaros.Civ.TimePeriods.BronzeAge.Items
 
     public class Shelving : CSType, IStorageUpgradeBlock
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "Shelving");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.BronzeAge.Items", nameof(Shelving));
         public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public int GlobalStorageUpgrade { get; set; }

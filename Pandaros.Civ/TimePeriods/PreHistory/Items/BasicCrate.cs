@@ -14,7 +14,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
     public class BasicCrate : CSType, ICrate
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "BasicCrate");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(BasicCrate));
         public int MaxCrateStackSize { get; set; } = 100;
         public int MaxNumberOfStacks { get; set; } = 5;
 

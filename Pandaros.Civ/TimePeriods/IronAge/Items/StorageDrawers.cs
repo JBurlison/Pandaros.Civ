@@ -21,7 +21,7 @@ namespace Pandaros.Civ.TimePeriods.IronAge.Items
 
     public class StorageDrawers : CSType, IStorageUpgradeBlock
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("Storage", "StorageDrawers");
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.IronAge.Items", nameof(StorageDrawers));
         public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public int GlobalStorageUpgrade { get; set; }
