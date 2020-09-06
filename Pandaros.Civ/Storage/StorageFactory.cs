@@ -192,6 +192,8 @@ namespace Pandaros.Civ.Storage
         {
             foreach (var item in storedItems)
                 c.Stockpile.Add(item.Id, item.Amount);
+
+            c.Stockpile.SendToOwners();
         }
 
         /// <summary>

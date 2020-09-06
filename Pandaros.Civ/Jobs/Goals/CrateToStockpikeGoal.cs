@@ -92,8 +92,8 @@ namespace Pandaros.Civ.Jobs.Goals
                 {
                     if (locs.TryGetValue(CurrentCratePosition, out var crate))
                     {
-                        state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
                         ToStockpike = crate.StorageTypeLookup[StorageType.Stockpile].ToArray();
+                        ShowIndicator(ref state);
                         crate.TryTake(ToStockpike);
                         WalkingTo = StorageType.Stockpile;
                     }
@@ -108,7 +108,8 @@ namespace Pandaros.Civ.Jobs.Goals
             else
             {
                 state.SetCooldown(5);
-                state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
+                ShowIndicator(ref state);
+
                 StorageFactory.StoreItems(Job.Owner, ToStockpike);
                 ToStockpike = null;
                 WalkingTo = StorageType.Crate;
@@ -116,6 +117,14 @@ namespace Pandaros.Civ.Jobs.Goals
                 CurrentCratePosition = Vector3Int.invalidPos;
                 GetPosition();
             }
+        }
+
+        private void  ShowIndicator(ref NPCBase.NPCState state)
+        {
+            if (ToStockpike != null && ToStockpike.Length > 0)
+                state.SetIndicator(new Shared.IndicatorState(5, ToStockpike[0].Id.Id));
+            else
+                state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
         }
     }
 }

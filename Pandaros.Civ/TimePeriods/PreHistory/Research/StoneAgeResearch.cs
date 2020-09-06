@@ -45,7 +45,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
                     new RecipeUnlock(Basket.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(ColonyBuiltIn.ItemTypes.SLINGBULLET.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(ColonyBuiltIn.ItemTypes.SLING.Name, ERecipeUnlockType.Recipe),
-                    new RecipeUnlock(StoneShaper.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(IronChest.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(PaddedCrate.Name, ERecipeUnlockType.Recipe)
                 }
