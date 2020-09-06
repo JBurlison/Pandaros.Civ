@@ -21,46 +21,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             CommonCategories.Essential,
             CommonCategories.Storage,
             CommonCategories.Bag,
-            "aa",
             nameof(TimePeriod.PreHistory),
             GameSetup.NAMESPACE
         };
     }
 
-    public class LeafBasketTemperateRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(Wood.NAME, 1),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 10)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(LeafBasket.NAME)
-        };
-
-        
-
-        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE;
-    }
-    public class LeafBasketTaigaRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(Wood.NAME, 1),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Id, 10)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(LeafBasket.NAME)
-        };
-
-        
-
-        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA;
-    }
     public class LeafBasketTemperateJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()

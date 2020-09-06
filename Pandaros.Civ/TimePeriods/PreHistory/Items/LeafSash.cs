@@ -20,7 +20,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             CommonCategories.Essential,
             CommonCategories.RecruitmentItem,
-            "aa",
             nameof(TimePeriod.PreHistory),
             GameSetup.NAMESPACE
         };
@@ -58,6 +57,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA;
     }
+
     public class LeafSashTemperateJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()

@@ -1,7 +1,6 @@
 ﻿using Pandaros.API;
 using Pandaros.API.Models;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
-using Pandaros.Civ.TimePeriods.StoneAge.Jobs;
 using Recipes;
 using System;
 using System.Collections.Generic;
@@ -14,12 +13,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
     public class Rock : CSType 
     {
         public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(Rock));
-        /*public static List<string> CATEGORIES = new List<string>()
-        {
-            CommonCategories.Ingredient,
-            CommonCategories.Stone,
-            CommonCategories.PreHistory
-        };*/
         public override string name { get; set; } = NAME;
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "Rock.png");
         public override bool? isPlaceable => false;
@@ -28,7 +21,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             CommonCategories.Ingredient,
             CommonCategories.Stone,
-            "aa",
             nameof(TimePeriod.PreHistory),
             GameSetup.NAMESPACE
         };
@@ -45,8 +37,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             new RecipeResult(Rock.NAME, 5)
         };
-
-        
 
         public string name => Rock.NAME;
 

@@ -134,11 +134,12 @@
     <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveForager.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\RockThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
-    <Compile Include="TimePeriods\StoneAge\Jobs\StoneShaper.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\StoneShaper.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\StoneAgeQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\Sling.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\SlingBullets.cs" />
@@ -231,6 +232,9 @@
     <Content Include="Textures\albedo\PorterToCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="icons\PrimitiveForager.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\albedo\RoughWoodBoard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -294,6 +298,9 @@
     <None Include="Meshes\IronChest.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\PrimitiveForager.ply">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Meshes\Shelving.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -310,6 +317,7 @@
     <Folder Include="TimePeriods\FusionAge\" />
     <Folder Include="TimePeriods\InformationAge\" />
     <Folder Include="TimePeriods\RenewablesAge\" />
+    <Folder Include="TimePeriods\StoneAge\Jobs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\basket.png">

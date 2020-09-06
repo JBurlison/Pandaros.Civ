@@ -39,7 +39,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
                 CommonCategories.Essential,
                 CommonCategories.Storage,
                 CommonCategories.StockpileUpgrade,
-                "aa",
                 nameof(TimePeriod.PreHistory),
                 GameSetup.NAMESPACE
             };
@@ -65,6 +64,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTAIGA;
     }
+
     public class CarvedLogTemperateRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()

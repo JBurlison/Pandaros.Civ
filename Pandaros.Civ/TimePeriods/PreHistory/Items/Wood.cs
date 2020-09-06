@@ -20,50 +20,17 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             CommonCategories.Ingredient,
             CommonCategories.Wood,
-            "aa",
             nameof(TimePeriod.PreHistory),
             GameSetup.NAMESPACE
         };
-    }
-
-    public class WoodTemperateRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id, 1)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(Wood.NAME, 4)
-        };
-
-        
-
-        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name;
-    }
-    public class WoodTaigaRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id, 1)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(Wood.NAME, 4)
-        };
-
-        
-
-        public string name => Wood.NAME + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name;
     }
 
     public class WoodTaigaJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id, 1)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id, 1),
+            new RecipeItem(Rock.NAME)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
@@ -81,11 +48,13 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
     }
+
     public class WoodTemperateJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id, 1)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id, 1),
+            new RecipeItem(Rock.NAME)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()

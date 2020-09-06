@@ -105,10 +105,9 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SlowPorterToCrate.Name)
         };
 
-        
-
         public string name => SlowPorterToCrate.Name;
     }
+
     public class SlowPorterToCrateJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
@@ -123,8 +122,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         {
             new RecipeResult(SlowPorterToCrate.Name)
         };
-
-        
 
         public string name => SlowPorterToCrate.Name + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;

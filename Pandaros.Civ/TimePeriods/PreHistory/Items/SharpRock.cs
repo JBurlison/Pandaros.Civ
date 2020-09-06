@@ -21,7 +21,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             CommonCategories.Essential,
             CommonCategories.Ammo,
-            "ab",
             nameof(TimePeriod.PreHistory),
             CommonCategories.Stone,
             GameSetup.NAMESPACE
@@ -40,8 +39,29 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(SharpRock.NAME, 2)
         };
 
-        
+        public string name => SharpRock.NAME;
+    }
+
+    public class SharpRockShaperRecipe :  ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(Rock.NAME, 2)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(SharpRock.NAME, 2)
+        };
 
         public string name => SharpRock.NAME;
+
+        public CraftPriority defaultPriority =>  CraftPriority.Medium;
+
+        public int defaultLimit => 100;
+
+        public string Job => StoneShaper.Name;
+
+        public List<string> JobBlock => new List<string>() { StoneShaper.Name };
     }
 }

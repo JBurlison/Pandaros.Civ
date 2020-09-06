@@ -21,7 +21,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             CommonCategories.Ingredient,
             CommonCategories.Wood,
-            "ab",
             nameof(TimePeriod.PreHistory),
             CommonCategories.Decorative,
             GameSetup.NAMESPACE
@@ -42,7 +41,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Wood.NAME, 5)
+            new RecipeItem(Wood.NAME, 5),
+            new RecipeItem(SharpRock.NAME, 4)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()

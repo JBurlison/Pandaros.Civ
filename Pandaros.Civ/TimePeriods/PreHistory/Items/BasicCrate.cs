@@ -27,7 +27,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
                 CommonCategories.Essential,
                 CommonCategories.Storage,
                 CommonCategories.Crate,
-                "aa",
                 nameof(TimePeriod.PreHistory),
                 GameSetup.NAMESPACE
             };
@@ -50,23 +49,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             icon = GameSetup.Textures.GetPath(TextureType.icon, "BasicCrate.png");
             mesh = GameSetup.MESH_PATH + "Crate.ply";
         }
-    }
-
-    public class BasicCrateRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(Wood.NAME, 2),
-            new RecipeItem(RoughWoodenBoard.NAME, 5),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(BasicCrate.Name)
-        };
-
-        public string name => BasicCrate.Name;
     }
 
     public class BasicCrateWoodWorkerRecipe : ICSRecipe

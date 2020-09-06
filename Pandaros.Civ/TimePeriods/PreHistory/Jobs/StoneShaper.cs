@@ -12,12 +12,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
+namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 {
     [ModLoader.ModManager]
     public static class StoneShaperModEntries
     {
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.StoneAge.Jobs.StoneShaperModEntries")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.StoneShaperModEntries")]
         [ModLoader.ModCallbackProvidesFor("create_savemanager")]
         public static void AfterDefiningNPCTypes()
         {
@@ -33,7 +33,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
 
     public class StoneShaper : PandaCrafingSettings
     {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(StoneShaper));
+        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(StoneShaper));
 
         public StoneShaper() : base(Name, Name)
         {
@@ -70,7 +70,6 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
         public override List<string> categories => new List<string>()
             {
                 CommonCategories.Job,
-                "ab",
                 nameof(TimePeriod.StoneAge),
                 CommonCategories.Stone,
                 GameSetup.NAMESPACE
