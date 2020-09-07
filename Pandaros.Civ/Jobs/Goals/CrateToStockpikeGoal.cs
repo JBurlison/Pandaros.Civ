@@ -86,11 +86,10 @@ namespace Pandaros.Civ.Jobs.Goals
         public void PerformGoal(ref NPCBase.NPCState state)
         {
             state.JobIsDone = true;
+            state.SetCooldown(1);
 
             if (WalkingTo == StorageType.Crate)
             {
-                state.SetCooldown(2);
-
                 if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var locs))
                 {
                     if (locs.TryGetValue(CurrentCratePosition, out var crate))
@@ -110,9 +109,7 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
-                state.SetCooldown(2);
                 ShowIndicator(ref state);
-
                 StorageFactory.StoreItems(Job.Owner, ToStockpike);
                 ToStockpike = null;
                 WalkingTo = StorageType.Crate;

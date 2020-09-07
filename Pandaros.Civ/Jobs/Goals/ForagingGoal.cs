@@ -17,6 +17,12 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class ForagingGoal : INpcGoal
     {
+        public enum ForagingState
+        {
+            HeadingOut,
+            HeadingBack
+        }
+
         public ForagingGoal(IJob job,  Vector3Int pos, ILootTable lootTable, int foragingTimeMinSec, int foragingTimeMaxSec, float lootLuckModifier = 0f)
         {
             Job = job;
@@ -58,9 +64,12 @@ namespace Pandaros.Civ.Jobs.Goals
                (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
                 ClosestCrate = JobPos.GetClosestPosition(crateLocs.Keys.ToList());
 
+            if (Job.NPC.Position == JobPos)
+                ComeHome();
+
             if (!Foraging)
             {
-                var radius = Job.Owner.BannerSafeRadius + 15;
+                var radius = Job.Owner.BannerSafeRadius - 1;
                 var xp = Job.Owner.Banners[0].Position.Add(radius, 0, 0);
                 var xn = Job.Owner.Banners[0].Position.Add(radius * -1, 0, 0);
                 var zp = Job.Owner.Banners[0].Position.Add(0, 0, radius);
@@ -110,7 +119,9 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (!Foraging)
             {
-                ForagingPos = EdgeOfColony.Add(0, -60, 0);
+                ForagingPos = EdgeOfColony.Add(0, -20, 0);
+                World.TryChangeBlock(ForagingPos.Add(0, 1, 0), ColonyBuiltIn.ItemTypes.AIR.Id);
+                World.TryChangeBlock(ForagingPos, ColonyBuiltIn.ItemTypes.AIR.Id);
                 Job.NPC.SetPosition(ForagingPos);
                 Foraging = true;
                 var nextTime = Pipliz.Random.Next(ForagingTimeMinSec, ForagingTimeMaxSec);

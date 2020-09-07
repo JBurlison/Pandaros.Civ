@@ -182,7 +182,7 @@ namespace Pandaros.Civ.Storage
                             var remainder = item.Amount - CrateType.MaxCrateStackSize;
                             storedItems[item.Id] = new StoredItem(item.Id, CrateType.MaxCrateStackSize, CrateType.MaxCrateStackSize);
                             item.Amount = remainder;
-                            retval.Add(new StoredItem(item));
+                            retval.Add(new StoredItem(item.Id, remainder));
                         }
                         else
                         {

@@ -356,7 +356,7 @@ namespace Pandaros.Civ.Storage
                 if (!CrateLocations.ContainsKey(colony))
                     CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
 
-                CrateLocations[colony].Add(tryChangeBlockData.Position, new CrateInventory(newCrate, tryChangeBlockData.Position, colony));
+                CrateLocations[colony][tryChangeBlockData.Position] = new CrateInventory(newCrate, tryChangeBlockData.Position, colony);
             }
         }
 

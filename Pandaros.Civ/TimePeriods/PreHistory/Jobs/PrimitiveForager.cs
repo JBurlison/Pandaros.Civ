@@ -51,11 +51,13 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             {
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.DIRT, 5, 10),
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 5, 10),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 10, 20)
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 10, 20),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.GRASSTAIGAWET, 1, 4),
+                new LootPoolEntry(Rock.NAME, 5, 10)
             }
         };
 
-        public PrimitiveForager() : base(Name, Name, SharedLootTable, 60, 80, 2)
+        public PrimitiveForager() : base(Name, Name, SharedLootTable, 20, 25, 2)
         {
 
         }
