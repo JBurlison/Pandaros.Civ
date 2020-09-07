@@ -53,12 +53,12 @@ namespace Pandaros.Civ.Storage
             SetTTL(type);
         }
 
-        public StoredItem(StoredItem item, int maxAmount = int.MaxValue, StorageType type = StorageType.Stockpile)
+        public StoredItem(StoredItem item, StorageType type = StorageType.Stockpile)
         {
             Id = item.Id;
             Amount = item.Amount;
             MaxAmount = item.MaxAmount;
-            EnsureWithinMax(maxAmount);
+            EnsureWithinMax(MaxAmount);
             SetTTL(type);
         }
 

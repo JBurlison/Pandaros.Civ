@@ -49,9 +49,13 @@ namespace Pandaros.Civ.Jobs.Goals
             List<Vector3Int> cratesWithItems = new List<Vector3Int>();
             var stockpileLoc = StorageFactory.GetStockpilePosition(Job.Owner);
             cratesWithItems.Add(stockpileLoc.Position);
+            bool stockpileHasItems = true;
 
             foreach (var item in ItemsToGet)
             {
+                if (!Job.Owner.Stockpile.Contains(item))
+                    stockpileHasItems = false;
+
                 if (StorageFactory.ItemCrateLocations[Job.Owner].TryGetValue(item.Id, out var locations))
                     if (!LastCratePosition.Contains(ItemsForGoal.ClosestCrate) && locations.Contains(ItemsForGoal.ClosestCrate))
                         cratesWithItems.Add(ItemsForGoal.ClosestCrate);
@@ -63,8 +67,16 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (cratesWithItems.Count == 0 || cratesWithItems[0] == stockpileLoc.Position)
             {
-                WalkingTo = StorageType.Stockpile;
-                return stockpileLoc.Position;
+                if (stockpileHasItems)
+                {
+                    WalkingTo = StorageType.Stockpile;
+                    return stockpileLoc.Position;
+                }
+                else
+                {
+                    PandaJobFactory.SetActiveGoal(Job, new StandAtJobGoal(Job, NextGoal, OriginalPosition, ItemsToGet.FirstOrDefault()));
+                    return OriginalPosition;
+                }
             }
             else
             {

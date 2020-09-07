@@ -84,6 +84,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     CrateFull = false;
                 }
 
+                WalkingTo = StorageType.Crate;
                 var nexPos = Vector3Int.invalidPos;
 
                 foreach (var location in ClosestLocations)
@@ -95,7 +96,6 @@ namespace Pandaros.Civ.Jobs.Goals
                     {
                         nexPos = location;
                         InProgress.Add(location);
-                        WalkingTo = StorageType.Crate;
 
                         var addToInv = StorageFactory.TryTakeItems(Job.Owner, itemsNeeded.Values);
                         var leftovers = new List<StoredItem>();
@@ -142,7 +142,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 {
                     CrateFull = true;
                     state.SetCooldown(5);
-                    state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id, true, false));
+                    state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id, false, false));
                 }
             }
 

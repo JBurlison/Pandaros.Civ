@@ -1,4 +1,5 @@
-﻿using Jobs;
+﻿using AI;
+using Jobs;
 using NPC;
 using Pandaros.API;
 using Pandaros.API.Items;
@@ -90,14 +91,26 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingJob()
         {
-            Job.NPC.SetPosition(JobPos);
+            ComeHome();
+        }
+
+        private void ComeHome()
+        {
+            if (PathingManager.TryCanStandNearNotAt(EdgeOfColony, out var canStand, out var pos))
+                Job.NPC.SetPosition(pos);
+            else if (PathingManager.TryCanStandNearNotAt(JobPos, out canStand, out pos))
+                Job.NPC.SetPosition(pos);
+            else
+                Job.NPC.SetPosition(Job.Owner.Banners.FirstOrDefault().Position);
         }
 
         public void PerformGoal(ref NPCBase.NPCState state)
         {
+            state.JobIsDone = true;
+
             if (!Foraging)
             {
-                ForagingPos = EdgeOfColony.Add(0, -100, 0);
+                ForagingPos = EdgeOfColony.Add(0, -60, 0);
                 Job.NPC.SetPosition(ForagingPos);
                 Foraging = true;
                 var nextTime = Pipliz.Random.Next(ForagingTimeMinSec, ForagingTimeMaxSec);
@@ -112,10 +125,9 @@ namespace Pandaros.Civ.Jobs.Goals
                     Job.NPC.Inventory.Add(item.Key, item.Value);
 
                 state.SetCooldown(1);
-                Job.NPC.SetPosition(EdgeOfColony);
+                ComeHome();
                 Foraging = false;
                 PandaJobFactory.SetActiveGoal(Job, new PutItemsInCrateGoal(Job, JobPos, this, Job.NPC.Inventory.Inventory, this), ref state);
-                state.JobIsDone = true;
                 Job.NPC.Inventory.Inventory.Clear();
             }
             else

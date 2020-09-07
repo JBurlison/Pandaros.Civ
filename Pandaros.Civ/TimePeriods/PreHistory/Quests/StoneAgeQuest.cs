@@ -4,6 +4,7 @@ using Pandaros.API.Questing.BuiltinObjectives;
 using Pandaros.API.Questing.BuiltinRewards;
 using Pandaros.API.Questing.Models;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,15 +28,15 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         {
             {
                 "porterfrom",
-                new JobsTakenObjective("porterfrom", "Pre-History Porter from Crate", 1)
+                new JobsTakenObjective("porterfrom", SlowPorterFromCrate.Name, 1)
             },
             {
                 "porterto",
-                new JobsTakenObjective("porterfrom", "Pre-History Porter to Crate", 1)
+                new JobsTakenObjective("porterfrom", SlowPorterToCrate.Name, 1)
             },
             {
                 "colonistcount",
-                new ColonistCountObjective("colonistcount", 20)
+                new ColonistCountObjective("colonistcount", 13)
             },
             {
                 "stockpilesize",

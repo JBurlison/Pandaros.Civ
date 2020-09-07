@@ -108,7 +108,7 @@ namespace Pandaros.Civ.Storage
                 {
                     List<InventoryItem> itemsMoved = new List<InventoryItem>();
 
-                    foreach (var itemKvp in crateInventory.ContentCopy)
+                    foreach (var itemKvp in crateInventory.GetAllItems())
                     {
                         if (data.Storage.TryGetAs("Crate." + itemKvp.Key + ".ItemSelected", out bool selected) && selected)
                         {
@@ -136,7 +136,7 @@ namespace Pandaros.Civ.Storage
                     List<StoredItem> itemsMoved = new List<StoredItem>();
                     var invRef = data.Player.Inventory;
 
-                    foreach (var itemKvp in crateInventory.ContentCopy)
+                    foreach (var itemKvp in crateInventory.GetAllItems())
                     {
                         if (data.Storage.TryGetAs("Crate." + itemKvp.Key + ".ItemSelected", out bool selected) && selected)
                         {
@@ -409,7 +409,7 @@ namespace Pandaros.Civ.Storage
                 menu.Items.Add(new Line(UnityEngine.Color.black));
 
 
-                foreach (var itemKvp in crateInventory.ContentCopy)
+                foreach (var itemKvp in crateInventory.GetAllItems())
                 {
                     items = new List<ValueTuple<IItem, int>>();
                     items.Add(ValueTuple.Create<IItem, int>(new ItemIcon(itemKvp.Key), 250));

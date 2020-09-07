@@ -29,7 +29,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
                 0, 
                 new List<IResearchableCondition>()
                 {
-                    new ColonistCountCondition() { Threshold = 20 },
+                    new ColonistCountCondition() { Threshold = 13 },
                     new QuestCompleteGoal(StoneAgeQuest.NAME)
                 }
             }

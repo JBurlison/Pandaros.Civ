@@ -13,14 +13,13 @@ namespace Pandaros.Civ.Storage
 {
     public class CrateInventory 
     {
-        public Dictionary<ushort, StoredItem> Contents { get; set; } = new Dictionary<ushort, StoredItem>();
-        public Dictionary<StorageType, List<StoredItem>> StorageTypeLookup = new Dictionary<StorageType, List<StoredItem>>();
+        public Dictionary<StorageType, Dictionary<ushort, StoredItem>> StorageTypeLookup = new Dictionary<StorageType, Dictionary<ushort, StoredItem>>();
 
-        public Dictionary<ushort, StoredItem> ContentCopy { get { return new Dictionary<ushort, StoredItem>(Contents); } }
         public ICrate CrateType { get; set; }
 
         public Vector3Int Position { get; set; }
         public Colony Colony { get; set; }
+
 
         public CrateInventory(JSONNode node, Colony c)
         {
@@ -32,8 +31,7 @@ namespace Pandaros.Civ.Storage
             if (node.TryGetAs(nameof(CrateType), out string ctype) && StorageFactory.CrateTypes.TryGetValue(ctype, out var crate))
                 CrateType = crate;
 
-            Contents = node[nameof(Contents)].JsonDeerialize<Dictionary<ushort, StoredItem>>();
-            StorageTypeLookup = node[nameof(StorageTypeLookup)].JsonDeerialize<Dictionary<StorageType, List<StoredItem>>>();
+            StorageTypeLookup = node[nameof(StorageTypeLookup)].JsonDeerialize<Dictionary<StorageType, Dictionary<ushort, StoredItem>>>();
         }
 
         public CrateInventory(ICrate crateType, Vector3Int position, Colony c)
@@ -42,23 +40,42 @@ namespace Pandaros.Civ.Storage
             Position = position;
             Colony = c;
 
-            StorageTypeLookup[StorageType.Stockpile] = new List<StoredItem>();
-            StorageTypeLookup[StorageType.Crate] = new List<StoredItem>();
+            StorageTypeLookup[StorageType.Stockpile] = new Dictionary<ushort, StoredItem>();
+            StorageTypeLookup[StorageType.Crate] = new Dictionary<ushort, StoredItem>();
         }
 
         public bool IsAlmostFull
         {
             get
             {
-                if (Contents.Count >= CrateType.MaxNumberOfStacks - 2)
+                if (StorageTypeLookup[StorageType.Stockpile].Count >= CrateType.MaxNumberOfStacks - 2)
                     return true;
 
-                foreach (var item in Contents.Values)
+                foreach (var item in StorageTypeLookup[StorageType.Stockpile].Values)
                     if (item.Amount >= item.MaxAmount / 2)
                         return true;
 
                 return false;
             }
+        }
+
+        public Dictionary<ushort, StoredItem> GetAllItems()
+        {
+            var retVal = new Dictionary<ushort, StoredItem>();
+
+            foreach (var storageTypeKvp in StorageTypeLookup)
+                foreach(var item in storageTypeKvp.Value)
+                    if (retVal.TryGetValue(item.Key, out var storedItem))
+                    {
+                        storedItem.MaxAmount += item.Value.MaxAmount;
+                        storedItem.Add(item.Value);
+                    }
+                    else
+                    {
+                        retVal.Add(item.Key, new StoredItem(item.Value));
+                    }
+
+            return retVal;
         }
 
         public JSONNode ToJSON()
@@ -67,7 +84,6 @@ namespace Pandaros.Civ.Storage
             node[nameof(Colony)] = new JSONNode(Colony.ColonyID);
             node[nameof(Position)] = (JSONNode)Position;
             node[nameof(CrateType)] = new JSONNode(CrateType.name);
-            node[nameof(Contents)] = Contents.JsonSerialize();
             node[nameof(StorageTypeLookup)] = StorageTypeLookup.JsonSerialize();
             return node;
         }
@@ -77,12 +93,16 @@ namespace Pandaros.Civ.Storage
         {
             var now = ServerTimeStamp.Now;
 
-            foreach (var item in Contents.Values)
+            foreach (var item in StorageTypeLookup[StorageType.Crate].Values)
                 if (item.StorageType == StorageType.Crate && item.TTL < now)
                 {
                     item.StorageType = StorageType.Stockpile;
-                    StorageTypeLookup[StorageType.Crate].Remove(item);
-                    StorageTypeLookup[StorageType.Stockpile].Add(item);
+                    StorageTypeLookup[StorageType.Crate].Remove(item.Id);
+
+                    if (StorageTypeLookup[StorageType.Stockpile].TryGetValue(item.Id, out var existingItem))
+                        existingItem.Add(item.Amount);
+                    else
+                        StorageTypeLookup[StorageType.Stockpile][item.Id] =item;
                 }
         }
 
@@ -97,23 +117,27 @@ namespace Pandaros.Civ.Storage
 
             foreach (var item in items)
             {
-                if (Contents.TryGetValue(item.Id, out var storedItem))
-                {
-                    var remaining = storedItem.RemoveReturnNotTaken(item);
-
-                    if (remaining > 0)
+                foreach (var typeKvp in StorageTypeLookup)
+                    if (typeKvp.Value.TryGetValue(item.Id, out var storedItem))
                     {
-                        retval[item.Id] = new StoredItem(item.Id, remaining);
-                    }
+                        var remaining = storedItem.RemoveReturnNotTaken(item);
 
-                    if (Contents[item.Id] == 0)
-                    {
-                        Contents.Remove(item.Id);
-                        StorageTypeLookup[item.StorageType].Remove(item);
-                        if (StorageFactory.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
-                            posList.Remove(Position);
+                        if (remaining > 0)
+                        {
+                            retval[item.Id] = new StoredItem(item.Id, remaining);
+                        }
+
+                        if (typeKvp.Value[item.Id] == 0)
+                        {
+                            typeKvp.Value.Remove(item.Id);
+
+                            if (StorageFactory.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
+                                posList.Remove(Position);
+                        }
+
+                        if (remaining == 0)
+                            break;
                     }
-                }
 
                
             }
@@ -132,7 +156,13 @@ namespace Pandaros.Civ.Storage
 
             foreach (var item in items)
             {
-                if (Contents.TryGetValue(item.Id, out var storedItem))
+                if (!StorageTypeLookup.TryGetValue(item.StorageType, out var storedItems))
+                {
+                    storedItems = new Dictionary<ushort, StoredItem>();
+                    StorageTypeLookup[item.StorageType] = storedItems;
+                }   
+                
+                if (storedItems.TryGetValue(item.Id, out var storedItem))
                 {
                     int cantStore = storedItem.Add(item);
 
@@ -143,23 +173,21 @@ namespace Pandaros.Civ.Storage
                 }
                 else
                 {
-                    if (Contents.Count >= CrateType.MaxNumberOfStacks)
+                    if (storedItems.Count >= CrateType.MaxNumberOfStacks)
                         retval.Add(new StoredItem(item, CrateType.MaxCrateStackSize));
                     else
                     {
                         if (item.Amount > CrateType.MaxCrateStackSize)
                         {
                             var remainder = item.Amount - CrateType.MaxCrateStackSize;
-                            Contents[item.Id] = new StoredItem(item.Id, CrateType.MaxCrateStackSize, CrateType.MaxCrateStackSize);
+                            storedItems[item.Id] = new StoredItem(item.Id, CrateType.MaxCrateStackSize, CrateType.MaxCrateStackSize);
                             item.Amount = remainder;
                             retval.Add(new StoredItem(item));
                         }
                         else
                         {
-                            Contents[item.Id] = new StoredItem(item.Id, item, CrateType.MaxCrateStackSize);
+                            storedItems[item.Id] = new StoredItem(item.Id, item, CrateType.MaxCrateStackSize);
                         }
-
-                        StorageTypeLookup[item.StorageType].Add(Contents[item.Id]);
                     }
                 }
 

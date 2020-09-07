@@ -12,12 +12,15 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class StandAtJobGoal : INpcGoal
     {
-        public StandAtJobGoal(IJob job, INpcGoal nextGoal, Vector3Int pos)
+        public StandAtJobGoal(IJob job, INpcGoal nextGoal, Vector3Int pos, StoredItem missingItem = null)
         {
             Job = job;
             Position = pos;
             NextGoal = nextGoal;
+            MissingItem = missingItem;
         }
+
+        public StoredItem MissingItem { get; set; }
         public Vector3Int ClosestCrate { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
@@ -50,6 +53,9 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (!HasWaited)
             {
+                if (MissingItem != null)
+                    state.SetIndicator(new Shared.IndicatorState(16f, MissingItem.Id.Id, true, false));
+
                 state.SetCooldown(16);
                 HasWaited = true;
             }

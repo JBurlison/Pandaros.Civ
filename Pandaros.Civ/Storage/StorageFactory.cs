@@ -342,7 +342,7 @@ namespace Pandaros.Civ.Storage
             {
                 /// empty the crate. TODO may want to do something other than magically teleporting.
                 if (CrateLocations[colony].TryGetValue(tryChangeBlockData.Position, out var inv))
-                    StoreItems(colony, inv.Contents.Values);
+                    StoreItems(colony, inv.GetAllItems().Values);
 
                 CrateLocations[colony].Remove(tryChangeBlockData.Position);
 
