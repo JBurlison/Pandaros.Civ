@@ -33,7 +33,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     public class PrimitiveForagerSettings : INPCTypeStandardSettings
     {
         public string keyName { get; set; } = PrimitiveForager.Name;
-        public string printName { get; set; } = "Pre-History Porter to Crate";
+        public string printName { get; set; } = "Primitive Forager";
         public float inventoryCapacity { get; set; } = 300f;
         public float movementSpeed { get; set; } = 2.3f;
         public UnityEngine.Color32 maskColor1 { get; set; } = new UnityEngine.Color32(66, 255, 129, 255);
@@ -71,12 +71,10 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public override string mesh { get; set; } = GameSetup.MESH_PATH + "PrimitiveForager.ply";
         public override List<string> categories => new List<string>()
             {
-                CommonCategories.Essential,
-                CommonCategories.Storage,
-                CommonCategories.Porter,
+                CommonCategories.Job,
                 "aa",
                 nameof(TimePeriod.PreHistory),
-                CommonCategories.Job,
+                CommonCategories.Forager,
                 GameSetup.NAMESPACE
             };
     }

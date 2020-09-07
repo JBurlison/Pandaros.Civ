@@ -13,6 +13,7 @@ namespace Pandaros.Civ
         public static string Ingredient = "ingredient";
         public static string Job = "job";
         public static string Porter = "porter";
+        public static string Forager = "forager";
         public static string Food = "food";
         public static string Decorative = "decorative";
         public static string RecruitmentItem = "recruitment";
