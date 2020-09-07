@@ -8,6 +8,7 @@ using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,16 +20,14 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             FarmingJob = job;
             Job = job;
-            JobSettings = job;
             Definition = definitioan;
         }
 
         public AbstractFarmAreaJobDefinition Definition { get; set; }
         public PandaFarmingJob FarmingJob { get; set; }
         public IJob Job { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
-        public string Name { get; set; }
-        public string LocalizationKey { get; set; }
+        public string Name { get; set; } = nameof(FarmingGoal);
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(FarmingGoal));
         public Vector3Int ClosestCrate { get; set; }
 
         private int firstIndexToCheck = 0;
@@ -140,7 +139,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void PutItemsInCrate(ref NPCBase.NPCState state)
         {
-            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList(), this), ref state);
+            PandaJobFactory.SetActiveGoal(Job, new PutItemsInCrateGoal(Job, FarmingJob.KeyLocation, this, state.Inventory.Inventory.ToList(), this), ref state);
             state.Inventory.Inventory.Clear();
             state.SetCooldown(0.2, 0.4);
         }
@@ -148,6 +147,16 @@ namespace Pandaros.Civ.Jobs.Goals
         public void SetAsGoal()
         {
             
+        }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return FarmingJob.KeyLocation;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            return null;
         }
     }
 }

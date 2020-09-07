@@ -12,34 +12,31 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class GetItemsFromCrateGoal : INpcGoal
     {
-        public static List<GetItemsFromCrateGoal> CurrentItemsNeeded { get; set; } = new List<GetItemsFromCrateGoal>();
 
-        public GetItemsFromCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, StoredItem[] itemsToGet, INpcGoal itemsForGoal)
+        public GetItemsFromCrateGoal(IJob job, Vector3Int originalPos, INpcGoal nextGoal, StoredItem[] itemsToGet, INpcGoal itemsForGoal)
         {
             Job = job;
             NextGoal = nextGoal;
             ItemsToGet = itemsToGet;
-            JobSettings = jobSettings;
             ItemsForGoal = itemsForGoal;
-            CurrentItemsNeeded.Add(this);
+            OriginalPosition = originalPos;
         }
 
-        public GetItemsFromCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, List<InventoryItem> itemsToGet, INpcGoal itemsForGoal)
+        public GetItemsFromCrateGoal(IJob job, Vector3Int originalPos, INpcGoal nextGoal, List<InventoryItem> itemsToGet, INpcGoal itemsForGoal)
         {
             Job = job;
             NextGoal = nextGoal;
             ItemsToGet = itemsToGet.Select(i => new StoredItem(i)).ToArray();
-            JobSettings = jobSettings;
             ItemsForGoal = itemsForGoal;
-            CurrentItemsNeeded.Add(this);
+            OriginalPosition = originalPos;
         }
 
+        public Vector3Int OriginalPosition { get; set; }
         public Vector3Int ClosestCrate { get; set; }
         public StoredItem[] ItemsToGet { get; set; }
         public INpcGoal ItemsForGoal { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
         public string Name { get; set; } = nameof(GetItemsFromCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(GetItemsFromCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; }
@@ -77,7 +74,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     CurrentCratePosition = cratesWithItems[0];
                 else
                 {
-                    var pos = JobSettings.OriginalPosition[Job].GetClosestPosition(cratesWithItems);
+                    var pos = OriginalPosition.GetClosestPosition(cratesWithItems);
 
                     if (pos == stockpileLoc.Position)
                     {
@@ -99,12 +96,12 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void SetAsGoal()
         {
-            CurrentItemsNeeded.Add(this);
+            
         }
 
         public virtual void LeavingJob()
         {
-            CurrentItemsNeeded.Remove(this);
+            
         }
 
         public void PerformGoal(ref NPC.NPCBase.NPCState state)
@@ -135,8 +132,18 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
-                JobSettings.SetGoal(Job, NextGoal, ref state);
+                PandaJobFactory.SetActiveGoal(Job, NextGoal, ref state);
             }
+        }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return OriginalPosition;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            return null;
         }
     }
 }

@@ -16,64 +16,12 @@ using ModLoaderInterfaces;
 namespace Pandaros.Civ.Jobs.Goals
 {
 
-    public class CraftingRequests : ICrateRequest, ICratePlacementUpdate
-    {
-        public void CratePlacementUpdate(Colony colony, PlacementEventType eventType, Vector3Int position)
-        {
-            if (eventType == PlacementEventType.Removed)
-            {
-                foreach (var goal in CraftingGoal.CurrentlyCrafing)
-                    if (goal.ClosestCrate == position)
-                        goal.ClosestCrate = goal.CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
-            }
-            else
-            {
-                foreach (var goal in CraftingGoal.CurrentlyCrafing)
-                    goal.ClosestCrate = goal.CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
-            }
-        }
-
-        public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
-        {
-            var items = new Dictionary<ushort, StoredItem>();
-
-            foreach (var crafter in CraftingGoal.CurrentlyCrafing)
-            {
-                if (StorageFactory.CrateLocations.TryGetValue(crafter.Job.Owner, out var crateLocs))
-                {
-                    if (!crateLocs.ContainsKey(crafter.ClosestCrate))
-                        crafter.ClosestCrate = crafter.CraftingJobInstance.Position.GetClosestPosition(crateLocs.Keys.ToList());
-
-                    if (crafter.ClosestCrate == crateLocation)
-                    {
-                        var maxSize = crateLocs[crateLocation].CrateType.MaxCrateStackSize;
-
-                        if (crafter.CraftingJobInstance.SelectedRecipe != null)
-                        {
-                            items.AddRange(crafter.CraftingJobInstance.SelectedRecipe.Requirements, maxSize);
-                        }
-
-                        if (crafter.NextRecipe.FoundRecipe != null)
-                        {
-                            items.AddRange(crafter.NextRecipe.FoundRecipe.Requirements, maxSize);
-                        }
-                    }
-                }
-            }
-
-            return items;
-        }
-    }
-
+    
     public class CraftingGoal : INpcGoal
     {
-        public static List<CraftingGoal> CurrentlyCrafing { get; set; } = new List<CraftingGoal>();
-
-        public CraftingGoal(IJob job, IPandaJobSettings jobSettings, CraftingJobSettings settings)
+        public CraftingGoal(IJob job, CraftingJobSettings settings)
         {
             CraftingJobInstance = job as CraftingJobInstance;
-            JobSettings = jobSettings;
-            CurrentlyCrafing.Add(this);
             Job = job;
             CraftingJobSettings = settings;
             ClosestCrate = CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
@@ -82,11 +30,10 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int ClosestCrate { get; set; }
         public CraftingJobInstance CraftingJobInstance { get; set; }
         public CraftingJobSettings CraftingJobSettings { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
         public List<RecipeResult> CraftingResults { get; set; } = new List<RecipeResult>();
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(CraftingGoal);
-        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(CraftingGoal));
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(CraftingGoal));
         public RecipeSettingsGroup RecipeSettingsGroup { get; set; }
         public Recipe.RecipeMatch NextRecipe { get; set; }
 
@@ -106,13 +53,12 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void SetAsGoal()
         {
-            if(!CurrentlyCrafing.Contains(this))
-                CurrentlyCrafing.Add(this);
+           
         }
 
         public virtual void LeavingJob()
         {
-            CurrentlyCrafing.Remove(this);
+            
         }
 
         public virtual void PerformGoal(ref NPCBase.NPCState state)
@@ -240,7 +186,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void PutItemsInCrate(ref NPCBase.NPCState state)
         {
-            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList(), this), ref state);
+            PandaJobFactory.SetActiveGoal(Job, new PutItemsInCrateGoal(Job, CraftingJobInstance.Position, this, state.Inventory.Inventory.ToList(), this), ref state);
             state.Inventory.Inventory.Clear();
             state.SetCooldown(0.2, 0.4);
         }
@@ -250,12 +196,12 @@ namespace Pandaros.Civ.Jobs.Goals
             if (CraftingJobInstance.SelectedRecipe != null)
             {
                 state.Inventory.Add(CraftingJobInstance.SelectedRecipe.Requirements.ToList(), CraftingJobInstance.SelectedRecipeCount);
-                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, CraftingJobInstance.SelectedRecipe.Requirements, this), ref state);
+                PandaJobFactory.SetActiveGoal(Job, new GetItemsFromCrateGoal(Job, CraftingJobInstance.Position, this, CraftingJobInstance.SelectedRecipe.Requirements, this), ref state);
             }
             else if (NextRecipe.MatchType != Recipe.RecipeMatchType.Invalid)
             {
                 state.Inventory.Add(NextRecipe.FoundRecipe.Requirements.ToList(), NextRecipe.FoundRecipeCount);
-                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, NextRecipe.FoundRecipe.Requirements, this), ref state);
+                PandaJobFactory.SetActiveGoal(Job, new GetItemsFromCrateGoal(Job, CraftingJobInstance.Position, this, NextRecipe.FoundRecipe.Requirements, this), ref state);
             }
         }
 
@@ -269,6 +215,22 @@ namespace Pandaros.Civ.Jobs.Goals
 
         }
 
-       
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return CraftingJobInstance.Position;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            var items = new Dictionary<ushort, StoredItem>();
+
+            if (CraftingJobInstance.SelectedRecipe != null)
+                items.AddRange(CraftingJobInstance.SelectedRecipe.Requirements);
+
+            if (NextRecipe.FoundRecipe != null)
+                items.AddRange(NextRecipe.FoundRecipe.Requirements);
+
+            return items;
+        }
     }
 }

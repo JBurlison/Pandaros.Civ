@@ -15,59 +15,14 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class WaterGatherRequest : ICrateRequest, ICratePlacementUpdate
-    {
-        public void CratePlacementUpdate(Colony colony, PlacementEventType eventType, Vector3Int position)
-        {
-            if (eventType == PlacementEventType.Removed)
-            {
-                foreach (var goal in WaterGatherGoal.CurrentlyGathering)
-                    if (goal.ClosestCrate == position)
-                        goal.ClosestCrate = goal.JobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
-            }
-            else
-            {
-                foreach (var goal in WaterGatherGoal.CurrentlyGathering)
-                    goal.ClosestCrate = goal.JobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
-            }
-        }
-
-        public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
-        {
-            var items = new Dictionary<ushort, StoredItem>();
-
-            foreach (var gatherer in WaterGatherGoal.CurrentlyGathering)
-            {
-                if (StorageFactory.CrateLocations.TryGetValue(gatherer.Job.Owner, out var crateLocs))
-                {
-                    if (!crateLocs.ContainsKey(gatherer.ClosestCrate))
-                        gatherer.ClosestCrate = gatherer.JobInstance.Position.GetClosestPosition(crateLocs.Keys.ToList());
-
-                    if (gatherer.ClosestCrate == crateLocation)
-                    {
-                        var maxSize = crateLocs[crateLocation].CrateType.MaxCrateStackSize;
-
-                        if (gatherer.recipeMatch.FoundRecipe != null)
-                            items.AddRange(gatherer.recipeMatch.FoundRecipe.Requirements, maxSize);
-                    }
-                }
-            }
-
-            return items;
-        }
-    }
-
     public class WaterGatherGoal : INpcGoal
     {
-        public static List<WaterGatherGoal> CurrentlyGathering { get; set; } = new List<WaterGatherGoal>();
 
         public WaterGatherGoal(CraftingJobWaterInstance blockJobInstance, PandaCraftingJobWaterSettings pandaJobSettings)
         {
             JobInstance = blockJobInstance;
             Job = blockJobInstance;
-            JobSettings = pandaJobSettings;
             WaterSettings = pandaJobSettings;
-            CurrentlyGathering.Add(this);
         }
 
         public Vector3Int ClosestCrate { get; set; }
@@ -75,9 +30,8 @@ namespace Pandaros.Civ.Jobs.Goals
         public PandaCraftingJobWaterSettings WaterSettings { get; set; }
         public CraftingJobWaterInstance JobInstance { get; set; }
         public IJob Job { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
-        public string Name { get; set; }
-        public string LocalizationKey { get; set; }
+        public string Name { get; set; } = nameof(WaterGatherGoal);
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(WaterGatherGoal));
         public Recipe.RecipeMatch recipeMatch { get; set; }
 
         public Vector3Int GetPosition()
@@ -96,14 +50,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingJob()
         {
-            CurrentlyGathering.Remove(this);
+
         }
 
         public void PerformGoal(ref NPCBase.NPCState state)
         {
-            if (!CurrentlyGathering.Contains(this))
-                CurrentlyGathering.Add(this);
-
             CraftingJobWaterInstance instance = JobInstance;
             Colony owner = instance.Owner;
             state.JobIsDone = true;
@@ -188,7 +139,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void PutItemsInCrate(ref NPCBase.NPCState state)
         {
-            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList(), this), ref state);
+            PandaJobFactory.SetActiveGoal(Job, new PutItemsInCrateGoal(Job, JobInstance.Position, this, state.Inventory.Inventory.ToList(), this), ref state);
             state.Inventory.Inventory.Clear();
             state.SetCooldown(0.2, 0.4);
         }
@@ -199,7 +150,7 @@ namespace Pandaros.Civ.Jobs.Goals
             {
                 state.SetCooldown(0.4, 0.6);
                 state.Inventory.Add(recipeMatch.FoundRecipe.Requirements.ToList(), recipeMatch.FoundRecipeCount);
-                JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, recipeMatch.FoundRecipe.Requirements, this), ref state);
+                PandaJobFactory.SetActiveGoal(Job, new GetItemsFromCrateGoal(Job, JobInstance.Position, this, recipeMatch.FoundRecipe.Requirements, this), ref state);
             }
         }
 
@@ -238,8 +189,22 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void SetAsGoal()
         {
-            if (!CurrentlyGathering.Contains(this))
-                CurrentlyGathering.Add(this);
+            
+        }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return JobInstance.Position;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            var items = new Dictionary<ushort, StoredItem>();
+
+            if (recipeMatch.FoundRecipe != null)
+                items.AddRange(recipeMatch.FoundRecipe.Requirements);
+
+            return items;
         }
     }
 }

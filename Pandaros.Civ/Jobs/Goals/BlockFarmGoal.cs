@@ -17,48 +17,6 @@ using static Pandaros.Civ.Jobs.BaseReplacements.PandaBlockFarmAreaJobDefinition;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class BlockFarmRequests : ICrateRequest, ICratePlacementUpdate
-    {
-        public void CratePlacementUpdate(Colony colony, PlacementEventType eventType, Vector3Int position)
-        {
-            if (eventType == PlacementEventType.Removed)
-            {
-                foreach (var goal in BlockFarmGoal.CurrentlyFarming)
-                    if (goal.ClosestCrate == position)
-                        goal.ClosestCrate = goal.FarmingJob.KeyLocation.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
-            }
-            else
-            {
-                foreach (var goal in BlockFarmGoal.CurrentlyFarming)
-                    goal.ClosestCrate = goal.FarmingJob.KeyLocation.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
-            }
-        }
-        public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
-        {
-            var items = new Dictionary<ushort, StoredItem>();
-
-            foreach (var crafter in BlockFarmGoal.CurrentlyFarming)
-            {
-                if (StorageFactory.CrateLocations.TryGetValue(crafter.Job.Owner, out var crateLocs))
-                {
-                    if (!crateLocs.ContainsKey(crafter.ClosestCrate))
-                        crafter.ClosestCrate = crafter.FarmingJob.KeyLocation.GetClosestPosition(crateLocs.Keys.ToList());
-
-                    if (crafter.ClosestCrate == crateLocation)
-                    {
-                        var maxSize = crateLocs[crateLocation].CrateType.MaxCrateStackSize;
-
-                        if (crafter.RecipeMatch.FoundRecipe != null)
-                        {
-                            items.AddRange(crafter.RecipeMatch.FoundRecipe.Requirements, maxSize);
-                        }
-                    }
-                }
-            }
-
-            return items;
-        }
-    }
 
     public class BlockFarmGoal : INpcGoal
     {
@@ -67,7 +25,6 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             FarmingJob = job;
             Job = job;
-            JobSettings = job;
             Definition = definitioan;
             CurrentlyFarming.Add(this);
         }
@@ -76,9 +33,8 @@ namespace Pandaros.Civ.Jobs.Goals
         public PandaBlockFarmAreaJobDefinition Definition { get; set; }
         public PandaBlockFarmAreaJob FarmingJob { get; set; }
         public IJob Job { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
-        public string Name { get; set; }
-        public string LocalizationKey { get; set; }
+        public string Name { get; set; } = nameof(BlockFarmGoal);
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(BlockFarmGoal));
         public Vector3Int ClosestCrate { get; set; }
         public Recipe.RecipeMatch RecipeMatch { get; set; }
 
@@ -165,7 +121,7 @@ namespace Pandaros.Civ.Jobs.Goals
                                 }
                                 else
                                 {
-                                    JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, foundRecipe.Requirements, this), ref state);
+                                    PandaJobFactory.SetActiveGoal(Job, new GetItemsFromCrateGoal(Job, FarmingJob.KeyLocation, this, foundRecipe.Requirements, this), ref state);
                                     FarmingJob.NPC.Inventory.Add(foundRecipe.Requirements, RecipeMatch.FoundRecipeCount);
                                 }
                                 state.SetCooldown(0.4, 0.6);
@@ -197,7 +153,7 @@ namespace Pandaros.Civ.Jobs.Goals
                                 if (definition.RequiredBlockItem.Amount != 0 && Job.NPC.Colony.Stockpile.TryRemove(definition.RequiredBlockItem))
                                 {
                                     state.SetCooldown(1.5, 2.5);
-                                    JobSettings.SetGoal(Job, new GetItemsFromCrateGoal(Job, JobSettings, this, new[] { new StoredItem(definition.RequiredBlockItem) }, this), ref state);
+                                    PandaJobFactory.SetActiveGoal(Job, new GetItemsFromCrateGoal(Job, FarmingJob.KeyLocation, this, new[] { new StoredItem(definition.RequiredBlockItem) }, this), ref state);
                                     Job.NPC.Inventory.Add(definition.RequiredBlockItem);
                                 }
 
@@ -230,9 +186,24 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual void PutItemsInCrate(ref NPCBase.NPCState state)
         {
-            JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, state.Inventory.Inventory.ToList(), this), ref state);
+            PandaJobFactory.SetActiveGoal(Job, new PutItemsInCrateGoal(Job, FarmingJob.KeyLocation, this, state.Inventory.Inventory.ToList(), this), ref state);
             state.Inventory.Inventory.Clear();
             state.SetCooldown(0.2, 0.4);
+        }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return FarmingJob.KeyLocation;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            var items = new Dictionary<ushort, StoredItem>();
+
+            if (RecipeMatch.FoundRecipe != null)
+                items.AddRange(RecipeMatch.FoundRecipe.Requirements);
+
+            return items;
         }
     }
 }

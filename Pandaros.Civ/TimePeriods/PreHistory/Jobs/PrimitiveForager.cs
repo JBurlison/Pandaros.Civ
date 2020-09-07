@@ -35,7 +35,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public string keyName { get; set; } = PrimitiveForager.Name;
         public string printName { get; set; } = "Pre-History Porter to Crate";
         public float inventoryCapacity { get; set; } = 300f;
-        public float movementSpeed { get; set; } = 1.5f;
+        public float movementSpeed { get; set; } = 2.3f;
         public UnityEngine.Color32 maskColor1 { get; set; } = new UnityEngine.Color32(66, 255, 129, 255);
         public UnityEngine.Color32 maskColor0 { get; set; }
     }

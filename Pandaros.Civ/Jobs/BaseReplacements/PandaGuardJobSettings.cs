@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Pandaros.Civ.Jobs.BaseReplacements
 {
-    public class PandaGuardJobSettings : GuardJobSettings, IPandaJobSettings
+    public class PandaGuardJobSettings : GuardJobSettings
     {
         public PandaGuardJobSettings(GuardJobSettings settings)
         {
@@ -42,57 +42,20 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
         {
         }
 
-        public Dictionary<IJob, Pipliz.Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Pipliz.Vector3Int>();
-        public Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
-
-        public event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
-
         public override Pipliz.Vector3Int GetJobLocation(BlockJobInstance instance)
         {
-            if (!CurrentGoal.TryGetValue(instance, out var goal))
+            if (!PandaJobFactory.TryGetActiveGoal(instance, out var goal))
             {
                 goal = new GuardGoal(instance as GuardJobInstance, this);
-                CurrentGoal[instance] = goal;
+                PandaJobFactory.SetActiveGoal(instance, goal);
             }
-            if (!OriginalPosition.ContainsKey(instance))
-                OriginalPosition[instance] = instance.Position;
 
             return goal.GetPosition();
         }
 
         public override void OnNPCAtJob(BlockJobInstance blockInstance, ref NPCBase.NPCState state)
         {
-            if (!CurrentGoal.TryGetValue(blockInstance, out var goal))
-            {
-                goal = new GuardGoal(blockInstance as GuardJobInstance, this);
-                CurrentGoal[blockInstance] = goal;
-            }
-
-            goal.PerformGoal(ref state);
-        }
-
-        public void SetGoal(IJob job, INpcGoal npcGoal, ref NPCBase.NPCState state)
-        {
-            var oldGoal = CurrentGoal[job];
-
-            if (oldGoal != null)
-                oldGoal.LeavingGoal();
-
-            state.JobIsDone = true;
-            CurrentGoal[job] = npcGoal;
-            npcGoal.SetAsGoal();
-            GoalChanged?.Invoke(this, (oldGoal, npcGoal));
-        }
-
-        public override void OnGoalChanged(BlockJobInstance instance, NPCBase.NPCGoal oldGoal, NPCBase.NPCGoal newGoal)
-        {
-            if (!instance.IsValid)
-            {
-                CurrentGoal[instance].LeavingJob();
-                CurrentGoal.Remove(instance);
-            }
-
-            base.OnGoalChanged(instance, oldGoal, newGoal);
+            PandaJobFactory.ActiveGoals[blockInstance.Owner][blockInstance].PerformGoal(ref state);
         }
     }
 }

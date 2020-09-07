@@ -19,18 +19,16 @@ namespace Pandaros.Civ.Jobs.Goals
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
         public static Dictionary<Vector3Int, Dictionary<ushort, StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, Dictionary<ushort, StoredItem>>();
         public StockpikeToCrateGoal() { }
-        public StockpikeToCrateGoal(IJob job, IPandaJobSettings jobSettings)
+        public StockpikeToCrateGoal(IJob job)
         {
             Job = job;
-            JobSettings = jobSettings;
             PorterJob = job as PandaGoalJob;
         }
 
         public PandaGoalJob PorterJob { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(StockpikeToCrateGoal);
-        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(StockpikeToCrateGoal));
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(StockpikeToCrateGoal));
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public List<Vector3Int> ClosestLocations { get; set; } = new List<Vector3Int>();
@@ -43,6 +41,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public ServerTimeStamp NextUpdateTime { get; set; }
         public Vector3Int ClosestCrate { get; set; }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return PorterJob.OriginalPosition;
+        }
 
         public Vector3Int GetPosition()
         {
@@ -147,63 +150,67 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void OnTimedUpdate()
         {
-            try
-            {
-                foreach (var job in PorterJobSettings.PorterJobs)
+            if (PandaJobFactory.ActiveGoalsByType.TryGetValue(nameof(CrateToStockpikeGoal), out var goalList))
+                foreach (var goal in goalList)
                 {
-                    var settings = job.Settings as PorterJobSettings;
-
-                    if (settings.CurrentGoal.TryGetValue(job, out var goal) &&
-                        job != null &&
-                        job.Owner != null &&
-                        StorageFactory.CrateLocations.TryGetValue(job.Owner, out var crateLocations))
-                    {
-                        var locs = crateLocations.Keys.ToList();
-                        locs.Add(StorageFactory.GetStockpilePosition(job.Owner).Position);
-
-                        if (goal is CrateToStockpikeGoal cts)
-                            cts.ClosestLocations = job.Position.SortClosestPositions(crateLocations.Keys);
-                        else if (goal is StockpikeToCrateGoal stc)
-                            stc.ClosestLocations = job.Position.SortClosestPositions(crateLocations.Keys);
-                    }
+                    UpdateCrateLocationsForPorter(goal);
                 }
 
-                int retry = 0;
-
-                while (retry < 3)
+            if (PandaJobFactory.ActiveGoalsByType.TryGetValue(nameof(StockpikeToCrateGoal), out goalList))
+                foreach (var goal in goalList)
                 {
-                    ItemsNeeded.Clear();
-               
-                    foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
-                        if (colony != null && StorageFactory.CrateLocations.TryGetValue(colony, out var dict))
-                            foreach (var crate in dict.Keys)
-                                foreach (var request in StorageFactory.CrateRequests)
+                    UpdateCrateLocationsForPorter(goal);
+                }
+
+            RecalculateItemsNeeded();
+        }
+
+        public static void RecalculateItemsNeeded()
+        {
+            ItemsNeeded.Clear();
+
+            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
+                if (colony != null && StorageFactory.CrateLocations.TryGetValue(colony, out var dict))
+                    foreach (var crate in dict.Keys)
+                        foreach (var request in StorageFactory.CrateRequests)
+                        {
+                            var needed = request.GetItemsNeeded(crate);
+
+                            foreach (var need in needed)
+                            {
+                                if (!ItemsNeeded.TryGetValue(crate, out var items))
                                 {
-                                    var needed = request.GetItemsNeeded(crate);
-
-                                    foreach (var need in needed)
-                                    {
-                                        if (!ItemsNeeded.TryGetValue(crate, out var items))
-                                        {
-                                            items = new Dictionary<ushort, StoredItem>();
-                                            ItemsNeeded[crate] = items;
-                                        }
-
-                                        if (items.TryGetValue(need.Key, out var storedItem))
-                                            storedItem.Add(needed.Count);
-                                        else
-                                            items[need.Key] = need.Value;
-                                    }
+                                    items = new Dictionary<ushort, StoredItem>();
+                                    ItemsNeeded[crate] = items;
                                 }
 
-                    retry = int.MaxValue;
+                                if (items.TryGetValue(need.Key, out var storedItem))
+                                    storedItem.Add(needed.Count);
+                                else
+                                    items[need.Key] = need.Value;
+                            }
+                        }
+        }
 
-                }
-            }
-            catch (Exception ex)
+        public static void UpdateCrateLocationsForPorter(INpcGoal goal)
+        {
+            if (goal != null &&
+                goal.Job.Owner != null &&
+                StorageFactory.CrateLocations.TryGetValue(goal.Job.Owner, out var crateLocations))
             {
-                CivLogger.LogError(ex);
+                var locs = crateLocations.Keys.ToList();
+                locs.Add(StorageFactory.GetStockpilePosition(goal.Job.Owner).Position);
+
+                if (goal is CrateToStockpikeGoal cts)
+                    cts.ClosestLocations = goal.GetCrateSearchPosition().SortClosestPositions(crateLocations.Keys);
+                else if (goal is StockpikeToCrateGoal stc)
+                    stc.ClosestLocations = goal.GetCrateSearchPosition().SortClosestPositions(crateLocations.Keys);
             }
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            return null;
         }
     }
 }

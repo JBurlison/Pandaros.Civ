@@ -10,7 +10,7 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class CraftingRotatedGoal : CraftingGoal
     {
-        public CraftingRotatedGoal(IJob job, IPandaJobSettings jobSettings, CraftingJobSettings settings) : base(job, jobSettings, settings)
+        public CraftingRotatedGoal(IJob job, CraftingJobSettings settings) : base(job, settings)
         {
         }
 

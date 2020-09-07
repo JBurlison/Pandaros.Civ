@@ -1,4 +1,5 @@
 ﻿using Jobs;
+using ModLoaderInterfaces;
 using NPC;
 using Pandaros.API.Models;
 using Pandaros.Civ.Jobs.Goals;
@@ -14,16 +15,15 @@ using static Pandaros.Civ.Jobs.PandaGoalJob;
 
 namespace Pandaros.Civ.Jobs
 {
-    public abstract class ForagingJobSettings : IBlockJobSettings, IPandaJobSettings
+    public abstract class ForagingJobSettings : IBlockJobSettings
     {
-        public static List<BlockJobInstance> ForagingJobs { get; set; } = new List<BlockJobInstance>();
         public ForagingJobSettings(string blockType, string npcTypeKey, ILootTable lootTable, int foragingTimeMinSec, int foragingTimeMaxSec, float lootLuckModifier = 0f)
         {
             if (blockType != null)
             {
                 BlockTypes = new ItemTypes.ItemType[1]
                 {
-                ItemTypes.GetType(blockType)
+                    ItemTypes.GetType(blockType)
                 };
             }
 
@@ -35,12 +35,11 @@ namespace Pandaros.Civ.Jobs
             LuckMod = lootLuckModifier;
         }
 
+        public string BlockType { get; set; }
         public virtual int ForagingTimeMinSec { get; set; }
         public virtual int ForagingTimeMaxSec { get; set; }
         public virtual float LuckMod { get; set; }
         public virtual ILootTable LootTable { get; set; }
-        public virtual Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
-
         public virtual ItemTypes.ItemType[] BlockTypes { get; set; }
 
         public virtual NPCType NPCType { get; set; }
@@ -53,39 +52,25 @@ namespace Pandaros.Civ.Jobs
 
         public virtual float NPCShopGameHourMaximum => TimeCycle.Settings.SleepTimeStart;
 
-        public virtual Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
-        public virtual event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
-
         public virtual Vector3Int GetJobLocation(BlockJobInstance instance)
         {
-            if (!CurrentGoal.ContainsKey(instance))
-                CurrentGoal.Add(instance, new ForagingGoal(instance, this, instance.Position, LootTable, ForagingTimeMinSec, ForagingTimeMaxSec, LuckMod));
+            if (!PandaJobFactory.TryGetActiveGoal(instance, out var goal))
+            {
+                goal = new ForagingGoal(instance, instance.Position, LootTable, ForagingTimeMinSec, ForagingTimeMaxSec, LuckMod);
+                PandaJobFactory.SetActiveGoal(instance, goal);
+            }
 
-            if (!OriginalPosition.ContainsKey(instance))
-                OriginalPosition.Add(instance, instance.Position);
-
-            if (!ForagingJobs.Contains(instance))
-                ForagingJobs.Add(instance);
-
-            return CurrentGoal[instance].GetPosition();
+            return goal.GetPosition();
         }
 
         public virtual void OnGoalChanged(BlockJobInstance instance, NPCBase.NPCGoal goalOld, NPCBase.NPCGoal goalNew)
         {
-            if (!instance.IsValid)
-            {
-                ForagingJobs.Remove(instance);
-                CurrentGoal.Remove(instance);
-                OriginalPosition.Remove(instance);
-            }
+            
         }
 
-        public virtual void OnNPCAtJob(BlockJobInstance instance, ref NPCBase.NPCState state)
+        public virtual void OnNPCAtJob(BlockJobInstance blockInstance, ref NPCBase.NPCState state)
         {
-            if (!OriginalPosition.ContainsKey(instance))
-                OriginalPosition.Add(instance, instance.Position);
-
-            CurrentGoal[instance].PerformGoal(ref state);
+            PandaJobFactory.ActiveGoals[blockInstance.Owner][blockInstance].PerformGoal(ref state);
         }
 
         public virtual void OnNPCAtStockpile(BlockJobInstance instance, ref NPCBase.NPCState state)
@@ -93,17 +78,5 @@ namespace Pandaros.Civ.Jobs
             
         }
 
-        public virtual void SetGoal(IJob job, INpcGoal npcGoal, ref NPCBase.NPCState state)
-        {
-            var oldGoal = CurrentGoal[job];
-
-            if (oldGoal != null)
-                oldGoal.LeavingGoal();
-
-            state.JobIsDone = true;
-            CurrentGoal[job] = npcGoal;
-            npcGoal.SetAsGoal();
-            GoalChanged?.Invoke(this, (oldGoal, npcGoal));
-        }
     }
 }

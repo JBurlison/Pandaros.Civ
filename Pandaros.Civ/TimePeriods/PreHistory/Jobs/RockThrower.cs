@@ -49,7 +49,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public string keyName { get; set; } = RockThrower.NameNight;
         public string printName { get; set; } = "Rock Thrower Night Guard";
         public float inventoryCapacity { get; set; } = 300f;
-        public float movementSpeed { get; set; } = 1.5f;
+        public float movementSpeed { get; set; } = 2.3f;
         public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
         public Color32 maskColor0 { get; set; }
     }

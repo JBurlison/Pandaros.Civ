@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.BaseReplacements
 {
-    public class PandaCraftingJobRotatedSettings : CraftingJobRotatedSettings, IPandaJobSettings
+    public class PandaCraftingJobRotatedSettings : CraftingJobRotatedSettings
     {
         public PandaCraftingJobRotatedSettings(CraftingJobRotatedSettings settings) : base(settings.BlockTypes[0].Name, settings.NPCTypeKey)
         {
@@ -32,52 +32,20 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
 
         }
 
-        public Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
-        public Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
-
-        public event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
-
         public override Vector3Int GetJobLocation(BlockJobInstance instance)
         {
-            if (!CurrentGoal.TryGetValue(instance, out var goal))
+            if (!PandaJobFactory.TryGetActiveGoal(instance, out var goal))
             {
-                goal = new CraftingRotatedGoal(instance, this, this);
-                CurrentGoal.Add(instance, goal);
+                goal = new CraftingRotatedGoal(instance, this);
+                PandaJobFactory.SetActiveGoal(instance, goal);
             }
-
-            if (!OriginalPosition.ContainsKey(instance))
-                OriginalPosition.Add(instance, instance.Position);
 
             return goal.GetPosition();
         }
 
         public override void OnNPCAtJob(BlockJobInstance blockJobInstance, ref NPCBase.NPCState state)
         {
-            CurrentGoal[blockJobInstance].PerformGoal(ref state);
-        }
-
-        public void SetGoal(IJob job, INpcGoal npcGoal, ref NPCBase.NPCState state)
-        {
-            var oldGoal = CurrentGoal[job];
-
-            if (oldGoal != null)
-                oldGoal.LeavingGoal();
-
-            state.JobIsDone = true;
-            CurrentGoal[job] = npcGoal;
-            npcGoal.SetAsGoal();
-            GoalChanged?.Invoke(this, (oldGoal, npcGoal));
-        }
-
-        public override void OnGoalChanged(BlockJobInstance instanceBlock, NPCBase.NPCGoal oldGoal, NPCBase.NPCGoal newGoal)
-        {
-            if (!instanceBlock.IsValid)
-            {
-                CurrentGoal[instanceBlock].LeavingJob();
-                CurrentGoal.Remove(instanceBlock);
-            }
-
-            base.OnGoalChanged(instanceBlock, oldGoal, newGoal);
+            PandaJobFactory.ActiveGoals[blockJobInstance.Owner][blockJobInstance].PerformGoal(ref state);
         }
     }
 }

@@ -110,7 +110,6 @@
     <Compile Include="Jobs\Goals\WaterGatherGoal.cs" />
     <Compile Include="Jobs\ICrateRequest.cs" />
     <Compile Include="Jobs\INpcGoal.cs" />
-    <Compile Include="Jobs\IPandaJobSettings.cs" />
     <Compile Include="Jobs\NPCTypeStandardSettings.cs" />
     <Compile Include="Jobs\PandaJobFactory.cs" />
     <Compile Include="Jobs\PandaGoalJob.cs" />

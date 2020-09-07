@@ -1,8 +1,10 @@
 ﻿using Jobs;
+using Pandaros.Civ.Storage;
 using Pipliz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,15 +12,13 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class StandAtJobGoal : INpcGoal
     {
-        public StandAtJobGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, Vector3Int pos)
+        public StandAtJobGoal(IJob job, INpcGoal nextGoal, Vector3Int pos)
         {
             Job = job;
             Position = pos;
             NextGoal = nextGoal;
-            JobSettings = jobSettings;
         }
         public Vector3Int ClosestCrate { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
         public INpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(StandAtJobGoal);
@@ -54,7 +54,17 @@ namespace Pandaros.Civ.Jobs.Goals
                 HasWaited = true;
             }
             else
-                JobSettings.SetGoal(Job, NextGoal, ref state);
+                PandaJobFactory.SetActiveGoal(Job, NextGoal, ref state);
+        }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return Position;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            return null;
         }
     }
 }

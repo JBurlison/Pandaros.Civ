@@ -6,6 +6,7 @@ using Pipliz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,25 +17,27 @@ namespace Pandaros.Civ.Jobs.Goals
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
 
  
-        public CrateToStockpikeGoal(IJob job, IPandaJobSettings jobSettings)
+        public CrateToStockpikeGoal(IJob job)
         {
             Job = job;
-            JobSettings = jobSettings;
             PorterJob = job as PandaGoalJob;
         }
 
         public Vector3Int ClosestCrate { get; set; }
         public PandaGoalJob PorterJob { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(CrateToStockpikeGoal);
-        public string LocalizationKey { get; set; }
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(CrateToStockpikeGoal));
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public List<Vector3Int> ClosestLocations { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Crate;
         public StoredItem[] ToStockpike { get; set; }
 
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return PorterJob.OriginalPosition;
+        }
         public Vector3Int GetPosition()
         {
             if (WalkingTo == StorageType.Crate)
@@ -125,6 +128,11 @@ namespace Pandaros.Civ.Jobs.Goals
                 state.SetIndicator(new Shared.IndicatorState(5, ToStockpike[0].Id.Id));
             else
                 state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            return null;
         }
     }
 }

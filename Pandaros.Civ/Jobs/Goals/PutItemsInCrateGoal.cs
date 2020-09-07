@@ -13,26 +13,26 @@ namespace Pandaros.Civ.Jobs.Goals
     public class PutItemsInCrateGoal : INpcGoal
     {
 
-        public PutItemsInCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, StoredItem[] itemsToStore, INpcGoal goalStoring)
+        public PutItemsInCrateGoal(IJob job, Vector3Int originalPos, INpcGoal nextGoal, StoredItem[] itemsToStore, INpcGoal goalStoring)
         {
             Job = job;
             NextGoal = nextGoal;
-            JobSettings = jobSettings;
+            OriginalPos = originalPos;
             ItemsToStore = itemsToStore;
             GoalStoring = goalStoring;
         }
 
-        public PutItemsInCrateGoal(IJob job, IPandaJobSettings jobSettings, INpcGoal nextGoal, List<InventoryItem> itemsToStore, INpcGoal goalStoring)
+        public PutItemsInCrateGoal(IJob job, Vector3Int originalPos, INpcGoal nextGoal, List<InventoryItem> itemsToStore, INpcGoal goalStoring)
         {
             Job = job;
             NextGoal = nextGoal;
-            JobSettings = jobSettings;
+            OriginalPos = originalPos;
             ItemsToStore = itemsToStore.Select(i => new StoredItem(i)).ToArray();
             GoalStoring = goalStoring;
         }
 
+        public Vector3Int OriginalPos { get; set; }
         public Vector3Int ClosestCrate { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
         public StoredItem[] ItemsToStore { get; set; }
         public INpcGoal GoalStoring { get; set; }
         public INpcGoal NextGoal { get; set; }
@@ -53,7 +53,7 @@ namespace Pandaros.Civ.Jobs.Goals
                     CurrentCratePosition = GoalStoring.ClosestCrate;
                 else
                 {
-                    var locations = JobSettings.OriginalPosition[Job].SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
+                    var locations = GetCrateSearchPosition().SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
 
                     foreach (var location in locations)
                         if (!LastCratePosition.Contains(location))
@@ -118,7 +118,17 @@ namespace Pandaros.Civ.Jobs.Goals
                 LastCratePosition.Add(CurrentCratePosition);
             }
             else
-                JobSettings.SetGoal(Job, NextGoal, ref state);
+                PandaJobFactory.SetActiveGoal(Job, NextGoal, ref state);
+        }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return OriginalPos;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            return null;
         }
     }
 }

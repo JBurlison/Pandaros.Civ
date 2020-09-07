@@ -1,5 +1,6 @@
 ﻿using Jobs;
 using ModLoaderInterfaces;
+using Pandaros.Civ.Storage;
 using Pipliz;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,15 @@ namespace Pandaros.Civ.Jobs
     public interface INpcGoal
     {
         IJob Job { get; set; }
-        IPandaJobSettings JobSettings { get; set; }
         string Name { get; set; }
         string LocalizationKey { get; set; }
         Vector3Int ClosestCrate { get; set; }
         Vector3Int GetPosition();
-
+        Vector3Int GetCrateSearchPosition();
+        Dictionary<ushort, StoredItem> GetItemsNeeded();
         void PerformGoal(ref NPC.NPCBase.NPCState state);
-
         void LeavingGoal();
         void SetAsGoal();
-
         void LeavingJob();
     }
 }

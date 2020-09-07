@@ -18,48 +18,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class GuardRequests : ICrateRequest, ICratePlacementUpdate
-    {
-        public void CratePlacementUpdate(Colony colony, PlacementEventType eventType, Vector3Int position)
-        {
-            if (eventType == PlacementEventType.Removed)
-            {
-                foreach (var goal in GuardGoal.CurrentGuards)
-                    if (goal.ClosestCrate == position)
-                        goal.ClosestCrate = goal.GuardJob.Position.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
-            }
-            else
-            {
-                foreach (var goal in GuardGoal.CurrentGuards)
-                    goal.ClosestCrate = goal.GuardJob.Position.GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
-            }
-        }
-
-        public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
-        {
-            var items = new Dictionary<ushort, StoredItem>();
-
-            foreach (var guard in GuardGoal.CurrentGuards)
-            {
-                if (StorageFactory.CrateLocations.TryGetValue(guard.Job.Owner, out var crateLocs))
-                {
-                    if (!crateLocs.ContainsKey(guard.ClosestCrate))
-                        guard.ClosestCrate = guard.GuardJob.Position.GetClosestPosition(crateLocs.Keys.ToList());
-
-                    if (guard.ClosestCrate == crateLocation)
-                    {
-                        var maxSize = crateLocs[crateLocation].CrateType.MaxCrateStackSize;
-
-                        if (guard?.GuardSettings?.ShootItem != null)
-                            items.AddRange(guard.GuardSettings.ShootItem, maxSize);
-                    }
-                }
-            }
-
-            return items;
-        }
-    }
-
+ 
     public class GuardGoal : INpcGoal
     {
         public static List<GuardGoal> CurrentGuards { get; set; } = new List<GuardGoal>();
@@ -68,7 +27,6 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             GuardJob = job;
             Job = job;
-            JobSettings = settings;
             GuardSettings = settings;
             CurrentGuards.Add(this);
         }
@@ -77,9 +35,8 @@ namespace Pandaros.Civ.Jobs.Goals
         public GuardJobInstance GuardJob { get; set; }
         public GuardJobSettings GuardSettings { get; set; }
         public IJob Job { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
-        public string Name { get; set; }
-        public string LocalizationKey { get; set; }
+        public string Name { get; set; } = nameof(GuardGoal);
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(GuardGoal));
 
         public Pipliz.Vector3Int GetPosition()
         {
@@ -149,8 +106,8 @@ namespace Pandaros.Civ.Jobs.Goals
             if (!Job.NPC.Inventory.Contains(GuardSettings.ShootItem))
             {
                 var items = GuardSettings.ShootItem.Select(i => new StoredItem(i.Type, i.Amount * 50)).ToArray();
-                var getitemsfromCrate = new GetItemsFromCrateGoal(Job, JobSettings, this, items, this);
-                JobSettings.SetGoal(Job, getitemsfromCrate, ref Job.NPC.state);
+                var getitemsfromCrate = new GetItemsFromCrateGoal(Job, GuardJob.Position, this, items, this);
+                PandaJobFactory.SetActiveGoal(Job, getitemsfromCrate, ref Job.NPC.state);
             }
         }
 
@@ -180,10 +137,25 @@ namespace Pandaros.Civ.Jobs.Goals
             else
             {
                 var items = GuardSettings.ShootItem.Select(i => new StoredItem(i.Type, i.Amount * 50)).ToArray();
-                var getitemsfromCrate = new GetItemsFromCrateGoal(instance, JobSettings, this, items, this);
-                JobSettings.SetGoal(instance, new PutItemsInCrateGoal(Job, JobSettings, getitemsfromCrate, state.Inventory.Inventory, this), ref state);
+                var getitemsfromCrate = new GetItemsFromCrateGoal(instance, GuardJob.Position, this, items, this);
+                PandaJobFactory.SetActiveGoal(instance, new PutItemsInCrateGoal(Job, GuardJob.Position, getitemsfromCrate, state.Inventory.Inventory, this), ref state);
                 state.Inventory.Add(items);
             }
+        }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return GuardJob.Position;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            var items = new Dictionary<ushort, StoredItem>();
+
+            if (GuardSettings?.ShootItem != null)
+                items.AddRange(GuardSettings.ShootItem);
+
+            return items;
         }
     }
 }

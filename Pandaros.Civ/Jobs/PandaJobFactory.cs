@@ -15,6 +15,8 @@ using Pandaros.API.Entities;
 using Pandaros.API.Extender;
 using Pandaros.Civ.Extender;
 using Pandaros.Civ.Jobs.BaseReplacements;
+using Pandaros.Civ.Jobs.Goals;
+using Pandaros.Civ.Storage;
 using Pipliz;
 using Pipliz.JSON;
 using static AreaJobTracker.AreaJobPatches;
@@ -24,8 +26,156 @@ using static Pandaros.Civ.Jobs.BaseReplacements.PandaBlockFarmAreaJobDefinition;
 namespace Pandaros.Civ.Jobs
 {
     [ModLoader.ModManager]
-    public class PandaJobFactory : IOnRegisteringEntityManagers, IAfterItemTypesDefined
+    public class PandaJobFactory : IOnRegisteringEntityManagers, IAfterItemTypesDefined, IOnNPCJobChanged, IOnTimedUpdate, ICrateRequest, ICratePlacementUpdate, IOnQuit
     {
+        public static Dictionary<Colony, Dictionary<IJob, INpcGoal>> ActiveGoals { get; set; } = new Dictionary<Colony, Dictionary<IJob, INpcGoal>>();
+        public static Dictionary<string, List<INpcGoal>> ActiveGoalsByType { get; set; } = new Dictionary<string, List<INpcGoal>>();
+
+        public int NextUpdateTimeMinMs => 10;
+
+        public int NextUpdateTimeMaxMs => 15;
+
+        public ServerTimeStamp NextUpdateTime { get; set; }
+
+        public void CratePlacementUpdate(Colony colony, PlacementEventType eventType, Vector3Int position)
+        {
+            if (eventType == PlacementEventType.Removed)
+            {
+                foreach (var goalType in ActiveGoalsByType.Values)
+                    foreach (var goal in goalType)
+                        if (goal.ClosestCrate == position)
+                            goal.ClosestCrate = goal.GetCrateSearchPosition().GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
+            }
+            else
+            {
+                foreach (var goalType in ActiveGoalsByType.Values)
+                    foreach (var goal in goalType)
+                        goal.ClosestCrate = goal.GetCrateSearchPosition().GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
+            }
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
+        {
+            var items = new Dictionary<ushort, StoredItem>();
+
+            foreach(var goalByType in ActiveGoalsByType.Values)
+                foreach (var goal in goalByType)
+                {
+                    var itemsNeeded = goal.GetItemsNeeded();
+
+                    if (itemsNeeded == null || itemsNeeded.Count == 0)
+                        continue;
+
+                    if (StorageFactory.CrateLocations.TryGetValue(goal.Job.Owner, out var crateLocs))
+                    {
+                        if (!crateLocs.ContainsKey(goal.ClosestCrate))
+                            goal.ClosestCrate = goal.GetCrateSearchPosition().GetClosestPosition(crateLocs.Keys.ToList());
+
+                        if (goal.ClosestCrate == crateLocation)
+                        {
+                            var maxSize = crateLocs[crateLocation].CrateType.MaxCrateStackSize;
+                            items.AddRange(itemsNeeded, maxSize);
+                        }
+                    }
+                }
+
+            return items;
+        }
+
+        public void OnTimedUpdate()
+        {
+            List<Colony> found = new List<Colony>();
+            List<Colony> notFound = new List<Colony>();
+            foreach (var c in ServerManager.ColonyTracker.ColoniesByID.Values)
+                if (c != null && ActiveGoals.ContainsKey(c) && !found.Contains(c))
+                    found.Add(c);
+
+            foreach (var c in ActiveGoals.Keys)
+                if (!found.Contains(c))
+                    notFound.Add(c);
+
+            foreach (var n in notFound)
+            {
+                if (ActiveGoals.TryGetValue(n, out var jobGoalDict))
+                    foreach (var goal in jobGoalDict.Values)
+                        if (ActiveGoalsByType.TryGetValue(goal.Name, out var goalList))
+                            goalList.Remove(goal);
+
+                ActiveGoals.Remove(n);
+            }
+        }
+
+        public static bool TryGetActiveGoal(IJob job, out INpcGoal goal)
+        {
+            if (ActiveGoals.TryGetValue(job.Owner, out var goalList) && goalList.TryGetValue(job, out goal))
+            {
+                return true;
+            }
+
+            goal = default(INpcGoal);
+            return false;
+        }
+
+        public static bool HasGoal(IJob job)
+        {
+            return ActiveGoals.TryGetValue(job.Owner, out var jobGoals) && jobGoals.ContainsKey(job);
+        }
+
+        public static void SetActiveGoal(IJob job, INpcGoal npcGoal, ref NPCBase.NPCState state)
+        {
+            state.JobIsDone = true;
+            SetActiveGoal(job, npcGoal);
+        }
+
+        public static void SetActiveGoal(IJob job, INpcGoal npcGoal)
+        {
+            if (!ActiveGoalsByType.TryGetValue(npcGoal.Name, out var goals))
+            {
+                goals = new List<INpcGoal>();
+                ActiveGoalsByType[npcGoal.Name] = goals;
+            }
+
+            if (!goals.Contains(npcGoal))
+                goals.Add(npcGoal);
+
+            if (ActiveGoals.TryGetValue(job.Owner, out var goalList))
+            {
+                if (goalList.TryGetValue(job, out var oldGoal))
+                    oldGoal.LeavingGoal();
+
+                goalList[job] = npcGoal;
+            }
+            else
+            {
+                goalList = new Dictionary<IJob, INpcGoal>()
+                {
+                    { job,  npcGoal }
+                };
+                ActiveGoals[job.Owner] = goalList;
+            }
+
+            npcGoal.SetAsGoal();
+        }
+
+        public static void SetGoalAsInactive(IJob job)
+        {
+            if (ActiveGoals.TryGetValue(job.Owner, out var goalList))
+            {
+                if (goalList.TryGetValue(job, out var goal) && ActiveGoalsByType.TryGetValue(goal.Name, out var goals))
+                    goals.Remove(goal);
+
+                goalList.Remove(job);
+            }
+        }
+
+        public void OnNPCJobChanged((NPCBase npc, IJob oldJob, IJob newJob) tuple)
+        {
+            if (tuple.oldJob != null && ActiveGoals.TryGetValue(tuple.npc.Colony, out var jobGoals) && jobGoals.TryGetValue(tuple.oldJob, out var goal))
+            {
+                goal.LeavingGoal();
+            }
+        }
+
         [ModLoader.ModCallbackDependsOn(GameInitializer.NAMESPACE + ".SettlerManager.OnNPCJobChanged")]
         public void OnRegisteringEntityManagers(List<object> managers)
         {
@@ -67,6 +217,17 @@ namespace Pandaros.Civ.Jobs
                 else if (val is BlockFarmAreaJobDefinition bfaj)
                 {
                     AreaJobTracker.RegisteredAreaJobDefinitions[k] = new PandaBlockFarmAreaJobDefinition(bfaj.Identifier, bfaj.NPCTypeString, bfaj.Cooldown, bfaj.MaxGathersPerRun, bfaj.RequiredBlockItem, bfaj.PlacedBlockType);
+                }
+            }
+        }
+
+        public void OnQuit()
+        {
+            if (PandaJobFactory.ActiveGoalsByType.TryGetValue(nameof(ForagingGoal), out var goals))
+            {
+                foreach (var goal in goals)
+                {
+                    goal.LeavingJob();
                 }
             }
         }

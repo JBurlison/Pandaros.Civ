@@ -8,6 +8,7 @@ using Pipliz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,31 +16,40 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class ForagingGoal : INpcGoal
     {
-        public ForagingGoal(IJob job, IPandaJobSettings settings, Vector3Int pos, ILootTable lootTable, int foragingTimeMinSec, int foragingTimeMaxSec, float lootLuckModifier = 0f)
+        public ForagingGoal(IJob job,  Vector3Int pos, ILootTable lootTable, int foragingTimeMinSec, int foragingTimeMaxSec, float lootLuckModifier = 0f)
         {
             Job = job;
-            JobSettings = settings;
             JobPos = pos;
             LootTable = lootTable;
             ForagingTimeMaxSec = foragingTimeMaxSec;
             ForagingTimeMinSec = foragingTimeMinSec;
             LuckMod = lootLuckModifier;
         }
+
         public int ForagingTimeMinSec { get; set; }
         public int ForagingTimeMaxSec { get; set; }
         public float LuckMod { get; set; }
         public ILootTable LootTable { get; set; }
         public Vector3Int JobPos { get; set; }
         public IJob Job { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
-        public string Name { get; set; }
-        public string LocalizationKey { get; set; }
+        public string Name { get; set; } = nameof(ForagingGoal);
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(ForagingGoal));
         public Vector3Int ClosestCrate { get; set; }
         public Vector3Int EdgeOfColony { get; set; }
         public Vector3Int ForagingPos { get; set; }
         public bool Foraging { get; set; } = false;
       
         public ServerTimeStamp ForageEndTime { get; set; }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+            return JobPos;
+        }
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+            return null;
+        }
 
         public Vector3Int GetPosition()
         {
@@ -80,7 +90,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingJob()
         {
-            
+            Job.NPC.SetPosition(JobPos);
         }
 
         public void PerformGoal(ref NPCBase.NPCState state)
@@ -104,7 +114,8 @@ namespace Pandaros.Civ.Jobs.Goals
                 state.SetCooldown(1);
                 Job.NPC.SetPosition(EdgeOfColony);
                 Foraging = false;
-                JobSettings.SetGoal(Job, new PutItemsInCrateGoal(Job, JobSettings, this, Job.NPC.Inventory.Inventory, this), ref state);
+                PandaJobFactory.SetActiveGoal(Job, new PutItemsInCrateGoal(Job, JobPos, this, Job.NPC.Inventory.Inventory, this), ref state);
+                state.JobIsDone = true;
                 Job.NPC.Inventory.Inventory.Clear();
             }
             else

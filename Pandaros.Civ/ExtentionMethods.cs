@@ -57,6 +57,28 @@ namespace Pandaros.Civ
                 }
         }
 
+        public static void AddRange(this Dictionary<ushort, StoredItem> storedItem, Dictionary<ushort, StoredItem> items, int stackCount = -1)
+        {
+            if (items != null)
+                foreach (var item in items.Values)
+                {
+                    if (storedItem.TryGetValue(item.Id, out var exisiting))
+                    {
+                        if (stackCount < 0)
+                            exisiting.Amount += item.Amount;
+                        else
+                            exisiting.Amount = stackCount;
+                    }
+                    else
+                    {
+                        if (stackCount < 0)
+                            storedItem.Add(item.Id, item);
+                        else
+                            storedItem.Add(item.Id, new StoredItem(item.Id, stackCount));
+                    }
+                }
+        }
+
         public static void Add(this NPCInventory inventory, IEnumerable<StoredItem> items)
         {
             if (items != null)

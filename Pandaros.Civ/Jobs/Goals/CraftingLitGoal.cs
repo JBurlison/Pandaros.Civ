@@ -10,7 +10,7 @@ namespace Pandaros.Civ.Jobs.Goals
 {
     public class CraftingLitGoal : CraftingGoal
     {
-        public CraftingLitGoal(IJob job, IPandaJobSettings jobSettings, CraftingJobSettings settings) : base(job, jobSettings, settings)
+        public CraftingLitGoal(IJob job, CraftingJobSettings settings) : base(job, settings)
         {
         }
 

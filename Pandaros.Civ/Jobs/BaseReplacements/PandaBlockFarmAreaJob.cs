@@ -47,12 +47,8 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             return new PandaBlockFarmAreaJob(this, owner, min, max, asOrDefault, npcGroupID);
         }
 
-        public class PandaBlockFarmAreaJob : BlockFarmAreaJob, IPandaJobSettings
+        public class PandaBlockFarmAreaJob : BlockFarmAreaJob
         {
-            
-            public Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
-            public Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
-            public event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
             public Vector3Int BlockLocation { get { return blockLocation; } }
             public int GatherCount { get { return gatheredCount; } set { gatheredCount = value; } }
             public PandaBlockFarmAreaJob(
@@ -74,29 +70,13 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
               : base(def, owner, min, max, npcID)
               => this.CraftingGroupID = npcGroupID;
 
-            public void SetGoal(IJob job, INpcGoal npcGoal, ref NPCBase.NPCState state)
-            {
-                var oldGoal = CurrentGoal[job];
-
-                if (oldGoal != null)
-                    oldGoal.LeavingGoal();
-
-                state.JobIsDone = true;
-                CurrentGoal[job] = npcGoal;
-                npcGoal.SetAsGoal();
-                GoalChanged?.Invoke(this, (oldGoal, npcGoal));
-            }
-
             public override Vector3Int GetJobLocation()
             {
-                if (!CurrentGoal.TryGetValue(this, out var goal))
+                if (!PandaJobFactory.TryGetActiveGoal(this, out var goal))
                 {
                     goal = new BlockFarmGoal(this, Definition as PandaBlockFarmAreaJobDefinition);
-                    CurrentGoal.Add(this, goal);
+                    PandaJobFactory.SetActiveGoal(this, goal);
                 }
-
-                if (!OriginalPosition.ContainsKey(this))
-                    OriginalPosition.Add(this, this.KeyLocation);
 
                 return goal.GetPosition();
             }
@@ -104,13 +84,7 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
 
             public override void OnNPCAtJob(ref NPCBase.NPCState state)
             {
-                if (!CurrentGoal.TryGetValue(this, out var goal))
-                {
-                    goal = new BlockFarmGoal(this, Definition as PandaBlockFarmAreaJobDefinition);
-                    CurrentGoal.Add(this, goal);
-                }
-
-                goal.PerformGoal(ref state);
+                PandaJobFactory.ActiveGoals[Owner][this].PerformGoal(ref state);
             }
 
         }

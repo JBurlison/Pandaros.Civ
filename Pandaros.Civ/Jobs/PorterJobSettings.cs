@@ -1,4 +1,5 @@
 ﻿using Jobs;
+using ModLoaderInterfaces;
 using NPC;
 using Pandaros.Civ.Jobs.Goals;
 using Pandaros.Civ.Storage;
@@ -13,9 +14,8 @@ using static Pandaros.Civ.Jobs.PandaGoalJob;
 
 namespace Pandaros.Civ.Jobs
 {
-    public abstract class PorterJobSettings : IBlockJobSettings, IPandaJobSettings
+    public abstract class PorterJobSettings : IBlockJobSettings
     {
-        public static List<BlockJobInstance> PorterJobs { get; set; } = new List<BlockJobInstance>();
         public PorterJobSettings(string blockType, string npcTypeKey, PorterJobType storageType)
         {
             if (blockType != null)
@@ -32,7 +32,6 @@ namespace Pandaros.Civ.Jobs
         }
 
         public PorterJobType StorageType { get; set; }
-        public Dictionary<IJob, Vector3Int> OriginalPosition { get; set; } = new Dictionary<IJob, Vector3Int>();
 
         public virtual ItemTypes.ItemType[] BlockTypes { get; set; }
 
@@ -46,42 +45,34 @@ namespace Pandaros.Civ.Jobs
 
         public virtual float NPCShopGameHourMaximum => TimeCycle.Settings.SleepTimeStart;
 
-        public virtual Dictionary<IJob, INpcGoal> CurrentGoal { get; set; } = new Dictionary<IJob, INpcGoal>();
-        public virtual event EventHandler<(INpcGoal, INpcGoal)> GoalChanged;
-
         public virtual Vector3Int GetJobLocation(BlockJobInstance instance)
         {
-            if (!CurrentGoal.ContainsKey(instance))
+            if (!PandaJobFactory.TryGetActiveGoal(instance, out var goal))
                 if (StorageType == PorterJobType.ToCrate)
-                    CurrentGoal.Add(instance, new StockpikeToCrateGoal(instance, this));
+                {
+                    var stc = new StockpikeToCrateGoal(instance);
+                    PandaJobFactory.SetActiveGoal(instance, stc);
+                    return stc.GetPosition();
+                }
                 else
-                    CurrentGoal.Add(instance, new CrateToStockpikeGoal(instance, this));
+                {
+                    var cts = new CrateToStockpikeGoal(instance);
+                    PandaJobFactory.SetActiveGoal(instance, cts);
+                    return cts.GetPosition();
+                }
 
-            if (!OriginalPosition.ContainsKey(instance))
-                OriginalPosition.Add(instance, instance.Position);
-
-            if (!PorterJobs.Contains(instance))
-                PorterJobs.Add(instance);
-
-            return CurrentGoal[instance].GetPosition();
+            return goal.GetPosition();
         }
+
 
         public virtual void OnGoalChanged(BlockJobInstance instance, NPCBase.NPCGoal goalOld, NPCBase.NPCGoal goalNew)
         {
-            if (!instance.IsValid)
-            {
-                PorterJobs.Remove(instance);
-                CurrentGoal.Remove(instance);
-                OriginalPosition.Remove(instance);
-            }
+      
         }
 
         public virtual void OnNPCAtJob(BlockJobInstance instance, ref NPCBase.NPCState state)
         {
-            if (!OriginalPosition.ContainsKey(instance))
-                OriginalPosition.Add(instance, instance.Position);
-
-            CurrentGoal[instance].PerformGoal(ref state);
+            PandaJobFactory.ActiveGoals[instance.Owner][instance].PerformGoal(ref state);
         }
 
         public virtual void OnNPCAtStockpile(BlockJobInstance instance, ref NPCBase.NPCState state)
@@ -89,17 +80,5 @@ namespace Pandaros.Civ.Jobs
             
         }
 
-        public virtual void SetGoal(IJob job, INpcGoal npcGoal, ref NPCBase.NPCState state)
-        {
-            var oldGoal = CurrentGoal[job];
-
-            if (oldGoal != null)
-                oldGoal.LeavingGoal();
-
-            state.JobIsDone = true;
-            CurrentGoal[job] = npcGoal;
-            npcGoal.SetAsGoal();
-            GoalChanged?.Invoke(this, (oldGoal, npcGoal));
-        }
     }
 }

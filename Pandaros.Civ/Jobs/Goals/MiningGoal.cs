@@ -22,7 +22,6 @@ namespace Pandaros.Civ.Jobs.Goals
 			MinerSettings = settings;
 			Job = job;
 			BlockJobInstance = job;
-			JobSettings = settings;
 		}
 
 		protected static List<ItemTypes.ItemTypeDrops> GatherResults = new List<ItemTypes.ItemTypeDrops>();
@@ -30,11 +29,10 @@ namespace Pandaros.Civ.Jobs.Goals
 		public MinerJobSettings MinerSettings { get; set; }
 		public BlockJobInstance BlockJobInstance { get; set; }
         public IJob Job { get; set; }
-        public IPandaJobSettings JobSettings { get; set; }
-        public string Name { get; set; }
-        public string LocalizationKey { get; set; }
+		public string Name { get; set; } = nameof(MiningGoal);
+        public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(MiningGoal));
 
-        public Vector3Int GetPosition()
+		public Vector3Int GetPosition()
         {
 			if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
 				(ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
@@ -134,7 +132,7 @@ namespace Pandaros.Civ.Jobs.Goals
 			instance.GatheredItemCount++;
 			if (instance.GatheredItemCount >= MinerSettings.MaxCraftsPerRun)
 			{
-				JobSettings.SetGoal(BlockJobInstance, new PutItemsInCrateGoal(BlockJobInstance, JobSettings, this, state.Inventory.Inventory, this), ref state);
+				PandaJobFactory.SetActiveGoal(BlockJobInstance, new PutItemsInCrateGoal(BlockJobInstance, BlockJobInstance.Position, this, state.Inventory.Inventory, this), ref state);
 				state.Inventory.Inventory.Clear();
 			}
 		}
@@ -142,6 +140,17 @@ namespace Pandaros.Civ.Jobs.Goals
         public void SetAsGoal()
         {
             
+        }
+
+        public Vector3Int GetCrateSearchPosition()
+        {
+			return BlockJobInstance.Position;
+
+		}
+
+        public Dictionary<ushort, StoredItem> GetItemsNeeded()
+        {
+			return null;
         }
     }
 }
