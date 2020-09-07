@@ -43,7 +43,6 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int CurrentCratePosition { get; set; } = Vector3Int.invalidPos;
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Crate;
-        float _waitTime = Pipliz.Random.NextFloat(8, 16);
 
         public virtual Vector3Int GetPosition()
         {
@@ -99,10 +98,10 @@ namespace Pandaros.Civ.Jobs.Goals
         public virtual void PerformGoal(ref NPC.NPCBase.NPCState state)
         {
             StoredItem[] remaining = new StoredItem[0];
-            state.SetCooldown(4);
+            state.SetCooldown(1);
 
             if (ItemsToStore != null && ItemsToStore.Length != 0)
-                state.SetIndicator(new Shared.IndicatorState(_waitTime, ItemsToStore.FirstOrDefault().Id.Name));
+                state.SetIndicator(new Shared.IndicatorState(1, ItemsToStore.FirstOrDefault().Id.Name));
 
             if (WalkingTo == StorageType.Crate)
             {

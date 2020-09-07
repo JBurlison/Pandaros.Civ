@@ -42,7 +42,7 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int CurrentCratePosition { get; set; }
         public List<Vector3Int> LastCratePosition { get; set; } = new List<Vector3Int>();
         public StorageType WalkingTo { get; set; } = StorageType.Crate;
-        float _waitTime = Pipliz.Random.NextFloat(8, 16);
+        float _waitTime = Pipliz.Random.NextFloat(.4f, .8f);
 
         public Vector3Int GetPosition()
         {

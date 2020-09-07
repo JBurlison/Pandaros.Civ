@@ -111,13 +111,13 @@ namespace Pandaros.Civ.Jobs.Goals
                     }
 
                 CurrentCratePosition = nexPos;
-                state.SetCooldown(5);
+                state.SetCooldown(1);
                 state.SetIndicator(new Shared.IndicatorState(5, ItemId.GetItemId(StockpileBlock.Name).Id));
 
                 if (nexPos == Vector3Int.invalidPos)
                 {
                     LastCratePosition.Clear();
-                    state.SetCooldown(5);
+                    state.SetCooldown(1);
                 }
             }
             else
@@ -126,7 +126,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 {
                     WalkingTo = StorageType.Stockpile;
                     var leftovers = crateInventory.TryAdd(Job.NPC.Inventory.Inventory.Select(ii => new StoredItem(ii, int.MaxValue, StorageType.Crate)).ToArray());
-                    state.SetCooldown(5);
+                    state.SetCooldown(1);
                     state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
                     if (leftovers.Count > 0)
                     {
@@ -141,7 +141,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 else
                 {
                     CrateFull = true;
-                    state.SetCooldown(5);
+                    state.SetCooldown(1);
                     state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id, false, false));
                 }
             }

@@ -54,9 +54,9 @@ namespace Pandaros.Civ.Jobs.Goals
             if (!HasWaited)
             {
                 if (MissingItem != null)
-                    state.SetIndicator(new Shared.IndicatorState(16f, MissingItem.Id.Id, true, false));
+                    state.SetIndicator(new Shared.IndicatorState(10f, MissingItem.Id.Id, true, false));
 
-                state.SetCooldown(16);
+                state.SetCooldown(10);
                 HasWaited = true;
             }
             else

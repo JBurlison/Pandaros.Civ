@@ -89,7 +89,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (WalkingTo == StorageType.Crate)
             {
-                state.SetCooldown(5);
+                state.SetCooldown(2);
 
                 if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var locs))
                 {
@@ -110,7 +110,7 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
-                state.SetCooldown(5);
+                state.SetCooldown(2);
                 ShowIndicator(ref state);
 
                 StorageFactory.StoreItems(Job.Owner, ToStockpike);
@@ -125,9 +125,9 @@ namespace Pandaros.Civ.Jobs.Goals
         private void  ShowIndicator(ref NPCBase.NPCState state)
         {
             if (ToStockpike != null && ToStockpike.Length > 0)
-                state.SetIndicator(new Shared.IndicatorState(5, ToStockpike[0].Id.Id));
+                state.SetIndicator(new Shared.IndicatorState(2, ToStockpike[0].Id.Id));
             else
-                state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
+                state.SetIndicator(new Shared.IndicatorState(2, ColonyBuiltIn.ItemTypes.CRATE.Id));
         }
 
         public Dictionary<ushort, StoredItem> GetItemsNeeded()
