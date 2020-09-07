@@ -278,17 +278,19 @@ namespace Pandaros.Civ.Storage
 
             return retVal.ToArray();
         }
-        
+
         public void OnTimedUpdate()
         {
-            if (!_worldLoaded)
+            if (!_worldLoaded && ChunkQueue.CompletedInitialLoad)
                 return;
-            
-            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
+
+            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values.Where(c => c != null))
             {
+                RecalcStockpileMaxSize(colony);
+
                 if (StockpileMaxStackSize.TryGetValue(colony, out var maxStockpile))
                 {
-                    foreach(var itemId in colony.Stockpile.Items.Keys)
+                    foreach (var itemId in colony.Stockpile.Items.Keys)
                     {
                         if (!maxStockpile.TryGetValue(itemId, out var max))
                         {
@@ -334,7 +336,7 @@ namespace Pandaros.Civ.Storage
                     (StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeNew.Name) ||
                     StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeOld.Name)))
             {
-                RecalcMax(colony);
+                RecalcStockpileMaxSize(colony);
                 return;
             }
 
@@ -358,7 +360,7 @@ namespace Pandaros.Civ.Storage
             }
         }
 
-        private static void RecalcMax(Colony colony)
+        public static void RecalcStockpileMaxSize(Colony colony)
         {
             var pos = GetStockpilePosition(colony);
             var blocksAroundStockpile = WorldHelper.GetBlocksInArea(pos.Min, pos.Max);
@@ -448,7 +450,7 @@ namespace Pandaros.Civ.Storage
         {
             _worldLoaded = true;
 
-            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
+            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values.Where(c => c != null))
             {
                 if (!CrateLocations.ContainsKey(colony))
                     CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
@@ -456,7 +458,7 @@ namespace Pandaros.Civ.Storage
                 if (!ItemCrateLocations.ContainsKey(colony))
                     ItemCrateLocations.Add(colony, new Dictionary<ushort, List<Vector3Int>>());
 
-                RecalcMax(colony);
+                RecalcStockpileMaxSize(colony);
             }
         }
     }
