@@ -161,10 +161,14 @@
     <Compile Include="TimePeriods\PeriodFactory.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafBasket.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\SturdyCrate.cs" />
+    <Compile Include="PandaCommandTool.cs" />
     <Compile Include="WorldGen\IMineTypeOverride.cs" />
     <Compile Include="WorldGen\StoneOverride.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icons\CommandTool.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icons\LeafBasket.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
