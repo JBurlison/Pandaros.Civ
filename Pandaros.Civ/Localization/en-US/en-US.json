@@ -59,6 +59,9 @@
               }
             }
           }
+        },
+        "CommandTool": {
+          "CommandTool": "Civilisation Command Tool"
         }
       }
     }
