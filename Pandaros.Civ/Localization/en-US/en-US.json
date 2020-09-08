@@ -59,71 +59,76 @@
               }
             }
           }
+        },
+        "CommandTool": {
+          "CommandTool": "Civilisation Command Tool"
         }
       }
     }
   },
-  "types": {
-    "Pandaros.Civ.Storage.StockpileBlock": "Stockpile Block",
+    "types": {
+      "Pandaros.Civ.Storage.StockpileBlock": "Stockpile Block",
+      "Pandaros.Civ.CommandTool": "The Civilisation Command Tool",
 
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.BasicCrate": "Basic Crate",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.CarvedLog": "Hollowed Out Log",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafBasket": "Leaf Basket",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafSash": "Leaf Sash",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.Rock": "Rock",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.RoughWoodenBoard": "Rough Wooden Board",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.SharpRock": "Sharp Rock",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "Wood",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.WoodenSpear": "Wooden Spear",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterToCrate": "Slow Porter to Crate",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterFromCrate": "Slow Porter from Crate",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "Wood Worker",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StoneShaper": "Stone Shaper",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.RockThrowerDay": "Rock Thrower Day",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.RockThrowerNight": "Rock Thrower Night",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SpearThrowerDay": "Spear Thrower Day",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SpearThrowerNight": "Spear Thrower Night",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveForager": "Primitive Forager",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.BasicCrate": "Basic Crate",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.CarvedLog": "Hollowed Out Log",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafBasket": "Leaf Basket",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafSash": "Leaf Sash",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.Rock": "Rock",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.RoughWoodenBoard": "Rough Wooden Board",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.SharpRock": "Sharp Rock",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "Wood",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.WoodenSpear": "Wooden Spear",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterToCrate": "Slow Porter to Crate",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterFromCrate": "Slow Porter from Crate",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "Wood Worker",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.StoneShaper": "Stone Shaper",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.RockThrowerDay": "Rock Thrower Day",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.RockThrowerNight": "Rock Thrower Night",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SpearThrowerDay": "Spear Thrower Day",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SpearThrowerNight": "Spear Thrower Night",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveForager": "Primitive Forager",
 
-    "Pandaros.Civ.TimePeriods.StoneAge.Items.Basket": "Woven Basket",
-    "Pandaros.Civ.TimePeriods.StoneAge.Items.SturdyCrate": "Sturdy Crate",
-    "Pandaros.Civ.TimePeriods.PreHistory.Quests.StoneAgeQuest": "Setup for the Stone Age!",
+      "Pandaros.Civ.TimePeriods.StoneAge.Items.Basket": "Woven Basket",
+      "Pandaros.Civ.TimePeriods.StoneAge.Items.SturdyCrate": "Sturdy Crate",
+      "Pandaros.Civ.TimePeriods.PreHistory.Quests.StoneAgeQuest": "Setup for the Stone Age!",
 
-    "Pandaros.Civ.TimePeriods.BronzeAge.Items.PaddedCrate": "Padded Crate",
-    "Pandaros.Civ.TimePeriods.BronzeAge.Items.Shelving": "Shelving",
+      "Pandaros.Civ.TimePeriods.BronzeAge.Items.PaddedCrate": "Padded Crate",
+      "Pandaros.Civ.TimePeriods.BronzeAge.Items.Shelving": "Shelving",
 
-    "Pandaros.Civ.TimePeriods.IronAge.Items.IronChest": "Iron Bound Chest",
-    "Pandaros.Civ.TimePeriods.IronAge.Items.StorageDrawers": "Orginized Drawers",
+      "Pandaros.Civ.TimePeriods.IronAge.Items.IronChest": "Iron Bound Chest",
+      "Pandaros.Civ.TimePeriods.IronAge.Items.StorageDrawers": "Orginized Drawers",
 
-    "Pandaros.Civ.TimePeriods.IndustrialAge.Items.Pallet": "Pallet"
-  },
-  "typeuses": {
-    "Pandaros.Civ.Storage.StockpileBlock": "Stockpile Block is where porters and colonists get items from your central stockpile. Colonists must be able to walk up to it. One per colony.",
+      "Pandaros.Civ.TimePeriods.IndustrialAge.Items.Pallet": "Pallet"
+    },
+    "typeuses": {
+      "Pandaros.Civ.Storage.StockpileBlock": "Stockpile Block is where porters and colonists get items from your central stockpile. Colonists must be able to walk up to it. One per colony.",
+      "Pandaros.Civ.CommandTool": "The command tool for the mod, allows you to place all the custom jobs that require a command tool!",
 
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.BasicCrate": "Can store a very small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.CarvedLog": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafBasket": "A bag made of leaves and sticks for slow porters to carry items in.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafSash": "A sash made from leaves for guards to hold their ammo.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.Rock": "It's just a rock.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.RoughWoodenBoard": "Carved from the finest rocks available.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.SharpRock": "It's just a rock with a pointy end.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "A log that hs been split up, useful to make basic things.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.WoodenSpear": "A pointy stick.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterToCrate": "A basic porter to move resources from the crate to stockpile. Hire him to empty crates!",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterFromCrate": "A basic porter to move resources from the stockpile to crate. Hire him to move items required for other jobs to crates near them!",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "A crafter that makes basic things out of wood.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveForager": "Forages for rocks, dirt, berries and leaves.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.BasicCrate": "Can store a very small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.CarvedLog": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafBasket": "A bag made of leaves and sticks for slow porters to carry items in.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafSash": "A sash made from leaves for guards to hold their ammo.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.Rock": "It's just a rock.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.RoughWoodenBoard": "Carved from the finest rocks available.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.SharpRock": "It's just a rock with a pointy end.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "A log that hs been split up, useful to make basic things.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Items.WoodenSpear": "A pointy stick.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterToCrate": "A basic porter to move resources from the crate to stockpile. Hire him to empty crates!",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterFromCrate": "A basic porter to move resources from the stockpile to crate. Hire him to move items required for other jobs to crates near them!",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "A crafter that makes basic things out of wood.",
+      "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveForager": "Forages for rocks, dirt, berries and leaves.",
 
-    "Pandaros.Civ.TimePeriods.StoneAge.Items.Basket": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
-    "Pandaros.Civ.TimePeriods.StoneAge.Items.SturdyCrate": "Can store a small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
-    "Pandaros.Civ.TimePeriods.StoneAge.Jobs.StoneShaper": "Shapes stone into things such as slinger ammo.",
+      "Pandaros.Civ.TimePeriods.StoneAge.Items.Basket": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
+      "Pandaros.Civ.TimePeriods.StoneAge.Items.SturdyCrate": "Can store a small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
+      "Pandaros.Civ.TimePeriods.StoneAge.Jobs.StoneShaper": "Shapes stone into things such as slinger ammo.",
 
-    "Pandaros.Civ.TimePeriods.BronzeAge.Items.PaddedCrate": "Can store a moderate amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
-    "Pandaros.Civ.TimePeriods.BronzeAge.Items.Shelving": "Place within your stockpiles block radius to upgrade your stactuockpiles capacity.",
+      "Pandaros.Civ.TimePeriods.BronzeAge.Items.PaddedCrate": "Can store a moderate amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
+      "Pandaros.Civ.TimePeriods.BronzeAge.Items.Shelving": "Place within your stockpiles block radius to upgrade your stactuockpiles capacity.",
 
-    "Pandaros.Civ.TimePeriods.IronAge.Items.IronChest": "Can store a decent amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
-    "Pandaros.Civ.TimePeriods.IronAge.Items.StorageDrawers": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
+      "Pandaros.Civ.TimePeriods.IronAge.Items.IronChest": "Can store a decent amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
+      "Pandaros.Civ.TimePeriods.IronAge.Items.StorageDrawers": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
 
-    "Pandaros.Civ.TimePeriods.IndustrialAge.Items.Pallet": "Place within your stockpiles block radius to upgrade your stockpiles capacity."
-  }
+      "Pandaros.Civ.TimePeriods.IndustrialAge.Items.Pallet": "Place within your stockpiles block radius to upgrade your stockpiles capacity."
+    }
 }

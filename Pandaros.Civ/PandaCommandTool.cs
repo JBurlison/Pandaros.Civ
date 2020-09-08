@@ -161,6 +161,12 @@ namespace Pandaros.Civ
                     case GameSetup.NAMESPACE + ".UIButton.RockThrower.Day":
                         item_placer_dict[data.Player] = TimePeriods.PreHistory.Jobs.RockThrower.NameDay;
                         return;
+                    case GameSetup.NAMESPACE + ".UIButton.SpearThrower.Night":
+                        item_placer_dict[data.Player] = TimePeriods.PreHistory.Jobs.SpearThrower.NameNight;
+                        return;
+                    case GameSetup.NAMESPACE + ".UIButton.SpearThrower.Day":
+                        item_placer_dict[data.Player] = TimePeriods.PreHistory.Jobs.SpearThrower.NameDay;
+                        return;
                 }
             }
 
@@ -177,6 +183,12 @@ namespace Pandaros.Civ
         public override StaticItems.StaticItem StaticItemSettings => new StaticItems.StaticItem() { Name = NAME };
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "CommandTool.png");
         public override bool? isPlaceable => false;
+        public override List<string> categories => new List<string>()
+            {
+                CommonCategories.Essential,
+                "AAA",
+                GameSetup.NAMESPACE
+            };
     }
     [ModLoader.ModManager]
     public class UIManageing
