@@ -112,7 +112,7 @@
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterToCrate": "A basic porter to move resources from the crate to stockpile. Hire him to empty crates!",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SlowPorterFromCrate": "A basic porter to move resources from the stockpile to crate. Hire him to move items required for other jobs to crates near them!",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "A crafter that makes basic things out of wood.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveForager": "Forages for rocks, dirt, berries and leaves.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveForager": "Forages for rocks, dirt and berries.",
 
     "Pandaros.Civ.TimePeriods.StoneAge.Items.Basket": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.SturdyCrate": "Can store a small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",

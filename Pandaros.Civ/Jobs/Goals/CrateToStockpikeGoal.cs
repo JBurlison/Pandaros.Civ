@@ -110,7 +110,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 {
                     if (locs.TryGetValue(CurrentCratePosition, out var crate))
                     {
-                        ToStockpike = crate.StorageTypeLookup[StorageType.Stockpile].Values.ToArray();
+                        ToStockpike = crate.GetAllItems(StorageType.Stockpile).Values.ToArray();
                         ShowIndicator(ref state);
                         crate.TryTake(ToStockpike);
                         WalkingTo = StorageType.Stockpile;

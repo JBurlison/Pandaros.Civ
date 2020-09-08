@@ -78,6 +78,17 @@ namespace Pandaros.Civ.Storage
             return retVal;
         }
 
+        public Dictionary<ushort, StoredItem> GetAllItems(StorageType type)
+        {
+            var retVal = new Dictionary<ushort, StoredItem>();
+
+            if (StorageTypeLookup.TryGetValue(type, out var storageTypeKvp))
+                foreach (var item in storageTypeKvp)
+                    retVal.Add(item.Key, new StoredItem(item.Value));
+
+            return retVal;
+        }
+
         public JSONNode ToJSON()
         {
             JSONNode  node = new JSONNode();
