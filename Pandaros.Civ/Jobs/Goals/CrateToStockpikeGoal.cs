@@ -42,6 +42,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (WalkingTo == StorageType.Crate)
             {
+                // check for full crates. ensure they get serviced first
                 foreach (var location in ClosestLocations)
                     if (!LastCratePosition.Contains(location) &&
                         !InProgress.Contains(location) &&
@@ -54,7 +55,22 @@ namespace Pandaros.Civ.Jobs.Goals
                         break;
                     }
 
-                // No new goal. go back to job pos.
+                // No new goal. just take anything
+                if (CurrentCratePosition == Vector3Int.invalidPos)
+                {
+                    foreach (var location in ClosestLocations)
+                        if (!LastCratePosition.Contains(location) &&
+                            !InProgress.Contains(location) &&
+                            StorageFactory.CrateLocations[Job.Owner].TryGetValue(location, out var inv) &&
+                            inv.StorageTypeLookup[StorageType.Stockpile].Count > 0)
+                        {
+                            CurrentCratePosition = location;
+                            InProgress.Add(location);
+                            break;
+                        }
+                }
+
+                // everything is empty stand at job.
                 if (CurrentCratePosition == Vector3Int.invalidPos)
                 {
                     return PorterJob.OriginalPosition;
