@@ -83,7 +83,19 @@ namespace Pandaros.Civ.Jobs.Goals
                     { zn, UnityEngine.Vector3Int.Distance(JobPos, zn) }
                 };
 
-                EdgeOfColony = distances.OrderBy(kvp => kvp.Value).First().Key;
+                bool posFound = false;
+                foreach (var pos in distances.OrderBy(kvp => kvp.Value))
+                {
+                    var getEdge = pos.Key.GetClosestPositionWithinY(pos.Key, 6);
+                    if (getEdge != Vector3Int.invalidPos && getEdge != default(Vector3Int) && getEdge != pos.Key)
+                    {
+                        EdgeOfColony = getEdge;
+                        posFound = true;
+                    }
+                }
+
+                if (!posFound)
+                    EdgeOfColony = JobPos;
             }
             else
             {
@@ -119,7 +131,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (!Foraging)
             {
-                ForagingPos = EdgeOfColony.Add(0, -20, 0);
+                ForagingPos = EdgeOfColony.Add(0, -100, 0);
                 World.TryChangeBlock(ForagingPos.Add(0, 1, 0), ColonyBuiltIn.ItemTypes.AIR.Id);
                 World.TryChangeBlock(ForagingPos, ColonyBuiltIn.ItemTypes.AIR.Id);
                 Job.NPC.SetPosition(ForagingPos);
