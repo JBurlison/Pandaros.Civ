@@ -38,7 +38,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
                 (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
-                ClosestCrate = JobInstance.Position.GetClosestPosition(crateLocs.Keys.ToList());
+                ClosestCrate = StorageFactory.GetClosestCrateLocation(JobInstance.Position, Job.Owner);
 
             return JobInstance.Position;
         }

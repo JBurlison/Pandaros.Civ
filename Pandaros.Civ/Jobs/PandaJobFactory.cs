@@ -44,13 +44,13 @@ namespace Pandaros.Civ.Jobs
                 foreach (var goalType in ActiveGoalsByType.Values)
                     foreach (var goal in goalType)
                         if (goal.ClosestCrate == position)
-                            goal.ClosestCrate = goal.GetCrateSearchPosition().GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
+                            goal.ClosestCrate = StorageFactory.GetClosestCrateLocation(goal.GetCrateSearchPosition(), colony);
             }
             else
             {
                 foreach (var goalType in ActiveGoalsByType.Values)
                     foreach (var goal in goalType)
-                        goal.ClosestCrate = goal.GetCrateSearchPosition().GetClosestPosition(StorageFactory.CrateLocations[colony].Keys.ToList());
+                        goal.ClosestCrate = StorageFactory.GetClosestCrateLocation(goal.GetCrateSearchPosition(), colony);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Pandaros.Civ.Jobs
                     if (StorageFactory.CrateLocations.TryGetValue(goal.Job.Owner, out var crateLocs))
                     {
                         if (!crateLocs.ContainsKey(goal.ClosestCrate))
-                            goal.ClosestCrate = goal.GetCrateSearchPosition().GetClosestPosition(crateLocs.Keys.ToList());
+                            goal.ClosestCrate = StorageFactory.GetClosestCrateLocation(goal.GetCrateSearchPosition(), goal.Job.Owner);
 
                         if (goal.ClosestCrate == crateLocation)
                         {

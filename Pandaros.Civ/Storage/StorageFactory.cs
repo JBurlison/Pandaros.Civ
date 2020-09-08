@@ -360,6 +360,23 @@ namespace Pandaros.Civ.Storage
             }
         }
 
+        public static Vector3Int GetClosestCrateLocation(Vector3Int pos, Colony colony)
+        {
+            var ClosestCrate = colony.Banners.FirstOrDefault().Position;
+
+            if (StorageFactory.CrateLocations.TryGetValue(colony, out var crateLocs))
+                ClosestCrate = pos.GetClosestPosition(crateLocs.Keys.ToList());
+            else
+            {
+                var stockpileLoc = StorageFactory.GetStockpilePosition(colony);
+
+                if (stockpileLoc.Position != default(Vector3Int))
+                    ClosestCrate = stockpileLoc.Position;
+            }
+
+            return ClosestCrate;
+        }
+
         public static void RecalcStockpileMaxSize(Colony colony)
         {
             var pos = GetStockpilePosition(colony);

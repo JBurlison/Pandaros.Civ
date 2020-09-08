@@ -20,13 +20,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
     public class BlockFarmGoal : INpcGoal
     {
-        public static List<BlockFarmGoal> CurrentlyFarming { get; set; } = new List<BlockFarmGoal>();
         public BlockFarmGoal(PandaBlockFarmAreaJob job, PandaBlockFarmAreaJobDefinition definitioan)
         {
             FarmingJob = job;
             Job = job;
             Definition = definitioan;
-            CurrentlyFarming.Add(this);
         }
 
         List<RecipeResult> CraftingResults = new List<RecipeResult>();
@@ -42,7 +40,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
                 (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
-                ClosestCrate = FarmingJob.KeyLocation.GetClosestPosition(crateLocs.Keys.ToList());
+                ClosestCrate = StorageFactory.GetClosestCrateLocation(FarmingJob.KeyLocation, Job.Owner);
 
             if (!FarmingJob.PositionSub.IsValid)
             {
@@ -59,16 +57,13 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingJob()
         {
-            CurrentlyFarming.Remove(this);
+            
         }
 
         public void PerformGoal(ref NPCBase.NPCState state)
         {
             ThreadManager.AssertIsMainThread();
             state.JobIsDone = true;
-
-            if (!CurrentlyFarming.Contains(this))
-                CurrentlyFarming.Add(this);
 
             if (!FarmingJob.PositionSub.IsValid)
             {
@@ -180,8 +175,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void SetAsGoal()
         {
-            if (!CurrentlyFarming.Contains(this))
-                CurrentlyFarming.Add(this);
+           
         }
 
         public virtual void PutItemsInCrate(ref NPCBase.NPCState state)

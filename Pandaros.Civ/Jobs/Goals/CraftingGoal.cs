@@ -24,7 +24,7 @@ namespace Pandaros.Civ.Jobs.Goals
             CraftingJobInstance = job as CraftingJobInstance;
             Job = job;
             CraftingJobSettings = settings;
-            ClosestCrate = CraftingJobInstance.Position.GetClosestPosition(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
+            ClosestCrate = StorageFactory.GetClosestCrateLocation(CraftingJobInstance.Position, job.Owner);
         }
 
         public Vector3Int ClosestCrate { get; set; }
@@ -41,7 +41,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
                 (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
-                ClosestCrate = CraftingJobInstance.Position.GetClosestPosition(crateLocs.Keys.ToList());
+                ClosestCrate = StorageFactory.GetClosestCrateLocation(CraftingJobInstance.Position, Job.Owner);
 
             return CraftingJobInstance.Position;
         }
