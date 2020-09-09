@@ -59,14 +59,12 @@
               }
             }
           }
-        },
-        "CommandTool": {
-          "CommandTool": "Civilisation Command Tool"
         }
       }
     }
   },
   "types": {
+    "Pandaros.Civ.Storage.CommandTool": "Civilisation Command Tool",
     "Pandaros.Civ.Storage.StockpileBlock": "Stockpile Block",
 
     "Pandaros.Civ.TimePeriods.PreHistory.Items.BasicCrate": "Basic Crate",

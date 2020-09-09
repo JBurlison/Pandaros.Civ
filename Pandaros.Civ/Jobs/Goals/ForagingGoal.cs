@@ -131,7 +131,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (!Foraging)
             {
-                ForagingPos = EdgeOfColony.Add(0, -100, 0);
+                ForagingPos = EdgeOfColony.Add(0, (EdgeOfColony.y * -1) + 1, 0);
                 World.TryChangeBlock(ForagingPos.Add(0, 1, 0), ColonyBuiltIn.ItemTypes.AIR.Id);
                 World.TryChangeBlock(ForagingPos, ColonyBuiltIn.ItemTypes.AIR.Id);
                 Job.NPC.SetPosition(ForagingPos);
