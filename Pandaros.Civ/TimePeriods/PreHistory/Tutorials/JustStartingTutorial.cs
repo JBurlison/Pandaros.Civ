@@ -34,7 +34,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Tutorials
             menu.Height = 600;
             menu.ForceClosePopups = true;
             menu.Items.Add(new ItemIcon(stockpile_tutorialIcon.NAME, 800, 70, -150));
-            menu.Items.Add(new Label(new LabelData(_localizationHelper.LocalizeOrDefault("WelcomeText", p)), -1, 0, -150));
+            menu.Items.Add(new Label(new LabelData(_localizationHelper.LocalizeOrDefault("WelcomeText", p)), -1, 0, -300));
             menu.Items.Add(new EmptySpace(10));
             menu.Items.Add(new Label(new LabelData(_localizationHelper.LocalizeOrDefault("StockpileBlockHeader", p), ELabelAlignment.MiddleCenter, 24)));
             menu.Items.Add(new Label(new LabelData(_localizationHelper.LocalizeOrDefault("StockpileBlock", p))));
