@@ -14,4 +14,20 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "Pandaros.Civ.TimePeriods.PreHistory.Research.StoneAgeResearch.png");
         public override bool? isPlaceable => false;
     }
+
+    public class Crates_tutorialIcon : CSType
+    {
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(Crates_tutorialIcon));
+        public override string name { get; set; } = NAME;
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "crates_tutorial.png");
+        public override bool? isPlaceable => false;
+    }
+
+    public class stockpile_tutorialIcon : CSType
+    {
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(stockpile_tutorialIcon));
+        public override string name { get; set; } = NAME;
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "stockpile_tutorial.png");
+        public override bool? isPlaceable => false;
+    }
 }

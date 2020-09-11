@@ -46,7 +46,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AbleToCompleteStoneAgeQuest", StoneAgeIcon.NAME, "AbleToCompleteStoneAgeQuest", HELPER)
+            new TextReward("AbleToCompleteStoneAgeQuest", StoneAgeIcon.NAME, "AbleToCompleteStoneAgeQuest", HELPER),
+            new TimePeriodReward(TimePeriod.StoneAge, StoneAgeIcon.NAME, "TimePeriodRewardStoneAge")
         };
     }
 }

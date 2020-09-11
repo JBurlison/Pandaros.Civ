@@ -22,8 +22,19 @@
     },
     "Pandaros": {
       "Civ": {
+        "Tutorials": {
+          "Welcome": "Welcome to Pandaros: Civilization Mod!",
+          "WelcomeText": "Welcome to Pandaros: Civilization Mod, this mod does not take you down the traditional route of Colony Survival. Plese take the time to read this first message, you can stip all future tutorials at any time by clicking the button at the bottom of the scroll bar. You will playout a civilization through the ages starting in pre-history. You must complete quests, craft items, build and have colonists to reach new ages and unlocking new technologies on the way! \r\n\r\n Some basic things to get you started: \r\n    * Quests are part of this mod. You can find the button to access them in the Colony tab. \r\n    * The Stockpile has been decentralized. You must have crates and porters to transport things! \r\n    * The first thing you should do is place your stockpile block. \r\n \r\n ",
+          "StockpileBlockHeader": "The Stockpile Block",
+          "StockpileBlock": "The stockpile by default will limit the amount of items your stockpile can hold to 100 of each item. This can be upgraded with stockpile upgrade blocks. Stockpile upgrade blocks must be placed in the stockpile area. Each stockpile upgrade block gives specific upgrades to you items max stack size within the stockpile. The stockpile area increases in size as you progress through each age. Storage upgrade block tooltips provide information on the upgrades. You MUST have a route available for colonists to access the stockpile block directly. \r\n",
+          "CrateHeader": "Crates",
+          "Crate": "Crates are no longer linked to your stockpile. Each crate you place has a unique inventory. Crates start off with very limited inventories and grow with your technology. Additionally unlike your stockpile, crates can only hold a specific amount of unique items on top of having max stack sizes. If a crafter cannot load items into a crate, they will bring them to the stockpile block. Right clicking on a crate with a empty hand will allow you to manage that crates inventory. \r\n",
+          "PortersHeader": "Porters",
+          "Porters": "Porters take items to and from crates for nearby gathering and crafting jobs to use. There are two types of porters. A porter to bring items to crates for crafters and a porter to take items from gatherers and crafters to the stockpile. Porters like your storage will get more advanced through the ages of your civilization. They will start off slow and not be able to carry a lot of items. (about one crate full) so it will be important to upgrade your porters as your civilization progresses. \r\n"
+        },
         "Quests": {
-          "StockpileSizeObjective": "Max stockpile size of {0} out of {1}"
+          "StockpileSizeObjective": "Max stockpile size of {0} out of {1}",
+          "TimePeriodReward": "Upgrades the stockpile block's upgrade area!"
         },
         "storage": {
           "MaxCrateStackSize": "Max Crate Stack Size",
