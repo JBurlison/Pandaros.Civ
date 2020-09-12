@@ -86,7 +86,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public override string outlineColor => "#474747";
     }
 
-    public class RockThrowerRecipeNight : ICSPlayerRecipe
+    /*public class RockThrowerRecipeNight : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -117,5 +117,5 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         
 
         public string name => RockThrower.NameDay;
-    }
+    }*/
 }

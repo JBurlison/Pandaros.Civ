@@ -44,85 +44,81 @@ namespace Pandaros.Civ
         static readonly LocalizationHelper _localizationHelper = new LocalizationHelper(GameSetup.NAMESPACE, "CommandTool");
         public static void SendUI(Players.Player player)
         {
+            //UI Settings
             NetworkMenu commandUI = new NetworkMenu();
             commandUI.Identifier = "CommandToolUI";
             commandUI.LocalStorage.SetAs("header", _localizationHelper.LocalizeOrDefault("CommandTool", player));
             commandUI.Width = 500;
             commandUI.Height = 600;
 
-
-            ButtonCallback GuardsButton = new ButtonCallback(GameSetup.NAMESPACE + ".UIButton.Guards", new LabelData(_localizationHelper.LocalizeOrDefault("Button.Guards", player), Color.black));
-
-
-            Label Guardslabel = new Label(_localizationHelper.LocalizeOrDefault("Label.Guards", player));
-            ButtonCallback BackButton = new ButtonCallback(GameSetup.NAMESPACE + ".UIButton.Back", new LabelData(_localizationHelper.LocalizeOrDefault("Button.Back", player), Color.black));
-            List<(IItem, int)> GuardsHeaderHorizontalItems = new List<(IItem, int)>();
-
-            GuardsHeaderHorizontalItems.Add((Guardslabel, 150));
-            GuardsHeaderHorizontalItems.Add((BackButton, 75));
-
-            HorizontalRow GuardsHeaderHorizontalRow = new HorizontalRow(GuardsHeaderHorizontalItems);
-
-            Label RockThrowerLabel = new Label(_localizationHelper.LocalizeOrDefault("Label.RockThrower", player));
-            ButtonCallback RockThrowerButtonNight = new ButtonCallback(GameSetup.NAMESPACE + ".UIButton.RockThrower.Night", new LabelData(_localizationHelper.LocalizeOrDefault("Button.Night", player), Color.black));
-            ButtonCallback RockThrowerButtonDay = new ButtonCallback(GameSetup.NAMESPACE + ".UIButton.RockThrower.Day", new LabelData(_localizationHelper.LocalizeOrDefault("Button.Day", player), Color.black));
-            List<(IItem, int)> RockThrowerHorizontalItems = new List<(IItem, int)>();
-
-            RockThrowerHorizontalItems.Add((RockThrowerLabel, 150));
-            RockThrowerHorizontalItems.Add((RockThrowerButtonNight, 75));
-            RockThrowerHorizontalItems.Add((RockThrowerButtonDay, 75));
-
-            HorizontalRow RockThrowerHorizontalRow = new HorizontalRow(RockThrowerHorizontalItems);
-
-            if (commandUIInteraction.item_placer_option_dict.ContainsKey(player))
+            int LabelSize = 150;
+            int ButtonSize = 75;
+            if (!commandUIInteraction.item_placer_option_dict.ContainsKey(player))
             {
-                if (commandUIInteraction.item_placer_option_dict[player].Equals("Guards"))
-                {
+                commandUIInteraction.item_placer_option_dict[player] = "";
+            }
+            if (commandUIInteraction.item_placer_option_dict[player] == "Guards")
+            {
+                    Label Guardslabel = new Label(_localizationHelper.LocalizeOrDefault("Label.Guards", player));
+                    ButtonCallback BackButton = new ButtonCallback(GameSetup.NAMESPACE + ".UIButton.Back", new LabelData(_localizationHelper.LocalizeOrDefault("Button.Back", player), Color.black));
+                    List<(IItem, int)> GuardsHeaderHorizontalItems = new List<(IItem, int)>();
+
+                    GuardsHeaderHorizontalItems.Add((Guardslabel, LabelSize));
+                    GuardsHeaderHorizontalItems.Add((BackButton, ButtonSize));
+
+                    HorizontalRow GuardsHeaderHorizontalRow = new HorizontalRow(GuardsHeaderHorizontalItems);
                     commandUI.Items.Add(GuardsHeaderHorizontalRow);
-                    if (player == null && player.ConnectionState != Players.EConnectionState.Connected || player.ActiveColony == null || player.ActiveColony.ScienceData == null)
-                        return;
-                    commandUI.Items.Add(RockThrowerHorizontalRow);
 
-                    /*Science.ScienceKey SlingShotScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "Slingshot");
-                    Science.ScienceKey CompoundBowScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "CompoundBow");
-                    Science.ScienceKey SwordScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "SwordGuard");
-                    Science.ScienceKey SniperScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "Sniper");
-                    Science.ScienceKey BallistaScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "Ballista");*/
 
-                    /*if (SlingShotScienceKey.IsCompleted(player.ActiveColony.ScienceData))
-                        commandUI.Items.Add(SlingshotHorizontalRow);
-                    if (CompoundBowScienceKey.IsCompleted(player.ActiveColony.ScienceData))
-                        commandUI.Items.Add(compoundBowHorizontalRow);
-                    if (SwordScienceKey.IsCompleted(player.ActiveColony.ScienceData))
-                        commandUI.Items.Add(swordHorizontalRow);
-                    if (SniperScienceKey.IsCompleted(player.ActiveColony.ScienceData))
-                        commandUI.Items.Add(sniperHorizontalRow);
-                    if (BallistaScienceKey.IsCompleted(player.ActiveColony.ScienceData))
-                        commandUI.Items.Add(ballistaHorizontalRow);*/
-                }
-                else
-                {
-                    commandUI.Items.Add(GuardsButton);
-                    commandUI.Items.Add(new EmptySpace(5));
-                    /*if (Nach0Config.GuardsMod)
+                    foreach (string guard in commandUIInteraction.commandUIGuardTypes)
                     {
-                        commandUI.Items.Add(GuardsButton);
-                        commandUI.Items.Add(new EmptySpace(5));
-                    }*/
-                }
+                        Label GuardLabel = new Label(_localizationHelper.LocalizeOrDefault("Label." + guard, player));
+                        ButtonCallback GuardButtonNight = new ButtonCallback(GameSetup.NAMESPACE + ".UIButton." + guard + ".Night", new LabelData(_localizationHelper.LocalizeOrDefault("Button.Night", player), Color.black));
+                        ButtonCallback GuardButtonDay = new ButtonCallback(GameSetup.NAMESPACE + ".UIButton." + guard + ".Day", new LabelData(_localizationHelper.LocalizeOrDefault("Button.Day", player), Color.black));
+                        List<(IItem, int)> GuardHorizontalItems = new List<(IItem, int)>();
+
+                        GuardHorizontalItems.Add((GuardLabel, LabelSize));
+                        GuardHorizontalItems.Add((GuardButtonNight, ButtonSize));
+                        GuardHorizontalItems.Add((GuardButtonDay, ButtonSize));
+
+                        HorizontalRow GuardHorizontalRow = new HorizontalRow(GuardHorizontalItems);
+
+                        commandUI.Items.Add(GuardHorizontalRow);
+                    }
+                
             }
             else
             {
-                commandUI.Items.Add(GuardsButton);
-                commandUI.Items.Add(new EmptySpace(5));
-                /*if (Nach0Config.GuardsMod)
+                foreach (string category in commandUIInteraction.commandUICategories)
                 {
-                    commandUI.Items.Add(GuardsButton);
+                    ButtonCallback CategoryButton = new ButtonCallback(GameSetup.NAMESPACE + ".UIButton." + category, new LabelData(_localizationHelper.LocalizeOrDefault("Button." + category, player), Color.black));
+                    commandUI.Items.Add(CategoryButton);
                     commandUI.Items.Add(new EmptySpace(5));
-                }*/
-
+                }
             }
             commandUI.Items.Add(new EmptySpace(35));
+
+            /*//if (player == null && player.ConnectionState != Players.EConnectionState.Connected || player.ActiveColony == null || player.ActiveColony.ScienceData == null)
+            //   return;
+
+            /*Science.ScienceKey SlingShotScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "Slingshot");
+            Science.ScienceKey CompoundBowScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "CompoundBow");
+            Science.ScienceKey SwordScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "SwordGuard");
+            Science.ScienceKey SniperScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "Sniper");
+            Science.ScienceKey BallistaScienceKey = new Science.ScienceKey(Nach0Config.ResearchPrefix + "Ballista");*/
+
+            /*if (SlingShotScienceKey.IsCompleted(player.ActiveColony.ScienceData))
+                commandUI.Items.Add(SlingshotHorizontalRow);
+            if (CompoundBowScienceKey.IsCompleted(player.ActiveColony.ScienceData))
+                commandUI.Items.Add(compoundBowHorizontalRow);
+            if (SwordScienceKey.IsCompleted(player.ActiveColony.ScienceData))
+                commandUI.Items.Add(swordHorizontalRow);
+            if (SniperScienceKey.IsCompleted(player.ActiveColony.ScienceData))
+                commandUI.Items.Add(sniperHorizontalRow);
+            if (BallistaScienceKey.IsCompleted(player.ActiveColony.ScienceData))
+                commandUI.Items.Add(ballistaHorizontalRow);*/
+
+
 
             //sends ui
             NetworkMenuManager.SendServerPopup(player, commandUI);
@@ -134,14 +130,20 @@ namespace Pandaros.Civ
     {
         public static Dictionary<Players.Player, string> item_placer_dict = new Dictionary<Players.Player, string>();
         public static Dictionary<Players.Player, string> item_placer_option_dict = new Dictionary<Players.Player, string>();
+        public static List<string> commandUICategories = new List<string>
+        {
+            "Guards"
+        };
+        public static List<string> commandUIGuardTypes = new List<string>
+        {
+            "RockThrower",
+            "SpearThrower",
+            "StoneSpearThrower"
+        };
 
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnPlayerPushedNetworkUIButton, GameSetup.NAMESPACE + ".UIButton.OnPlayerPushedNetworkUIButton")]
         public static void OnPlayerPushedNetworkUIButton(ButtonPressCallbackData data)
         {
-            /*string itemPrefix = "NACH0.Types.";
-            string guard = ".Guard";
-            string night = guard + ".Nightx+";
-            string day = guard + ".Dayx+";*/
             if (data.ButtonIdentifier.StartsWith(GameSetup.NAMESPACE + ".UIButton."))
             {
                 switch (data.ButtonIdentifier)
@@ -167,14 +169,16 @@ namespace Pandaros.Civ
                     case GameSetup.NAMESPACE + ".UIButton.SpearThrower.Day":
                         item_placer_dict[data.Player] = TimePeriods.PreHistory.Jobs.SpearThrower.NameDay;
                         return;
+                    case GameSetup.NAMESPACE + ".UIButton.StoneSpearThrower.Night":
+                        item_placer_dict[data.Player] = TimePeriods.PreHistory.Jobs.SpearThrower.NameNight;
+                        return;
+                    case GameSetup.NAMESPACE + ".UIButton.StoneSpearThrower.Day":
+                        item_placer_dict[data.Player] = TimePeriods.PreHistory.Jobs.SpearThrower.NameDay;
+                        return;
                 }
             }
 
         }
-        /*public static void AfterItemTypeChanged(Players.Player player)
-        {
-            //Chat.Send(player, "<color=blue>Item_Placer Type set to: " + commandUIInteraction.item_placer_dict[player] + "</color>");
-        }*/
     }
     public class CommandTool : CSType
     {
@@ -189,6 +193,7 @@ namespace Pandaros.Civ
                 "AAA",
                 GameSetup.NAMESPACE
             };
+        public override int? maxStackSize => 1;
     }
     [ModLoader.ModManager]
     public class UIManageing
@@ -203,45 +208,15 @@ namespace Pandaros.Civ
                 {
                     SendCommandUI.SendUI(player);
                 }
-                else if (data.ClickType == PlayerClickedData.EClickType.Right)
+                else if (data.ClickType == PlayerClickedData.EClickType.Right && commandUIInteraction.item_placer_dict.ContainsKey(player))
                 {
                     PlayerClickedData.VoxelHit voxelData = data.GetVoxelHit();
                     if (PlayerClickedData.EHitType.Block == data.HitType && voxelData.SideHit == VoxelSide.yPlus)
                     {
-                        if (commandUIInteraction.item_placer_dict.ContainsKey(player))
-                        {
-                            ServerManager.TryChangeBlock(voxelData.PositionBuild, ItemTypes.GetType(commandUIInteraction.item_placer_dict[player]).ItemIndex, player);
-                        }
+                        ServerManager.TryChangeBlock(voxelData.PositionBuild, ItemTypes.GetType(commandUIInteraction.item_placer_dict[player]).ItemIndex, player);
+
                     }
-                    /*AreaJobTracker.CommandToolTypeData Data = new AreaJobTracker.CommandToolTypeData();
-
-
-                    switch (commandUIInteraction.item_placer_dict[player])
-                    {
-                        //case TimePeriods.PreHistory.Jobs.RockThrower.NameNight:
-                        //    break;
-                        case GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs." + nameof(TimePeriods.PreHistory.Jobs.RockThrower) + "Night":
-                            Data.LocaleEntry = "popup.tooljob.RockThrowerNight";
-                            Data.AreaType = TimePeriods.PreHistory.Jobs.RockThrower.NameNight;
-                            break;
-                        case GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs." + nameof(TimePeriods.PreHistory.Jobs.RockThrower) + "Day":
-                            Data.LocaleEntry = "popup.tooljob.RockThrowerDay";
-                            Data.AreaType = TimePeriods.PreHistory.Jobs.RockThrower.NameDay;
-                            break;
-                    }
-                    AreaJobTracker.StartCommandToolSelection(player, Data);*/
-
                 }
-                /*else if (data.ClickType == PlayerClickedData.EClickType.Right)
-                {
-                    if (PlayerClickedData.EHitType.Block == data.HitType && voxelData.SideHit == VoxelSide.yPlus)
-                    {
-                        if (commandUIInteraction.item_placer_dict.ContainsKey(player))
-                        {
-                            ServerManager.TryChangeBlock(voxelData.PositionBuild, ItemTypes.GetType(commandUIInteraction.item_placer_dict[player]).ItemIndex, player);
-                        }
-                    }
-                }*/
             }
         }
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnSendAreaHighlights, GameSetup.NAMESPACE + ".CommandTool.OnSendAreaHighlights")]
