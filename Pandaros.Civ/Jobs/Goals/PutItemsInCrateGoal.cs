@@ -66,7 +66,12 @@ namespace Pandaros.Civ.Jobs.Goals
                     if (LastCratePosition.Contains(CurrentCratePosition))
                     {
                         WalkingTo = StorageType.Stockpile;
-                        CurrentCratePosition = StorageFactory.GetStockpilePosition(Job.Owner).Position;
+                        var stockpileLoc = StorageFactory.GetStockpilePosition(Job.Owner);
+
+                        if (stockpileLoc.Position == Vector3Int.invalidPos || stockpileLoc.Position == default(Vector3Int))
+                            CurrentCratePosition = Job.Owner.Banners.FirstOrDefault().Position;
+                        else
+                            CurrentCratePosition = stockpileLoc.Position;
                     }
                 }
             }

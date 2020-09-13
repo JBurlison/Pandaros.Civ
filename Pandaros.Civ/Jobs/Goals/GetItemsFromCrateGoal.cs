@@ -70,7 +70,11 @@ namespace Pandaros.Civ.Jobs.Goals
                 if (stockpileHasItems)
                 {
                     WalkingTo = StorageType.Stockpile;
-                    return stockpileLoc.Position;
+
+                    if (stockpileLoc.Position == Vector3Int.invalidPos || stockpileLoc.Position == default(Vector3Int))
+                        return Job.Owner.Banners.FirstOrDefault().Position;
+                    else
+                        return stockpileLoc.Position;
                 }
                 else
                 {
