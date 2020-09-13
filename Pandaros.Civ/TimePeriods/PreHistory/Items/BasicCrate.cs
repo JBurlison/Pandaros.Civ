@@ -51,7 +51,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         }
     }
 
-    public class BasicCrateWoodWorkerRecipe : ICSRecipe
+    /*public class BasicCrateWoodWorkerRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -74,5 +74,5 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public string Job => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
 
         public List<string> JobBlock => new List<string>() { TimePeriods.PreHistory.Jobs.WoodWorker.Name };
-    }
+    }*/
 }

@@ -26,7 +26,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
         public string onShootAudio { get; set; } = "sling";
         public int range { get; set; } = StoneSpearThrower.range;
         public IRecruitmentitem recruitmentItem { get; set; } = new Recruitmentitem() { type = LeafSash.NAME };
-        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = WoodenSpear.NAME } };
+        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = Stick.NAME } };
         public string sleepType { get; set; } = "Day"; 
     }
     public class StoneSpearThrowerGuardSettingsDay : ICSGuardJobSettings
@@ -40,7 +40,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
         public string onShootAudio { get; set; } = "sling";
         public int range { get; set; } = StoneSpearThrower.range;
         public IRecruitmentitem recruitmentItem { get; set; } = new Recruitmentitem() { type = LeafSash.NAME };
-        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = WoodenSpear.NAME } };
+        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = Stick.NAME } };
         public string sleepType { get; set; } = "Night";
     }
 

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 {
@@ -31,7 +33,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
             new RecipeItem(Wood.NAME, 1),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 10)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
@@ -41,20 +43,20 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         
 
-        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE + Jobs.WoodWorker.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE + WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 
-        public string Job => Jobs.WoodWorker.Name;
+        public string Job => WoodWorker.Name;
 
-        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
+        public List<string> JobBlock => new List<string>() { WoodWorker.Name };
     }
     public class LeafBasketTaigaJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
             new RecipeItem(Wood.NAME, 1),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Id, 10)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Id, 5)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
@@ -64,12 +66,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         
 
-        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA + Jobs.WoodWorker.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA + WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 
-        public string Job => Jobs.WoodWorker.Name;
+        public string Job => WoodWorker.Name;
 
-        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
+        public List<string> JobBlock => new List<string>() { WoodWorker.Name };
     }
 }

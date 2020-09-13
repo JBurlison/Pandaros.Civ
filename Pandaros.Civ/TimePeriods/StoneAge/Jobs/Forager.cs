@@ -4,6 +4,7 @@ using Pandaros.API.Items;
 using Pandaros.API.Models;
 using Pandaros.Civ.Jobs;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.StoneAge.Items;
 using Recipes;
 using System;
 using System.Collections.Generic;

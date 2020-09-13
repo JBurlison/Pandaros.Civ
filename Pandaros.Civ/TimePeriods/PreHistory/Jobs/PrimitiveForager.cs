@@ -4,6 +4,7 @@ using Pandaros.API.Items;
 using Pandaros.API.Models;
 using Pandaros.Civ.Jobs;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.StoneAge.Items;
 using Recipes;
 using System;
 using System.Collections.Generic;
@@ -49,9 +50,13 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             name = Name,
             LootPoolList = new List<LootPoolEntry>()
             {
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.DIRT, 5, 10),
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 10, 20),
-                new LootPoolEntry(Rock.NAME, 5, 10)
+                new LootPoolEntry(Rock.NAME, 5, 10),
+                new LootPoolEntry(Wood.NAME, 6, 15, 0.15f),
+                new LootPoolEntry(Stick.NAME, 5, 20, 0.4f),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 5, 10, 0.5f),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTAIGA, 5, 10, 0.5f)
+
             }
         };
 
@@ -83,10 +88,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(RoughWoodenBoard.NAME, 4),
-            new RecipeItem(LeafBasket.NAME),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5),
-             new RecipeItem(Rock.NAME, 4)
+            new RecipeItem(RoughWoodenBoard.NAME, 4)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
@@ -101,10 +103,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(RoughWoodenBoard.NAME, 4),
-            new RecipeItem(LeafBasket.NAME),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5),
-            new RecipeItem(Rock.NAME, 4)
+            new RecipeItem(RoughWoodenBoard.NAME, 4)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
@@ -113,8 +112,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         };
 
         public string name => PrimitiveForager.Name;
-        public CraftPriority defaultPriority => CraftPriority.Medium;
-        public int defaultLimit => 10;
+        public CraftPriority defaultPriority => CraftPriority.Low;
+        public int defaultLimit => 1;
 
         public string Job => Jobs.WoodWorker.Name;
 

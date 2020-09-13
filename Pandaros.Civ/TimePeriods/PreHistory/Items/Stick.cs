@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 {
-    public class WoodenSpear : CSType 
+    public class Stick : CSType 
     {
-        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(WoodenSpear));
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(Stick));
         public override string name { get; set; } = NAME;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "WoodenSpear.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "PreHistory" + "/" + "Stick.png");
         public override bool? isPlaceable => false;
         public override int? maxStackSize => 300;
         public override List<string> categories { get; set; } = new List<string>()
@@ -37,12 +37,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(WoodenSpear.NAME, 3)
+            new RecipeResult(Stick.NAME, 3)
         };
 
         
 
-        public string name => WoodenSpear.NAME;
+        public string name => Stick.NAME;
 
         public CraftPriority defaultPriority => CraftPriority.Medium;
 

@@ -47,7 +47,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         }
     }
 
-    public class CarvedLogTaigaRecipe : ICSPlayerRecipe
+    /*public class CarvedLogTaigaRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -81,7 +81,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         
 
         public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE;
-    }
+    }*/
     public class CarvedLogTaigaWoodWorkerRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()

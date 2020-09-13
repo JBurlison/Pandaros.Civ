@@ -26,7 +26,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public string onShootAudio { get; set; } = "sling";
         public int range { get; set; } = RockThrower.range;
         public IRecruitmentitem recruitmentItem { get; set; } = new Recruitmentitem() { type = LeafSash.NAME };
-        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = SharpRock.NAME } };
+        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = Rock.NAME } };
         public string sleepType { get; set; } = "Day"; 
     }
     public class RockThrowerGuardSettingsDay : ICSGuardJobSettings
@@ -40,7 +40,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public string onShootAudio { get; set; } = "sling";
         public int range { get; set; } = RockThrower.range;
         public IRecruitmentitem recruitmentItem { get; set; } = new Recruitmentitem() { type = LeafSash.NAME };
-        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = SharpRock.NAME } };
+        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = Rock.NAME } };
         public string sleepType { get; set; } = "Night";
     }
 

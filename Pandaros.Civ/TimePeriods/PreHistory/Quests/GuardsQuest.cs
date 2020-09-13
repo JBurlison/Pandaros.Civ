@@ -22,7 +22,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.PreHistory.Quests");
 
         public GuardsQuest() : 
-            base(NAME, NAME + "Text", WoodenSpear.NAME, HELPER)
+            base(NAME, NAME + "Text", Stick.NAME, HELPER)
         {
         }
 
@@ -46,7 +46,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             },
             {
                 "spearinstockpile",
-                new ItemsInStockpileObjective("spearinstockpile", WoodenSpear.NAME, 25)
+                new ItemsInStockpileObjective("spearinstockpile", Stick.NAME, 25)
             }
         };
         

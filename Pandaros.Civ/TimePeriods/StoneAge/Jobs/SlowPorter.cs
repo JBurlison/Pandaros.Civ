@@ -5,6 +5,7 @@ using Pandaros.API.Models;
 using Pandaros.Civ;
 using Pandaros.Civ.Jobs;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using Recipes;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
+namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
 {
     [ModLoader.ModManager]
     public static class SlowPorterModEntries
     {
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.SlowPorterModEntry")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.StoneAge.Jobs.SlowPorterModEntry")]
         [ModLoader.ModCallbackProvidesFor("create_savemanager")]
         public static void AfterDefiningNPCTypes()
         {
@@ -53,7 +54,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
     public class SlowPorterToCrate : PorterJobSettings
     {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterToCrate));
+        public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(SlowPorterToCrate));
 
         public SlowPorterToCrate() : base(Name, Name, PandaGoalJob.PorterJobType.ToCrate)
         {
@@ -84,7 +85,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
                 CommonCategories.Storage,
                 CommonCategories.Porter,
                 "aa",
-                nameof(TimePeriod.PreHistory),
+                nameof(TimePeriod.StoneAge),
                 CommonCategories.Job,
                 GameSetup.NAMESPACE
             };
@@ -123,18 +124,18 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SlowPorterToCrate.Name)
         };
 
-        public string name => SlowPorterToCrate.Name + Jobs.WoodWorker.Name;
+        public string name => SlowPorterToCrate.Name + WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 
-        public string Job => Jobs.WoodWorker.Name;
+        public string Job => WoodWorker.Name;
 
-        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
+        public List<string> JobBlock => new List<string>() { WoodWorker.Name };
     }
 
     public class SlowPorterFromCrate : PorterJobSettings
     {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterFromCrate));
+        public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(SlowPorterFromCrate));
 
         public SlowPorterFromCrate() : base(Name, Name, PandaGoalJob.PorterJobType.FromCrate)
         {
@@ -175,7 +176,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
                 CommonCategories.Storage,
                 CommonCategories.Porter,
                 "ab",
-                nameof(TimePeriod.PreHistory),
+                nameof(TimePeriod.StoneAge),
                 CommonCategories.Job,
                 GameSetup.NAMESPACE
             };
@@ -217,13 +218,13 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
         
 
-        public string name => SlowPorterFromCrate.Name + Jobs.WoodWorker.Name;
+        public string name => SlowPorterFromCrate.Name + WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 
-        public string Job => Jobs.WoodWorker.Name;
+        public string Job => WoodWorker.Name;
 
-        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
+        public List<string> JobBlock => new List<string>() { WoodWorker.Name };
     }
 }
 

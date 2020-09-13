@@ -5,6 +5,7 @@ using Pandaros.API.Questing.BuiltinRewards;
 using Pandaros.API.Questing.Models;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
+using Pandaros.Civ.TimePeriods.StoneAge.Jobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
