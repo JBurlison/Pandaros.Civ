@@ -46,6 +46,8 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public virtual Vector3Int GetPosition()
         {
+            var stockpileLoc = StorageFactory.GetStockpilePosition(Job.Owner);
+
             if (WalkingTo == StorageType.Crate)
             {
                 if (!LastCratePosition.Contains(GoalStoring.ClosestCrate) && StorageFactory.CrateLocations[Job.Owner].ContainsKey(GoalStoring.ClosestCrate))
@@ -66,7 +68,6 @@ namespace Pandaros.Civ.Jobs.Goals
                     if (LastCratePosition.Contains(CurrentCratePosition))
                     {
                         WalkingTo = StorageType.Stockpile;
-                        var stockpileLoc = StorageFactory.GetStockpilePosition(Job.Owner);
 
                         if (stockpileLoc.Position == Vector3Int.invalidPos || stockpileLoc.Position == default(Vector3Int))
                             CurrentCratePosition = Job.Owner.Banners.FirstOrDefault().Position;
@@ -76,10 +77,14 @@ namespace Pandaros.Civ.Jobs.Goals
                 }
             }
 
-            if (CurrentCratePosition == Vector3Int.invalidPos)
+            if (CurrentCratePosition == Vector3Int.invalidPos || CurrentCratePosition == default(Vector3Int))
             {
                 WalkingTo = StorageType.Stockpile;
-                CurrentCratePosition = StorageFactory.GetStockpilePosition(Job.Owner).Position;
+
+                if (stockpileLoc.Position == Vector3Int.invalidPos || stockpileLoc.Position == default(Vector3Int))
+                    CurrentCratePosition = Job.Owner.Banners.FirstOrDefault().Position;
+                else
+                    CurrentCratePosition = stockpileLoc.Position;
             }
 
             return CurrentCratePosition;
