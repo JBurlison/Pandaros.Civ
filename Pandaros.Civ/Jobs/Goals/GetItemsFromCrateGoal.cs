@@ -56,7 +56,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 if (!Job.Owner.Stockpile.Contains(item))
                     stockpileHasItems = false;
 
-                if (StorageFactory.ItemCrateLocations[Job.Owner].TryGetValue(item.Id, out var locations))
+                if (StorageFactory.ItemCrateLocations.TryGetValue(Job.Owner, out var itemCrates) && itemCrates.TryGetValue(item.Id, out var locations))
                     if (!LastCratePosition.Contains(ItemsForGoal.ClosestCrate) && locations.Contains(ItemsForGoal.ClosestCrate))
                         cratesWithItems.Add(ItemsForGoal.ClosestCrate);
                     else
