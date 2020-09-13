@@ -134,12 +134,15 @@
     <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
+    <Compile Include="TimePeriods\StoneAge\Jobs\Forager.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveForager.cs" />
+    <Compile Include="TimePeriods\StoneAge\Research\BronzeAgeResearch.cs" />
+    <Compile Include="TimePeriods\StoneAge\Jobs\StoneSpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\RockThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
-    <Compile Include="TimePeriods\PreHistory\Jobs\StoneShaper.cs" />
+    <Compile Include="TimePeriods\StoneAge\Jobs\StoneShaper.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\StoneAgeQuest.cs" />
     <Compile Include="TimePeriods\PreHistory\Tutorials\JustStartingTutorial.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\Sling.cs" />
@@ -169,6 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\CommandTool.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\Forager.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\crates_tutorial.PNG">
@@ -234,6 +240,9 @@
     <Content Include="Textures\albedo\CarvedLogTop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\albedo\Forager.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\albedo\IronChest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -258,6 +267,9 @@
     <Content Include="Textures\heightSmoothnessSpecularity\CarvedLogTop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\heightSmoothnessSpecularity\Forager.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\heightSmoothnessSpecularity\IronChest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -274,6 +286,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\normal\CarvedLogTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\normal\Forager.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\normal\IronChest.png">
@@ -306,6 +321,9 @@
     <None Include="Meshes\Crate.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\Forager.ply">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Meshes\IronChest.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -328,7 +346,7 @@
     <Folder Include="TimePeriods\FusionAge\" />
     <Folder Include="TimePeriods\InformationAge\" />
     <Folder Include="TimePeriods\RenewablesAge\" />
-    <Folder Include="TimePeriods\StoneAge\Jobs\" />
+    <Folder Include="TimePeriods\StoneAge\Quests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\basket.png">

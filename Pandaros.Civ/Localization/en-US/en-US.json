@@ -70,6 +70,20 @@
               }
             }
           }
+        },
+        "CommandTool": {
+          "CommandTool": "The Civilisation Command Tool",
+          "Button": {
+            "Guards": "Guards",
+            "Back": "Back",
+            "Night": "Night",
+            "Day": "Day"
+          },
+          "Label": {
+            "Guards":  "Guards:",
+            "RockThrower": "Rock Thrower",
+            "SpearThrower":  "Spear Thrower"
+          }
         }
       }
     }
