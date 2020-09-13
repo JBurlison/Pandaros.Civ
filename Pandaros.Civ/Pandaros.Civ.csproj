@@ -134,8 +134,10 @@
     <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
+    <Compile Include="TimePeriods\PreHistory\Quests\GettingStartedQuests.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\Forager.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveForager.cs" />
+    <Compile Include="TimePeriods\StoneAge\Quests\BronzeAgeQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Research\BronzeAgeResearch.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\StoneSpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SpearThrower.cs" />
@@ -346,7 +348,6 @@
     <Folder Include="TimePeriods\FusionAge\" />
     <Folder Include="TimePeriods\InformationAge\" />
     <Folder Include="TimePeriods\RenewablesAge\" />
-    <Folder Include="TimePeriods\StoneAge\Quests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\basket.png">
