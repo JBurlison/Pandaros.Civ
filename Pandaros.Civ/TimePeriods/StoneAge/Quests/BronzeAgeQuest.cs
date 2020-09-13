@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Pandaros.Civ.Quests;
 using Pandaros.API.Models;
 using Pandaros.API;
+using Pandaros.API.Questing.BuiltinPrerequisites;
 
 namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
 {
@@ -25,7 +26,11 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
             base(NAME, NAME + "Text", ColonyBuiltIn.ItemTypes.BRONZEINGOT, HELPER)
         {
         }
-
+        public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
+        {
+           new QuestPrerequisite( PreHistory.Quests.StoneAgeQuest.NAME)
+        }; 
+        public override bool HideQuest { get; } = true;
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {

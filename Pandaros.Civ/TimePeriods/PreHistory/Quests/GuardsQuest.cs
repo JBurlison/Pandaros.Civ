@@ -11,39 +11,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pandaros.Civ.Quests;
+using Pandaros.Civ.Storage;
 using Pandaros.API.Questing.BuiltinPrerequisites;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 {
-    public class StoneAgeQuest : GenericQuest
+    public class GuardsQuest : GenericQuest
     {
-        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Quests", nameof(StoneAgeQuest));
+        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Quests", nameof(GuardsQuest));
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.PreHistory.Quests");
 
-        public StoneAgeQuest() : 
-            base(NAME, NAME + "Text", StoneAgeIcon.NAME, HELPER)
+        public GuardsQuest() : 
+            base(NAME, NAME + "Text", WoodenSpear.NAME, HELPER)
         {
         }
+
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( GuardsQuest.NAME)
+           new QuestPrerequisite( BasicForagerQuest.NAME)
         };
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {
-                "colonistcount",
-                new ColonistCountObjective("colonistcount", 15)
+                "stonethrower",
+                new JobsTakenObjective("stonethrower", RockThrower.NameNight, 1)
             },
             {
-                "stockpilesize",
-                new StockpileSizeObjective("stockpilesize", 140)
+                "spearthrower",
+                new JobsTakenObjective("spearthrower", SpearThrower.NameNight, 1)
+            },
+            {
+                "rocksinstockpile",
+                new ItemsInStockpileObjective("rocksinstockpile", SharpRock.NAME, 25)
+            },
+            {
+                "spearinstockpile",
+                new ItemsInStockpileObjective("spearinstockpile", WoodenSpear.NAME, 25)
             }
         };
-
+        
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AbleToCompleteStoneAgeQuest", StoneAgeIcon.NAME, "AbleToCompleteStoneAgeQuest", HELPER),
-            new TimePeriodReward(TimePeriod.StoneAge, StoneAgeIcon.NAME, "TimePeriodRewardStoneAge")
+            new TextReward("AdvanceToStoneAgeQuest", StoneAgeIcon.NAME, "AdvanceToStoneAgeQuest", HELPER)
         };
     }
 }

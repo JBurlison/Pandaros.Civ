@@ -16,28 +16,35 @@ using Pandaros.API.Questing.BuiltinPrerequisites;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 {
-    public class GettingStartedQuest : GenericQuest
+    public class WoodWorkerQuest : GenericQuest
     {
-        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Quests", nameof(GettingStartedQuest));
+        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Quests", nameof(WoodWorkerQuest));
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.PreHistory.Quests");
 
-        public GettingStartedQuest() : 
-            base(NAME, NAME + "Text", StockpileBlock.Name, HELPER)
+        public WoodWorkerQuest() : 
+            base(NAME, NAME + "Text", WoodWorker.Name, HELPER)
         {
         }
-        
 
+        public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
+        {
+           new QuestPrerequisite( GettingStartedQuest.NAME)
+        };
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {
-                "stockpileblockplaced",
-                new BlockPlacedObjective("stockpileblockplaced", StockpileBlock.Name, 1)
+                "woodinstockpile",
+                new ItemsInStockpileObjective("woodinstockpile", Wood.NAME, 20)
+            },
+            {
+                "woodworker",
+                new JobsTakenObjective("woodworker", WoodWorker.Name, 1)
             }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToWoodWorkerQuest", WoodWorker.Name, "AdvanceToWoodWorkerQuest", HELPER)
+            new TextReward("AdvanceToBasicForagerQuest", PrimitiveForager.Name, "AdvanceToBasicForagerQuest", HELPER)
         };
     }
 }
