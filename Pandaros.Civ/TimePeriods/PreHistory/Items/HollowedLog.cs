@@ -11,22 +11,22 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 {
-    public class CarvedLogTextureTop : CSTextureMapping
+    public class HollowedLogTextureTop : CSTextureMapping
     {
-        public override string name => CarvedLog.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "CarvedLogTop.png");
-        public override string height => GameSetup.Textures.GetPath(TextureType.height, "CarvedLogTop.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "CarvedLogTop.png");
+        public override string name => HollowedLog.Name;
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "HollowedLogTop.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "HollowedLogTop.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "HollowedLogTop.png");
     }
 
-    public class CarvedLog : CSType, IStorageUpgradeBlock
+    public class HollowedLog : CSType, IStorageUpgradeBlock
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(CarvedLog));
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(HollowedLog));
         public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public int GlobalStorageUpgrade { get; set; }
 
-        public CarvedLog()
+        public HollowedLog()
         {
             name = Name;
             GlobalStorageUpgrade = 8;
@@ -43,7 +43,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
                 GameSetup.NAMESPACE
             };
             isSolid = true;
-            icon = GameSetup.Textures.GetPath(TextureType.icon, "CarvedLog.png");
+            icon = GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "HollowedLog.png");
         }
     }
 
@@ -82,7 +82,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE;
     }*/
-    public class CarvedLogTaigaWoodWorkerRecipe : ICSRecipe
+    public class HollowedLogTaigaWoodWorkerRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -92,12 +92,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(CarvedLog.Name)
+            new RecipeResult(HollowedLog.Name)
         };
 
         
 
-        public string name => CarvedLog.Name + + ColonyBuiltIn.ItemTypes.LOGTAIGA + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+        public string name => HollowedLog.Name + + ColonyBuiltIn.ItemTypes.LOGTAIGA + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Low;
         public int defaultLimit => 5;
 
@@ -106,7 +106,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public List<string> JobBlock => new List<string>() { TimePeriods.PreHistory.Jobs.WoodWorker.Name };
     }
 
-    public class CarvedLogTemperateWoodWorkerRecipe : ICSRecipe
+    public class HollowedLogTemperateWoodWorkerRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -116,12 +116,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(CarvedLog.Name)
+            new RecipeResult(HollowedLog.Name)
         };
 
         
 
-        public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
+        public string name => HollowedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Low;
         public int defaultLimit => 5;
 

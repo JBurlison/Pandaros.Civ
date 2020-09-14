@@ -13,7 +13,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
     {
         public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(LeafSash));
         public override string name { get; set; } = NAME;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "LeafSash.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "LeafSash.png");
         public override bool? isPlaceable => false;
         public override int? maxStackSize => 5;
         public override List<string> categories { get; set; } = new List<string>()

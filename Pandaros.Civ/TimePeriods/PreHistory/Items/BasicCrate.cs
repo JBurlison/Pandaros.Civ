@@ -46,7 +46,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             };
             onPlaceAudio = "woodPlace";
             onRemoveAudio = "woodDeleteLight";
-            icon = GameSetup.Textures.GetPath(TextureType.icon, "BasicCrate.png");
+            icon = GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "BasicCrate.png");
             mesh = GameSetup.MESH_PATH + "Crate.ply";
         }
     }

@@ -156,7 +156,7 @@
     <Compile Include="TimePeriods\StoneAge\Items\Basket.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="TimePeriods\PreHistory\Items\CarvedLog.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\HollowedLog.cs" />
     <Compile Include="Storage\CrateInventory.cs" />
     <Compile Include="Extender\Providers\CrateLoaderProvider.cs" />
     <Compile Include="Storage\ICrate.cs" />
@@ -185,13 +185,13 @@
     <Content Include="icons\crates_tutorial.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\LeafBasket.png">
+    <Content Include="icons\PreHistory\LeafBasket.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\BasicCrate.png">
+    <Content Include="icons\PreHistory\BasicCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\LeafSash.png">
+    <Content Include="icons\PreHistory\LeafSash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\PaddedCrate.png">
@@ -200,7 +200,7 @@
     <Content Include="icons\Pandaros.Civ.TimePeriods.PreHistory.Research.StoneAgeResearch.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\SharpRock.png">
+    <Content Include="icons\PreHistory\SharpRock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\SlowPorterFromCrate.png">
@@ -209,10 +209,10 @@
     <Content Include="icons\SlowPorterToCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\Rock.png">
+    <Content Include="icons\PreHistory\Rock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\RoughWoodBoard.png">
+    <Content Include="icons\PreHistory\RoughWoodenBoard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\Shelving.png">
@@ -236,13 +236,13 @@
     <Content Include="icons\StorageDrawers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\Wood.png">
+    <Content Include="icons\PreHistory\Wood.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\PreHistory\Stick.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\albedo\CarvedLogTop.png">
+    <Content Include="Textures\albedo\HollowedLogTop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\albedo\Forager.png">
@@ -269,7 +269,7 @@
     <Content Include="Textures\albedo\StorageDrawers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\heightSmoothnessSpecularity\CarvedLogTop.png">
+    <Content Include="Textures\heightSmoothnessSpecularity\HollowedLogTop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\heightSmoothnessSpecularity\Forager.png">
@@ -290,7 +290,7 @@
     <Content Include="Textures\heightSmoothnessSpecularity\Shelving.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\normal\CarvedLogTop.png">
+    <Content Include="Textures\normal\HollowedLogTop.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\normal\Forager.png">
@@ -346,6 +346,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="icons\StoneAge\" />
     <Folder Include="Textures\emissiveMaskAlpha\" />
     <Folder Include="TimePeriods\AtomicAge\" />
     <Folder Include="TimePeriods\FusionAge\" />
@@ -356,7 +357,7 @@
     <Content Include="icons\basket.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\CarvedLog.png">
+    <Content Include="icons\PreHistory\HollowedLog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\StockpileBlock.png">

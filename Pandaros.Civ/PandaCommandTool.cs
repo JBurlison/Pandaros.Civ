@@ -16,7 +16,7 @@ using Pandaros.API.localization;
 using Pandaros.API.Models;
 using Pandaros.API.Items;
 
-namespace Pandaros.Civ
+namespace Pandaros.Civ.CommandTool
 {
     //open ui with command
     [ChatCommandAutoLoader]
@@ -180,9 +180,9 @@ namespace Pandaros.Civ
 
         }
     }
-    public class CommandTool : CSType
+    public class CommandToolType : CSType
     {
-        public static string NAME = GameSetup.GetNamespace(nameof(CommandTool));
+        public static string NAME = GameSetup.GetNamespace("CommandTool");
         public override string name { get; set; } = NAME;
         public override StaticItems.StaticItem StaticItemSettings => new StaticItems.StaticItem() { Name = NAME };
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "CommandTool.png");
@@ -201,7 +201,7 @@ namespace Pandaros.Civ
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnPlayerClicked, GameSetup.NAMESPACE + ".CommandTool.OnPlayerClick")]
         public static void UIManagement(Players.Player player, PlayerClickedData data)
         {
-            if (data.TypeSelected == ItemTypes.GetType(CommandTool.NAME).ItemIndex)
+            if (data.TypeSelected == ItemTypes.GetType(CommandToolType.NAME).ItemIndex)
             {
                 //PlayerClickedData.VoxelHit voxelData = data.GetVoxelHit();
                 if (data.ClickType == PlayerClickedData.EClickType.Left)
@@ -222,7 +222,7 @@ namespace Pandaros.Civ
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnSendAreaHighlights, GameSetup.NAMESPACE + ".CommandTool.OnSendAreaHighlights")]
         private static void OnSendAreaHighlights(Players.Player goal, List<AreaJobTracker.AreaHighlight> list, List<ushort> showWhileHoldingTypes)
         {
-            showWhileHoldingTypes.Add(ItemTypes.GetType(CommandTool.NAME).ItemIndex);
+            showWhileHoldingTypes.Add(ItemTypes.GetType(CommandToolType.NAME).ItemIndex);
         }
     }
 }
