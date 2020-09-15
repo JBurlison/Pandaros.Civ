@@ -27,7 +27,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         };
     }
 
-    /*public class SharpRockRecipe : ICSPlayerRecipe
+    public class SharpRockRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -63,5 +63,5 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public string Job => StoneShaper.Name;
 
         public List<string> JobBlock => new List<string>() { StoneShaper.Name };
-    }*/
+    }
 }
