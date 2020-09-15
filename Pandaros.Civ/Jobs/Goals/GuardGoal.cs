@@ -60,6 +60,8 @@ namespace Pandaros.Civ.Jobs.Goals
         public void PerformGoal(ref NPCBase.NPCState state)
         {
             Pipliz.Vector3Int position = GuardJob.Position;
+            state.SetCooldown(1);
+
             if (GuardJob.HasTarget)
             {
                 UnityEngine.Vector3 npcPos = position.Add(0, 1, 0).Vector;
@@ -71,15 +73,19 @@ namespace Pandaros.Civ.Jobs.Goals
                     return;
                 }
             }
+
             GuardJob.Target = MonsterTracker.Find(position.Add(0, 1, 0), GuardSettings.Range, GuardSettings.Damage);
+
             if (GuardJob.HasTarget)
             {
                 GuardJob.NPC.LookAt(GuardJob.Target.PositionToAimFor);
                 ShootAtTarget(GuardJob, ref state);
                 return;
             }
+
             state.SetCooldown(GuardSettings.CooldownSearchingTarget * Pipliz.Random.NextFloat(0.9f, 1.1f));
             UnityEngine.Vector3 pos = GuardJob.NPC.Position.Vector;
+
             if (GuardSettings.BlockTypes.ContainsByReference(GuardJob.BlockType, out int index))
             {
                 switch (index)
@@ -105,9 +111,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             if (!Job.NPC.Inventory.Contains(GuardSettings.ShootItem))
             {
-                var items = GuardSettings.ShootItem.Select(i => new StoredItem(i.Type, i.Amount * 50)).ToArray();
-                var getitemsfromCrate = new GetItemsFromCrateGoal(Job, GuardJob.Position, this, items, this);
-                PandaJobFactory.SetActiveGoal(Job, getitemsfromCrate, ref Job.NPC.state);
+                Shop(Job, ref Job.NPC.state);
             }
         }
 
@@ -131,16 +135,22 @@ namespace Pandaros.Civ.Jobs.Goals
                 state.SetIndicator(new IndicatorState(GuardSettings.CooldownShot, GuardSettings.ShootItem[0].Type));
                 if (GuardSettings.OnShootResultItem.item.Type > 0 && Pipliz.Random.NextDouble(0.0, 1.0) <= (double)GuardSettings.OnShootResultItem.chance)
                 {
-                    instance.Owner.Stockpile.Add(GuardSettings.OnShootResultItem.item);
+                    state.Inventory.Add(GuardSettings.OnShootResultItem.item);
                 }
             }
             else
             {
-                var items = GuardSettings.ShootItem.Select(i => new StoredItem(i.Type, i.Amount * 50)).ToArray();
-                var getitemsfromCrate = new GetItemsFromCrateGoal(instance, GuardJob.Position, this, items, this);
-                PandaJobFactory.SetActiveGoal(instance, new PutItemsInCrateGoal(Job, GuardJob.Position, getitemsfromCrate, state.Inventory.Inventory, this), ref state);
-                state.Inventory.Add(items);
+                Shop(instance, ref state);
             }
+        }
+
+        private void Shop(IJob instance, ref NPCBase.NPCState state)
+        {
+            var items = GuardSettings.ShootItem.Select(i => new StoredItem(i.Type, i.Amount * 50)).ToArray();
+            var getitemsfromCrate = new GetItemsFromCrateGoal(instance, GuardJob.Position, this, items, this);
+            PandaJobFactory.SetActiveGoal(instance, new PutItemsInCrateGoal(Job, GuardJob.Position, getitemsfromCrate, state.Inventory.Inventory, this), ref state);
+            state.Inventory.Inventory.Clear();
+            state.Inventory.Add(items);
         }
 
         public Vector3Int GetCrateSearchPosition()
