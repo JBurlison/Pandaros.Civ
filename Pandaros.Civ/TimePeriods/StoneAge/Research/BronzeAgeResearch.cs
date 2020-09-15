@@ -41,7 +41,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Research
                 0,
                 new List<RecipeUnlock>()
                 {
-                    new RecipeUnlock(IronChest.Name, ERecipeUnlockType.Recipe),
+                    //new RecipeUnlock(IronChest.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(PaddedCrate.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(Shelving.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(Pallet.Name, ERecipeUnlockType.Recipe),
