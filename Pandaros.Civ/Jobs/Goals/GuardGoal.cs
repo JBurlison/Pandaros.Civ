@@ -61,6 +61,13 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             Pipliz.Vector3Int position = GuardJob.Position;
             state.SetCooldown(1);
+            state.JobIsDone = true;
+
+            if (!Job.NPC.Inventory.Contains(GuardSettings.ShootItem))
+            {
+                Shop(Job, ref Job.NPC.state);
+                return;
+            }
 
             if (GuardJob.HasTarget)
             {
