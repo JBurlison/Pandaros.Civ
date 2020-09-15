@@ -21,6 +21,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Quests", nameof(GettingStartedQuest));
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.PreHistory.Quests");
 
+        public override string GetQuestTitle(Colony colony, Players.Player player)
+        {
+            return HELPER.LocalizeOrDefault(NAME, player);
+        }
+
         public GettingStartedQuest() : 
             base(NAME, NAME + "Text", StockpileBlock.Name, HELPER)
         {

@@ -26,6 +26,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         {
         }
 
+        public override string GetQuestTitle(Colony colony, Players.Player player)
+        {
+            return HELPER.LocalizeOrDefault(NAME, player);
+        }
+
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
            new QuestPrerequisite( GettingStartedQuest.NAME)
