@@ -14,12 +14,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
+namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 {
     [ModLoader.ModManager]
     public static class SlowPorterModEntries
     {
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.StoneAge.Jobs.SlowPorterModEntry")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.SlowPorterModEntry")]
         [ModLoader.ModCallbackProvidesFor("create_savemanager")]
         public static void AfterDefiningNPCTypes()
         {
@@ -54,7 +54,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
 
     public class SlowPorterToCrate : PorterJobSettings
     {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(SlowPorterToCrate));
+        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterToCrate));
 
         public SlowPorterToCrate() : base(Name, Name, PandaGoalJob.PorterJobType.ToCrate)
         {
@@ -135,7 +135,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
 
     public class SlowPorterFromCrate : PorterJobSettings
     {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(SlowPorterFromCrate));
+        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterFromCrate));
 
         public SlowPorterFromCrate() : base(Name, Name, PandaGoalJob.PorterJobType.FromCrate)
         {

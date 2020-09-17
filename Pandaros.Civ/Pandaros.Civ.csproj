@@ -129,7 +129,6 @@
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Icons.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafSash.cs" />
-    <Compile Include="TimePeriods\PreHistory\Items\SharpRock.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Stick.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />
@@ -145,7 +144,7 @@
     <Compile Include="TimePeriods\StoneAge\Jobs\StoneSpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\RockThrower.cs" />
-    <Compile Include="TimePeriods\StoneAge\Jobs\SlowPorter.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\StoneShaper.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\StoneAgeQuest.cs" />
