@@ -80,8 +80,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Rock.NAME, 16),
-            new RecipeItem(SharpRock.NAME, 4)
+            new RecipeItem(Rock.NAME, 16)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()

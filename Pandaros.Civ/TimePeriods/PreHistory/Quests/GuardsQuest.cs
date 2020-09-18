@@ -47,7 +47,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             },
             {
                 "rocksinstockpile",
-                new ItemsInStockpileObjective("rocksinstockpile", SharpRock.NAME, 25)
+                new ItemsInStockpileObjective("rocksinstockpile", Rock.NAME, 25)
             },
             {
                 "spearinstockpile",

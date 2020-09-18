@@ -18,7 +18,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(SharpRock.NAME, 3)
+            new RecipeItem(Rock.NAME, 3)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
@@ -42,7 +42,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(SharpRock.NAME, 6)
+            new RecipeItem(Rock.NAME, 6)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
