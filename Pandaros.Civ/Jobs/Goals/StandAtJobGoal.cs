@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class StandAtJobGoal : INpcGoal
+    public class StandAtJobGoal : IPandaNpcGoal
     {
-        public StandAtJobGoal(IJob job, INpcGoal nextGoal, Vector3Int pos, StoredItem missingItem = null)
+        public StandAtJobGoal(IJob job, IPandaNpcGoal nextGoal, Vector3Int pos, StoredItem missingItem = null)
         {
             Job = job;
             Position = pos;
@@ -22,7 +22,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public StoredItem MissingItem { get; set; }
         public Vector3Int ClosestCrate { get; set; }
-        public INpcGoal NextGoal { get; set; }
+        public IPandaNpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(StandAtJobGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(StandAtJobGoal));

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class CrateToStockpikeGoal : INpcGoal
+    public class CrateToStockpikeGoal : IPandaNpcGoal
     {
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
 

@@ -46,34 +46,7 @@ namespace Pandaros.Civ.Jobs
             NPC.SendPositionUpdate();
         }
 
-        public override NPCBase.NPCGoal CalculateGoal(ref NPCBase.NPCState state)
-        {
-            return CalculateGoal(ref state, true);
-        }
-
-        public NPCBase.NPCGoal CalculateGoal(ref NPCBase.NPCState state, bool sleepAtNight)
-        {
-            var nPCGoal = NPCBase.NPCGoal.Job;
-
-            if (sleepAtNight && !TimeCycle.IsDay)
-            {
-                nPCGoal = NPCBase.NPCGoal.Bed;
-            }
-            else if (TimeCycle.IsDay && !sleepAtNight)
-            {
-                nPCGoal = NPCBase.NPCGoal.Bed;
-            }
-
-            if (nPCGoal != LastNPCGoal)
-            {
-                Settings.OnGoalChanged(this, LastNPCGoal, nPCGoal);
-                LastNPCGoal = nPCGoal;
-            }
-
-            return nPCGoal;
-        }
-
-        public void SetGoal(IJob job, INpcGoal npcGoal)
+        public void SetGoal(IJob job, IPandaNpcGoal npcGoal)
         {
            
         }

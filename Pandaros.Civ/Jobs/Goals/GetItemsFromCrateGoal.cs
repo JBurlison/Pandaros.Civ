@@ -10,10 +10,10 @@ using Jobs;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class GetItemsFromCrateGoal : INpcGoal
+    public class GetItemsFromCrateGoal : IPandaNpcGoal
     {
 
-        public GetItemsFromCrateGoal(IJob job, Vector3Int originalPos, INpcGoal nextGoal, StoredItem[] itemsToGet, INpcGoal itemsForGoal)
+        public GetItemsFromCrateGoal(IJob job, Vector3Int originalPos, IPandaNpcGoal nextGoal, StoredItem[] itemsToGet, IPandaNpcGoal itemsForGoal)
         {
             Job = job;
             NextGoal = nextGoal;
@@ -22,7 +22,7 @@ namespace Pandaros.Civ.Jobs.Goals
             OriginalPosition = originalPos;
         }
 
-        public GetItemsFromCrateGoal(IJob job, Vector3Int originalPos, INpcGoal nextGoal, List<InventoryItem> itemsToGet, INpcGoal itemsForGoal)
+        public GetItemsFromCrateGoal(IJob job, Vector3Int originalPos, IPandaNpcGoal nextGoal, List<InventoryItem> itemsToGet, IPandaNpcGoal itemsForGoal)
         {
             Job = job;
             NextGoal = nextGoal;
@@ -34,8 +34,8 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int OriginalPosition { get; set; }
         public Vector3Int ClosestCrate { get; set; }
         public StoredItem[] ItemsToGet { get; set; }
-        public INpcGoal ItemsForGoal { get; set; }
-        public INpcGoal NextGoal { get; set; }
+        public IPandaNpcGoal ItemsForGoal { get; set; }
+        public IPandaNpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
         public string Name { get; set; } = nameof(GetItemsFromCrateGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Goals", nameof(GetItemsFromCrateGoal));

@@ -17,7 +17,7 @@ namespace Pandaros.Civ.Jobs.Goals
 {
 
     
-    public class CraftingGoal : INpcGoal
+    public class CraftingGoal : IPandaNpcGoal
     {
         public CraftingGoal(IJob job, CraftingJobSettings settings)
         {

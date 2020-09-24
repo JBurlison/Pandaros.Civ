@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class FarmingGoal : INpcGoal
+    public class FarmingGoal : IPandaNpcGoal
     {
         public FarmingGoal(PandaFarmingJob job, AbstractFarmAreaJobDefinition definitioan)
         {

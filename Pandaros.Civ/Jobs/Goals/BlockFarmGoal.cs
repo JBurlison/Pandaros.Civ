@@ -18,7 +18,7 @@ using static Pandaros.Civ.Jobs.BaseReplacements.PandaBlockFarmAreaJobDefinition;
 namespace Pandaros.Civ.Jobs.Goals
 {
 
-    public class BlockFarmGoal : INpcGoal
+    public class BlockFarmGoal : IPandaNpcGoal
     {
         public BlockFarmGoal(PandaBlockFarmAreaJob job, PandaBlockFarmAreaJobDefinition definitioan)
         {

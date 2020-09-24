@@ -28,8 +28,8 @@ namespace Pandaros.Civ.Jobs
     [ModLoader.ModManager]
     public class PandaJobFactory : IOnRegisteringEntityManagers, IAfterItemTypesDefined, IOnNPCJobChanged, IOnTimedUpdate, ICrateRequest, ICratePlacementUpdate, IOnQuit
     {
-        public static Dictionary<Colony, Dictionary<IJob, INpcGoal>> ActiveGoals { get; set; } = new Dictionary<Colony, Dictionary<IJob, INpcGoal>>();
-        public static Dictionary<string, List<INpcGoal>> ActiveGoalsByType { get; set; } = new Dictionary<string, List<INpcGoal>>();
+        public static Dictionary<Colony, Dictionary<IJob, IPandaNpcGoal>> ActiveGoals { get; set; } = new Dictionary<Colony, Dictionary<IJob, IPandaNpcGoal>>();
+        public static Dictionary<string, List<IPandaNpcGoal>> ActiveGoalsByType { get; set; } = new Dictionary<string, List<IPandaNpcGoal>>();
 
         public int NextUpdateTimeMinMs => 10;
 
@@ -105,14 +105,14 @@ namespace Pandaros.Civ.Jobs
             }
         }
 
-        public static bool TryGetActiveGoal(IJob job, out INpcGoal goal)
+        public static bool TryGetActiveGoal(IJob job, out IPandaNpcGoal goal)
         {
             if (ActiveGoals.TryGetValue(job.Owner, out var goalList) && goalList.TryGetValue(job, out goal))
             {
                 return true;
             }
 
-            goal = default(INpcGoal);
+            goal = default(IPandaNpcGoal);
             return false;
         }
 
@@ -121,17 +121,17 @@ namespace Pandaros.Civ.Jobs
             return ActiveGoals.TryGetValue(job.Owner, out var jobGoals) && jobGoals.ContainsKey(job);
         }
 
-        public static void SetActiveGoal(IJob job, INpcGoal npcGoal, ref NPCBase.NPCState state)
+        public static void SetActiveGoal(IJob job, IPandaNpcGoal npcGoal, ref NPCBase.NPCState state)
         {
             state.JobIsDone = true;
             SetActiveGoal(job, npcGoal);
         }
 
-        public static void SetActiveGoal(IJob job, INpcGoal npcGoal)
+        public static void SetActiveGoal(IJob job, IPandaNpcGoal npcGoal)
         {
             if (!ActiveGoalsByType.TryGetValue(npcGoal.Name, out var goals))
             {
-                goals = new List<INpcGoal>();
+                goals = new List<IPandaNpcGoal>();
                 ActiveGoalsByType[npcGoal.Name] = goals;
             }
 
@@ -147,7 +147,7 @@ namespace Pandaros.Civ.Jobs
             }
             else
             {
-                goalList = new Dictionary<IJob, INpcGoal>()
+                goalList = new Dictionary<IJob, IPandaNpcGoal>()
                 {
                     { job,  npcGoal }
                 };

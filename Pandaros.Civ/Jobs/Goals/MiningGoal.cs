@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class MiningGoal : INpcGoal
+    public class MiningGoal : IPandaNpcGoal
     {
 		public MiningGoal(BlockJobInstance job, PandaMiningJobSettings settings)
         {

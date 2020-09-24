@@ -3,7 +3,6 @@ using Pandaros.API.Research;
 using Pandaros.API.Research.Conditions;
 using Pandaros.Civ.TimePeriods.BronzeAge.Items;
 using Pandaros.Civ.TimePeriods.IronAge.Items;
-using Pandaros.Civ.TimePeriods.BronzeAge.Items;
 using Pandaros.Civ.TimePeriods.StoneAge.Jobs;
 using Pandaros.Civ.TimePeriods.StoneAge.Quests;
 using Science;

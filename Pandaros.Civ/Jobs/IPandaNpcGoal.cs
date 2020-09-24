@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs
 {
-    public interface INpcGoal
+    public interface IPandaNpcGoal
+
     {
         IJob Job { get; set; }
         string Name { get; set; }

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class StockpikeToCrateGoal : INpcGoal, IOnTimedUpdate
+    public class StockpikeToCrateGoal : IPandaNpcGoal, IOnTimedUpdate
     {
         public static List<Vector3Int> InProgress { get; set; } = new List<Vector3Int>();
         public static Dictionary<Vector3Int, Dictionary<ushort, StoredItem>> ItemsNeeded { get; set; } = new Dictionary<Vector3Int, Dictionary<ushort, StoredItem>>();
@@ -192,7 +192,7 @@ namespace Pandaros.Civ.Jobs.Goals
                         }
         }
 
-        public static void UpdateCrateLocationsForPorter(INpcGoal goal)
+        public static void UpdateCrateLocationsForPorter(IPandaNpcGoal goal)
         {
             if (goal != null &&
                 goal.Job.Owner != null &&

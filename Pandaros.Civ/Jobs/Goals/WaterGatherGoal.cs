@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class WaterGatherGoal : INpcGoal
+    public class WaterGatherGoal : IPandaNpcGoal
     {
 
         public WaterGatherGoal(CraftingJobWaterInstance blockJobInstance, PandaCraftingJobWaterSettings pandaJobSettings)

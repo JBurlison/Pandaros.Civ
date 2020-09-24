@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class ForagingGoal : INpcGoal
+    public class ForagingGoal : IPandaNpcGoal
     {
         public enum ForagingState
         {

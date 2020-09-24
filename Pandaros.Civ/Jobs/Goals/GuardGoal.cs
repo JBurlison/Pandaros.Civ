@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace Pandaros.Civ.Jobs.Goals
 {
  
-    public class GuardGoal : INpcGoal
+    public class GuardGoal : IPandaNpcGoal
     {
         public static List<GuardGoal> CurrentGuards { get; set; } = new List<GuardGoal>();
 

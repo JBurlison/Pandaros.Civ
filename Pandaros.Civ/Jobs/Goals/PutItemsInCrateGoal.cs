@@ -10,10 +10,10 @@ using Jobs;
 
 namespace Pandaros.Civ.Jobs.Goals
 {
-    public class PutItemsInCrateGoal : INpcGoal
+    public class PutItemsInCrateGoal : IPandaNpcGoal
     {
 
-        public PutItemsInCrateGoal(IJob job, Vector3Int originalPos, INpcGoal nextGoal, StoredItem[] itemsToStore, INpcGoal goalStoring)
+        public PutItemsInCrateGoal(IJob job, Vector3Int originalPos, IPandaNpcGoal nextGoal, StoredItem[] itemsToStore, IPandaNpcGoal goalStoring)
         {
             Job = job;
             NextGoal = nextGoal;
@@ -22,7 +22,7 @@ namespace Pandaros.Civ.Jobs.Goals
             GoalStoring = goalStoring;
         }
 
-        public PutItemsInCrateGoal(IJob job, Vector3Int originalPos, INpcGoal nextGoal, List<InventoryItem> itemsToStore, INpcGoal goalStoring)
+        public PutItemsInCrateGoal(IJob job, Vector3Int originalPos, IPandaNpcGoal nextGoal, List<InventoryItem> itemsToStore, IPandaNpcGoal goalStoring)
         {
             Job = job;
             NextGoal = nextGoal;
@@ -34,8 +34,8 @@ namespace Pandaros.Civ.Jobs.Goals
         public Vector3Int OriginalPos { get; set; }
         public Vector3Int ClosestCrate { get; set; }
         public StoredItem[] ItemsToStore { get; set; }
-        public INpcGoal GoalStoring { get; set; }
-        public INpcGoal NextGoal { get; set; }
+        public IPandaNpcGoal GoalStoring { get; set; }
+        public IPandaNpcGoal NextGoal { get; set; }
         public IJob Job { get; set; }
         public PandaGoalJob Porter { get; set; }
         public string Name { get; set; } = nameof(PutItemsInCrateGoal);

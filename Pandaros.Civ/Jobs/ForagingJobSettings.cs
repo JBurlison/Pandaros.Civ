@@ -63,7 +63,7 @@ namespace Pandaros.Civ.Jobs
             return goal.GetPosition();
         }
 
-        public virtual void OnGoalChanged(BlockJobInstance instance, NPCBase.NPCGoal goalOld, NPCBase.NPCGoal goalNew)
+        public void OnGoalChanged(BlockJobInstance instance, INPCGoal goalOld, INPCGoal goalNew)
         {
             
         }
