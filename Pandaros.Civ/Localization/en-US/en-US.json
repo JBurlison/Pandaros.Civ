@@ -36,7 +36,7 @@
           "StockpileSizeObjective": "Max stockpile size of {0} out of {1}",
           "TimePeriodReward": "Upgrades the stockpile block's upgrade area!"
         },
-        "storage": {
+        "Storage": {
           "MaxCrateStackSize": "Max Crate Stack Size",
           "MaxNumberOfStacks": "Max Number Of Stacks",
           "GlobalStorageUpgrade": "Global Storage Upgrade",
@@ -54,7 +54,8 @@
           "Select": "Select",
           "CannotLocateCrateData": "Cannot Locate Crate Data",
           "GetItemsFromStockpile": "Get Items From Stockpile",
-          "GetItemsFromToolbar": "Get Items From Toolbar"
+          "GetItemsFromToolbar": "Get Items From Toolbar",
+          "StockpileSize": "Stockpile Max Stack Size: {0} ({1}% Full)"
         },
         "TimePeriods": {
           "PreHistory": {
@@ -105,7 +106,7 @@
     "Pandaros.Civ.Storage.StockpileBlock": "Stockpile Block",
 
     "Pandaros.Civ.TimePeriods.PreHistory.Items.BasicCrate": "Basic Crate",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.CarvedLog": "Hollowed Out Log",
+    "Pandaros.Civ.TimePeriods.PreHistory.Items.HollowedLog": "Hollowed Out Log",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafSash": "Leaf Sash",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Rock": "Rock",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.RoughWoodenBoard": "Rough Wooden Board",
@@ -139,7 +140,7 @@
     "Pandaros.Civ.Storage.StockpileBlock": "Stockpile Block is where porters and colonists get items from your central stockpile. Colonists must be able to walk up to it. One per colony.",
 
     "Pandaros.Civ.TimePeriods.PreHistory.Items.BasicCrate": "Can store a very small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Items.CarvedLog": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Items.HollowedLog": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafSash": "A sash made from leaves for guards to hold their ammo.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Rock": "It's just a rock.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.RoughWoodenBoard": "Carved from the finest rocks available.",

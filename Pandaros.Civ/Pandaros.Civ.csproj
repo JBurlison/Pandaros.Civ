@@ -115,9 +115,11 @@
     <Compile Include="Jobs\PandaGoalJob.cs" />
     <Compile Include="Jobs\ForagingJobSettings.cs" />
     <Compile Include="Jobs\PorterJobSettings.cs" />
+    <Compile Include="NPCs\NPCGoals\NPCCrateGoal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quests\StockpileSizeObjective.cs" />
     <Compile Include="Quests\TimePeriodReward.cs" />
+    <Compile Include="Storage\CivCrateTracker.cs" />
     <Compile Include="Storage\CrateViewer.cs" />
     <Compile Include="Storage\ICratePlacementUpdate.cs" />
     <Compile Include="Storage\PlacementEventType.cs" />

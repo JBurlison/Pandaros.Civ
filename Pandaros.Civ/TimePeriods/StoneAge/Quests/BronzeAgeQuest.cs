@@ -30,7 +30,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
 
         public override string GetQuestTitle(Colony colony, Players.Player player)
         {
-            return HELPER.LocalizeOrDefault(NAME, player);
+            return HELPER.LocalizeOrDefault(nameof(BronzeAgeQuest), player);
         }
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()

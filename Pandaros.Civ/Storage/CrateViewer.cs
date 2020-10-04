@@ -18,7 +18,7 @@ namespace Pandaros.Civ.Storage
     [ModLoader.ModManager]
     public class CrateViewer
     {
-        static readonly LocalizationHelper _localizationHelper = new LocalizationHelper(GameSetup.NAMESPACE, "storage");
+        static readonly LocalizationHelper _localizationHelper = new LocalizationHelper(GameSetup.NAMESPACE, "Storage");
         public static Dictionary<Players.Player, Vector3Int> LastCrateClick { get; set; } = new Dictionary<Players.Player, Vector3Int>();
 
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnPlayerClicked, GameSetup.NAMESPACE + ".Items.Crate.OpenMenu")]

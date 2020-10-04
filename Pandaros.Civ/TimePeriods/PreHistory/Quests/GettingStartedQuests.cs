@@ -23,7 +23,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 
         public override string GetQuestTitle(Colony colony, Players.Player player)
         {
-            return HELPER.LocalizeOrDefault(NAME, player);
+            return HELPER.LocalizeOrDefault(nameof(GettingStartedQuest), player);
         }
 
         public GettingStartedQuest() : 

@@ -1,4 +1,5 @@
 ﻿using BlockTypes;
+using colonyserver.Assets.UIGeneration;
 using ModLoaderInterfaces;
 using NetworkUI;
 using NetworkUI.Items;
@@ -6,6 +7,7 @@ using Newtonsoft.Json;
 using Pandaros.API;
 using Pandaros.API.Entities;
 using Pandaros.API.Extender;
+using Pandaros.API.localization;
 using Pandaros.API.Models;
 using Pandaros.API.WorldGen;
 using Pandaros.Civ.Jobs;
@@ -29,7 +31,7 @@ namespace Pandaros.Civ.Storage
         public int NextUpdateTimeMinMs => 2000;
 
         public int NextUpdateTimeMaxMs => 5000;
-
+        public static CivCrateTracker CrateTracker { get; set; }
         public ServerTimeStamp NextUpdateTime { get; set; }
         public static Dictionary<Colony, Dictionary<ushort, int>> StockpileMaxStackSize { get; set; } = new Dictionary<Colony, Dictionary<ushort, int>>();
         public static Dictionary<Colony, int> DefaultMax = new Dictionary<Colony, int>();
@@ -38,7 +40,7 @@ namespace Pandaros.Civ.Storage
         public static Dictionary<string, ICrate> CrateTypes { get; set; } = new Dictionary<string, ICrate>();
         public static List<ICrateRequest> CrateRequests { get; set; } = new List<ICrateRequest>();
         public static Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>> ItemCrateLocations { get; set; } = new Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>>();
-
+        public static LocalizationHelper LocalizationHelper { get; set; } = new LocalizationHelper(GameSetup.NAMESPACE, "Storage");
         public List<Type> LoadedAssembalies { get; } = new List<Type>();
 
         public string InterfaceName { get; } = nameof(IStorageUpgradeBlock);
@@ -72,12 +74,12 @@ namespace Pandaros.Civ.Storage
             {
                 data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
                                                      {
-                                                        (new Label(new LabelData(GameSetup.GetNamespace("storage.MaxCrateStackSize"))), 200),
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("Storage.MaxCrateStackSize"))), 200),
                                                         (new Label(new LabelData(crate.MaxCrateStackSize.ToString())), 60)
                                                     }));
                 data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
                                                      {
-                                                        (new Label(new LabelData(GameSetup.GetNamespace("storage.MaxNumberOfStacks"))), 200),
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("Storage.MaxNumberOfStacks"))), 200),
                                                         (new Label(new LabelData(crate.MaxNumberOfStacks.ToString())), 60)
                                                     }));
             }
@@ -86,7 +88,7 @@ namespace Pandaros.Civ.Storage
             {
                 data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
                                                      {
-                                                        (new Label(new LabelData(GameSetup.GetNamespace("storage.GlobalStorageUpgrade"))), 200),
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("Storage.GlobalStorageUpgrade"))), 200),
                                                         (new Label(new LabelData(upgrade.GlobalStorageUpgrade.ToString())), 60)
                                                     }));
 
@@ -94,7 +96,7 @@ namespace Pandaros.Civ.Storage
                 if (upgrade.CategoryStorageUpgrades.Count > 0)
                 {
                     data.menu.Items.Add(new EmptySpace(5));
-                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("storage.CategoryStoreUpgrades"), ELabelAlignment.MiddleCenter, 18)));
+                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("Storage.CategoryStoreUpgrades"), ELabelAlignment.MiddleCenter, 18)));
                     data.menu.Items.Add(new Line(UnityEngine.Color.white, 3));
                     foreach (var csu in upgrade.CategoryStorageUpgrades)
                         data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
@@ -107,7 +109,7 @@ namespace Pandaros.Civ.Storage
                 if (upgrade.ItemStorageUpgrades.Count > 0)
                 {
                     data.menu.Items.Add(new EmptySpace(5));
-                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("storage.ItemStoreUpgrades"), ELabelAlignment.MiddleCenter, 18)));
+                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("Storage.ItemStoreUpgrades"), ELabelAlignment.MiddleCenter, 18)));
                     data.menu.Items.Add(new Line(UnityEngine.Color.white, 3));
                     foreach (var csu in upgrade.ItemStorageUpgrades)
                         data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
@@ -332,6 +334,10 @@ namespace Pandaros.Civ.Storage
             if (colony == null)
                 colony = tryChangeBlockData.RequestOrigin.AsColony;
 
+            if (colony != null && tryChangeBlockData?.RequestOrigin.AsPlayer != null)
+                UIManager.AddorUpdateWorldLabel("TestText", "WorldText", colony.Banners[0].Position, 200, tryChangeBlockData?.RequestOrigin.AsPlayer, 100, colonyshared.NetworkUI.UIGeneration.WorldTextToggleType.AlwaysOn);
+
+
             if (colony != null &&
                     (StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeNew.Name) ||
                     StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeOld.Name)))
@@ -362,12 +368,10 @@ namespace Pandaros.Civ.Storage
 
         public static Vector3Int GetClosestCrateLocation(Vector3Int pos, Colony colony)
         {
-            var ClosestCrate = colony.Banners.FirstOrDefault().Position;
-
-            if (StorageFactory.CrateLocations.TryGetValue(colony, out var crateLocs))
-                ClosestCrate = pos.GetClosestPosition(crateLocs.Keys.ToList());
-            else
+            if (!StorageFactory.CrateTracker.TryGetClosestInColony(colony, pos, out var ClosestCrate))
             {
+                ClosestCrate = colony.Banners.FirstOrDefault().Position;
+
                 var stockpileLoc = StorageFactory.GetStockpilePosition(colony);
 
                 if (stockpileLoc.Position != default(Vector3Int))
@@ -417,6 +421,8 @@ namespace Pandaros.Civ.Storage
             if (total == 0)
                 total = StorageBlockTypes[StockpileBlock.Name].GlobalStorageUpgrade;
 
+            float stacksTotal = 0;
+
             foreach (var item in ItemTypes._TypeByUShort.Values)
             {
                 var totalStack = total;
@@ -433,7 +439,19 @@ namespace Pandaros.Civ.Storage
                     totalStack += itemTotal;
 
                 StockpileMaxStackSize[colony][item.ItemIndex] = totalStack;
+
+                var count = colony.Stockpile.AmountContained(item.ItemIndex);
+
+                if (count > 0)
+                    stacksTotal += count;
             }
+
+            var maxItems = colony.Stockpile.ItemCount * total;
+            var fillPct = System.Math.Round(stacksTotal / maxItems, 2) * 100;
+
+            foreach (var player in colony.Owners)
+                if (player.ActiveColony == colony)
+                    UIManager.AddorUpdateUILabel("ColonyStockpile" + colony.ColonyID, colonyshared.NetworkUI.UIGeneration.UIElementDisplayType.Colony, LocalizationHelper.LocalizeOrDefault("StockpileSize", player, total.ToString(), fillPct.ToString()), new Vector3Int(250, -150, 0), colonyshared.NetworkUI.AnchorPresets.TopLeft, 500, player);
         }
 
         public static StockpilePosition GetStockpilePosition(Colony colony)
@@ -467,6 +485,9 @@ namespace Pandaros.Civ.Storage
         {
             _worldLoaded = true;
 
+            if (ServerManager.BlockEntityCallbacks.TryGetAutoLoadedInstance<CivCrateTracker>(out var crateTracker))
+                CrateTracker = crateTracker;
+
             foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values.Where(c => c != null))
             {
                 if (!CrateLocations.ContainsKey(colony))
@@ -478,5 +499,6 @@ namespace Pandaros.Civ.Storage
                 RecalcStockpileMaxSize(colony);
             }
         }
+
     }
 }
