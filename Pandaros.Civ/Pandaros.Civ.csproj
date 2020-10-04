@@ -131,6 +131,8 @@
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Icons.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafSash.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\StoneSpear.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\StoneBrick.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Stick.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.StoneAge.Items;
 
 namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
 {
@@ -26,7 +27,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
         public string onShootAudio { get; set; } = "sling";
         public int range { get; set; } = StoneSpearThrower.range;
         public IRecruitmentitem recruitmentItem { get; set; } = new Recruitmentitem() { type = LeafSash.NAME };
-        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = Stick.NAME } };
+        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = StoneSpear.NAME } };
         public string sleepType { get; set; } = "Day"; 
     }
     public class StoneSpearThrowerGuardSettingsDay : ICSGuardJobSettings
@@ -40,7 +41,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
         public string onShootAudio { get; set; } = "sling";
         public int range { get; set; } = StoneSpearThrower.range;
         public IRecruitmentitem recruitmentItem { get; set; } = new Recruitmentitem() { type = LeafSash.NAME };
-        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = Stick.NAME } };
+        public IShootrequirement[] shootRequirements { get; set; } = new[] { new Shootrequirement() { type = StoneSpear.NAME } };
         public string sleepType { get; set; } = "Night";
     }
 
