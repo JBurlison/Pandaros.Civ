@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pandaros.Civ.TimePeriods.StoneAge.Jobs;
+using Shared;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Research
 {
@@ -32,6 +33,53 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
                 {
                     new ColonistCountCondition() { Threshold = 15 },
                     new QuestCompleteGoal(StoneAgeQuest.NAME)
+                }
+            }
+        };
+
+        public override Dictionary<int, List<(string, RecipeUnlockClient.EType)>> AdditionalUnlocks => new Dictionary<int, List<(string, RecipeUnlockClient.EType)>>()
+        {
+            {
+                0,
+                new List<(string, RecipeUnlockClient.EType)>()
+                {
+                    (ColonyBuiltIn.NpcTypes.ALKANETFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.BANANAFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.BARLEYFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.BEEKEEPER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.BERRYFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.CABBAGEFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.CACAOFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.CASSAVAFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.CHICKENFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.COFFEEBEANFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.CONSTRUCTOR, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.COTTONFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.FISHERMAN, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.FISHFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.FLAXFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.GUARDBOWDAY, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.GUARDBOWNIGHT, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.GUARDCROSSBOWDAY, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.GUARDCROSSBOWNIGHT, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.GUARDMATCHLOCKDAY, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.GUARDMATCHLOCKNIGHT, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.GUARDSLINGERDAY, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.GUARDSLINGERNIGHT, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.HOLLYHOCKFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.MINERJOB, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.OLIVEFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.PAPYRUSFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.POTATOFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.RICEFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.SILKWORMFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.SUGARCANEFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.TEAFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.TOMATOFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.VANILLAFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.WATERGATHERER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.WHEATFARMER, RecipeUnlockClient.EType.NPCType),
+                    (ColonyBuiltIn.NpcTypes.WOLFSBANEFARM, RecipeUnlockClient.EType.NPCType)
                 }
             }
         };

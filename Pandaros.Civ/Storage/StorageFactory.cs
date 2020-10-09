@@ -50,7 +50,7 @@ namespace Pandaros.Civ.Storage
         static bool _worldLoaded = false;
 
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnConstructTooltipUI, GameSetup.NAMESPACE + ".Storage.StorageFactory.ConstructTooltip")]
-        static void ConstructTooltip(ConstructTooltipUIData data)
+        static void ConstructTooltip(Players.Player player, ConstructTooltipUIData data)
         {
             ItemTypes.ItemType item = BuiltinBlocks.Types.air;
 
@@ -333,10 +333,6 @@ namespace Pandaros.Civ.Storage
 
             if (colony == null)
                 colony = tryChangeBlockData.RequestOrigin.AsColony;
-
-            if (colony != null && tryChangeBlockData?.RequestOrigin.AsPlayer != null)
-                UIManager.AddorUpdateWorldLabel("TestText", "WorldText", colony.Banners[0].Position, 200, tryChangeBlockData?.RequestOrigin.AsPlayer, 100, colonyshared.NetworkUI.UIGeneration.WorldTextToggleType.AlwaysOn);
-
 
             if (colony != null &&
                     (StorageBlockTypes.ContainsKey(tryChangeBlockData.TypeNew.Name) ||
