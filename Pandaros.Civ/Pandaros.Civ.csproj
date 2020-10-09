@@ -131,6 +131,7 @@
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Icons.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafSash.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\StoneNail.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneSpear.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneBrick.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Stick.cs" />
@@ -143,18 +144,19 @@
     <Compile Include="TimePeriods\PreHistory\Quests\GettingStartedQuests.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\Forager.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveForager.cs" />
+    <Compile Include="TimePeriods\StoneAge\Jobs\StoneMiner.cs" />
+    <Compile Include="TimePeriods\StoneAge\Quests\PorterQuest.cs" />
+    <Compile Include="TimePeriods\StoneAge\Quests\UsingStoneQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\BronzeAgeQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Research\BronzeAgeResearch.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\StoneSpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\SpearThrower.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\RockThrower.cs" />
-    <Compile Include="TimePeriods\PreHistory\Jobs\SlowPorter.cs" />
+    <Compile Include="TimePeriods\StoneAge\Jobs\SlowPorter.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\WoodWorker.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\StoneShaper.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\StoneAgeQuest.cs" />
     <Compile Include="TimePeriods\PreHistory\Tutorials\JustStartingTutorial.cs" />
-    <Compile Include="TimePeriods\StoneAge\Recipes\Sling.cs" />
-    <Compile Include="TimePeriods\StoneAge\Recipes\SlingBullets.cs" />
     <Compile Include="TimePeriods\PreHistory\Research\StoneAgeResearch.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\Basket.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -175,6 +177,7 @@
     <Compile Include="TimePeriods\PreHistory\Items\LeafBasket.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\SturdyCrate.cs" />
     <Compile Include="PandaCommandTool.cs" />
+    <Compile Include="TimePeriods\StoneAge\Tools\StonePickaxe.cs" />
     <Compile Include="WorldGen\IMineTypeOverride.cs" />
     <Compile Include="WorldGen\StoneOverride.cs" />
   </ItemGroup>
@@ -222,6 +225,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\stockpile_tutorial.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\StoneAge\StoneSpear.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\SturdyCrate.png">
@@ -349,12 +355,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="icons\StoneAge\" />
     <Folder Include="Textures\emissiveMaskAlpha\" />
     <Folder Include="TimePeriods\AtomicAge\" />
     <Folder Include="TimePeriods\FusionAge\" />
     <Folder Include="TimePeriods\InformationAge\" />
     <Folder Include="TimePeriods\RenewablesAge\" />
+    <Folder Include="TimePeriods\StoneAge\Recipes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\basket.png">

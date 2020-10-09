@@ -42,13 +42,24 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
                 0,
                 new List<RecipeUnlock>()
                 {
+                    new RecipeUnlock(Basket.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(StoneSpear.NAME, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(SturdyCrate.Name, ERecipeUnlockType.Recipe),
+
+                    new RecipeUnlock(Forager.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(Forager.Name + "player", ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(SlowPorterFromCrate.Name + "player", ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(SlowPorterFromCrate.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(SlowPorterToCrate.Name + "player", ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(SlowPorterToCrate.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(StoneShaper.Name, ERecipeUnlockType.Recipe),
+                    /*new RecipeUnlock(SturdyCrate.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(Basket.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(ColonyBuiltIn.ItemTypes.SLINGBULLET.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(ColonyBuiltIn.ItemTypes.SLING.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(StoneShaper.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(Forager.Name, ERecipeUnlockType.Recipe),
-                    new RecipeUnlock(Forager.Name + "player", ERecipeUnlockType.Recipe)
+                    new RecipeUnlock(Forager.Name + "player", ERecipeUnlockType.Recipe)*/
                 }
             }
         };

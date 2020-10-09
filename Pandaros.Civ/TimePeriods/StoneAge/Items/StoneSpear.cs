@@ -41,7 +41,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
             new RecipeResult(StoneSpear.NAME, 3)
         };
 
-        public string name => Rock.NAME;
+        public string name => StoneSpear.NAME;
 
         public CraftPriority defaultPriority => CraftPriority.Medium;
 
