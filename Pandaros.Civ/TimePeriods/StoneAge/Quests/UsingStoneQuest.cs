@@ -33,10 +33,10 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
         {
             return HELPER.LocalizeOrDefault(nameof(UsingStoneQuest), player);
         }
-
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( PreHistory.Quests.StoneAgeQuest.NAME)
+           new QuestPrerequisite( PreHistory.Quests.StoneAgeQuest.NAME),
+           new SciencePrerequisite( GameSetup.GetNamespace("TimePeriods.PreHistory.Research", nameof(PreHistory.Research.StoneAgeResearch)))
         }; 
         public override bool HideQuest { get; } = true;
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
@@ -47,7 +47,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
             },
             {
                 "stonepickaxeinstockpile",
-                new ItemsInStockpileObjective("stonepickaxeinstockpile", Tools.StonePickaxe.NAME, 5)
+                new ItemsInStockpileObjective("stonepickaxeinstockpile", StonePickaxe.NAME, 5)
             },
             {
                 "stoneshaper",

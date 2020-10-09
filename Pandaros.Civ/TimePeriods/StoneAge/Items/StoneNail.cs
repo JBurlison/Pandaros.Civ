@@ -25,4 +25,26 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
             GameSetup.NAMESPACE
         };
     }
+    public class StoneNailRecipe : ICSRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(SharpRock.NAME, 2)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(StoneNail.NAME, 4)
+        };
+
+        public string name => SharpRock.NAME;
+
+        public CraftPriority defaultPriority => CraftPriority.Medium;
+
+        public int defaultLimit => 5;
+
+        public string Job => StoneShaper.Name;
+
+        public List<string> JobBlock => new List<string> { StoneShaper.Name };
+    }
 }

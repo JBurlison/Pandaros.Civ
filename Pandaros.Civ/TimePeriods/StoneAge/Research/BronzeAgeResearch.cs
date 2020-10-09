@@ -33,6 +33,16 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Research
                 }
             }
         };
+        public override Dictionary<int, List<string>> Dependancies => new Dictionary<int, List<string>>()
+        {
+            {
+                0,
+                new List<string>()
+                {
+                    GameSetup.GetNamespace("TimePeriods.PreHistory.Research", nameof(PreHistory.Research.StoneAgeResearch))
+                }
+            }
+        };
 
         public override Dictionary<int, List<RecipeUnlock>> Unlocks => new Dictionary<int, List<RecipeUnlock>>()
         {

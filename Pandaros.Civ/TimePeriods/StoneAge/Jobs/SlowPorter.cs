@@ -74,7 +74,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
     public class SlowPorterJobType : CSType
     {
         public override string name => SlowPorterToCrate.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "SlowPorterToCrate.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "SlowPorterToCrate.png");
         public override string onPlaceAudio => CommonSounds.WoodPlace;
         public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
         public override string sideall => SlowPorterToCrate.Name;
@@ -165,7 +165,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
     public class PorterJobFromCrateType : CSType
     {
         public override string name => SlowPorterFromCrate.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "SlowPorterFromCrate.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "SlowPorterFromCrate.png");
         public override string onPlaceAudio => CommonSounds.WoodPlace;
         public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
         public override string sideall => SlowPorterFromCrate.Name;

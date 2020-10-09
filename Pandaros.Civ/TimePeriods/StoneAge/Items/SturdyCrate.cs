@@ -46,7 +46,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
             };
             onPlaceAudio = "woodPlace";
             onRemoveAudio = "woodDeleteLight";
-            icon = GameSetup.Textures.GetPath(TextureType.icon, "SturdyCrate.png");
+            icon = GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "SturdyCrate.png");
             mesh = GameSetup.MESH_PATH + "SturdyCrate.ply";
         }
     }
@@ -57,7 +57,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
         {
             new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Id, 10),
             new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5),
-            new RecipeItem(PreHistory.Items.BasicCrate.Name)
+            //new RecipeItem(PreHistory.Items.BasicCrate.Name)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()

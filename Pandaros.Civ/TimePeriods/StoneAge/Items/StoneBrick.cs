@@ -16,7 +16,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
         public override string name { get; set; } = NAME;
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "StoneBrick.png");
         public override bool? isPlaceable => false;
-        public override int? maxStackSize => 300;
+        public override int? maxStackSize => 100;
         public override List<string> categories { get; set; } = new List<string>()
         {
             CommonCategories.Ingredient,

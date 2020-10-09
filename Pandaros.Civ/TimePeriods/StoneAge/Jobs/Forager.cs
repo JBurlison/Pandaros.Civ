@@ -50,22 +50,30 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
             name = Name,
             LootPoolList = new List<LootPoolEntry>()
             {
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.DIRT, 5, 10),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 10, 20),
-                new LootPoolEntry(Rock.NAME, 5, 10)
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 15, 30),
+                new LootPoolEntry(Rock.NAME, 10, 15),
+                new LootPoolEntry(Wood.NAME, 10, 25, 0.15f),
+                new LootPoolEntry(Stick.NAME, 10, 30, 0.4f),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 10, 15, 0.5f),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTAIGA, 10, 15, 0.5f)
             }
         };
-
+        //public static InventoryItem Recruitmentitem { get; set; } = new InventoryItem(WoodenCart.NAME);
         public Forager() : base(Name, Name, SharedLootTable, 20, 25, 2)
         {
 
         }
     }
-
-    public class ForagerJobType : CSType
+    public class ForagerJobType : CSGenerateType
+    {
+        public override string typeName => Forager.Name;
+        public override string generateType => "jobOutline";
+        public override string outlineColor => "#00FF00";
+    }
+    /*public class ForagerJobType : CSType
     {
         public override string name => Forager.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "Forager.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "Forager.png");
         public override string onPlaceAudio => CommonSounds.WoodPlace;
         public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
         public override string sideall => Forager.Name;
@@ -85,16 +93,13 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
         public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "Forager.png");
         public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "Forager.png");
         public override string height => GameSetup.Textures.GetPath(TextureType.height, "Forager.png");
-    }
+    }*/
 
     public class ForagerRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(RoughWoodenBoard.NAME, 4),
-            new RecipeItem(LeafBasket.NAME),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5),
-             new RecipeItem(Rock.NAME, 4)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Id, 1)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
@@ -105,7 +110,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
         public string name => Forager.Name + "player";
     }
 
-    public class ForagerJobRecipe : ICSRecipe
+    /*public class ForagerJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -127,5 +132,5 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
         public string Job => PreHistory.Jobs.WoodWorker.Name;
 
         public List<string> JobBlock => new List<string>() { PreHistory.Jobs.WoodWorker.Name };
-    }
+    }*/
 }

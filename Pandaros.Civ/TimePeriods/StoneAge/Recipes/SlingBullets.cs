@@ -2,7 +2,7 @@
 using Pandaros.API;
 using Pandaros.API.Models;
 using Pandaros.Civ.Storage;
-using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.StoneAge.Items;
 using Pandaros.Civ.TimePeriods.StoneAge.Jobs;
 using Recipes;
 using System;
@@ -18,27 +18,27 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Rock.NAME, 3)
+            new RecipeItem(SharpRock.NAME, 3)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(ColonyBuiltIn.ItemTypes.SLINGBULLET.Id, 5)
+            new RecipeResult(ColonyBuiltIn.ItemTypes.SLINGBULLET.Id, 6)
         };
 
         
 
         public string name => ColonyBuiltIn.ItemTypes.SLINGBULLET.Name;
 
-        public CraftPriority defaultPriority => CraftPriority.Medium;
-        public int defaultLimit => 20;
+        public CraftPriority defaultPriority => CraftPriority.High;
+        public int defaultLimit => 15;
 
         public string Job => StoneShaper.Name;
 
         public List<string> JobBlock => new List<string>() { StoneShaper.Name };
     }
 
-    public class SlingBulletRecipePlayer : ICSPlayerRecipe
+    /*public class SlingBulletRecipePlayer : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -54,5 +54,5 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
 
         public string name => ColonyBuiltIn.ItemTypes.SLINGBULLET.Name;
 
-    }
+    }*/
 }

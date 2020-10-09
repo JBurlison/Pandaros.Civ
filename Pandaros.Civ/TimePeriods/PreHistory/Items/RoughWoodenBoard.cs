@@ -41,12 +41,13 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Wood.NAME, 5)
+            new RecipeItem(Wood.NAME, 5),
+            new RecipeItem(Rock.NAME, 2)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(RoughWoodenBoard.NAME, 1)
+            new RecipeResult(RoughWoodenBoard.NAME, 2)
         };
 
         
@@ -55,7 +56,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public CraftPriority defaultPriority => CraftPriority.High;
 
-        public int defaultLimit => 10;
+        public int defaultLimit => 5;
 
         public string Job => WoodWorker.Name;
 
