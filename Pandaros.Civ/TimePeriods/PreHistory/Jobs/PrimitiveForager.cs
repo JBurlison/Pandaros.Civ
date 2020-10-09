@@ -35,8 +35,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public string keyName { get; set; } = PrimitiveForager.Name;
         public string printName { get; set; } = "Primitive Forager";
-        public float inventoryCapacity { get; set; } = 300f;
-        public float movementSpeed { get; set; } = 2.3f;
+        public float inventoryCapacity { get; set; } = 150f;
+        public float movementSpeed { get; set; } = 2f;
         public UnityEngine.Color32 maskColor1 { get; set; } = new UnityEngine.Color32(66, 255, 129, 255);
         public UnityEngine.Color32 maskColor0 { get; set; }
     }
@@ -65,11 +65,16 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
         }
     }
-
-    public class PrimitiveForagerJobType : CSType
+    public class PrimitiveForagerJobType : CSGenerateType
+    {
+        public override string typeName => PrimitiveForager.Name;
+        public override string generateType => "jobOutline";
+        public override string outlineColor => "#00FF00";
+    }
+    /*public class PrimitiveForagerJobType : CSType
     {
         public override string name => PrimitiveForager.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "PrimitiveForager.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "PrimitiveForager.png");
         public override string onPlaceAudio => CommonSounds.WoodPlace;
         public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
         public override string sideall => RoughWoodenBoard.NAME;
@@ -82,7 +87,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
                 CommonCategories.Forager,
                 GameSetup.NAMESPACE
             };
-    }
+    }*/
 
     public class PrimitiveForagerRecipe : ICSPlayerRecipe
     {
@@ -99,7 +104,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public string name => PrimitiveForager.Name + "player";
     }
 
-    public class PrimitiveForagerJobRecipe : ICSRecipe
+    /*public class PrimitiveForagerJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -118,5 +123,5 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public string Job => Jobs.WoodWorker.Name;
 
         public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
-    }
+    }*/
 }

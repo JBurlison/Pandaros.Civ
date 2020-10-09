@@ -62,7 +62,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
     public class StoneShaperJobBlock : CSType
     {
         public override string name => StoneShaper.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "StoneShaper.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "StoneShaper.png");
         public override string onPlaceAudio => "stonePlace";
         public override string onRemoveAudio => "stoneDelete";
         public override string sideall => ColonyBuiltIn.ItemTypes.STONEBLOCK;

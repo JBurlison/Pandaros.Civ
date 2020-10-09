@@ -26,26 +26,5 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         };
     }
 
-    public class RockRecipe : ICSRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.STONEBRICKS.Id, 1)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(Rock.NAME, 5)
-        };
-
-        public string name => Rock.NAME;
-
-        public CraftPriority defaultPriority => CraftPriority.Medium;
-
-        public int defaultLimit => 10;
-
-        public string Job => StoneShaper.Name;
-
-        public List<string> JobBlock => new List<string> { StoneShaper.Name };
-    }
+    
 }

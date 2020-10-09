@@ -5,6 +5,7 @@ using Pandaros.API.Models;
 using Pandaros.Civ;
 using Pandaros.Civ.Jobs;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.StoneAge.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using Recipes;
 using System;
@@ -14,12 +15,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
+namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
 {
     [ModLoader.ModManager]
     public static class SlowPorterModEntries
     {
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.PreHistory.Jobs.SlowPorterModEntry")]
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterItemTypesDefined, GameSetup.NAMESPACE + ".TimePeriods.StoneAge.Jobs.SlowPorterModEntry")]
         [ModLoader.ModCallbackProvidesFor("create_savemanager")]
         public static void AfterDefiningNPCTypes()
         {
@@ -54,7 +55,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
     public class SlowPorterToCrate : PorterJobSettings
     {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterToCrate));
+        public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(SlowPorterToCrate));
 
         public SlowPorterToCrate() : base(Name, Name, PandaGoalJob.PorterJobType.ToCrate)
         {
@@ -73,7 +74,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     public class SlowPorterJobType : CSType
     {
         public override string name => SlowPorterToCrate.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "SlowPorterToCrate.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "SlowPorterToCrate.png");
         public override string onPlaceAudio => CommonSounds.WoodPlace;
         public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
         public override string sideall => SlowPorterToCrate.Name;
@@ -106,7 +107,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SlowPorterToCrate.Name)
         };
 
-        public string name => SlowPorterToCrate.Name;
+        public string name => SlowPorterToCrate.Name + "player";
     }
 
     public class SlowPorterToCrateJobRecipe : ICSRecipe
@@ -124,7 +125,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             new RecipeResult(SlowPorterToCrate.Name)
         };
 
-        public string name => SlowPorterToCrate.Name + WoodWorker.Name;
+        public string name => SlowPorterToCrate.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 
@@ -135,7 +136,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
     public class SlowPorterFromCrate : PorterJobSettings
     {
-        public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(SlowPorterFromCrate));
+        public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(SlowPorterFromCrate));
 
         public SlowPorterFromCrate() : base(Name, Name, PandaGoalJob.PorterJobType.FromCrate)
         {
@@ -164,7 +165,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     public class PorterJobFromCrateType : CSType
     {
         public override string name => SlowPorterFromCrate.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "SlowPorterFromCrate.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "SlowPorterFromCrate.png");
         public override string onPlaceAudio => CommonSounds.WoodPlace;
         public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
         public override string sideall => SlowPorterFromCrate.Name;
@@ -199,7 +200,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
         
 
-        public string name => SlowPorterFromCrate.Name;
+        public string name => SlowPorterFromCrate.Name + "player";
     }
     public class SlowPorterFromCrateJobRecipe : ICSRecipe
     {
@@ -218,7 +219,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
         
 
-        public string name => SlowPorterFromCrate.Name + WoodWorker.Name;
+        public string name => SlowPorterFromCrate.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 

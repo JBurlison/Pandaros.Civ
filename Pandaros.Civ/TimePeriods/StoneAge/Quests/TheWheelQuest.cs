@@ -15,54 +15,45 @@ using Pandaros.Civ.Quests;
 using Pandaros.API.Models;
 using Pandaros.API;
 using Pandaros.API.Questing.BuiltinPrerequisites;
+using Pandaros.Civ.TimePeriods.StoneAge.Items;
 
 namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
 {
-    public class BronzeAgeQuest : GenericQuest
+    public class TheWheelQuest : GenericQuest
     {
-        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.StoneAge.Quests", nameof(BronzeAgeQuest));
+        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.StoneAge.Quests", nameof(TheWheelQuest));
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.StoneAge.Quests");
 
-        public BronzeAgeQuest() : 
-            base(NAME, NAME + "Text", ColonyBuiltIn.ItemTypes.BRONZEINGOT, HELPER)
+        public TheWheelQuest() : 
+            base(NAME, NAME + "Text", StoneWheel.NAME, HELPER)
         {
         }
 
         public override string GetQuestTitle(Colony colony, Players.Player player)
         {
-            return HELPER.LocalizeOrDefault(nameof(BronzeAgeQuest), player);
+            return HELPER.LocalizeOrDefault(nameof(TheWheelQuest), player);
         }
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( TheWheelQuest.NAME),
-           new QuestPrerequisite( PorterQuest.NAME)
+           new QuestPrerequisite( UsingStoneQuest.NAME)
         }; 
         //public override bool HideQuest { get; } = true;
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {
-                "porterfrom",
-                new JobsTakenObjective("porterfrom", SlowPorterFromCrate.Name, 1)
+                "stonewheelinstockpile",
+                new ItemsInStockpileObjective("stonewheelinstockpile", StoneWheel.NAME, 20)
             },
             {
-                "porterto",
-                new JobsTakenObjective("porterfrom", SlowPorterToCrate.Name, 1)
-            },
-            {
-                "colonistcount",
-                new ColonistCountObjective("colonistcount", 50)
-            },
-            {
-                "stockpilesize",
-                new StockpileSizeObjective("stockpilesize", 250)
+                "forager",
+                new JobsTakenObjective("forager", Forager.Name, 3)
             }
         };
 
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AbleToCompleteBronzeAgeQuest", ColonyBuiltIn.ItemTypes.BRONZEINGOT, "AbleToCompleteBronzeAgeQuest", HELPER),
-            new TimePeriodReward(TimePeriod.BronzeAge, ColonyBuiltIn.ItemTypes.BRONZEINGOT, "TimePeriodRewardBronzeAge")
+            new TextReward("AdvanceToTheBronzeAgeQuest", ColonyBuiltIn.ItemTypes.BRONZEINGOT, "AdvanceToTheBronzeAgeQuest", HELPER)
         };
     }
 }

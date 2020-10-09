@@ -43,7 +43,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         
 
-        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE + WoodWorker.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 
@@ -66,7 +66,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         
 
-        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA + WoodWorker.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 

@@ -18,6 +18,7 @@ namespace Pandaros.Civ
         public static string Decorative = "decorative";
         public static string RecruitmentItem = "recruitment";
         public static string Ammo = "ammo";
+        public static string Tool = "tool";
         public static string Crate = "crate";
         public static string Storage = "storage";
         public static string Bag = "bag";

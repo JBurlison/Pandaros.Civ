@@ -7,18 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Pandaros.Civ.TimePeriods.PreHistory.Items;
-using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 
 namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 {
-    public class StoneSpear : CSType 
+    public class StoneNail : CSType 
     {
-        public static string NAME = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(StoneSpear));
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(StoneNail));
         public override string name { get; set; } = NAME;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "StoneSpear.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "StoneNail.png");
         public override bool? isPlaceable => false;
-        public override int? maxStackSize => 50;
+        public override int? maxStackSize => 300;
         public override List<string> categories { get; set; } = new List<string>()
         {
             CommonCategories.Ingredient,
@@ -27,28 +25,26 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
             GameSetup.NAMESPACE
         };
     }
-
-    public class StoneSpearRecipe : ICSRecipe
+    public class StoneNailRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(Rock.NAME, 3),
-            new RecipeItem(Stick.NAME, 3)
+            new RecipeItem(SharpRock.NAME, 2)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(StoneSpear.NAME, 3)
+            new RecipeResult(StoneNail.NAME, 4)
         };
 
-        public string name => StoneSpear.NAME;
+        public string name => SharpRock.NAME;
 
         public CraftPriority defaultPriority => CraftPriority.Medium;
 
-        public int defaultLimit => 10;
+        public int defaultLimit => 5;
 
-        public string Job => WoodWorker.Name;
+        public string Job => StoneShaper.Name;
 
-        public List<string> JobBlock => new List<string> { WoodWorker.Name };
+        public List<string> JobBlock => new List<string> { StoneShaper.Name };
     }
 }

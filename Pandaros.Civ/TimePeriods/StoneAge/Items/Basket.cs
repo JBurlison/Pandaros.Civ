@@ -11,22 +11,22 @@ using System.Threading.Tasks;
 
 namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 {
-    public class BasketTexture : CSTextureMapping
+    public class WovenBasketTexture : CSTextureMapping
     {
-        public override string name => Basket.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "basket.png");
-        public override string height => GameSetup.Textures.GetPath(TextureType.height, "basket.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "basket.png");
+        public override string name => WovenBasket.Name;
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "WovenBasket.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "WovenBasket.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "WovenBasket.png");
     }
 
-    public class Basket : CSType, IStorageUpgradeBlock
+    public class WovenBasket : CSType, IStorageUpgradeBlock
     {
-        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(Basket));
+        public static string Name { get; private set; } = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(WovenBasket));
         public Dictionary<string, int> CategoryStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ItemStorageUpgrades { get; set; } = new Dictionary<string, int>();
         public int GlobalStorageUpgrade { get; set; }
 
-        public Basket()
+        public WovenBasket()
         {
             name = Name;
             GlobalStorageUpgrade = 16;
@@ -44,11 +44,11 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
             onPlaceAudio = CommonSounds.WoodPlace;
             onRemoveAudio = CommonSounds.WoodDeleteLight;
             isSolid = true;
-            icon = GameSetup.Textures.GetPath(TextureType.icon, "basket.png");
+            icon = GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "WovenBasket.png");
         }
     }
 
-    public class BasketRecipe : ICSPlayerRecipe
+    public class WovenBasketRecipe : ICSPlayerRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
@@ -58,11 +58,11 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(Basket.Name)
+            new RecipeResult(WovenBasket.Name)
         };
 
         public bool isOptional => true;
 
-        public string name => Basket.Name;
+        public string name => WovenBasket.Name;
     }
 }
