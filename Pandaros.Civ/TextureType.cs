@@ -14,6 +14,7 @@ namespace Pandaros.Civ
         normal,
         npc,
         icon,
+        image,
         none
     }
 }

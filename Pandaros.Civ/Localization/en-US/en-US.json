@@ -1,5 +1,23 @@
 {
   "sentences": {
+    "PreHistory": "Pre-History",
+    "StoneAge": "Stone Age",
+    "BronzeAge": "Bronze Age",
+    "IronAge": "Iron Age",
+    "IndustrialAge": "Industrial Age",
+    "AtomicAge": "Atomic Age",
+    "InformationAge": "Information Age",
+    "RenewablesAge": "Renewables Age",
+    "FusionAge": "Fusion Age",
+    "PreHistoryTip": "Pre-History",
+    "StoneAgeTip": "Stone Age",
+    "BronzeAgeTip": "Bronze Age",
+    "IronAgeTip": "Iron Age",
+    "IndustrialAgeTip": "Industrial Age",
+    "AtomicAgeTip": "Atomic Age",
+    "InformationAgeTip": "Information Age",
+    "RenewablesAgeTip": "Renewables Age",
+    "FusionAgeTip": "Fusion Age",
     "popup": {
       "limits": {
         "Pandaros": {
@@ -34,7 +52,8 @@
         },
         "Quests": {
           "StockpileSizeObjective": "Max stockpile size of {0} out of {1}",
-          "TimePeriodReward": "Upgrades the stockpile block's upgrade area!"
+          "TimePeriodReward": "Upgrades the stockpile block's upgrade area!",
+          "JobReward": "Unlocks {0} Job"
         },
         "Storage": {
           "MaxCrateStackSize": "Max Crate Stack Size",
@@ -81,21 +100,16 @@
                 "name": "Progress to the Stone Age!",
                 "description": "Your first step to civilization! Go ahead and invent the wheel, invent hammers, different types of stone and cooked food! Requires Stone Age quest to be complete."
               }
+            },
+            "Jobs": {
+              "RockThrower": "Rock Thrower",
+              "SpearThrower": "Spear Thrower",
+              "RockThrowerDay": "Rock Thrower Day",
+              "RockThrowerNight": "Rock Thrower Night",
+              "SpearThrowerDay": "Spear Thrower Day",
+              "SpearThrowerNight": "Spear Thrower Night",
+              "PrimitiveForager": "Primitive Forager"
             }
-          }
-        },
-        "CommandTool": {
-          "CommandTool": "The Civilisation Command Tool",
-          "Button": {
-            "Guards": "Guards",
-            "Back": "Back",
-            "Night": "Night",
-            "Day": "Day"
-          },
-          "Label": {
-            "Guards":  "Guards:",
-            "RockThrower": "Rock Thrower",
-            "SpearThrower":  "Spear Thrower"
           }
         }
       }

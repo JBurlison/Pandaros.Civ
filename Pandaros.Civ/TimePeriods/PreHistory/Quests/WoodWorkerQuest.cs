@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using Pandaros.Civ.Quests;
 using Pandaros.Civ.Storage;
 using Pandaros.API.Questing.BuiltinPrerequisites;
+using Jobs;
+using Pandaros.API;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 {
@@ -44,12 +46,17 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             {
                 "woodworker",
                 new JobsTakenObjective("woodworker", WoodWorker.Name, 1)
+            },
+            {
+                "forester",
+                new JobsTakenObjective("forester", ColonyBuiltIn.NpcTypes.FORESTER, 1)
             }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToBasicForagerQuest", PrimitiveForager.Name, "AdvanceToBasicForagerQuest", HELPER)
+            new TextReward("AdvanceToBasicForagerQuest", PrimitiveForager.Name, "AdvanceToBasicForagerQuest", HELPER),
+            new JobReward(NAME, PrimitiveForager.Name, nameof(BasicForagerQuest), LeafSash.NAME)
         };
     }
 }

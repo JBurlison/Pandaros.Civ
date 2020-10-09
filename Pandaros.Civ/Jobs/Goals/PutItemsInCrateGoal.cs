@@ -50,6 +50,9 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (WalkingTo == StorageType.Crate)
             {
+                if (!StorageFactory.CrateLocations.ContainsKey(Job.Owner))
+                    StorageFactory.CrateLocations.Add(Job.Owner, new Dictionary<Vector3Int, CrateInventory>());
+
                 if (!LastCratePosition.Contains(GoalStoring.ClosestCrate) && StorageFactory.CrateLocations[Job.Owner].ContainsKey(GoalStoring.ClosestCrate))
                     CurrentCratePosition = GoalStoring.ClosestCrate;
                 else

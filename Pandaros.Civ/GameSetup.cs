@@ -36,6 +36,7 @@ namespace Pandaros.Civ
         {
             public const string SELF = "SELF";
             public static string TEXTURE_PATH = "Textures/";
+            public static string IMAGES_PATH = "Images/";
             public static string Albedo = "Textures/albedo";
             public static string Emissive = "Textures/emissiveMaskAlpha";
             public static string Height = "Textures/heightSmoothnessSpecularity";
@@ -59,6 +60,8 @@ namespace Pandaros.Civ
                         return Path.Combine(ICON_PATH, textureFileName).Replace("\\", "/");
                     case TextureType.normal:
                         return Path.Combine(Normal, textureFileName).Replace("\\", "/");
+                    case TextureType.image:
+                        return Path.Combine(IMAGES_PATH, textureFileName).Replace("\\", "/");
                     case TextureType.npc:
                         return Path.Combine(NPC_PATH, textureFileName).Replace("\\", "/");
                 }
@@ -81,6 +84,7 @@ namespace Pandaros.Civ
             Textures.Emissive = Path.Combine(Textures.TEXTURE_PATH, "emissiveMaskAlpha").Replace("\\", "/") + "/";
             Textures.Height = Path.Combine(Textures.TEXTURE_PATH, "heightSmoothnessSpecularity").Replace("\\", "/") + "/";
             Textures.Normal = Path.Combine(Textures.TEXTURE_PATH, "normal").Replace("\\", "/") + "/";
+            Textures.IMAGES_PATH = Path.Combine(MOD_FOLDER, "Images").Replace("\\", "/") + "/";
 
             CivLogger.Log("Found mod in {0}", MOD_FOLDER);
         }

@@ -49,7 +49,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToGuardsQuest", PrimitiveForager.Name, "AdvanceToGuardsQuest", HELPER)
+            new TextReward("AdvanceToGuardsQuest", PrimitiveForager.Name, "AdvanceToGuardsQuest", HELPER),
+            new JobReward(NAME, RockThrower.NameDay, "RockThrowerDay", Rock.NAME),
+            new JobReward(NAME, RockThrower.NameNight, "RockThrowerNight", Rock.NAME),
+            new JobReward(NAME, SpearThrower.NameDay, "SpearThrowerDay", Stick.NAME),
+            new JobReward(NAME, SpearThrower.NameNight, "SpearThrowerNight", Stick.NAME)
         };
     }
 }

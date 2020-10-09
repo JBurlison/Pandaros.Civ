@@ -65,63 +65,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 
         }
     }
+
     public class PrimitiveForagerJobType : CSGenerateType
     {
         public override string typeName => PrimitiveForager.Name;
         public override string generateType => "jobOutline";
         public override string outlineColor => "#00FF00";
     }
-    /*public class PrimitiveForagerJobType : CSType
-    {
-        public override string name => PrimitiveForager.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "PrimitiveForager.png");
-        public override string onPlaceAudio => CommonSounds.WoodPlace;
-        public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
-        public override string sideall => RoughWoodenBoard.NAME;
-        public override string mesh { get; set; } = GameSetup.MESH_PATH + "PrimitiveForager.ply";
-        public override List<string> categories => new List<string>()
-            {
-                CommonCategories.Job,
-                "aa",
-                nameof(TimePeriod.PreHistory),
-                CommonCategories.Forager,
-                GameSetup.NAMESPACE
-            };
-    }*/
-
-    public class PrimitiveForagerRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(RoughWoodenBoard.NAME, 4)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(PrimitiveForager.Name)
-        };
-
-        public string name => PrimitiveForager.Name + "player";
-    }
-
-    /*public class PrimitiveForagerJobRecipe : ICSRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(RoughWoodenBoard.NAME, 4)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(PrimitiveForager.Name)
-        };
-
-        public string name => PrimitiveForager.Name;
-        public CraftPriority defaultPriority => CraftPriority.Low;
-        public int defaultLimit => 1;
-
-        public string Job => Jobs.WoodWorker.Name;
-
-        public List<string> JobBlock => new List<string>() { Jobs.WoodWorker.Name };
-    }*/
 }

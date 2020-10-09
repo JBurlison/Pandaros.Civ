@@ -26,7 +26,7 @@ using System.Threading.Tasks;
 namespace Pandaros.Civ.Storage
 {
     [ModLoader.ModManager]
-    public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad, IOnSavingColony, IOnLoadingColony
+    public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad, IOnSavingColony, IOnLoadingColony, IOnLoadingImages
     {
         public int NextUpdateTimeMinMs => 2000;
 
@@ -447,7 +447,10 @@ namespace Pandaros.Civ.Storage
 
             foreach (var player in colony.Owners)
                 if (player.ActiveColony == colony)
-                    UIManager.AddorUpdateUILabel("ColonyStockpile" + colony.ColonyID, colonyshared.NetworkUI.UIGeneration.UIElementDisplayType.Colony, LocalizationHelper.LocalizeOrDefault("StockpileSize", player, total.ToString(), fillPct.ToString()), new Vector3Int(250, -150, 0), colonyshared.NetworkUI.AnchorPresets.TopLeft, 500, player);
+                { 
+                    UIManager.AddorUpdateUIImage("ColonyStockpile" + colony.ColonyID, colonyshared.NetworkUI.UIGeneration.UIElementDisplayType.Colony, "StockpileBackground", new Vector3Int(135, -119, 0), colonyshared.NetworkUI.AnchorPresets.TopLeft, player);
+                    UIManager.AddorUpdateUILabel("ColonyStockpile" + colony.ColonyID, colonyshared.NetworkUI.UIGeneration.UIElementDisplayType.Colony, LocalizationHelper.LocalizeOrDefault("StockpileSize", player, total.ToKMB(), fillPct.ToString()), new Vector3Int(137, -119, 0), colonyshared.NetworkUI.AnchorPresets.TopLeft, 270, player, 14);
+                }
         }
 
         public static StockpilePosition GetStockpilePosition(Colony colony)
@@ -466,8 +469,15 @@ namespace Pandaros.Civ.Storage
             return sp;
         }
 
+        public void IOnLoadingImages(Dictionary<string, string> imagesToLoad)
+        {
+            imagesToLoad["StockpileBackground"] = GameSetup.Textures.GetPath(TextureType.image, "stockpilesize.png");
+        }
+
         public void AfterItemTypesDefined()
         {
+            
+
             foreach (var s in LoadedAssembalies)
             {
                 if (Activator.CreateInstance(s) is IStorageUpgradeBlock sb && !string.IsNullOrEmpty(sb.name))
@@ -495,6 +505,5 @@ namespace Pandaros.Civ.Storage
                 RecalcStockpileMaxSize(colony);
             }
         }
-
     }
 }
