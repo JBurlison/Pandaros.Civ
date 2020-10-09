@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 
-namespace Pandaros.Civ.TimePeriods.PreHistory.Items
+namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 {
     public class LeafBasket : CSType 
     {
-        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(LeafBasket));
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(LeafBasket));
         public override string name { get; set; } = NAME;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "LeafBasket.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "LeafBasket.png");
         public override bool? isPlaceable => false;
         public override int? maxStackSize => 5;
         public override List<string> categories { get; set; } = new List<string>()
@@ -23,7 +23,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             CommonCategories.Essential,
             CommonCategories.Storage,
             CommonCategories.Bag,
-            nameof(TimePeriod.PreHistory),
+            nameof(TimePeriod.StoneAge),
             GameSetup.NAMESPACE
         };
     }
@@ -43,7 +43,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         
 
-        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE + WoodWorker.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 
@@ -66,7 +66,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         
 
-        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA + WoodWorker.Name;
+        public string name => LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA;
         public CraftPriority defaultPriority => CraftPriority.Medium;
         public int defaultLimit => 10;
 

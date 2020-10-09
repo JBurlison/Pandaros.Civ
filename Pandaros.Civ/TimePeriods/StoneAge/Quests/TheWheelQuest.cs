@@ -19,19 +19,19 @@ using Pandaros.Civ.TimePeriods.StoneAge.Items;
 
 namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
 {
-    public class PorterQuest : GenericQuest
+    public class TheWheelQuest : GenericQuest
     {
-        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.StoneAge.Quests", nameof(PorterQuest));
+        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.StoneAge.Quests", nameof(TheWheelQuest));
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.StoneAge.Quests");
 
-        public PorterQuest() : 
-            base(NAME, NAME + "Text", SlowPorterFromCrate.Name, HELPER)
+        public TheWheelQuest() : 
+            base(NAME, NAME + "Text", StoneWheel.NAME, HELPER)
         {
         }
 
         public override string GetQuestTitle(Colony colony, Players.Player player)
         {
-            return HELPER.LocalizeOrDefault(nameof(PorterQuest), player);
+            return HELPER.LocalizeOrDefault(nameof(TheWheelQuest), player);
         }
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
@@ -42,24 +42,12 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {
-                "porterfrom",
-                new JobsTakenObjective("porterfrom", SlowPorterFromCrate.Name, 1)
+                "stonewheelinstockpile",
+                new ItemsInStockpileObjective("stonewheelinstockpile", StoneWheel.NAME, 20)
             },
             {
-                "porterto",
-                new JobsTakenObjective("porterfrom", SlowPorterToCrate.Name, 1)
-            },
-            {
-                "crateplaced",
-                new BlockPlacedObjective("crateplaced", SturdyCrate.Name, 1)
-            },
-            {
-                "colonistcount",
-                new ColonistCountObjective("colonistcount", 25)
-            },
-            {
-                "stockpilesize",
-                new StockpileSizeObjective("stockpilesize", 250)
+                "forager",
+                new JobsTakenObjective("forager", Forager.Name, 3)
             }
         };
 

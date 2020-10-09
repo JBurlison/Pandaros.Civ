@@ -5,6 +5,7 @@ using Pandaros.API.Models;
 using Pandaros.Civ;
 using Pandaros.Civ.Jobs;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Pandaros.Civ.TimePeriods.StoneAge.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using Recipes;
 using System;

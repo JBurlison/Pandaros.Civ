@@ -35,9 +35,10 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( PreHistory.Quests.StoneAgeQuest.NAME)
+           new QuestPrerequisite( TheWheelQuest.NAME),
+           new QuestPrerequisite( PorterQuest.NAME)
         }; 
-        public override bool HideQuest { get; } = true;
+        //public override bool HideQuest { get; } = true;
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {

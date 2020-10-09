@@ -62,8 +62,8 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
 
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AbleToCompleteBronzeAgeQuest", ColonyBuiltIn.ItemTypes.BRONZEINGOT, "AbleToCompleteBronzeAgeQuest", HELPER),
-            new TimePeriodReward(TimePeriod.BronzeAge, ColonyBuiltIn.ItemTypes.BRONZEINGOT, "TimePeriodRewardBronzeAge")
+            new TextReward("AdvanceToPorterQuest", SlowPorterFromCrate.Name, "AdvanceToPorterQuest", HELPER),
+            new TextReward("AdvanceToTheWheelQuest", StoneWheel.NAME, "AdvanceToTheWheelQuest", HELPER)
         };
     }
 }

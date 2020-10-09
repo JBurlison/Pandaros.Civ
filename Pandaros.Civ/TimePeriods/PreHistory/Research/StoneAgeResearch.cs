@@ -45,6 +45,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
                     new RecipeUnlock(Basket.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(StoneSpear.NAME, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(SturdyCrate.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(LeafBasket.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, ERecipeUnlockType.Recipe),
 
                     new RecipeUnlock(Forager.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(Forager.Name + "player", ERecipeUnlockType.Recipe),

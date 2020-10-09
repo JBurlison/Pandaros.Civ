@@ -37,14 +37,14 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         };
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
-            {
+            /*{
                 "stonethrower",
                 new JobsTakenObjective("stonethrower", RockThrower.NameNight, 1)
             },
             {
                 "spearthrower",
                 new JobsTakenObjective("spearthrower", SpearThrower.NameNight, 1)
-            },
+            },*/
             {
                 "rocksinstockpile",
                 new ItemsInStockpileObjective("rocksinstockpile", Rock.NAME, 25)

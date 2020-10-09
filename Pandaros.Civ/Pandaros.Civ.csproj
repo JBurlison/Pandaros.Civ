@@ -131,6 +131,7 @@
     <Compile Include="TimePeriods\PreHistory\Items\BasicCrate.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Icons.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafSash.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\StoneWheel.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneNail.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneSpear.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneBrick.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="TimePeriods\StoneAge\Jobs\Forager.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveForager.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\StoneMiner.cs" />
+    <Compile Include="TimePeriods\StoneAge\Quests\TheWheelQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\PorterQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\UsingStoneQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\BronzeAgeQuest.cs" />
@@ -174,7 +176,7 @@
     <Compile Include="TextureType.cs" />
     <Compile Include="TimePeriod.cs" />
     <Compile Include="TimePeriods\PeriodFactory.cs" />
-    <Compile Include="TimePeriods\PreHistory\Items\LeafBasket.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\LeafBasket.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\SturdyCrate.cs" />
     <Compile Include="PandaCommandTool.cs" />
     <Compile Include="TimePeriods\StoneAge\Tools\StonePickaxe.cs" />
@@ -189,9 +191,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\crates_tutorial.PNG">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="icons\PreHistory\LeafBasket.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\PreHistory\BasicCrate.png">
@@ -225,6 +224,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\stockpile_tutorial.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\StoneAge\LeafBasket.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\StoneAge\StoneSpear.png">
