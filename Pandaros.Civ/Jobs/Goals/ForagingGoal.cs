@@ -5,6 +5,7 @@ using Pandaros.API;
 using Pandaros.API.Items;
 using Pandaros.API.Models;
 using Pandaros.Civ.Storage;
+using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Pipliz;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,6 @@ namespace Pandaros.Civ.Jobs.Goals
         public string Name { get; set; } = nameof(ForagingGoal);
         public string LocalizationKey { get; set; } = GameSetup.GetNamespace("Jobs.Goals", nameof(ForagingGoal));
         public Vector3Int ClosestCrate { get; set; }
-        public Vector3Int EdgeOfColony { get; set; }
         public Vector3Int ForagingPos { get; set; }
         public bool Foraging { get; set; } = false;
       
@@ -64,45 +64,38 @@ namespace Pandaros.Civ.Jobs.Goals
                (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
                 ClosestCrate = StorageFactory.GetClosestCrateLocation(JobPos, Job.Owner);
 
-            if (Job.NPC.Position == JobPos)
-                ComeHome();
-
             if (!Foraging)
             {
                 var radius = Job.Owner.BannerSafeRadius - 1;
-                var xp = Job.Owner.Banners[0].Position.Add(radius, 0, 0);
-                var xn = Job.Owner.Banners[0].Position.Add(radius * -1, 0, 0);
-                var zp = Job.Owner.Banners[0].Position.Add(0, 0, radius);
-                var zn = Job.Owner.Banners[0].Position.Add(0, 0, radius * -1);
 
-                var distances = new Dictionary<Vector3Int, float>()
+                var distances = new List<Vector3Int>()
                 {
-                    { xp, UnityEngine.Vector3Int.Distance(JobPos, xp) },
-                    { xn, UnityEngine.Vector3Int.Distance(JobPos, xn) },
-                    { zp, UnityEngine.Vector3Int.Distance(JobPos, zp) },
-                    { zn, UnityEngine.Vector3Int.Distance(JobPos, zn) }
+                    Job.Owner.Banners[0].Position.Add(radius, 0, 0),
+                    Job.Owner.Banners[0].Position.Add(radius * -1, 0, 0),
+                    Job.Owner.Banners[0].Position.Add(0, 0, radius),
+                    Job.Owner.Banners[0].Position.Add(0, 0, radius * -1)
                 };
 
                 bool posFound = false;
-                foreach (var pos in distances.OrderBy(kvp => kvp.Value))
+                distances.Shuffle();
+                foreach (var pos in distances)
                 {
-                    var getEdge = pos.Key.GetClosestPositionWithinY(pos.Key, 6);
-                    if (getEdge != Vector3Int.invalidPos && getEdge != default(Vector3Int) && getEdge != pos.Key)
+                    var getEdge = pos.GetClosestPositionWithinY(pos, 6);
+                    if (getEdge != Vector3Int.invalidPos && getEdge != default(Vector3Int) && getEdge != pos)
                     {
-                        EdgeOfColony = getEdge;
+                        ForagingPos = getEdge;
                         posFound = true;
+                        break;
                     }
                 }
 
                 if (!posFound)
-                    EdgeOfColony = JobPos;
-            }
-            else
-            {
-                return ForagingPos;
+                    ForagingPos = JobPos;
+
+                RandomizePos();
             }
 
-            return EdgeOfColony;
+            return ForagingPos;
         }
 
         public void LeavingGoal()
@@ -112,17 +105,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public void LeavingJob()
         {
-            ComeHome();
-        }
 
-        private void ComeHome()
-        {
-            if (PathingManager.TryCanStandNearNotAt(EdgeOfColony, out var canStand, out var pos))
-                Job.NPC.SetPosition(pos);
-            else if (PathingManager.TryCanStandNearNotAt(JobPos, out canStand, out pos))
-                Job.NPC.SetPosition(pos);
-            else
-                Job.NPC.SetPosition(Job.Owner.Banners.FirstOrDefault().Position);
         }
 
         public void PerformGoal(ref NPCBase.NPCState state)
@@ -131,14 +114,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (!Foraging)
             {
-                ForagingPos = EdgeOfColony.Add(0, (Job.Owner.Banners[0].SafeRadius * -1) + 2, 0);
-                World.TryChangeBlock(ForagingPos.Add(0, 1, 0), ColonyBuiltIn.ItemTypes.AIR.Id);
-                World.TryChangeBlock(ForagingPos, ColonyBuiltIn.ItemTypes.AIR.Id);
-                Job.NPC.SetPosition(ForagingPos);
                 Foraging = true;
                 var nextTime = Pipliz.Random.Next(ForagingTimeMinSec, ForagingTimeMaxSec);
                 ForageEndTime = ServerTimeStamp.Now.Add(nextTime * 1000);
-                state.SetCooldown(nextTime);
+                state.SetCooldown(1, 2);
+                state.SetIndicator(new Shared.IndicatorState(Pipliz.Random.NextFloat(1, 2), LootTable.LootPoolList.GetRandomItem().Item));
             }
             else if (ForageEndTime.IsPassed)
             {
@@ -148,15 +128,45 @@ namespace Pandaros.Civ.Jobs.Goals
                     Job.NPC.Inventory.Add(item.Key, item.Value);
 
                 state.SetCooldown(1);
-                ComeHome();
+
                 Foraging = false;
                 PandaJobFactory.SetActiveGoal(Job, new PutItemsInCrateGoal(Job, JobPos, this, Job.NPC.Inventory.Inventory, this), ref state);
                 Job.NPC.Inventory.Inventory.Clear();
             }
             else
             {
-                state.SetCooldown(5);
+                RandomizePos();
+                var nextTime = Pipliz.Random.Next(5, 7);
+                state.SetCooldown(nextTime);
+                state.SetIndicator(new Shared.IndicatorState(nextTime, LootTable.LootPoolList.GetRandomItem().Item));
             }
+        }
+
+        private void RandomizePos()
+        {
+            var newPos = ForagingPos;
+            int blocks = Pipliz.Random.Next(1, 6);
+            
+
+            switch (Pipliz.Random.Next(1, 5))
+            {
+                case 1:
+                    newPos = newPos.Add(blocks, 0, 0);
+                    break;
+                case 2:
+                    newPos = newPos.Add(blocks * -1, 0, 0);
+                    break;
+                case 3:
+                    newPos = newPos.Add(0, 0, blocks);
+                    break;
+                case 4:
+                    newPos = newPos.Add(0, 0, blocks * -1);
+                    break;
+
+            }
+
+            if (newPos != ForagingPos)
+                ForagingPos = newPos.GetClosestPositionWithinY(Job.NPC.Position, 6);
         }
 
         public void SetAsGoal()
