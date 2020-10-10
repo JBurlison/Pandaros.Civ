@@ -22,12 +22,16 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public static void AfterDefiningNPCTypes()
         {
             ServerManager.BlockEntityCallbacks.RegisterEntityManager(
-                new BlockJobManager<PandaGoalJob>(new PrimitiveForager())
+                new BlockJobManager<PandaGoalJob>(
+                    new PrimitiveForager(),
+                    (setting, pos, type, bytedata) => new PandaGoalJob(setting, pos, type, bytedata),
+                    (setting, pos, type, colony) => new PandaGoalJob(setting, pos, type, colony)
+                )
             );
         }
     }
 
-    public class PrimitiveForagerNPCSettings : INPCTypeStandardSettings
+    public class PrimitiveForagerSettings : INPCTypeStandardSettings
     {
         public string keyName { get; set; } = PrimitiveForager.Name;
         public string printName { get; set; } = "Primitive Forager";
