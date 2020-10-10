@@ -91,9 +91,12 @@ namespace Pandaros.Civ.Jobs.Goals
 
                 if (!posFound)
                     ForagingPos = JobPos;
-
-                RandomizePos();
+                else
+                    RandomizePos();
             }
+
+            if (ForagingPos == default(Vector3Int))
+                ForagingPos = JobPos;
 
             return ForagingPos;
         }

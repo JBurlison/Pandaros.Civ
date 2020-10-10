@@ -90,20 +90,17 @@ namespace Pandaros.Civ.Storage
         {
             if (player.ActiveColony != null)
             {
-                var cs = ColonyState.GetColonyState(player.ActiveColony);
-
                 foreach (var item in StorageFactory.StorageBlockTypes.Values)
                     showWhileHoldingTypes.AddIfUnique(ItemId.GetItemId(item.name));
 
                 foreach (var item in StorageFactory.CrateTypes.Values)
                     showWhileHoldingTypes.AddIfUnique(ItemId.GetItemId(item.name));
 
-                if (cs.Positions.TryGetValue(Name, out var pos))
-                {
-                    var currentPeriod = PeriodFactory.GetTimePeriod(player.ActiveColony);
-                    list.Add(new AreaJobTracker.AreaHighlight(pos.Add(StockpileSizes[currentPeriod].Item1), 
-                                                              pos.Add(StockpileSizes[currentPeriod].Item2), Shared.EAreaMeshType.ThreeD, Shared.EServerAreaType.Default));
-                }
+                var pos = StorageFactory.GetStockpilePosition(player.ActiveColony);
+
+                var currentPeriod = PeriodFactory.GetTimePeriod(player.ActiveColony);
+                list.Add(new AreaJobTracker.AreaHighlight(pos.Min, pos.Max, Shared.EAreaMeshType.ThreeD, Shared.EServerAreaType.Default));
+                
             }
 
         }

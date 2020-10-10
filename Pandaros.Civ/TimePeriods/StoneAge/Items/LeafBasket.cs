@@ -58,6 +58,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
             new RecipeItem(Wood.NAME, 1),
+            new RecipeItem(SharpRock.NAME),
             new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Id, 5)
         };
 

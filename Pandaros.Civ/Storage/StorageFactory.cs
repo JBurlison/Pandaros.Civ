@@ -70,6 +70,13 @@ namespace Pandaros.Civ.Storage
             if (item == BuiltinBlocks.Types.air)
                 return;
 
+            if (player.ActiveColony != null && StockpileMaxStackSize.TryGetValue(player.ActiveColony, out var itemDic) && itemDic.TryGetValue(item.ItemIndex, out var maxSize))
+                data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("Storage.MaxStackSize"))), 200),
+                                                        (new Label(new LabelData(maxSize.ToString())), 60)
+                                                    }));
+
             if (CrateTypes.TryGetValue(item.Name, out var crate))
             {
                 data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
