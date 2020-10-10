@@ -116,6 +116,7 @@
     <Compile Include="Jobs\ForagingJobSettings.cs" />
     <Compile Include="Jobs\PorterJobSettings.cs" />
     <Compile Include="NPCs\NPCGoals\NPCCrateGoal.cs" />
+    <Compile Include="PlayerBehavior\BerryBushClick.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quests\JobReward.cs" />
     <Compile Include="Quests\StockpileSizeObjective.cs" />
@@ -131,6 +132,8 @@
     <Compile Include="TimePeriods\IronAge\Items\StorageDrawers.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Icons.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafSash.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveRockForager.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveWoodForager.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\LeafRope.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\WoodenCart.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\SharpRock.cs" />
@@ -147,7 +150,7 @@
     <Compile Include="TimePeriods\PreHistory\Quests\WoodWorkerQuest.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\GettingStartedQuests.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\Forager.cs" />
-    <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveForager.cs" />
+    <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveBerryForager.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\StoneMiner.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\TheWheelQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\PorterQuest.cs" />

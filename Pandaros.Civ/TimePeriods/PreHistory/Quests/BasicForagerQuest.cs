@@ -22,7 +22,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.PreHistory.Quests");
 
         public BasicForagerQuest() : 
-            base(NAME, NAME + "Text", PrimitiveForager.Name, HELPER)
+            base(NAME, NAME + "Text", PrimitiveBerryForager.Name, HELPER)
         {
         }
 
@@ -38,18 +38,26 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {
-                "primativeforager",
-                new JobsTakenObjective("primativeforager", PrimitiveForager.Name, 5, HELPER)
+                "PrimitiveBerryForager",
+                new JobsTakenObjective("PrimitiveBerryForager", PrimitiveBerryForager.Name, 2, HELPER)
+            },
+            {
+                "PrimitiveWoodForager",
+                new JobsTakenObjective("PrimitiveWoodForager", PrimitiveWoodForager.Name, 2, HELPER)
+            },
+            {
+                "PrimitiveRockForager",
+                new JobsTakenObjective("PrimitiveRockForager", PrimitiveRockForager.Name, 2, HELPER)
             },
             {
                 "colonistcount",
-                new ColonistCountObjective("colonistcount", 10)
+                new ColonistCountObjective("colonistcount", 6)
             }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToGuardsQuest", PrimitiveForager.Name, "AdvanceToGuardsQuest", HELPER),
+            new TextReward("AdvanceToGuardsQuest", PrimitiveBerryForager.Name, "AdvanceToGuardsQuest", HELPER),
             new JobReward(NAME, RockThrower.NameDay, "RockThrowerDay", Rock.NAME),
             new JobReward(NAME, RockThrower.NameNight, "RockThrowerNight", Rock.NAME),
             new JobReward(NAME, SpearThrower.NameDay, "SpearThrowerDay", Stick.NAME),

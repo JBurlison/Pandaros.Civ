@@ -48,7 +48,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public string keyName { get; set; } = SpearThrower.NameNight;
         public string printName { get; set; } = "Spear Thrower Night Guard";
-        public float inventoryCapacity { get; set; } = 300f;
+        public float inventoryCapacity { get; set; } = 25f;
         public float movementSpeed { get; set; } = 2.3f;
         public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
         public Color32 maskColor0 { get; set; }
@@ -57,7 +57,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public string keyName { get; set; } = SpearThrower.NameDay;
         public string printName { get; set; } = "Spear Thrower Day Guard";
-        public float inventoryCapacity { get; set; } = 300f;
+        public float inventoryCapacity { get; set; } = 25f;
         public float movementSpeed { get; set; } = 1.5f;
         public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
         public Color32 maskColor0 { get; set; }

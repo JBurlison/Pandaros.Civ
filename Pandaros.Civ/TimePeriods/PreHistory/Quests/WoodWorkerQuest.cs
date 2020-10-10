@@ -48,15 +48,15 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
                 new JobsTakenObjective("woodworker", WoodWorker.Name, 1, HELPER)
             },
             {
-                "forester",
-                new JobsTakenObjective("forester", ColonyBuiltIn.NpcTypes.FORESTER, 1, HELPER)
+                "stockpileUpgrades",
+                new CraftObjective("stockpileUpgrades", HollowedLog.Name, 6)
             }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToBasicForagerQuest", PrimitiveForager.Name, "AdvanceToBasicForagerQuest", HELPER),
-            new JobReward(NAME, PrimitiveForager.Name, nameof(BasicForagerQuest), LeafSash.NAME)
+            new TextReward("AdvanceToBasicForagerQuest", PrimitiveBerryForager.Name, "AdvanceToBasicForagerQuest", HELPER),
+            new JobReward(NAME, PrimitiveBerryForager.Name, nameof(BasicForagerQuest), LeafSash.NAME)
         };
     }
 }

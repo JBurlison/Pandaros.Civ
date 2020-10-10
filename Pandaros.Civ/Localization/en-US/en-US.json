@@ -42,7 +42,7 @@
       "Civ": {
         "Tutorials": {
           "Welcome": "Welcome to Pandaros: Civilization Mod!",
-          "WelcomeText": "Welcome to Pandaros: Civilization Mod, this mod does not take you down the traditional route of Colony Survival. Plese take the time to read this first message, you can stip all future tutorials at any time by clicking the button at the bottom of the scroll bar. You will playout a civilization through the ages starting in pre-history. You must complete quests, craft items, build and have colonists to reach new ages and unlocking new technologies on the way! \r\n\r\n Some basic things to get you started: \r\n    * Quests are part of this mod. You can find the button to access them in the Colony tab. \r\n    * The Stockpile has been decentralized. You must have crates and porters to transport things! \r\n    * The first thing you should do is place your stockpile block. \r\n \r\n ",
+          "WelcomeText": "Welcome to Pandaros: Civilization Mod, this mod does not take you down the traditional route of Colony Survival. Please take the time to read this first message, you can skip all future tutorials at any time by clicking the button at the bottom of the scroll bar. You will playout a civilization through the ages starting in pre-history. You must complete quests, craft items, build and have colonists to reach new ages and unlocking new technologies on the way! \r\n\r\n Some basic things to get you started: \r\n    * Quests are part of this mod. You can find the button to access them in the Colony tab. \r\n    * The Stockpile has been decentralized. You must have crates and porters to transport things! \r\n    * The first thing you should do is place your stockpile block. \r\n    * You can right click on berry bushes to manually harvest berries. \r\n ",
           "StockpileBlockHeader": "The Stockpile Block",
           "StockpileBlock": "The stockpile by default will limit the amount of items your stockpile can hold to 100 of each item. This can be upgraded with stockpile upgrade blocks. Stockpile upgrade blocks must be placed in the stockpile area. Each stockpile upgrade block gives specific upgrades to you items max stack size within the stockpile. The stockpile area increases in size as you progress through each age. Storage upgrade block tooltips provide information on the upgrades. You MUST have a route available for colonists to access the stockpile block directly. \r\n",
           "CrateHeader": "Crates",
@@ -104,12 +104,19 @@
             "Jobs": {
               "RockThrower": "Rock Thrower",
               "SpearThrower": "Spear Thrower",
+              "RockThrowerTip": "25 Ammo inventories, 50 damage hit, 5 block range, 6 second throw speed.",
+              "SpearThrowerTip": "25 Ammo inventories, 20 damage hit, 10 block range, 3 second throw speed.",
               "RockThrowerDay": "Rock Thrower Day",
               "RockThrowerNight": "Rock Thrower Night",
               "SpearThrowerDay": "Spear Thrower Day",
               "SpearThrowerNight": "Spear Thrower Night",
-              "PrimitiveForager": "Primitive Forager",
-              "WoodWorker": "Wood Worker"
+              "PrimitiveRockForager": "Primitive Rock Forager",
+              "PrimitiveWoodForager": "Primitive Wood Forager",
+              "PrimitiveBerryForager": "Primitive Berry Forager",
+              "WoodWorker": "Wood Worker",
+              "PrimitiveBerryForagerTip": "Forages for Berries just outside your colony. They are very slow at finding them.",
+              "PrimitiveWoodForagerTip": "Forages for Wood just outside your colony. They are very slow at finding them.",
+              "PrimitiveRockForagerTip": "Forages for Rocks just outside your colony. They are very slow at finding them."
             }
           }
         }
@@ -131,7 +138,9 @@
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.RockThrowerNight": "Rock Thrower Night",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SpearThrowerDay": "Spear Thrower Day",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.SpearThrowerNight": "Spear Thrower Night",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveForager": "Primitive Forager",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveRockForager": "Primitive Rock Forager",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveWoodForager": "Primitive Wood Forager",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveBerryForager": "Primitive Berry Forager",
     "Pandaros.Civ.TimePeriods.PreHistory.Quests.StoneAgeQuest": "Setup for the Stone Age!",
 
     "Pandaros.Civ.TimePeriods.StoneAge.Items.WovenBasket": "Woven Basket",
@@ -164,7 +173,9 @@
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "A log that hs been split up, useful to make basic things.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Stick": "A pointy stick, can act as a primative spear.",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "A crafter that makes basic things out of wood.",
-    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveForager": "Forages for rocks, dirt and berries.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveBerryForager": "Forages for Berries just outside your colony. They are very slow at finding them.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveWoodForager": "Forages for Wood just outside your colony. They are very slow at finding them.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveRockForager": "Forages for Rocks just outside your colony. They are very slow at finding them.",
 
     "Pandaros.Civ.TimePeriods.StoneAge.Items.WovenBasket": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.SturdyCrate": "Can store a small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",

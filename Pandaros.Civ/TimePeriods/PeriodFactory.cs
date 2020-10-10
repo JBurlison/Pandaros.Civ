@@ -40,14 +40,24 @@ namespace Pandaros.Civ.TimePeriods
         public void AfterWorldLoad()
         {
             CommandToolManager.AddButtonTooltip(TimePeriod.PreHistory.ToString(), TimePeriod.PreHistory.ToString(), TimePeriod.PreHistory.ToString() + "Tip");
+            CommandToolManager.AddButtonTooltip(PrimitiveBerryForager.Name, PrimitiveBerryForager.Name, PrimitiveBerryForager.Name + "Tip");
+            CommandToolManager.AddButtonTooltip(PrimitiveRockForager.Name, PrimitiveRockForager.Name, PrimitiveRockForager.Name + "Tip");
+            CommandToolManager.AddButtonTooltip(PrimitiveWoodForager.Name, PrimitiveWoodForager.Name, PrimitiveWoodForager.Name + "Tip");
+
+            CommandToolManager.AddButtonTooltip(RockThrower.NameDay, RockThrower.NameDay, RockThrower.Name + "Tip");
+            CommandToolManager.AddButtonTooltip(SpearThrower.NameDay, SpearThrower.NameDay, SpearThrower.Name + "Tip");
+            CommandToolManager.AddButtonTooltip(RockThrower.NameNight, RockThrower.NameNight, RockThrower.Name + "Tip");
+            CommandToolManager.AddButtonTooltip(SpearThrower.NameNight, SpearThrower.NameNight, SpearThrower.Name + "Tip");
 
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(RockThrower.NameDay, RockThrower.NameDay, RockThrower.NameDay, EBlockToolHoverType.GreenIfNPCCanStand));
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(RockThrower.NameNight, RockThrower.NameNight, RockThrower.NameNight, EBlockToolHoverType.GreenIfNPCCanStand));
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(SpearThrower.NameDay, SpearThrower.NameDay, SpearThrower.NameDay, EBlockToolHoverType.GreenIfNPCCanStand));
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(SpearThrower.NameNight, SpearThrower.NameNight, SpearThrower.NameNight, EBlockToolHoverType.GreenIfNPCCanStand));
-            CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(PrimitiveForager.Name, PrimitiveForager.Name, PrimitiveForager.Name, EBlockToolHoverType.GreenIfNPCCanStand));
-
+            CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(PrimitiveBerryForager.Name, PrimitiveBerryForager.Name, PrimitiveBerryForager.Name, EBlockToolHoverType.GreenIfNPCCanStand));
+            CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(PrimitiveRockForager.Name, PrimitiveRockForager.Name, PrimitiveRockForager.Name, EBlockToolHoverType.GreenIfNPCCanStand));
+            CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(PrimitiveWoodForager.Name, PrimitiveWoodForager.Name, PrimitiveWoodForager.Name, EBlockToolHoverType.GreenIfNPCCanStand));
         }
+
         public void OnPlayerPushedNetworkUIButton(ButtonPressCallbackData data)
         {
             if (!string.IsNullOrEmpty(data.ButtonIdentifier) && Enum.TryParse<TimePeriod>(data.ButtonIdentifier, out var tp) && GenerateTimePeriodCommandToolMenu.TryGetValue(tp, out var generateMenu))
@@ -101,6 +111,7 @@ namespace Pandaros.Civ.TimePeriods
                 (new Label(new LabelData("")) { Width = 20 }, 20),
                 (new Label(new LabelData("popup.tooljob.guardsnight", ELabelAlignment.UpperCenter), 20) { Width = 270 }, 270)
             }));
+
             CommandToolManager.GenerateFourColumnTwoGroupRow(menu,
                 GetButtonTool(p, RockThrower.NameDay, RockThrower.Name),
                 GetButtonTool(p, SpearThrower.NameDay, SpearThrower.Name),
@@ -108,8 +119,9 @@ namespace Pandaros.Civ.TimePeriods
                 GetButtonTool(p, SpearThrower.NameNight, SpearThrower.Name)) ;
             menu.Items.Add(new EmptySpace(10));
             CommandToolManager.GenerateThreeColumnCenteredRow(menu,
-                CommandToolManager.GetButtonTool(p, CommandToolManager.AreaType.FORESTER, CommandToolManager.LocalizationKey.FORESTER),
-                GetButtonTool(p, PrimitiveForager.Name, PrimitiveForager.Name));
+                GetButtonTool(p, PrimitiveBerryForager.Name, PrimitiveBerryForager.Name),
+                GetButtonTool(p, PrimitiveRockForager.Name, PrimitiveRockForager.Name),
+                GetButtonTool(p, PrimitiveWoodForager.Name, PrimitiveWoodForager.Name));
 
             ModLoader.Callbacks.OnConstructCommandTool.Invoke(p, menu, TimePeriod.PreHistory.ToString());
             NetworkMenuManager.SendServerPopup(p, menu);

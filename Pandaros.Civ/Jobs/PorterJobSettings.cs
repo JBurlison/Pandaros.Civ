@@ -23,7 +23,7 @@ namespace Pandaros.Civ.Jobs
             {
                 BlockTypes = new ItemTypes.ItemType[1]
                 {
-                ItemTypes.GetType(blockType)
+                    ItemTypes.GetType(blockType)
                 };
             }
 
