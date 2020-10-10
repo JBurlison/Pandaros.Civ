@@ -139,7 +139,7 @@
     <Compile Include="TimePeriods\StoneAge\Items\StoneSpear.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneBrick.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Stick.cs" />
-    <Compile Include="TimePeriods\PreHistory\Items\RoughWoodenBoard.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\RoughWoodenBoard.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\GuardsQuest.cs" />
@@ -183,7 +183,7 @@
     <Compile Include="TextureType.cs" />
     <Compile Include="TimePeriod.cs" />
     <Compile Include="TimePeriods\PeriodFactory.cs" />
-    <Compile Include="TimePeriods\PreHistory\Items\LeafBasket.cs" />
+    <Compile Include="TimePeriods\StoneAge\Items\LeafBasket.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\SturdyCrate.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StonePickaxe.cs" />
     <Compile Include="WorldGen\IMineTypeOverride.cs" />

@@ -97,9 +97,10 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
                     new RecipeUnlock(LeafRope.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(StonePickaxe.NAME, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(WoodenCart.NAME, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(RoughWoodenBoard.NAME, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(LeafBasket.NAME, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(ColonyBuiltIn.ItemTypes.SLING.Name + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(ColonyBuiltIn.ItemTypes.SLING.Name + ColonyBuiltIn.ItemTypes.LEAVESTAIGA.Name, ERecipeUnlockType.Recipe),
-                    new RecipeUnlock(ColonyBuiltIn.ItemTypes.PLANKS.Name, ERecipeUnlockType.Recipe),
 
                     //new RecipeUnlock(Forager.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(Forager.Name + "player", ERecipeUnlockType.Recipe),

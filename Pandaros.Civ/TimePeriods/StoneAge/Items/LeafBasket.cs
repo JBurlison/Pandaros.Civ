@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 
-namespace Pandaros.Civ.TimePeriods.PreHistory.Items
+namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 {
     public class LeafBasket : CSType 
     {
-        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(LeafBasket));
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(LeafBasket));
         public override string name { get; set; } = NAME;
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "LeafBasket.png");
         public override bool? isPlaceable => false;

@@ -44,7 +44,7 @@ namespace Pandaros.Civ.Jobs
             }
 
             NPCType = NPCType.GetByKeyNameOrDefault(npcTypeKey);
-            RecruitmentItem = new InventoryItem(LeafBasket.NAME);
+            RecruitmentItem = new InventoryItem(LeafSash.NAME);
             LootTable = lootTable;
             ForagingTimeMaxSec = foragingTimeMaxSec;
             ForagingTimeMinSec = foragingTimeMinSec;
