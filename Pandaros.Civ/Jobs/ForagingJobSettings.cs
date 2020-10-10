@@ -19,11 +19,27 @@ namespace Pandaros.Civ.Jobs
     {
         public ForagingJobSettings(string blockType, string npcTypeKey, ILootTable lootTable, int foragingTimeMinSec, int foragingTimeMaxSec, float lootLuckModifier = 0f)
         {
-            if (blockType != null)
+            ItemTypes.ItemType type = ItemTypes.GetType(blockType);
+            if (type.RotatedXMinus != null)
             {
-                BlockTypes = new ItemTypes.ItemType[1]
+                BlockTypes = new ItemTypes.ItemType[5]
                 {
-                    ItemTypes.GetType(blockType)
+                    type,
+                    ItemTypes.GetType(type.RotatedXPlus),
+                    ItemTypes.GetType(type.RotatedXMinus),
+                    ItemTypes.GetType(type.RotatedZPlus),
+                    ItemTypes.GetType(type.RotatedZMinus)
+                };
+            }
+            else
+            {
+                BlockTypes = new ItemTypes.ItemType[5]
+                {
+                    type,
+                    ItemTypes.GetType(blockType + "x+"),
+                    ItemTypes.GetType(blockType + "x-"),
+                    ItemTypes.GetType(blockType + "z+"),
+                    ItemTypes.GetType(blockType + "z-")
                 };
             }
 
