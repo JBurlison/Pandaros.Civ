@@ -43,11 +43,11 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
         {
             {
                 "porterfrom",
-                new JobsTakenObjective("porterfrom", SlowPorterFromCrate.Name, 1)
+                new JobsTakenObjective("porterfrom", SlowPorterFromCrate.Name, 1, HELPER)
             },
             {
                 "porterto",
-                new JobsTakenObjective("porterfrom", SlowPorterToCrate.Name, 1)
+                new JobsTakenObjective("porterfrom", SlowPorterToCrate.Name, 1, HELPER)
             },
             {
                 "crateplaced",

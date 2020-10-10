@@ -35,23 +35,23 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
         }
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( PreHistory.Quests.StoneAgeQuest.NAME),
-           new SciencePrerequisite( GameSetup.GetNamespace("TimePeriods.PreHistory.Research", nameof(PreHistory.Research.StoneAgeResearch)))
+           new QuestPrerequisite(PreHistory.Quests.StoneAgeQuest.NAME),
+           new SciencePrerequisite(GameSetup.GetNamespace("TimePeriods.PreHistory.Research", nameof(PreHistory.Research.StoneAgeResearch)), HELPER)
         }; 
         public override bool HideQuest { get; } = true;
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {
                 "stonenailinstockpile",
-                new ItemsInStockpileObjective("stonenailinstockpile", StoneNail.NAME, 20)
+                new ItemsInStockpileObjective("stonenailinstockpile", StoneNail.NAME, 20, HELPER)
             },
             {
                 "stonepickaxeinstockpile",
-                new ItemsInStockpileObjective("stonepickaxeinstockpile", StonePickaxe.NAME, 5)
+                new ItemsInStockpileObjective("stonepickaxeinstockpile", StonePickaxe.NAME, 5, HELPER)
             },
             {
                 "stoneshaper",
-                new JobsTakenObjective("stoneshaper", StoneShaper.Name, 1)
+                new JobsTakenObjective("stoneshaper", StoneShaper.Name, 1, HELPER)
             }/*,
             {
                 "stoneminer",

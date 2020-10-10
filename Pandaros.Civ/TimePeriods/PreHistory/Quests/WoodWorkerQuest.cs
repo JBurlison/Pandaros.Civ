@@ -41,15 +41,15 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         {
             {
                 "woodinstockpile",
-                new ItemsInStockpileObjective("woodinstockpile", Wood.NAME, 20)
+                new ItemsInStockpileObjective("woodinstockpile", Wood.NAME, 20, HELPER)
             },
             {
                 "woodworker",
-                new JobsTakenObjective("woodworker", WoodWorker.Name, 1)
+                new JobsTakenObjective("woodworker", WoodWorker.Name, 1, HELPER)
             },
             {
                 "forester",
-                new JobsTakenObjective("forester", ColonyBuiltIn.NpcTypes.FORESTER, 1)
+                new JobsTakenObjective("forester", ColonyBuiltIn.NPCLocalizationPrefix + ColonyBuiltIn.NpcTypes.FORESTER, 1, HELPER)
             }
         };
         

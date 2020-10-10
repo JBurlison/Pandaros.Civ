@@ -43,11 +43,11 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
         {
             {
                 "stonewheelinstockpile",
-                new ItemsInStockpileObjective("stonewheelinstockpile", StoneWheel.NAME, 20)
+                new ItemsInStockpileObjective("stonewheelinstockpile", StoneWheel.NAME, 20, HELPER)
             },
             {
                 "forager",
-                new JobsTakenObjective("forager", Forager.Name, 3)
+                new JobsTakenObjective("forager", Forager.Name, 3, HELPER)
             }
         };
 
