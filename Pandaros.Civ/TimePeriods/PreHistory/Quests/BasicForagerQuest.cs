@@ -43,11 +43,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             },
             {
                 "PrimitiveWoodForager",
-                new JobsTakenObjective("PrimitiveWoodForager", PrimitiveWoodForager.Name, 2, HELPER)
+                new JobsTakenObjective("PrimitiveWoodForager", PrimitiveWoodForager.Name, 1, HELPER)
             },
             {
                 "PrimitiveRockForager",
-                new JobsTakenObjective("PrimitiveRockForager", PrimitiveRockForager.Name, 2, HELPER)
+                new JobsTakenObjective("PrimitiveRockForager", PrimitiveRockForager.Name, 1, HELPER)
             },
             {
                 "colonistcount",
