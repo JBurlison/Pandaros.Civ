@@ -49,7 +49,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             },
             {
                 "forester",
-                new JobsTakenObjective("forester", ColonyBuiltIn.NPCLocalizationPrefix + ColonyBuiltIn.NpcTypes.FORESTER, 1, HELPER)
+                new JobsTakenObjective("forester", ColonyBuiltIn.NpcTypes.FORESTER, 1, HELPER)
             }
         };
         
