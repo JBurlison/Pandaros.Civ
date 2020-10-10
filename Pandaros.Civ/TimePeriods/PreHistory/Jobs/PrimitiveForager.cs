@@ -52,10 +52,10 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             {
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 10, 20),
                 new LootPoolEntry(Rock.NAME, 5, 10),
-                new LootPoolEntry(Wood.NAME, 6, 15, 0.15f),
-                new LootPoolEntry(Stick.NAME, 5, 20, 0.4f),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 5, 10, 0.5f),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTAIGA, 5, 10, 0.5f)
+                new LootPoolEntry(Wood.NAME, 1, 4, 0.5f),
+                new LootPoolEntry(Stick.NAME, 1, 4, 0.1f),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 5, 10, 0.1f),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTAIGA, 5, 10, 0.1f)
 
             }
         };
