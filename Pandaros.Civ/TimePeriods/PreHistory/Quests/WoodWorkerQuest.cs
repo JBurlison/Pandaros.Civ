@@ -55,8 +55,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToBasicForagerQuest", PrimitiveBerryForager.Name, "AdvanceToBasicForagerQuest", HELPER),
-            new JobReward(NAME, PrimitiveBerryForager.Name, nameof(BasicForagerQuest), LeafSash.NAME)
+            new TextReward("AdvanceToBasicForagerQuest", PrimitiveBerryForager.Name, "AdvanceToBasicForagerQuest", HELPER)
         };
     }
 }

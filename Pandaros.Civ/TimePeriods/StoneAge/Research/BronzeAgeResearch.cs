@@ -12,12 +12,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;   
 using Pandaros.Civ.TimePeriods.IndustrialAge.Items;
+using Pandaros.Civ.TimePeriods.PreHistory.Research;
 
 namespace Pandaros.Civ.TimePeriods.StoneAge.Research
 {
     public class BronzeAgeResearch : PandaResearch
     {
-        public override string name => GameSetup.GetNamespace("TimePeriods.StoneAge.Research", nameof(BronzeAgeResearch));
+        public static readonly string NAME = GameSetup.GetNamespace("TimePeriods.StoneAge.Research", nameof(BronzeAgeResearch));
+        public override string name => NAME;
         public override string IconDirectory => "gamedata/textures/icons/bronzeingot.png";
         public override bool AddLevelToName => false;
         public override int NumberOfLevels => 1;
@@ -33,16 +35,16 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Research
                 }
             }
         };
-        public override Dictionary<int, List<string>> Dependancies => new Dictionary<int, List<string>>()
-        {
-            {
-                0,
-                new List<string>()
-                {
-                    GameSetup.GetNamespace("TimePeriods.PreHistory.Research", nameof(PreHistory.Research.StoneAgeResearch))
-                }
-            }
-        };
+        //public override Dictionary<int, List<string>> Dependancies => new Dictionary<int, List<string>>()
+        //{
+        //    {
+        //        0,
+        //        new List<string>()
+        //        {
+        //            StoneAgeResearch.NAME
+        //        }
+        //    }
+        //};
 
         public override Dictionary<int, List<RecipeUnlock>> Unlocks => new Dictionary<int, List<RecipeUnlock>>()
         {
@@ -54,7 +56,8 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Research
                     new RecipeUnlock(PaddedCrate.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(Shelving.Name, ERecipeUnlockType.Recipe),
                     new RecipeUnlock(Pallet.Name, ERecipeUnlockType.Recipe),
-                    new RecipeUnlock(StorageDrawers.Name, ERecipeUnlockType.Recipe)
+                    new RecipeUnlock(StorageDrawers.Name, ERecipeUnlockType.Recipe),
+                    new RecipeUnlock(ColonyBuiltIn.ItemTypes.PLANKS, ERecipeUnlockType.Recipe)
                 }
             }
         };

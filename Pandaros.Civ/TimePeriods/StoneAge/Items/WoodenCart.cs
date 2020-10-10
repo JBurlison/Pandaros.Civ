@@ -32,7 +32,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
             new RecipeItem(StoneWheel.NAME, 2),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Name, 10),
+            new RecipeItem(RoughWoodenBoard.NAME, 10),
             new RecipeItem(Wood.NAME, 5),
             new RecipeItem(LeafRope.NAME, 1)
         };

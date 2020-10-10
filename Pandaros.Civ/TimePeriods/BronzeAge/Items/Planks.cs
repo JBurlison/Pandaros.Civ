@@ -10,7 +10,7 @@ using Pandaros.Civ.TimePeriods.PreHistory.Items;
 using Pandaros.Civ.TimePeriods.StoneAge.Items;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 
-namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
+namespace Pandaros.Civ.TimePeriods.BronzeAge.Recipes
 {
 
     public class PlanksRecipe : ICSRecipe
@@ -18,7 +18,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Recipes
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
             new RecipeItem(RoughWoodenBoard.NAME, 3),
-            new RecipeItem(StoneNail.NAME, 5)
+            new RecipeItem(ColonyBuiltIn.ItemTypes.COPPERNAILS.Name, 5)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()

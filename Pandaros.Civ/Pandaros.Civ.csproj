@@ -138,7 +138,6 @@
     <Compile Include="TimePeriods\StoneAge\Items\WoodenCart.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\SharpRock.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneWheel.cs" />
-    <Compile Include="TimePeriods\StoneAge\Items\StoneNail.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneSpear.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\StoneBrick.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Stick.cs" />
@@ -156,7 +155,7 @@
     <Compile Include="TimePeriods\StoneAge\Quests\PorterQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\UsingStoneQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\BronzeAgeQuest.cs" />
-    <Compile Include="TimePeriods\StoneAge\Recipes\Planks.cs" />
+    <Compile Include="TimePeriods\BronzeAge\Items\Planks.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\Rock.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\Sling.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\SlingBullets.cs" />

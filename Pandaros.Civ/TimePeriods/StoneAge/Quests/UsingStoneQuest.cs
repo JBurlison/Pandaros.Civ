@@ -42,10 +42,6 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {
-                "stonenailinstockpile",
-                new ItemsInStockpileObjective("stonenailinstockpile", StoneNail.NAME, 20, HELPER)
-            },
-            {
                 "stonepickaxeinstockpile",
                 new ItemsInStockpileObjective("stonepickaxeinstockpile", StonePickaxe.NAME, 5, HELPER)
             },

@@ -33,6 +33,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
             new RecipeItem(Wood.NAME, 1),
+            new RecipeItem(SharpRock.NAME),
             new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
         };
 
@@ -49,8 +50,9 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 
         public string Job => WoodWorker.Name;
 
-        public List<string> JobBlock => new List<string>() { WoodWorker.Name };
+        public List<string> JobBlock => new List<string>();
     }
+
     public class LeafBasketTaigaJobRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
@@ -72,6 +74,6 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 
         public string Job => WoodWorker.Name;
 
-        public List<string> JobBlock => new List<string>() { WoodWorker.Name };
+        public List<string> JobBlock => new List<string>();
     }
 }
