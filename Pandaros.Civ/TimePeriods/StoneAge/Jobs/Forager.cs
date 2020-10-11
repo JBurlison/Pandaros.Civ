@@ -64,73 +64,11 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
 
         }
     }
+
     public class ForagerJobType : CSGenerateType
     {
         public override string typeName => Forager.Name;
         public override string generateType => "jobOutline";
         public override string outlineColor => "#00FF00";
     }
-    /*public class ForagerJobType : CSType
-    {
-        public override string name => Forager.Name;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "Forager.png");
-        public override string onPlaceAudio => CommonSounds.WoodPlace;
-        public override string onRemoveAudio => CommonSounds.WoodDeleteLight;
-        public override string sideall => Forager.Name;
-        public override string mesh { get; set; } = GameSetup.MESH_PATH + "Forager.ply";
-        public override List<string> categories => new List<string>()
-            {
-                CommonCategories.Job,
-                "aa",
-                nameof(TimePeriod.StoneAge),
-                CommonCategories.Forager,
-                GameSetup.NAMESPACE
-            };
-    }
-    public class RoughWoodenBoardTexture : CSTextureMapping
-    {
-        public override string name => Forager.Name;
-        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "Forager.png");
-        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "Forager.png");
-        public override string height => GameSetup.Textures.GetPath(TextureType.height, "Forager.png");
-    }*/
-
-    public class ForagerRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Id, 1)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(Forager.Name)
-        };
-
-        public string name => Forager.Name + "player";
-    }
-
-    /*public class ForagerJobRecipe : ICSRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(RoughWoodenBoard.NAME, 4),
-            new RecipeItem(LeafBasket.NAME),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 5),
-            new RecipeItem(Rock.NAME, 4)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(Forager.Name)
-        };
-
-        public string name => Forager.Name;
-        public CraftPriority defaultPriority => CraftPriority.Medium;
-        public int defaultLimit => 10;
-
-        public string Job => PreHistory.Jobs.WoodWorker.Name;
-
-        public List<string> JobBlock => new List<string>() { PreHistory.Jobs.WoodWorker.Name };
-    }*/
 }

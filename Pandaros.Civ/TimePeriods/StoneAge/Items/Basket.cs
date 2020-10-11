@@ -52,7 +52,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Id),
+            new RecipeItem(RoughWoodenBoard.NAME),
             new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
         };
 

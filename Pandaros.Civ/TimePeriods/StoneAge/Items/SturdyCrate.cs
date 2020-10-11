@@ -55,9 +55,8 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
         {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.PLANKS.Id, 10),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5),
-            //new RecipeItem(PreHistory.Items.BasicCrate.Name)
+            new RecipeItem(RoughWoodenBoard.NAME, 10),
+            new RecipeItem(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Id, 5)
         };
 
         public List<RecipeResult> results => new List<RecipeResult>()
