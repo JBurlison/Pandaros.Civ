@@ -50,9 +50,10 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             name = Name,
             LootPoolList = new List<LootPoolEntry>()
             {
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 3, 6),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 1, 2, 0.8f),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 1, 2, 0.1f)
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 4, 8),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 2, 5, 0.4f),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 2, 4, 0.4f),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.BERRY, 2, 3, 0.1f)
             }
         };
 

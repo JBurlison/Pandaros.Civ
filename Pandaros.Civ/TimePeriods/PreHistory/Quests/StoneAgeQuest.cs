@@ -38,7 +38,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         {
             {
                 "colonistcount",
-                new ColonistCountObjective("colonistcount", 15)
+                new ColonistCountObjective("colonistcount", 10)
             },
             {
                 "stockpilesize",
