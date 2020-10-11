@@ -330,24 +330,157 @@
     <None Include="Localization\en-US\en-US.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\arrow.ply" />
+    <None Include="Meshes\basket.ply" />
+    <None Include="Meshes\beam+1.ply" />
+    <None Include="Meshes\beam+2.ply" />
+    <None Include="Meshes\beam+3.ply" />
+    <None Include="Meshes\beam+4.ply" />
+    <None Include="Meshes\beamh.ply" />
+    <None Include="Meshes\beamt.ply" />
+    <None Include="Meshes\beamv.ply" />
+    <None Include="Meshes\column.ply" />
+    <None Include="Meshes\columnbase.ply" />
+    <None Include="Meshes\CornerBlock.ply" />
     <None Include="Meshes\Crate.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\cratestackx+.obj" />
+    <None Include="Meshes\cratestackx-.obj" />
+    <None Include="Meshes\cratestackz+.obj" />
+    <None Include="Meshes\cratestackz-.obj" />
+    <None Include="Meshes\crossbowbolt.ply" />
+    <None Include="Meshes\cutcube.obj" />
+    <None Include="Meshes\cutcubetest.obj" />
+    <None Include="Meshes\cutcubetesttriangle.obj" />
+    <None Include="Meshes\door.obj" />
+    <None Include="Meshes\doublewindowpop.obj" />
+    <None Include="Meshes\EdgeBlock.obj" />
+    <None Include="Meshes\EdgeBlock.ply" />
+    <None Include="Meshes\emptyframe.obj" />
+    <None Include="Meshes\flaxstage2.obj" />
     <None Include="Meshes\Forager.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\gatex+.obj" />
+    <None Include="Meshes\gatex-.obj" />
+    <None Include="Meshes\gatez+.obj" />
+    <None Include="Meshes\gatez-.obj" />
+    <None Include="Meshes\halfslabtest.obj" />
+    <None Include="Meshes\hangingbannerx+.obj" />
+    <None Include="Meshes\hangingbannerx-.obj" />
+    <None Include="Meshes\hangingbannerz+.obj" />
+    <None Include="Meshes\hangingbannerz-.obj" />
+    <None Include="Meshes\herbstage1.obj" />
+    <None Include="Meshes\herbstage2.obj" />
+    <None Include="Meshes\InvertedRamp.obj" />
+    <None Include="Meshes\InvertedRamp.ply" />
+    <None Include="Meshes\InvertedRampCorner.ply" />
+    <None Include="Meshes\InvertedRampCornerInverted.ply" />
+    <None Include="Meshes\InvertedStairs.ply" />
+    <None Include="Meshes\InvertedStairsCorner.ply" />
+    <None Include="Meshes\InvertedStairsCornerInverted.ply" />
+    <None Include="Meshes\ironbarcornerx+.obj" />
+    <None Include="Meshes\ironbarcornerx-.obj" />
+    <None Include="Meshes\ironbarcornerz+.obj" />
+    <None Include="Meshes\ironbarcornerz-.obj" />
+    <None Include="Meshes\ironbarx+.obj" />
+    <None Include="Meshes\ironbarx-.obj" />
+    <None Include="Meshes\ironbarz+.obj" />
+    <None Include="Meshes\ironbarz-.obj" />
     <None Include="Meshes\IronChest.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\irondoorx+.obj" />
+    <None Include="Meshes\irondoorx-.obj" />
+    <None Include="Meshes\irondoorz+.obj" />
+    <None Include="Meshes\irondoorz-.obj" />
+    <None Include="Meshes\leadbullet.ply" />
+    <None Include="Meshes\Lever.obj" />
+    <None Include="Meshes\Manapump.obj" />
+    <None Include="Meshes\Marblepillarbase.obj" />
+    <None Include="Meshes\Marblepillarbody.obj" />
+    <None Include="Meshes\Marblepillartop.obj" />
+    <None Include="Meshes\middlewindow.obj" />
+    <None Include="Meshes\middlewindowz.obj" />
+    <None Include="Meshes\MiningMachine.obj" />
+    <None Include="Meshes\Monorail_Ramp.obj" />
+    <None Include="Meshes\Monorail_Straight.obj" />
+    <None Include="Meshes\Monorail_Turn.obj" />
+    <None Include="Meshes\pad.obj" />
+    <None Include="Meshes\Pipe.obj" />
+    <None Include="Meshes\Pipe_3way.obj" />
+    <None Include="Meshes\Pipe_3wayflat.obj" />
+    <None Include="Meshes\Pipe_3way_Corner.obj" />
+    <None Include="Meshes\Pipe_4way.obj" />
+    <None Include="Meshes\Pipe_4way_potrude.obj" />
+    <None Include="Meshes\Pipe_5way.obj" />
+    <None Include="Meshes\Pipe_5wayYp.obj" />
+    <None Include="Meshes\Pipe_6way.obj" />
+    <None Include="Meshes\Pipe_Elbow.obj" />
+    <None Include="Meshes\Pipe_Elbowyp.obj" />
     <None Include="Meshes\PrimitiveForager.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\PropulsionPlatform.obj" />
+    <None Include="Meshes\QuarterBlock.ply" />
+    <None Include="Meshes\RaisedCornerBlock.ply" />
+    <None Include="Meshes\RaisedEdgeBlock.ply" />
+    <None Include="Meshes\RaisedQuarterBlock.ply" />
+    <None Include="Meshes\Ramp.ply" />
+    <None Include="Meshes\RampCorner.ply" />
+    <None Include="Meshes\RampCornerInverted.ply" />
+    <None Include="Meshes\sapling.ply" />
+    <None Include="Meshes\Selector.obj" />
+    <None Include="Meshes\Selector.ply" />
     <None Include="Meshes\Shelving.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\SlabDown.ply" />
+    <None Include="Meshes\SlabUp.ply" />
+    <None Include="Meshes\slingbullet.ply" />
+    <None Include="Meshes\smallwindowbottom.ply" />
+    <None Include="Meshes\smallwindowmid.ply" />
+    <None Include="Meshes\smallwindowtop.ply" />
+    <None Include="Meshes\spiral.ply" />
+    <None Include="Meshes\spiraltop.ply" />
+    <None Include="Meshes\Stairs.ply" />
+    <None Include="Meshes\StairsCorner.ply" />
+    <None Include="Meshes\StairsCornerInverted.ply" />
     <None Include="Meshes\SturdyCrate.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Meshes\VerticalSlab.ply" />
+    <None Include="Meshes\windowtwowayx.obj" />
+    <None Include="Meshes\windowtwowayz.obj" />
+    <None Include="Meshes\windowx+.obj" />
+    <None Include="Meshes\windowx-.obj" />
+    <None Include="Meshes\windowz+.obj" />
+    <None Include="Meshes\windowz-.obj" />
+    <None Include="Meshes\woodbarrel.obj" />
+    <None Include="Meshes\woodbarrelx+.obj" />
+    <None Include="Meshes\woodbarrelx-.obj" />
+    <None Include="Meshes\woodbarrelz+.obj" />
+    <None Include="Meshes\woodbarrelz-.obj" />
+    <None Include="Meshes\woodencatwalkx.obj" />
+    <None Include="Meshes\woodencatwalkz.obj" />
+    <None Include="Meshes\woodfencecornerx+.obj" />
+    <None Include="Meshes\woodfencecornerx-.obj" />
+    <None Include="Meshes\woodfencecornerz+.obj" />
+    <None Include="Meshes\woodfencecornerz-.obj" />
+    <None Include="Meshes\woodfencex+.obj" />
+    <None Include="Meshes\woodfencex-.obj" />
+    <None Include="Meshes\woodfencez+.obj" />
+    <None Include="Meshes\woodfencez-.obj" />
+    <None Include="Meshes\woodsupportcube.obj" />
+    <None Include="Meshes\woodsupportudx+.obj" />
+    <None Include="Meshes\woodsupportudx-.obj" />
+    <None Include="Meshes\woodsupportudz+.obj" />
+    <None Include="Meshes\woodsupportudz-.obj" />
+    <None Include="Meshes\woodsupportx+.obj" />
+    <None Include="Meshes\woodsupportx-.obj" />
+    <None Include="Meshes\woodsupportz+.obj" />
+    <None Include="Meshes\woodsupportz-.obj" />
     <None Include="modInfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
