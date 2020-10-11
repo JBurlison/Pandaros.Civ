@@ -41,10 +41,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
                 new ColonistCountObjective("colonistcount", 10)
             },
             {
-                "stockpileUpgrades",
-                new CraftObjective("stockpileUpgrades", HollowedLog.Name, 5)
-            },
-            {
                 "stockpilesize",
                 new StockpileSizeObjective("stockpilesize", 140)
             }

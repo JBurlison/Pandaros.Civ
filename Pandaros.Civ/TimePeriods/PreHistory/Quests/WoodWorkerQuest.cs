@@ -46,7 +46,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             {
                 "woodworker",
                 new JobsTakenObjective("woodworker", WoodWorker.Name, 1, HELPER)
-            }
+            },
+            {
+                "stockpileUpgrades",
+                new CraftObjective("stockpileUpgrades", HollowedLog.Name, 5)
+            },
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
