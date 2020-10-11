@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Pandaros.Civ.Quests;
 using Pandaros.Civ.Storage;
 using Pandaros.API.Questing.BuiltinPrerequisites;
+using Pandaros.API;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 {
@@ -42,7 +43,10 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToWoodWorkerQuest", WoodWorker.Name, "AdvanceToWoodWorkerQuest", HELPER)
+            new TextReward("AdvanceToBasicForagerQuest", BasicForaging_questIcon.NAME, "AdvanceToBasicForagerQuest", HELPER),
+            new JobReward(NAME, PrimitiveBerryForager.Name, "PrimitiveBerryForager", ColonyBuiltIn.ItemTypes.BERRY),
+            new JobReward(NAME, PrimitiveWoodForager.Name, "PrimitiveWoodForager", Wood.NAME),
+            new JobReward(NAME, PrimitiveRockForager.Name, "PrimitiveRockForager", Rock.NAME)
         };
     }
 }

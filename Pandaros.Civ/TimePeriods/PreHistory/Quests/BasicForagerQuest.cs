@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Pandaros.Civ.Quests;
 using Pandaros.Civ.Storage;
 using Pandaros.API.Questing.BuiltinPrerequisites;
+using Pandaros.API;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 {
@@ -22,7 +23,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.PreHistory.Quests");
 
         public BasicForagerQuest() : 
-            base(NAME, NAME + "Text", PrimitiveBerryForager.Name, HELPER)
+            base(NAME, NAME + "Text", BasicForaging_questIcon.NAME, HELPER)
         {
         }
 
@@ -33,7 +34,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( WoodWorkerQuest.NAME)
+           new QuestPrerequisite( GettingStartedQuest.NAME)
         };
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
@@ -57,11 +58,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToGuardsQuest", PrimitiveBerryForager.Name, "AdvanceToGuardsQuest", HELPER),
-            new JobReward(NAME, RockThrower.NameDay, "RockThrowerDay", Rock.NAME),
-            new JobReward(NAME, RockThrower.NameNight, "RockThrowerNight", Rock.NAME),
-            new JobReward(NAME, SpearThrower.NameDay, "SpearThrowerDay", Stick.NAME),
-            new JobReward(NAME, SpearThrower.NameNight, "SpearThrowerNight", Stick.NAME)
+            new TextReward("AdvanceToWoodWorkerQuest", WoodWorker.Name, "AdvanceToWoodWorkerQuest", HELPER),
+            //new RecipeUnlockReward(WoodWorker.Name, WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name, HELPER)
         };
     }
 }
