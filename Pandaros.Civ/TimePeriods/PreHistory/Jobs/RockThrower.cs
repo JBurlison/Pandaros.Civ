@@ -21,7 +21,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public int cooldownShot { get; set; } = RockThrower.cooldown;
         public int damage { get; set; } = RockThrower.damage;
         public string jobType { get; set; } = "guard";
-        public string npcType { get; set; } = RockThrower.NameDay;
+        public string npcType { get; set; } = RockThrower.NameNight;
         public string onHitAudio { get; set; } = "fleshHit";
         public string onShootAudio { get; set; } = "sling";
         public int range { get; set; } = RockThrower.range;
