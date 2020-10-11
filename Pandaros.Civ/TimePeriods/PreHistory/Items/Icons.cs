@@ -30,4 +30,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "stockpile_tutorial.png");
         public override bool? isPlaceable => false;
     }
+
+    public class BasicForaging_questIcon : CSType
+    {
+        public static string NAME = GameSetup.GetNamespace("TimePeriods.PreHistory.Items", nameof(BasicForaging_questIcon));
+        public override string name { get; set; } = NAME;
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, "basicforaging_quest.png");
+        public override bool? isPlaceable => false;
+    }
 }

@@ -270,7 +270,7 @@
     <Content Include="Textures\albedo\PorterToCrate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\PreHistory\PrimitiveForager.png">
+    <Content Include="icons\basicforaging_quest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\albedo\RoughWoodBoard.png">

@@ -35,7 +35,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( GettingStartedQuest.NAME)
+           new QuestPrerequisite( BasicForagerQuest.NAME)
         };
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
@@ -46,16 +46,16 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             {
                 "woodworker",
                 new JobsTakenObjective("woodworker", WoodWorker.Name, 1, HELPER)
-            },
-            {
-                "stockpileUpgrades",
-                new CraftObjective("stockpileUpgrades", HollowedLog.Name, 6)
             }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToBasicForagerQuest", PrimitiveBerryForager.Name, "AdvanceToBasicForagerQuest", HELPER)
+            new TextReward("AdvanceToGuardsQuest", Stick.NAME, "AdvanceToGuardsQuest", HELPER),
+            new JobReward(NAME, RockThrower.NameDay, "RockThrowerDay", Rock.NAME),
+            new JobReward(NAME, RockThrower.NameNight, "RockThrowerNight", Rock.NAME),
+            new JobReward(NAME, SpearThrower.NameDay, "SpearThrowerDay", Stick.NAME),
+            new JobReward(NAME, SpearThrower.NameNight, "SpearThrowerNight", Stick.NAME)
         };
     }
 }
