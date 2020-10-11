@@ -116,7 +116,7 @@
     <Compile Include="Jobs\ForagingJobSettings.cs" />
     <Compile Include="Jobs\PorterJobSettings.cs" />
     <Compile Include="NPCs\NPCGoals\NPCCrateGoal.cs" />
-    <Compile Include="PlayerBehavior\BerryBushClick.cs" />
+    <Compile Include="PlayerBehavior\BerryBushDestory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quests\JobReward.cs" />
     <Compile Include="Quests\StockpileSizeObjective.cs" />
