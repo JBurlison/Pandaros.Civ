@@ -50,12 +50,12 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             name = Name,
             LootPoolList = new List<LootPoolEntry>()
             {
-                new LootPoolEntry(Rock.NAME, 3, 7),
+                new LootPoolEntry(Rock.NAME, 10, 20),
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.DIRT, 1, 2, 0.4f)
             }
         };
 
-        public PrimitiveRockForager() : base(Name, Name, SharedLootTable, 40, 60, 0)
+        public PrimitiveRockForager() : base(Name, Name, SharedLootTable, 30, 40, 0)
         {
 
         }

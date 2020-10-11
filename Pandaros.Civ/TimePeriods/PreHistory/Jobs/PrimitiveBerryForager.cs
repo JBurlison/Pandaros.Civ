@@ -57,7 +57,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             }
         };
 
-        public PrimitiveBerryForager() : base(Name, Name, SharedLootTable, 40, 60, 0)
+        public PrimitiveBerryForager() : base(Name, Name, SharedLootTable, 30, 40, 0)
         {
 
         }

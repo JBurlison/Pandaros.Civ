@@ -50,14 +50,14 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             name = Name,
             LootPoolList = new List<LootPoolEntry>()
             {
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LOGTAIGA, 1, 2),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LOGTEMPERATE, 1, 2),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 1, 2),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LOGTAIGA, 1, 5),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LOGTEMPERATE, 1, 5),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 1, 3),
                 new LootPoolEntry(Stick.NAME, 1, 5, 0.8f)
             }
         };
 
-        public PrimitiveWoodForager() : base(Name, Name, SharedLootTable, 40, 60, 0)
+        public PrimitiveWoodForager() : base(Name, Name, SharedLootTable, 30, 40, 0)
         {
 
         }
