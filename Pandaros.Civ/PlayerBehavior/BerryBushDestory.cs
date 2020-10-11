@@ -18,7 +18,8 @@ namespace Pandaros.Civ.PlayerBehavior
 
             if (tryChangeBlockData.TypeOld.Name == ColonyBuiltIn.ItemTypes.BERRYBUSH)
             {
-                tryChangeBlockData.InventoryItemResults.Add(new InventoryItem(ColonyBuiltIn.ItemTypes.BERRYBUSH.Id, Pipliz.Random.Next(30, 51)));
+                tryChangeBlockData.InventoryItemResults.Clear();
+                tryChangeBlockData.InventoryItemResults.Add(new InventoryItem(ColonyBuiltIn.ItemTypes.BERRY.Id, Pipliz.Random.Next(30, 51)));
             }
         }
     }
