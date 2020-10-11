@@ -52,7 +52,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             {
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.LOGTAIGA, 1, 2),
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.LOGTEMPERATE, 1, 2),
-                new LootPoolEntry(Stick.NAME, 1, 5, 0.3f)
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 1, 2),
+                new LootPoolEntry(Stick.NAME, 1, 5, 0.8f)
             }
         };
 
