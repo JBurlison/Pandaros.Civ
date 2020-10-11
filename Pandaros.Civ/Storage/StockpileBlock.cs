@@ -37,7 +37,7 @@ namespace Pandaros.Civ.Storage
                 TimePeriod.PreHistory, (new Vector3Int(2,0,2), new Vector3Int(-2, 1, -2))
             },
             {
-                TimePeriod.StoneAge, (new Vector3Int(2,0,2), new Vector3Int(-2, 1, -2))
+                TimePeriod.StoneAge, (new Vector3Int(2,0,3), new Vector3Int(-2, 1, -3))
             },
             {
                 TimePeriod.BronzeAge, (new Vector3Int(3,0,3), new Vector3Int(-3, 2, -3))

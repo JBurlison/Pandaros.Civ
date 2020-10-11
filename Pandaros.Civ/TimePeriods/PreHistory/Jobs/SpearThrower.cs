@@ -85,37 +85,4 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public override string generateType => "jobOutline";
         public override string outlineColor => "#474747";
     }
-
-    /*public class SpearThrowerRecipeNight : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(WoodenSpear.NAME)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(SpearThrower.NameNight)
-        };
-
-        
-
-        public string name => SpearThrower.NameNight;
-    }
-    public class SpearThrowerRecipeDay : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(WoodenSpear.NAME)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(SpearThrower.NameDay)
-        };
-
-        
-
-        public string name => SpearThrower.NameDay;
-    }*/
 }
