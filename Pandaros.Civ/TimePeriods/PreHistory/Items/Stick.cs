@@ -44,9 +44,9 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string name => Stick.NAME;
 
-        public CraftPriority defaultPriority => CraftPriority.Medium;
+        public CraftPriority defaultPriority => CraftPriority.High;
 
-        public int defaultLimit => 10;
+        public int defaultLimit => 30;
 
         public string Job => WoodWorker.Name;
 

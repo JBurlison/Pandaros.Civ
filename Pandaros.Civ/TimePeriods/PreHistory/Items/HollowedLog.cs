@@ -47,41 +47,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         }
     }
 
-    /*public class CarvedLogTaigaRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTAIGA.Id),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 1)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(CarvedLog.Name)
-        };
-
-        
-
-        public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTAIGA;
-    }
-
-    public class CarvedLogTemperateRecipe : ICSPlayerRecipe
-    {
-        public List<RecipeItem> requires => new List<RecipeItem>()
-        {
-            new RecipeItem(ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Id),
-            new RecipeItem(ColonyBuiltIn.ItemTypes.DIRT.Id, 1)
-        };
-
-        public List<RecipeResult> results => new List<RecipeResult>()
-        {
-            new RecipeResult(CarvedLog.Name)
-        };
-
-        
-
-        public string name => CarvedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE;
-    }*/
     public class HollowedLogTaigaWoodWorkerRecipe : ICSRecipe
     {
         public List<RecipeItem> requires => new List<RecipeItem>()
@@ -98,8 +63,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         
 
         public string name => HollowedLog.Name + + ColonyBuiltIn.ItemTypes.LOGTAIGA + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
-        public CraftPriority defaultPriority => CraftPriority.Low;
-        public int defaultLimit => 5;
+        public CraftPriority defaultPriority => CraftPriority.High;
+        public int defaultLimit => 10;
 
         public string Job => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
 
@@ -122,8 +87,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         
 
         public string name => HollowedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
-        public CraftPriority defaultPriority => CraftPriority.Low;
-        public int defaultLimit => 5;
+        public CraftPriority defaultPriority => CraftPriority.High;
+        public int defaultLimit => 10;
 
         public string Job => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
 
