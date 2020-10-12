@@ -26,7 +26,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
 		protected static List<ItemTypes.ItemTypeDrops> GatherResults = new List<ItemTypes.ItemTypeDrops>();
 		public Vector3Int ClosestCrate { get; set; }
-		public MinerJobSettings MinerSettings { get; set; }
+		public PandaMiningJobSettings MinerSettings { get; set; }
 		public BlockJobInstance BlockJobInstance { get; set; }
         public IJob Job { get; set; }
 		public string Name { get; set; } = nameof(MiningGoal);
@@ -73,7 +73,14 @@ namespace Pandaros.Civ.Jobs.Goals
 				}
 				instance.BlockTypeBelow = foundType;
 			}
-			if (instance.MiningCooldown <= 0f)
+
+			if (!MinerSettings.MinableTypes.Contains(instance.BlockTypeBelow.Name))
+            {
+                state = DestoryJob(state, instance);
+                return;
+            }
+
+            if (instance.MiningCooldown <= 0f)
 			{
 				float cooldown = 0f;
 				if (instance.BlockTypeBelow.CustomDataNode?.TryGetAs("minerMiningTime", out cooldown) ?? false)
@@ -82,11 +89,7 @@ namespace Pandaros.Civ.Jobs.Goals
 				}
 				if (instance.MiningCooldown <= 0f)
 				{
-					ThreadManager.InvokeOnMainThread(delegate
-					{
-						ServerManager.TryChangeBlock(instance.Position, instance.BlockType, BuiltinBlocks.Types.air, instance.Owner);
-					});
-					state.SetCooldown(2.5, 5.0);
+					state = DestoryJob(state, instance);
 					return;
 				}
 			}
@@ -136,6 +139,17 @@ namespace Pandaros.Civ.Jobs.Goals
 				state.Inventory.Inventory.Clear();
 			}
 		}
+
+        private NPCBase.NPCState DestoryJob(NPCBase.NPCState state, MinerJobInstance instance)
+        {
+            ThreadManager.InvokeOnMainThread(delegate
+            {
+                ServerManager.TryChangeBlock(instance.Position, instance.BlockType, BuiltinBlocks.Types.air, instance.Owner);
+            });
+			instance.Owner.Stockpile.Add(MinerSettings.RecruitmentItem.Type, MinerSettings.RecruitmentItem.Amount);
+            state.SetCooldown(2.5, 5.0);
+            return state;
+        }
 
         public void SetAsGoal()
         {

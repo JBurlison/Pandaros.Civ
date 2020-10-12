@@ -16,6 +16,8 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
 {
     public class PandaMiningJobSettings : MinerJobSettings
     {
+        public List<string> MinableTypes { get; set; } = new List<string>();
+
         public PandaMiningJobSettings(MinerJobSettings minerJobSettings)
         {
             BlockTypes = minerJobSettings.BlockTypes;
