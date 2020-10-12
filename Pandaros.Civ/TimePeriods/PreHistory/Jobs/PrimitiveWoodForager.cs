@@ -52,8 +52,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             {
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.LOGTAIGA, 1, 5),
                 new LootPoolEntry(ColonyBuiltIn.ItemTypes.LOGTEMPERATE, 1, 5),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 1, 2),
-                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTAIGA, 1, 2),
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE, 1, 3), // in random the max cannot be rolled. https://docs.microsoft.com/en-us/dotnet/api/system.random.next?view=netcore-3.1#System_Random_Next_System_Int32_System_Int32_
+                new LootPoolEntry(ColonyBuiltIn.ItemTypes.LEAVESTAIGA, 1, 3), // in random the max cannot be rolled. 
                 new LootPoolEntry(Stick.NAME, 1, 5, 0.5f)
             }
         };

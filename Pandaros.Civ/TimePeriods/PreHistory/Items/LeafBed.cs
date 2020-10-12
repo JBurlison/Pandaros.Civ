@@ -26,7 +26,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         };
         public override Colliders colliders => new Colliders()
         {
-            collidePlayer = true,
+            collidePlayer = false,
             collideSelection = true,
             boxes = new List<Colliders.Boxes>()
             {
@@ -54,6 +54,15 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
     {
         public override string parentType => LeafBed.NAME;
         public override JObject customData  => JsonConvert.DeserializeObject<JObject>("{ \"bedpart\": \"foot\" }");
+        public override Colliders colliders => new Colliders()
+        {
+            collidePlayer = false,
+            collideSelection = true,
+            boxes = new List<Colliders.Boxes>()
+            {
+                new Colliders.Boxes(new List<float>(){ 0.5f, 0f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f })
+            }
+        };
     }
     public class LeafBedFoot : CSGenerateType
     {

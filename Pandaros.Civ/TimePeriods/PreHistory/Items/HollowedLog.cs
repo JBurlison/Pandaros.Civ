@@ -63,8 +63,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         
 
         public string name => HollowedLog.Name + + ColonyBuiltIn.ItemTypes.LOGTAIGA + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
-        public CraftPriority defaultPriority => CraftPriority.Low;
-        public int defaultLimit => 5;
+        public CraftPriority defaultPriority => CraftPriority.High;
+        public int defaultLimit => 10; // more are needed for the quest objective.
 
         public string Job => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
 
@@ -87,8 +87,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         
 
         public string name => HollowedLog.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE + TimePeriods.PreHistory.Jobs.WoodWorker.Name;
-        public CraftPriority defaultPriority => CraftPriority.Low;
-        public int defaultLimit => 5;
+        public CraftPriority defaultPriority => CraftPriority.High;
+        public int defaultLimit => 10; // more are needed for the quest objective.
 
         public string Job => TimePeriods.PreHistory.Jobs.WoodWorker.Name;
 

@@ -46,7 +46,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public CraftPriority defaultPriority => CraftPriority.High;
 
-        public int defaultLimit => 10;
+        public int defaultLimit => 30; // more are needed for guards ammo.
 
         public string Job => WoodWorker.Name;
 

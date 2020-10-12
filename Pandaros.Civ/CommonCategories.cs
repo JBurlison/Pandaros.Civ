@@ -47,7 +47,7 @@ namespace Pandaros.Civ
             nameof(TimePeriod.BronzeAge)
         };*/
 
-        public static string HighPriority = "aa";
+        public static string HighPriority = "aaa";
         public static string MediumPriority = "aa";
         public static string StockpileUpgrade = "upgrade";
 
