@@ -145,10 +145,7 @@
 
             },
             "Research": {
-              "BronzeAgeResearch1": {
-                "name": "Progress to the Bronze Age!",
-                "description": "."
-              }
+
             },
             "Jobs": {
 
@@ -159,10 +156,7 @@
 
             },
             "Research": {
-              "BronzeAgeResearch1": {
-                "name": "Progress to the Bronze Age!",
-                "description": "."
-              }
+
             },
             "Jobs": {
 
@@ -173,10 +167,7 @@
 
             },
             "Research": {
-              "BronzeAgeResearch1": {
-                "name": "Progress to the Bronze Age!",
-                "description": "."
-              }
+
             },
             "Jobs": {
 
@@ -187,10 +178,7 @@
 
             },
             "Research": {
-              "BronzeAgeResearch1": {
-                "name": "Progress to the Bronze Age!",
-                "description": "."
-              }
+
             },
             "Jobs": {
 
@@ -201,10 +189,7 @@
 
             },
             "Research": {
-              "BronzeAgeResearch1": {
-                "name": "Progress to the Bronze Age!",
-                "description": "."
-              }
+
             },
             "Jobs": {
 
@@ -216,8 +201,7 @@
             },
             "Research": {
               "BronzeAgeResearch1": {
-                "name": "Progress to the Bronze Age!",
-                "description": "."
+
               }
             },
             "Jobs": {
@@ -229,10 +213,7 @@
 
             },
             "Research": {
-              "BronzeAgeResearch1": {
-                "name": "Progress to the Bronze Age!",
-                "description": "."
-              }
+
             },
             "Jobs": {
 
@@ -261,7 +242,6 @@
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveRockForager": "Primitive Rock Forager",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveWoodForager": "Primitive Wood Forager",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.PrimitiveBerryForager": "Primitive Berry Forager",
-    "Pandaros.Civ.TimePeriods.PreHistory.Quests.StoneAgeQuest": "Setup for the Stone Age!",
 
     "Pandaros.Civ.TimePeriods.StoneAge.Items.WovenBasket": "Woven Basket",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.SturdyCrate": "Sturdy Crate",
