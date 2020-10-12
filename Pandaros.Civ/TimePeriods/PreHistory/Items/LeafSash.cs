@@ -74,7 +74,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
-        public int defaultLimit => 10;
+        public int defaultLimit => 5;
 
         public string Job => Jobs.WoodWorker.Name;
 
@@ -96,7 +96,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;
-        public int defaultLimit => 10;
+        public int defaultLimit => 5;
 
         public string Job => Jobs.WoodWorker.Name;
 

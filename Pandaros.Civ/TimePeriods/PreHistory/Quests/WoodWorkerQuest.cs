@@ -35,17 +35,25 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( BasicForagerQuest.NAME)
+           new QuestPrerequisite( FoodQuest.NAME)
         };
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {
-                "woodinstockpile",
-                new ItemsInStockpileObjective("woodinstockpile", Wood.NAME, 20, HELPER)
+                "PrimitiveWoodForager",
+                new JobsTakenObjective("PrimitiveWoodForager", PrimitiveWoodForager.Name, 1, HELPER)
+            },
+            {
+                "PrimitiveRockForager",
+                new JobsTakenObjective("PrimitiveRockForager", PrimitiveRockForager.Name, 1, HELPER)
             },
             {
                 "woodworker",
                 new JobsTakenObjective("woodworker", WoodWorker.Name, 1, HELPER)
+            },
+            {
+                "woodinstockpile",
+                new ItemsInStockpileObjective("woodinstockpile", Wood.NAME, 20, HELPER)
             },
             {
                 "stockpileUpgrades",
@@ -59,11 +67,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToGuardsQuest", Stick.NAME, "AdvanceToGuardsQuest", HELPER),
-            new JobReward(NAME, RockThrower.NameDay, "RockThrowerDay", Rock.NAME),
-            new JobReward(NAME, RockThrower.NameNight, "RockThrowerNight", Rock.NAME),
-            new JobReward(NAME, SpearThrower.NameDay, "SpearThrowerDay", Stick.NAME),
-            new JobReward(NAME, SpearThrower.NameNight, "SpearThrowerNight", Stick.NAME)
+            new TextReward("AdvanceToStoneAgeQuest", StoneAgeIcon.NAME, "AdvanceToStoneAgeQuest", HELPER)
         };
     }
 }

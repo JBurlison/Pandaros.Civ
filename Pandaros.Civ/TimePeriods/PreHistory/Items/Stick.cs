@@ -37,7 +37,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(Stick.NAME, 3)
+            new RecipeResult(Stick.NAME, 5)
         };
 
         
@@ -46,7 +46,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
 
         public CraftPriority defaultPriority => CraftPriority.High;
 
-        public int defaultLimit => 30;
+        public int defaultLimit => 10;
 
         public string Job => WoodWorker.Name;
 

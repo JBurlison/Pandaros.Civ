@@ -38,15 +38,25 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             {
                 "stockpileblockplaced",
                 new BlockPlacedObjective("stockpileblockplaced", StockpileBlock.Name, 1)
+            },
+            {
+                "foodstored",
+                new FoodStoredObjective("foodstored", 15000)
+            },
+            {
+                "leafBeds",
+                new BlockPlacedObjective("leafBeds", LeafBed.NAME, 5)
+            },
+            {
+                "colonistcount",
+                new ColonistCountObjective("colonistcount", 1)
             }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
-            new TextReward("AdvanceToBasicForagerQuest", BasicForaging_questIcon.NAME, "AdvanceToBasicForagerQuest", HELPER),
-            new JobReward(NAME, PrimitiveBerryForager.Name, "PrimitiveBerryForager", ColonyBuiltIn.ItemTypes.BERRY),
-            new JobReward(NAME, PrimitiveWoodForager.Name, "PrimitiveWoodForager", Wood.NAME),
-            new JobReward(NAME, PrimitiveRockForager.Name, "PrimitiveRockForager", Rock.NAME)
+            new TextReward("AdvanceToFoodQuest", ColonyBuiltIn.ItemTypes.BERRY, "AdvanceToFoodQuest", HELPER),
+            new JobReward(NAME, PrimitiveBerryForager.Name, "PrimitiveBerryForager", ColonyBuiltIn.ItemTypes.BERRY)
         };
     }
 }

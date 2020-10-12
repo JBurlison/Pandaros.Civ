@@ -17,19 +17,19 @@ using Pandaros.API;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 {
-    public class BasicForagerQuest : GenericQuest
+    public class FoodQuest : GenericQuest
     {
-        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Quests", nameof(BasicForagerQuest));
+        public static string NAME { get; } = GameSetup.GetNamespace("TimePeriods.PreHistory.Quests", nameof(FoodQuest));
         public static LocalizationHelper HELPER { get; } = new LocalizationHelper(GameSetup.NAMESPACE, "TimePeriods.PreHistory.Quests");
 
-        public BasicForagerQuest() : 
-            base(NAME, NAME + "Text", BasicForaging_questIcon.NAME, HELPER)
+        public FoodQuest() : 
+            base(NAME, NAME + "Text", ColonyBuiltIn.ItemTypes.BERRY, HELPER)
         {
         }
 
         public override string GetQuestTitle(Colony colony, Players.Player player)
         {
-            return HELPER.LocalizeOrDefault(nameof(BasicForagerQuest), player);
+            return HELPER.LocalizeOrDefault(nameof(FoodQuest), player);
         }
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
@@ -40,27 +40,26 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         {
             {
                 "PrimitiveBerryForager",
-                new JobsTakenObjective("PrimitiveBerryForager", PrimitiveBerryForager.Name, 3, HELPER)
+                new JobsTakenObjective("PrimitiveBerryForager", PrimitiveBerryForager.Name, 4, HELPER)
             },
             {
-                "PrimitiveWoodForager",
-                new JobsTakenObjective("PrimitiveWoodForager", PrimitiveWoodForager.Name, 1, HELPER)
-            },
-            {
-                "PrimitiveRockForager",
-                new JobsTakenObjective("PrimitiveRockForager", PrimitiveRockForager.Name, 1, HELPER)
-            },
-            {
-                "colonistcount",
-                new ColonistCountObjective("colonistcount", 5)
+                "foodstored",
+                new FoodStoredObjective("foodstored", 25000)
             }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
             new TextReward("AdvanceToWoodWorkerQuest", WoodWorker.Name, "AdvanceToWoodWorkerQuest", HELPER),
-            new RecipeUnlockReward(WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name, "Woodworker", HELPER),
-            new RecipeUnlockReward(WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name, "Woodworker", HELPER)
+            new TextReward("AdvanceToGuardsQuest", Stick.NAME, "AdvanceToGuardsQuest", HELPER),
+            new RecipeUnlockReward(WoodWorker.Name, "WoodworkerTemperate", HELPER),
+            new RecipeUnlockReward(WoodWorker.Name, "WoodworkerTaiga", HELPER),
+            new JobReward(NAME, PrimitiveWoodForager.Name, "PrimitiveWoodForager", Wood.NAME),
+            new JobReward(NAME, PrimitiveRockForager.Name, "PrimitiveRockForager", Rock.NAME),
+            new JobReward(NAME, RockThrower.NameDay, "RockThrowerDay", Rock.NAME),
+            new JobReward(NAME, RockThrower.NameNight, "RockThrowerNight", Rock.NAME),
+            new JobReward(NAME, SpearThrower.NameDay, "SpearThrowerDay", Stick.NAME),
+            new JobReward(NAME, SpearThrower.NameNight, "SpearThrowerNight", Stick.NAME)
         };
     }
 }

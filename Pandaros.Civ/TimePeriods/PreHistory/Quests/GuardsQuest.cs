@@ -33,7 +33,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
 
         public override List<IPandaQuestPrerequisite> QuestPrerequisites { get; set; } = new List<IPandaQuestPrerequisite>()
         {
-           new QuestPrerequisite( BasicForagerQuest.NAME)
+           new QuestPrerequisite( FoodQuest.NAME)
         };
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {

@@ -133,8 +133,10 @@
     <Compile Include="TimePeriods\IronAge\Items\StorageDrawers.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Icons.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\LeafSash.cs" />
+    <Compile Include="TimePeriods\PreHistory\Items\LeafBed.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveRockForager.cs" />
     <Compile Include="TimePeriods\PreHistory\Jobs\PrimitiveWoodForager.cs" />
+    <Compile Include="TimePeriods\PreHistory\Quests\FoodQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\LeafRope.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\WoodenCart.cs" />
     <Compile Include="TimePeriods\StoneAge\Items\SharpRock.cs" />
@@ -146,7 +148,6 @@
     <Compile Include="TimePeriods\PreHistory\Items\Rock.cs" />
     <Compile Include="TimePeriods\PreHistory\Items\Wood.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\GuardsQuest.cs" />
-    <Compile Include="TimePeriods\PreHistory\Quests\BasicForagerQuest.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\WoodWorkerQuest.cs" />
     <Compile Include="TimePeriods\PreHistory\Quests\GettingStartedQuests.cs" />
     <Compile Include="TimePeriods\StoneAge\Jobs\Forager.cs" />
@@ -437,7 +438,9 @@
     <None Include="Meshes\Shelving.ply">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Meshes\SlabDown.ply" />
+    <None Include="Meshes\SlabDown.ply">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Meshes\SlabUp.ply" />
     <None Include="Meshes\slingbullet.ply" />
     <None Include="Meshes\smallwindowbottom.ply" />

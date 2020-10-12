@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Pandaros.Civ.TimePeriods.PreHistory.Items;
+using Steamworks;
 
 namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
 {
@@ -48,8 +49,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public string keyName { get; set; } = RockThrower.NameNight;
         public string printName { get; set; } = "Rock Thrower Night Guard";
-        public float inventoryCapacity { get; set; } = 25f;
-        public float movementSpeed { get; set; } = 2.3f;
+        public float inventoryCapacity { get; set; } = RockThrower.inventory;
+        public float movementSpeed { get; set; } = RockThrower.movement;
         public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
         public Color32 maskColor0 { get; set; }
     }
@@ -57,8 +58,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public string keyName { get; set; } = RockThrower.NameDay;
         public string printName { get; set; } = "Rock Thrower Day Guard";
-        public float inventoryCapacity { get; set; } = 25f;
-        public float movementSpeed { get; set; } = 1.5f;
+        public float inventoryCapacity { get; set; } = RockThrower.inventory;
+        public float movementSpeed { get; set; } = RockThrower.movement;
         public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
         public Color32 maskColor0 { get; set; }
     }
@@ -68,9 +69,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public static string Name = GameSetup.GetNamespace("TimePeriods.PreHistory.Jobs", nameof(RockThrower));
         public static string NameDay = Name + "Day";
         public static string NameNight = Name + "Night";
-        public static int range = 5;
-        public static int damage = 50;
+        public static int range = 6;
+        public static int damage = 60;
         public static int cooldown = 6;
+        public static float inventory = 25f;
+        public static float movement = 2.5f;
     }
 
     public class RockThrowerTypeNigt : CSGenerateType

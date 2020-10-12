@@ -48,8 +48,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public string keyName { get; set; } = SpearThrower.NameNight;
         public string printName { get; set; } = "Spear Thrower Night Guard";
-        public float inventoryCapacity { get; set; } = 25f;
-        public float movementSpeed { get; set; } = 2.3f;
+        public float inventoryCapacity { get; set; } = SpearThrower.inventory;
+        public float movementSpeed { get; set; } = SpearThrower.movement;
         public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
         public Color32 maskColor0 { get; set; }
     }
@@ -57,8 +57,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
     {
         public string keyName { get; set; } = SpearThrower.NameDay;
         public string printName { get; set; } = "Spear Thrower Day Guard";
-        public float inventoryCapacity { get; set; } = 25f;
-        public float movementSpeed { get; set; } = 1.5f;
+        public float inventoryCapacity { get; set; } = SpearThrower.inventory;
+        public float movementSpeed { get; set; } = SpearThrower.movement;
         public Color32 maskColor1 { get; set; } = new UnityEngine.Color32(37, 64, 31, 255);
         public Color32 maskColor0 { get; set; }
     }
@@ -69,8 +69,10 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public static string NameDay = Name + "Day";
         public static string NameNight = Name + "Night";
         public static int range = 10;
-        public static int damage = 20;
+        public static int damage = 25;
         public static int cooldown = 3;
+        public static float inventory = 30f;
+        public static float movement = 2.5f;
     }
 
     public class SpearThrowerTypeNigt : CSGenerateType

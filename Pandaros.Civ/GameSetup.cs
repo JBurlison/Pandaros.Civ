@@ -173,13 +173,13 @@ namespace Pandaros.Civ
         {
             StarterPacks.Manager.PrimaryStockpileStart = new StarterPacks.StarterPack(new List<InventoryItem>()
             {
-                new InventoryItem(ColonyBuiltIn.ItemTypes.BERRY.Name, 150),
-                new InventoryItem(ColonyBuiltIn.ItemTypes.BED.Name, 50),
+                //new InventoryItem(ColonyBuiltIn.ItemTypes.BERRY.Name, 150),
+                //new InventoryItem(ColonyBuiltIn.ItemTypes.BED.Name, 50),
             });
 
             StarterPacks.Manager.PrimaryPlayerStart = new StarterPacks.StarterPack(new List<InventoryItem>()
             {
-                new InventoryItem(ColonyBuiltIn.ItemTypes.TORCH.Name, 100),
+                //new InventoryItem(ColonyBuiltIn.ItemTypes.TORCH.Name, 100),
             });
         }
     }

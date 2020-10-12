@@ -81,8 +81,11 @@
         "TimePeriods": {
           "PreHistory": {
             "Quests": {
-              "GettingStartedQuest": "Getting a Stockpile",
-              "GettingStartedQuestText": "This quest is an essential part of getting your colony started!",
+              "GettingStartedQuest": "Getting a Stockpile and a Colonist!",
+              "GettingStartedQuestText": "To get your colony started you will have to choose a spot for your stockpile, place the stockpile block that is in your stockpile somewhere, make sure there is plenty of room around it as youll need it later on. The next step to getting your colony off it's feet is some food and beds and only then can you recruit your very first colonist. Run around and pick up berry bushes and take leaves off of trees to make a bed and then can you go and recruit a colonist.",
+              "AdvanceToFoodQuest": "Unlocks the Food Quest",
+              "FoodQuest": "Getting a Food Supply",
+              "FoodQuestText": "Gathing food manually will not do, you can use your newly recruited colonists to gather berries, hire 4 colonists to gather berries and wait for some food to stockpile.",
               "AdvanceToWoodWorkerQuest": "Unlocks the Wood Worker Quest",
               "WoodWorkerQuest": "Working with Wood",
               "WoodWorkerQuestText": "Wood is a useful resource if you dont have anything else at your disposal, go chop down a tree and make a woodworker and get a colonist working at it, chop down another tree and have it make some wood for you.",
@@ -90,7 +93,7 @@
               "BasicForagerQuest": "Foraging",
               "BasicForagerQuestText": "Food is an essential part to your colonists health, without it they do end up dying. To gather food as well as other basic resources you will want foragers in order to properly get your colony up and running craft and place 5 primative foragers, you should also expand your bedding a little bit as well.",
               "AdvanceToGuardsQuest": "Unlocks the Guards Quest",
-              "GuardsQuest": "Guards",
+              "GuardsQuest": "Defending your colony",
               "GuardsQuestText": "Now that your colony has grown you now run the risk of raiders coming, raiders will come at night and try to loot your stockpile for food they might also try to take a colonist, your best defence against them are guards, you have 2 at your disposal at the moment you have rock throwers they throw rocks at their enemies they boast high damage but low range, you also have spear throwers they throw spears they boast a lower dps but have a higher range, you should higher one of each to find out which one fits your colony. They both need a leaf sash to hold their ammo.",
               "AdvanceToStoneAgeQuest": "Unlocks the Stone Age Quest",
               "StoneAgeQuest": "Advancing to the Stone Age",
@@ -132,6 +135,7 @@
     "Pandaros.Civ.TimePeriods.PreHistory.Items.BasicCrate": "Basic Crate",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.HollowedLog": "Hollowed Out Log",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafSash": "Leaf Sash",
+    "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafBed": "Leaf Bed",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Rock": "Rock",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "Wood",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Stick": "Stick",
@@ -172,6 +176,7 @@
     "Pandaros.Civ.TimePeriods.PreHistory.Items.HollowedLog": "Place within your stockpiles block radius to upgrade your stockpiles capacity.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafSash": "A sash made from leaves for guards to hold their ammo.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Rock": "It's just a rock.",
+    "Pandaros.Civ.TimePeriods.PreHistory.Items.LeafBed": "A pile of leaves on the ground, makes for a better bed than the ground.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Wood": "A log that hs been split up, useful to make basic things.",
     "Pandaros.Civ.TimePeriods.PreHistory.Items.Stick": "A pointy stick, can act as a primative spear.",
     "Pandaros.Civ.TimePeriods.PreHistory.Jobs.WoodWorker": "A crafter that makes basic things out of wood.",
