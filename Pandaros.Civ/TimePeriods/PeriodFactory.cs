@@ -1,11 +1,16 @@
 ﻿using Jobs;
+using Jobs.Implementations;
 using ModLoaderInterfaces;
 using NetworkUI;
 using NetworkUI.AreaJobs;
 using NetworkUI.Items;
+using NPC;
 using Pandaros.API.Entities;
+using Pandaros.API.Models;
 using Pandaros.API.Questing;
 using Pandaros.API.Questing.Models;
+using Pandaros.Civ.Jobs;
+using Pandaros.Civ.Jobs.BaseReplacements;
 using Pandaros.Civ.Quests;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
 using Shared;
@@ -18,7 +23,7 @@ using UnityEngine;
 
 namespace Pandaros.Civ.TimePeriods
 {
-    public class PeriodFactory : IOnConstructCommandTool, IOnPlayerPushedNetworkUIButton, IAfterWorldLoad, IOnCreatedColony
+    public class PeriodFactory : IOnConstructCommandTool, IOnPlayerPushedNetworkUIButton, IAfterWorldLoad, IOnCreatedColony, IOnConstructTooltipUI
     {
         public static Dictionary<TimePeriod, Action<Players.Player>> GenerateTimePeriodCommandToolMenu { get; set; } = new Dictionary<TimePeriod, Action<Players.Player>>()
         {
@@ -149,6 +154,44 @@ namespace Pandaros.Civ.TimePeriods
         {
             var cs = ColonyState.GetColonyState(colony);
             cs.MonstersEnabled = false;
+        }
+
+        public void OnConstructTooltipUI(Players.Player player, ConstructTooltipUIData data)
+        {
+            if (data.hoverType == ETooltipHoverType.NetworkUiButton && 
+                CommandToolManager.AreaDescriptions.TryGetValue(data.hoverKey, out var toolDescription))
+            {
+                if (PandaJobFactory.GuardJobsSettings.TryGetValue(toolDescription.NPCTypeKey, out var guardJobSettings))
+                {
+                    if (NPCType.NPCTypes.TryGetValue(guardJobSettings.NPCType, out var nPCTypeSettings) && nPCTypeSettings is NPCTypeStandardSettings standardSettings)
+                        data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("InventorySize"))), 125),
+                                                        (new Label(new LabelData(standardSettings.inventoryCapacity.ToString())), 125)
+                                                    }));
+
+                    data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("Damage"))), 125),
+                                                        (new Label(new LabelData(guardJobSettings.Damage.ToString())), 125)
+                                                    }));
+                    data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("Range"))), 125),
+                                                        (new Label(new LabelData(guardJobSettings.Range.ToString() + Localization.GetSentence(player.LastKnownLocale, GameSetup.GetNamespace("Blocks")))), 125)
+                                                    }));
+                    data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("ReloadSpeed"))), 125),
+                                                        (new Label(new LabelData(guardJobSettings.CooldownShot.ToString() + Localization.GetSentence(player.LastKnownLocale, GameSetup.GetNamespace("Seconds")))), 125)
+                                                    }));
+                    data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("RecruitmentItem"))), 125),
+                                                        (new Label(new LabelData(ItemId.GetItemId(guardJobSettings.RecruitmentItem.Type), ELabelAlignment.Default, 16, LabelData.ELocalizationType.Type)), 125)
+                                                    }));
+                }
+            }
         }
     }
 }

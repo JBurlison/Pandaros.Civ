@@ -30,7 +30,7 @@ namespace Pandaros.Civ.Jobs
     {
         public static Dictionary<Colony, Dictionary<IJob, IPandaNpcGoal>> ActiveGoals { get; set; } = new Dictionary<Colony, Dictionary<IJob, IPandaNpcGoal>>();
         public static Dictionary<string, List<IPandaNpcGoal>> ActiveGoalsByType { get; set; } = new Dictionary<string, List<IPandaNpcGoal>>();
-
+        public static Dictionary<string, PandaGuardJobSettings> GuardJobsSettings { get; set; } = new Dictionary<string, PandaGuardJobSettings>();
         public int NextUpdateTimeMinMs => 10;
 
         public int NextUpdateTimeMaxMs => 15;
@@ -184,7 +184,11 @@ namespace Pandaros.Civ.Jobs
                 if (manager is BlockJobManager<MinerJobInstance> mji)
                     mji.Settings = new PandaMiningJobSettings(mji.Settings as MinerJobSettings);
                 else if (manager is BlockJobManager<GuardJobInstance> gji)
-                    gji.Settings = new PandaGuardJobSettings(gji.Settings as GuardJobSettings);
+                {
+                    var guardSettings = new PandaGuardJobSettings(gji.Settings as GuardJobSettings);
+                    gji.Settings = guardSettings;
+                    GuardJobsSettings[guardSettings.NPCTypeKey] = guardSettings;
+                }
                 else if (manager is BlockJobManager<CraftingJobWaterInstance> cjwi)
                     cjwi.Settings = new PandaCraftingJobWaterSettings(cjwi.Settings as CraftingJobWaterSettings);
                 else if (manager is BlockJobManager<CraftingJobInstance> cji)

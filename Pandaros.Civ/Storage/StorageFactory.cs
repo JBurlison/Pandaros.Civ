@@ -56,9 +56,9 @@ namespace Pandaros.Civ.Storage
 
             if (data.hoverType == Shared.ETooltipHoverType.Item && !ItemTypes.TryGetType(data.hoverItem, out item))
                 return;
-            else if (data.hoverType == Shared.ETooltipHoverType.PlayerRecipe && !ItemTypes.TryGetType(data.hoverKey, out item))
+            else if (data.hoverType == Shared.ETooltipHoverType.PlayerRecipe && !ItemTypes.TryGetType(data.hoverItem, out item))
                 return;
-            else if (data.hoverType == Shared.ETooltipHoverType.NPCRecipe && !ItemTypes.TryGetType(data.hoverKey, out item))
+            else if (data.hoverType == Shared.ETooltipHoverType.NPCRecipe && !ItemTypes.TryGetType(data.hoverItem, out item))
                 return;
             else if (data.hoverType == Shared.ETooltipHoverType.Science && !ItemTypes.TryGetType(data.hoverKey, out item))
                 return;
