@@ -15,7 +15,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
     {
         public static string NAME = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(RoughWoodenBoard));
         public override string name { get; set; } = NAME;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "RoughWoodenBoard.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "RoughWoodenBoard.png");
         public override int? maxStackSize => 300;
         public override string sideall { get; set; } = NAME;
         public override List<string> categories { get; set; } = new List<string>()

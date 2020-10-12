@@ -15,7 +15,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
     {
         public static string NAME = GameSetup.GetNamespace("TimePeriods.StoneAge.Items", nameof(LeafBasket));
         public override string name { get; set; } = NAME;
-        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.PreHistory) + "/" + "LeafBasket.png");
+        public override string icon => GameSetup.Textures.GetPath(TextureType.icon, nameof(TimePeriod.StoneAge) + "/" + "LeafBasket.png");
         public override bool? isPlaceable => false;
         public override int? maxStackSize => 5;
         public override List<string> categories { get; set; } = new List<string>()

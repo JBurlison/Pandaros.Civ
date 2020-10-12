@@ -20,7 +20,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Research
     {
         public static readonly string NAME = GameSetup.GetNamespace("TimePeriods.StoneAge.Research", nameof(BronzeAgeResearch));
         public override string name => NAME;
-        public override string IconDirectory => "gamedata/textures/icons/bronzeingot.png";
+        public override string IconDirectory => GameSetup.Textures.ICON_PATH + @"StoneAge\" ;
         public override bool AddLevelToName => false;
         public override int NumberOfLevels => 1;
         public override int BaseIterationCount => 1;

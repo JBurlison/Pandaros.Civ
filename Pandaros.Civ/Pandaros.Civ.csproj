@@ -197,6 +197,9 @@
     <Content Include="icons\crates_tutorial.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="icons\PreHistory\LeafBed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icons\PreHistory\LeafSash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -204,6 +207,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\Pandaros.Civ.TimePeriods.PreHistory.Research.StoneAgeResearch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\StoneAge\Pandaros.Civ.TimePeriods.StoneAge.Research.BronzeAgeResearch.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\StoneAge\SharpRock.png">
@@ -218,7 +224,7 @@
     <Content Include="icons\PreHistory\Rock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\PreHistory\RoughWoodenBoard.png">
+    <Content Include="icons\StoneAge\RoughWoodenBoard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\Shelving.png">
@@ -227,7 +233,7 @@
     <Content Include="icons\stockpile_tutorial.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icons\PreHistory\LeafBasket.png">
+    <Content Include="icons\StoneAge\LeafBasket.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons\StoneAge\StonePickaxe.png">
