@@ -38,7 +38,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         public override bool? isSolid => false;
         public override string mesh => GameSetup.MESH_PATH + "SlabDown.ply";
         public override string sideall => ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Name;
-        public override JObject customData => JsonConvert.DeserializeObject<JObject>("{ \"bedpart\": \"head\" }");
+        public override JObject customData => JsonConvert.DeserializeObject<JObject>("{ \"bedpart\": \"head\", \"useHeightMap\": true, \"useNormalMap\": true }");
     }
     public class LeafBed : CSGenerateType
     {
@@ -50,10 +50,29 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
                     baseType = new LeafBedBase();
                 }
     }
+
+    public class LeafBedHeadTexture : CSTextureMapping
+    {
+        public override string name => LeafBed.NAME + "BedHead";
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "BedHead.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "BedHead.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "BedHead.png");
+    }
+
+    public class LeafBedFootTexture : CSTextureMapping
+    {
+        public override string name => LeafBed.NAME + "BedFoot";
+        public override string albedo => GameSetup.Textures.GetPath(TextureType.aldebo, "BedFoot.png");
+        public override string normal => GameSetup.Textures.GetPath(TextureType.normal, "BedFoot.png");
+        public override string height => GameSetup.Textures.GetPath(TextureType.height, "BedFoot.png");
+    }
+
     public class LeafBedFootBase : CSType
     {
         public override string parentType => LeafBed.NAME;
-        public override JObject customData  => JsonConvert.DeserializeObject<JObject>("{ \"bedpart\": \"foot\" }");
+        public override JObject customData  => JsonConvert.DeserializeObject<JObject>("{ \"bedpart\": \"foot\", \"useHeightMap\": true, \"useNormalMap\": true }");
+        public override string sideall => ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE.Name;
+        public override string sideyp { get; set; } = LeafBed.NAME + "BedFoot";
         public override Colliders colliders => new Colliders()
         {
             collidePlayer = false,
