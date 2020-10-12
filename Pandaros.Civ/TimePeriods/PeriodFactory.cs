@@ -8,6 +8,7 @@ using Pandaros.API.Questing;
 using Pandaros.API.Questing.Models;
 using Pandaros.Civ.Quests;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;

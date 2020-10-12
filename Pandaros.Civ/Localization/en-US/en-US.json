@@ -109,8 +109,8 @@
             "Jobs": {
               "RockThrower": "Rock Thrower",
               "SpearThrower": "Spear Thrower",
-              "RockThrowerTip": "25 Ammo inventories, 50 damage hit, 5 block range, 6 second throw speed.",
-              "SpearThrowerTip": "25 Ammo inventories, 20 damage hit, 10 block range, 3 second throw speed.",
+              "RockThrowerTip": "Ammo Inventory: 25 \r\nDamage: 50 \r\nRange: 5 Blocks \r\nReload Speed: 6 Seconds \r\nRecruitment Item: Rock",
+              "SpearThrowerTip": "Ammo Inventory: 25 \r\nDamage: 20 \r\nRange: 10 Blocks \r\nReload Speed: 3 Seconds \r\nRecruitment Item: Spear",
               "RockThrowerDay": "Rock Thrower Day",
               "RockThrowerNight": "Rock Thrower Night",
               "SpearThrowerDay": "Spear Thrower Day",
@@ -119,9 +119,9 @@
               "PrimitiveWoodForager": "Primitive Wood Forager",
               "PrimitiveBerryForager": "Primitive Berry Forager",
               "WoodWorker": "Wood Worker",
-              "PrimitiveBerryForagerTip": "Forages for Berries just outside your colony. They are very slow at finding them.",
-              "PrimitiveWoodForagerTip": "Forages for Wood just outside your colony. They are very slow at finding them.",
-              "PrimitiveRockForagerTip": "Forages for Rocks just outside your colony. They are very slow at finding them."
+              "PrimitiveBerryForagerTip": "Forages for Berries just outside your colony. They are very slow at finding them. \r\nRecruitment Item: Leaf Sash",
+              "PrimitiveWoodForagerTip": "Forages for Wood just outside your colony. They are very slow at finding them. \r\nRecruitment Item: Leaf Sash",
+              "PrimitiveRockForagerTip": "Forages for Rocks just outside your colony. They are very slow at finding them. \r\nRecruitment Item: Leaf Sash"
             }
           }
         }
