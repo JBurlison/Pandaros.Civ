@@ -58,6 +58,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
             new TextReward("AdvanceToStoneAgeQuest", StoneAgeIcon.NAME, "AdvanceToStoneAgeQuest", HELPER),
+            new MonstersEnabledReward("EnableColonyMonsters", "npcicon")
         };
     }
 }

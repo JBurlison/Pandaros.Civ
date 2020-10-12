@@ -53,7 +53,8 @@
         "Quests": {
           "StockpileSizeObjective": "Max stockpile size of {0} out of {1}",
           "TimePeriodReward": "Upgrades the stockpile block's upgrade area!",
-          "JobReward": "Unlocks {0} Job"
+          "JobReward": "Unlocks {0} Job",
+          "MonstersEnabledReward": "Enables Monster Spawns!"
         },
         "Storage": {
           "MaxStackSize": "Max Stack Size",

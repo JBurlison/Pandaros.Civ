@@ -118,6 +118,7 @@
     <Compile Include="NPCs\NPCGoals\NPCCrateGoal.cs" />
     <Compile Include="PlayerBehavior\BerryBushDestory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quests\MonstersEnabledReward.cs" />
     <Compile Include="Quests\JobReward.cs" />
     <Compile Include="Quests\StockpileSizeObjective.cs" />
     <Compile Include="Quests\TimePeriodReward.cs" />

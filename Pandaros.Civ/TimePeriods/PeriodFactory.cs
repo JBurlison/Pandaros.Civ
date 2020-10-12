@@ -17,7 +17,7 @@ using UnityEngine;
 
 namespace Pandaros.Civ.TimePeriods
 {
-    public class PeriodFactory : IOnConstructCommandTool, IOnPlayerPushedNetworkUIButton, IAfterWorldLoad
+    public class PeriodFactory : IOnConstructCommandTool, IOnPlayerPushedNetworkUIButton, IAfterWorldLoad, IOnCreatedColony
     {
         public static Dictionary<TimePeriod, Action<Players.Player>> GenerateTimePeriodCommandToolMenu { get; set; } = new Dictionary<TimePeriod, Action<Players.Player>>()
         {
@@ -142,6 +142,12 @@ namespace Pandaros.Civ.TimePeriods
                 TriggerHoverCallback = triggerHover,
                 Enabled = enabled
             };
+        }
+
+        public void OnCreatedColony(Colony colony)
+        {
+            var cs = ColonyState.GetColonyState(colony);
+            cs.MonstersEnabled = false;
         }
     }
 }
