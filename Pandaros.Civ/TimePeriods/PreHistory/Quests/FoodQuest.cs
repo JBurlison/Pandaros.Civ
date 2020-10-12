@@ -52,8 +52,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         {
             new TextReward("AdvanceToWoodWorkerQuest", WoodWorker.Name, "AdvanceToWoodWorkerQuest", HELPER),
             new TextReward("AdvanceToGuardsQuest", Stick.NAME, "AdvanceToGuardsQuest", HELPER),
-            new RecipeUnlockReward(WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name, "WoodworkerTemperate", HELPER),
-            new RecipeUnlockReward(WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name, "WoodworkerTaiga", HELPER),
+            new RecipeUnlockReward(WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name, "WoodworkerTemperate", WoodWorker.Name, HELPER),
+            new RecipeUnlockReward(WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name, "WoodworkerTaiga", WoodWorker.Name, HELPER),
             new JobReward(NAME, PrimitiveWoodForager.Name, "PrimitiveWoodForager", Wood.NAME),
             new JobReward(NAME, PrimitiveRockForager.Name, "PrimitiveRockForager", Rock.NAME),
             new JobReward(NAME, RockThrower.NameDay, "RockThrowerDay", Rock.NAME),

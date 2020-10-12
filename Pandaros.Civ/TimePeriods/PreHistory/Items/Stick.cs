@@ -40,13 +40,11 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(Stick.NAME, 5)
         };
 
-        
-
         public string name => Stick.NAME;
 
         public CraftPriority defaultPriority => CraftPriority.High;
 
-        public int defaultLimit => 30; // more are needed for guards ammo.
+        public int defaultLimit => 20; // more are needed for guards ammo.
 
         public string Job => WoodWorker.Name;
 

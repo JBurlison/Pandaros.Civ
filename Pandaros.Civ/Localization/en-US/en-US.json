@@ -119,6 +119,8 @@
               "PrimitiveWoodForager": "Primitive Wood Forager",
               "PrimitiveBerryForager": "Primitive Berry Forager",
               "WoodWorker": "Wood Worker",
+              "WoodWorkerlogtaiga": "Wood Worker - logtaiga crafted",
+              "WoodWorkerlogtemperate": "Wood Worker - logtemperate crafted",
               "PrimitiveBerryForagerTip": "Forages for Berries just outside your colony. They are very slow at finding them. \r\nRecruitment Item: Leaf Sash",
               "PrimitiveWoodForagerTip": "Forages for Wood just outside your colony. They are very slow at finding them. \r\nRecruitment Item: Leaf Sash",
               "PrimitiveRockForagerTip": "Forages for Rocks just outside your colony. They are very slow at finding them. \r\nRecruitment Item: Leaf Sash"
