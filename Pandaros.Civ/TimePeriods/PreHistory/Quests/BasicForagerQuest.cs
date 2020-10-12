@@ -40,7 +40,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
         {
             {
                 "PrimitiveBerryForager",
-                new JobsTakenObjective("PrimitiveBerryForager", PrimitiveBerryForager.Name, 2, HELPER)
+                new JobsTakenObjective("PrimitiveBerryForager", PrimitiveBerryForager.Name, 3, HELPER)
             },
             {
                 "PrimitiveWoodForager",
@@ -52,14 +52,15 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             },
             {
                 "colonistcount",
-                new ColonistCountObjective("colonistcount", 6)
+                new ColonistCountObjective("colonistcount", 5)
             }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
         {
             new TextReward("AdvanceToWoodWorkerQuest", WoodWorker.Name, "AdvanceToWoodWorkerQuest", HELPER),
-            //new RecipeUnlockReward(WoodWorker.Name, WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name, HELPER)
+            //new RecipeUnlockReward(WoodWorker.Name, WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTEMPERATE.Name, HELPER),
+            //new RecipeUnlockReward(WoodWorker.Name, WoodWorker.Name + ColonyBuiltIn.ItemTypes.LOGTAIGA.Name, HELPER)
         };
     }
 }

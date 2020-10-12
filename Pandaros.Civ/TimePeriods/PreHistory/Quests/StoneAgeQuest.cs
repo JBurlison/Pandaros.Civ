@@ -41,8 +41,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
                 new ColonistCountObjective("colonistcount", 10)
             },
             {
-                "stockpilesize",
-                new StockpileSizeObjective("stockpilesize", 140)
+                "foodstored",
+                new FoodStoredObjective("foodstored", 100)
             }
         };
 

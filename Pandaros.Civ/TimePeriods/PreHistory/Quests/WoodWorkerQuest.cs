@@ -51,6 +51,10 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
                 "stockpileUpgrades",
                 new CraftObjective("stockpileUpgrades", HollowedLog.Name, 5)
             },
+            {
+                "stockpilesize",
+                new StockpileSizeObjective("stockpilesize", 140)
+            }
         };
         
         public override List<IPandaQuestReward> QuestRewards { get; set; } = new List<IPandaQuestReward>()
