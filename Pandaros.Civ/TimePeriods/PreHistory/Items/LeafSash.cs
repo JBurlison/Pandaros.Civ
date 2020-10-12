@@ -37,8 +37,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
             new RecipeResult(LeafSash.NAME)
         };
 
-        
-
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE;
     }
     public class LeafSashTaigaRecipe : ICSPlayerRecipe
@@ -52,8 +50,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             new RecipeResult(LeafSash.NAME)
         };
-
-        
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTAIGA;
     }
@@ -69,8 +65,6 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Items
         {
             new RecipeResult(LeafSash.NAME)
         };
-
-        
 
         public string name => LeafSash.NAME + ColonyBuiltIn.ItemTypes.LEAVESTEMPERATE + Jobs.WoodWorker.Name;
         public CraftPriority defaultPriority => CraftPriority.Medium;

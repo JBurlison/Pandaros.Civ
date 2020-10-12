@@ -35,16 +35,16 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Research
                 }
             }
         };
-        //public override Dictionary<int, List<string>> Dependancies => new Dictionary<int, List<string>>()
-        //{
-        //    {
-        //        0,
-        //        new List<string>()
-        //        {
-        //            StoneAgeResearch.NAME
-        //        }
-        //    }
-        //};
+        public override Dictionary<int, List<string>> Dependancies => new Dictionary<int, List<string>>()
+        {
+            {
+                0,
+                new List<string>()
+                {
+                    StoneAgeResearch.NAME + 1
+                }
+            }
+        };
 
         public override Dictionary<int, List<RecipeUnlock>> Unlocks => new Dictionary<int, List<RecipeUnlock>>()
         {

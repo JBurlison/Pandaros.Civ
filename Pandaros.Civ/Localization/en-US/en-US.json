@@ -125,6 +125,118 @@
               "PrimitiveWoodForagerTip": "Forages for Wood just outside your colony. They are very slow at finding them. \r\nRecruitment Item: Leaf Sash",
               "PrimitiveRockForagerTip": "Forages for Rocks just outside your colony. They are very slow at finding them. \r\nRecruitment Item: Leaf Sash"
             }
+          },
+          "StoneAge": {
+            "Quests": {
+
+            },
+            "Research": {
+              "BronzeAgeResearch1": {
+                "name": "Progress to the Bronze Age!",
+                "description": "."
+              }
+            },
+            "Jobs": {
+
+            }
+          },
+          "BronzeAge": {
+            "Quests": {
+
+            },
+            "Research": {
+              "BronzeAgeResearch1": {
+                "name": "Progress to the Bronze Age!",
+                "description": "."
+              }
+            },
+            "Jobs": {
+
+            }
+          },
+          "IronAge": {
+            "Quests": {
+
+            },
+            "Research": {
+              "BronzeAgeResearch1": {
+                "name": "Progress to the Bronze Age!",
+                "description": "."
+              }
+            },
+            "Jobs": {
+
+            }
+          },
+          "IndustrialAge": {
+            "Quests": {
+
+            },
+            "Research": {
+              "BronzeAgeResearch1": {
+                "name": "Progress to the Bronze Age!",
+                "description": "."
+              }
+            },
+            "Jobs": {
+
+            }
+          },
+          "AtomicAge": {
+            "Quests": {
+
+            },
+            "Research": {
+              "BronzeAgeResearch1": {
+                "name": "Progress to the Bronze Age!",
+                "description": "."
+              }
+            },
+            "Jobs": {
+
+            }
+          },
+          "InformationAge": {
+            "Quests": {
+
+            },
+            "Research": {
+              "BronzeAgeResearch1": {
+                "name": "Progress to the Bronze Age!",
+                "description": "."
+              }
+            },
+            "Jobs": {
+
+            }
+          },
+          "RenewablesAge": {
+            "Quests": {
+
+            },
+            "Research": {
+              "BronzeAgeResearch1": {
+                "name": "Progress to the Bronze Age!",
+                "description": "."
+              }
+            },
+            "Jobs": {
+
+            }
+          },
+          "FusionAge": {
+            "Quests": {
+
+            },
+            "Research": {
+              "BronzeAgeResearch1": {
+                "name": "Progress to the Bronze Age!",
+                "description": "."
+              }
+            },
+            "Jobs": {
+
+            }
           }
         }
       }
