@@ -5,6 +5,7 @@ using NetworkUI;
 using NetworkUI.AreaJobs;
 using NetworkUI.Items;
 using NPC;
+using Pandaros.API;
 using Pandaros.API.Entities;
 using Pandaros.API.Models;
 using Pandaros.API.Questing;
@@ -71,6 +72,8 @@ namespace Pandaros.Civ.TimePeriods
 
             // Stone Age
             CommandToolManager.AddButtonTooltip(TimePeriod.StoneAge.ToString(), TimePeriod.StoneAge.ToString(), TimePeriod.StoneAge.ToString() + TOOLTIP);
+
+            CommandToolManager.AddButtonTooltip(StoneMiner.Name, StoneMiner.Name, StoneMiner.Name + TOOLTIP);
 
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(StoneMiner.Name, StoneMiner.Name, StoneMiner.Name, EBlockToolHoverType.GreenIfNPCCanStand));
 
@@ -244,18 +247,31 @@ namespace Pandaros.Civ.TimePeriods
 
                 if (PandaJobFactory.MineJobsSettings.TryGetValue(toolDescription.NPCTypeKey, out var miningJobSettings))
                 {
-                    data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
-                                                     {
-                                                        (new Label(new LabelData(GameSetup.GetNamespace("RecruitmentItem"))), 125),
-                                                        (new Label(new LabelData(ItemId.GetItemId(miningJobSettings.RecruitmentItem.Type), ELabelAlignment.Default, 16, LabelData.ELocalizationType.Type)), 125)
-                                                    }));
+                    if (miningJobSettings.RecruitmentItem != null && miningJobSettings.RecruitmentItem.Type != ColonyBuiltIn.ItemTypes.AIR)
+                        data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                         {
+                                                            (new Label(new LabelData(GameSetup.GetNamespace("RecruitmentItem"))), 125),
+                                                            (new Label(new LabelData(ItemId.GetItemId(miningJobSettings.RecruitmentItem.Type), ELabelAlignment.Default, 16, LabelData.ELocalizationType.Type)), 125)
+                                                        }));
 
-                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("MinableTypes"))));
+                    if (miningJobSettings.MinableTypes != null && miningJobSettings.MinableTypes.Count != 0)
+                    {
+                        data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("MinableTypes"))));
 
-                    StringBuilder buildableTypes = new StringBuilder();
+                        StringBuilder buildableTypes = new StringBuilder();
+                        var i = 0;
 
-                    foreach (var item in miningJobSettings.MinableTypes)
-                        buildableTypes.Append(Localization.GetType(player.LastKnownLocale, ItemId.GetItemId(item)));
+                        foreach (var item in miningJobSettings.MinableTypes)
+                        {
+                            i++;
+                            buildableTypes.Append(Localization.GetType(player.LastKnownLocale, ItemId.GetItemId(item)));
+
+                            if (i != miningJobSettings.MinableTypes.Count)
+                                buildableTypes.Append(", ");
+                        }
+
+                        data.menu.Items.Add(new Label(new LabelData(buildableTypes.ToString())));
+                    }
                 }
 
             }

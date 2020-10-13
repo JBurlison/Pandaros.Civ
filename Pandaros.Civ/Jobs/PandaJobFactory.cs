@@ -184,15 +184,25 @@ namespace Pandaros.Civ.Jobs
             {
                 if (manager is BlockJobManager<MinerJobInstance> mji)
                 {
-                    var mineJobSettings = new PandaMiningJobSettings(mji.Settings as MinerJobSettings);
-                    mji.Settings = mineJobSettings;
-                    MineJobsSettings[mineJobSettings.NPCTypeKey] = mineJobSettings;
+                    if (!(mji.Settings is PandaMiningJobSettings pms))
+                    {
+                        var mineJobSettings = new PandaMiningJobSettings(mji.Settings as MinerJobSettings);
+                        mji.Settings = mineJobSettings;
+                        MineJobsSettings[mineJobSettings.NPCTypeKey] = mineJobSettings;
+                    }
+                    else
+                        MineJobsSettings[pms.NPCTypeKey] = pms;
                 }
                 else if (manager is BlockJobManager<GuardJobInstance> gji)
                 {
-                    var guardSettings = new PandaGuardJobSettings(gji.Settings as GuardJobSettings);
-                    gji.Settings = guardSettings;
-                    GuardJobsSettings[guardSettings.NPCTypeKey] = guardSettings;
+                    if (!(gji.Settings is PandaGuardJobSettings pgs))
+                    {
+                        var guardSettings = new PandaGuardJobSettings(gji.Settings as GuardJobSettings);
+                        gji.Settings = guardSettings;
+                        GuardJobsSettings[guardSettings.NPCTypeKey] = guardSettings;
+                    }
+                    else
+                        GuardJobsSettings[pgs.NPCTypeKey] = pgs;
                 }
                 else if (manager is BlockJobManager<CraftingJobWaterInstance> cjwi)
                     cjwi.Settings = new PandaCraftingJobWaterSettings(cjwi.Settings as CraftingJobWaterSettings);

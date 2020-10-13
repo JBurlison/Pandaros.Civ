@@ -38,6 +38,17 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Research
             }
         };
 
+        public override Dictionary<int, List<(string, RecipeUnlockClient.EType)>> AdditionalUnlocks => new Dictionary<int, List<(string, RecipeUnlockClient.EType)>>()
+        {
+            {
+                0,
+                new List<(string, RecipeUnlockClient.EType)>()
+                {
+                    (StoneMiner.Name, RecipeUnlockClient.EType.NPCType)
+                }
+            }
+        };
+
         public override Dictionary<int, List<RecipeUnlock>> Unlocks => new Dictionary<int, List<RecipeUnlock>>()
         {
             {

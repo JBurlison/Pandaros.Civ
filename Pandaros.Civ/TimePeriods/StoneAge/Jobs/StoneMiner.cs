@@ -34,9 +34,9 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
     {
         public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(StoneMiner));
        
-        public StoneMiner() : base(Name, Name, 5, 15, new HashSet<string>() { "darkstone" })
+        public StoneMiner() : base(Name, Name, 5, StonePickaxe.NAME, 15, new HashSet<string>() { "darkstone" })
         {
-            RecruitmentItem = new InventoryItem(StonePickaxe.NAME);
+            
         }
     }
 

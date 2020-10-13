@@ -16,8 +16,8 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
 {
     public class PandaMiningJobSettings : MinerJobSettings
     {
-        public HashSet<string> MinableTypes { get; set; }
-        public float MiningCooldown { get; set; }
+        public HashSet<string> MinableTypes { get; set; } = new HashSet<string>();
+        public float MiningCooldown { get; set; } = 8;
 
         public PandaMiningJobSettings(MinerJobSettings minerJobSettings)
         {
@@ -29,7 +29,7 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             RecruitmentItem = minerJobSettings.RecruitmentItem;
         }
 
-        public PandaMiningJobSettings(string blockType, string npcType, int maxCraftsPerRun, float miningCooldown, HashSet<string> minableTypes, string onCraftedAudio = "stoneDelete")
+        public PandaMiningJobSettings(string blockType, string npcType, int maxCraftsPerRun, string recruitmentItem, float miningCooldown, HashSet<string> minableTypes, string onCraftedAudio = "stoneDelete")
         {
             ItemTypes.ItemType type = ItemTypes.GetType(blockType);
             if (type.RotatedXMinus != null)
@@ -55,6 +55,7 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
                 };
             }
 
+            RecruitmentItem = new InventoryItem(recruitmentItem);
             MiningCooldown = miningCooldown;
             MinableTypes = minableTypes;
             NPCTypeKey = npcType;

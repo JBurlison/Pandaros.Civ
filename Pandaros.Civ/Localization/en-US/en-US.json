@@ -146,7 +146,7 @@
             },
             "Jobs": {
               "StoneMiner": "Stone Miner",
-              "StoneMinerTip": ""
+              "StoneMinerTip": "Mines stone blocks. Slow and steady!"
             }
           },
           "BronzeAge": {
@@ -258,6 +258,7 @@
     "Pandaros.Civ.TimePeriods.StoneAge.Items.SharpRock": "Sharp Rock",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.LeafBasket": "Leaf Basket",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.RoughWoodenBoard": "Rough Wooden Board",
+    "Pandaros.Civ.TimePeriods.StoneAge.Items.StonePickaxe": "Stone Pickaxe",
     "Pandaros.Civ.TimePeriods.StoneAge.Jobs.StoneShaper": "Stone Shaper",
     "Pandaros.Civ.TimePeriods.StoneAge.Jobs.Forager": "Forager",
     "Pandaros.Civ.TimePeriods.StoneAge.Jobs.SlowPorterToCrate": "Slow Porter to Crate",
@@ -291,6 +292,7 @@
     "Pandaros.Civ.TimePeriods.StoneAge.Items.SturdyCrate": "Can store a small amount of items for jobs to get and store items from when not near the stockpile. Porters fill and empty these.",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.LeafBasket": "A bag made of leaves and sticks for slow porters to carry items in.",
     "Pandaros.Civ.TimePeriods.StoneAge.Items.RoughWoodenBoard": "Carved from the finest rocks available.",
+    "Pandaros.Civ.TimePeriods.StoneAge.Items.StonePickaxe": "Some stone-on-stone action!",
     "Pandaros.Civ.TimePeriods.StoneAge.Jobs.StoneShaper": "Shapes stone into things such as slinger ammo.",
     "Pandaros.Civ.TimePeriods.StoneAge.Jobs.SlowPorterToCrate": "A basic porter to move resources from the crate to stockpile. Hire him to empty crates!",
     "Pandaros.Civ.TimePeriods.StoneAge.Jobs.SlowPorterFromCrate": "A basic porter to move resources from the stockpile to crate. Hire him to move items required for other jobs to crates near them!",
