@@ -55,6 +55,7 @@ namespace Pandaros.Civ.Jobs.Goals
         {
 			state.JobIsDone = true;
 			MinerJobInstance instance = (MinerJobInstance)BlockJobInstance;
+
 			if (instance.BlockTypeBelow == null || instance.BlockTypeBelow == BuiltinBlocks.Types.air)
 			{
 				if (!World.TryGetTypeAt(instance.Position.Add(0, -1, 0), out ItemTypes.ItemType foundType))
@@ -80,19 +81,20 @@ namespace Pandaros.Civ.Jobs.Goals
                 return;
             }
 
-            if (instance.MiningCooldown <= 0f)
+            if (MinerSettings.MiningCooldown <= 0f)
 			{
 				float cooldown = 0f;
 				if (instance.BlockTypeBelow.CustomDataNode?.TryGetAs("minerMiningTime", out cooldown) ?? false)
 				{
-					instance.MiningCooldown = cooldown;
+					MinerSettings.MiningCooldown = cooldown;
 				}
-				if (instance.MiningCooldown <= 0f)
+				if (MinerSettings.MiningCooldown <= 0f)
 				{
 					state = DestoryJob(state, instance);
 					return;
 				}
 			}
+
 			if (MinerSettings.BlockTypes.ContainsByReference(instance.BlockType, out int index))
 			{
                 UnityEngine.Vector3 rotate = instance.NPC.Position.Vector;
@@ -113,7 +115,8 @@ namespace Pandaros.Civ.Jobs.Goals
 				}
 				instance.NPC.LookAt(rotate);
 			}
-			AudioManager.SendAudio(instance.Position.Vector, "stoneDelete");
+
+			AudioManager.SendAudio(instance.Position.Vector, MinerSettings.OnCraftedAudio);
 			GatherResults.Clear();
 			List<ItemTypes.ItemTypeDrops> itemList = instance.BlockTypeBelow.OnRemoveItems;
 			for (int i = 0; i < itemList.Count; i++)
@@ -122,7 +125,7 @@ namespace Pandaros.Civ.Jobs.Goals
 			}
 			ModLoader.Callbacks.OnNPCGathered.Invoke(instance, instance.Position.Add(0, -1, 0), GatherResults);
 			InventoryItem toShow = ItemTypes.ItemTypeDrops.GetWeightedRandom(GatherResults);
-			float cd = Pipliz.Random.NextFloat(0.9f, 1.1f) * instance.MiningCooldown;
+			float cd = Pipliz.Random.NextFloat(0.9f, 1.1f) * MinerSettings.MiningCooldown;
 			if (toShow.Amount > 0)
 			{
 				state.SetIndicator(new IndicatorState(cd, toShow.Type));

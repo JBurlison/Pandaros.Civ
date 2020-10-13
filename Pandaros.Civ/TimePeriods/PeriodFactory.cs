@@ -13,6 +13,7 @@ using Pandaros.Civ.Jobs;
 using Pandaros.Civ.Jobs.BaseReplacements;
 using Pandaros.Civ.Quests;
 using Pandaros.Civ.TimePeriods.PreHistory.Jobs;
+using Pandaros.Civ.TimePeriods.StoneAge.Jobs;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,12 @@ namespace Pandaros.Civ.TimePeriods
 {
     public class PeriodFactory : IOnConstructCommandTool, IOnPlayerPushedNetworkUIButton, IAfterWorldLoad, IOnCreatedColony, IOnConstructTooltipUI
     {
+        public const string TOOLTIP = "Tip";
+
         public static Dictionary<TimePeriod, Action<Players.Player>> GenerateTimePeriodCommandToolMenu { get; set; } = new Dictionary<TimePeriod, Action<Players.Player>>()
         {
-            { TimePeriod.PreHistory, SendPreHistroyMenu }
+            { TimePeriod.PreHistory, SendPreHistroyMenu },
+            { TimePeriod.StoneAge, SendStoneAgeyMenu }
         };
 
         public static TimePeriod GetTimePeriod(Colony c)
@@ -45,15 +49,16 @@ namespace Pandaros.Civ.TimePeriods
 
         public void AfterWorldLoad()
         {
-            CommandToolManager.AddButtonTooltip(TimePeriod.PreHistory.ToString(), TimePeriod.PreHistory.ToString(), TimePeriod.PreHistory.ToString() + "Tip");
-            CommandToolManager.AddButtonTooltip(PrimitiveBerryForager.Name, PrimitiveBerryForager.Name, PrimitiveBerryForager.Name + "Tip");
-            CommandToolManager.AddButtonTooltip(PrimitiveRockForager.Name, PrimitiveRockForager.Name, PrimitiveRockForager.Name + "Tip");
-            CommandToolManager.AddButtonTooltip(PrimitiveWoodForager.Name, PrimitiveWoodForager.Name, PrimitiveWoodForager.Name + "Tip");
+            // Pre History
+            CommandToolManager.AddButtonTooltip(TimePeriod.PreHistory.ToString(), TimePeriod.PreHistory.ToString(), TimePeriod.PreHistory.ToString() + TOOLTIP);
 
-            CommandToolManager.AddButtonTooltip(RockThrower.NameDay, RockThrower.NameDay, RockThrower.Name + "Tip");
-            CommandToolManager.AddButtonTooltip(SpearThrower.NameDay, SpearThrower.NameDay, SpearThrower.Name + "Tip");
-            CommandToolManager.AddButtonTooltip(RockThrower.NameNight, RockThrower.NameNight, RockThrower.Name + "Tip");
-            CommandToolManager.AddButtonTooltip(SpearThrower.NameNight, SpearThrower.NameNight, SpearThrower.Name + "Tip");
+            CommandToolManager.AddButtonTooltip(PrimitiveBerryForager.Name, PrimitiveBerryForager.Name, PrimitiveBerryForager.Name + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(PrimitiveRockForager.Name, PrimitiveRockForager.Name, PrimitiveRockForager.Name + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(PrimitiveWoodForager.Name, PrimitiveWoodForager.Name, PrimitiveWoodForager.Name + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(RockThrower.NameDay, RockThrower.NameDay, RockThrower.Name + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(SpearThrower.NameDay, SpearThrower.NameDay, SpearThrower.Name + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(RockThrower.NameNight, RockThrower.NameNight, RockThrower.Name + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(SpearThrower.NameNight, SpearThrower.NameNight, SpearThrower.Name + TOOLTIP);
 
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(RockThrower.NameDay, RockThrower.NameDay, RockThrower.NameDay, EBlockToolHoverType.GreenIfNPCCanStand));
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(RockThrower.NameNight, RockThrower.NameNight, RockThrower.NameNight, EBlockToolHoverType.GreenIfNPCCanStand));
@@ -62,6 +67,21 @@ namespace Pandaros.Civ.TimePeriods
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(PrimitiveBerryForager.Name, PrimitiveBerryForager.Name, PrimitiveBerryForager.Name, EBlockToolHoverType.GreenIfNPCCanStand));
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(PrimitiveRockForager.Name, PrimitiveRockForager.Name, PrimitiveRockForager.Name, EBlockToolHoverType.GreenIfNPCCanStand));
             CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(PrimitiveWoodForager.Name, PrimitiveWoodForager.Name, PrimitiveWoodForager.Name, EBlockToolHoverType.GreenIfNPCCanStand));
+
+
+            // Stone Age
+            CommandToolManager.AddButtonTooltip(TimePeriod.StoneAge.ToString(), TimePeriod.StoneAge.ToString(), TimePeriod.StoneAge.ToString() + TOOLTIP);
+
+            CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(StoneMiner.Name, StoneMiner.Name, StoneMiner.Name, EBlockToolHoverType.GreenIfNPCCanStand));
+
+
+            CommandToolManager.AddButtonTooltip(TimePeriod.BronzeAge.ToString(), TimePeriod.BronzeAge.ToString(), TimePeriod.BronzeAge.ToString() + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(TimePeriod.IronAge.ToString(), TimePeriod.IronAge.ToString(), TimePeriod.IronAge.ToString() + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(TimePeriod.IndustrialAge.ToString(), TimePeriod.IndustrialAge.ToString(), TimePeriod.IndustrialAge.ToString() + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(TimePeriod.AtomicAge.ToString(), TimePeriod.AtomicAge.ToString(), TimePeriod.AtomicAge.ToString() + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(TimePeriod.InformationAge.ToString(), TimePeriod.InformationAge.ToString(), TimePeriod.InformationAge.ToString() + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(TimePeriod.RenewablesAge.ToString(), TimePeriod.RenewablesAge.ToString(), TimePeriod.RenewablesAge.ToString() + TOOLTIP);
+            CommandToolManager.AddButtonTooltip(TimePeriod.FusionAge.ToString(), TimePeriod.FusionAge.ToString(), TimePeriod.FusionAge.ToString() + TOOLTIP);
         }
 
         public void OnPlayerPushedNetworkUIButton(ButtonPressCallbackData data)
@@ -118,12 +138,11 @@ namespace Pandaros.Civ.TimePeriods
                 (new Label(new LabelData("popup.tooljob.guardsnight", ELabelAlignment.UpperCenter), 20) { Width = 270 }, 270)
             }));
 
-            CommandToolManager.GenerateFourColumnTwoGroupRow(menu,
+            GenerateGuardsBox(menu,
                 GetButtonTool(p, RockThrower.NameDay, RockThrower.Name),
                 GetButtonTool(p, SpearThrower.NameDay, SpearThrower.Name),
                 GetButtonTool(p, RockThrower.NameNight, RockThrower.Name),
-                GetButtonTool(p, SpearThrower.NameNight, SpearThrower.Name)) ;
-            menu.Items.Add(new EmptySpace(10));
+                GetButtonTool(p, SpearThrower.NameNight, SpearThrower.Name));
             CommandToolManager.GenerateThreeColumnCenteredRow(menu,
                 GetButtonTool(p, PrimitiveBerryForager.Name, PrimitiveBerryForager.Name),
                 GetButtonTool(p, PrimitiveRockForager.Name, PrimitiveRockForager.Name),
@@ -133,7 +152,37 @@ namespace Pandaros.Civ.TimePeriods
             NetworkMenuManager.SendServerPopup(p, menu);
         }
 
+        public static void SendStoneAgeyMenu(Players.Player p)
+        {
+            var menu = CommandToolManager.GenerateMenuBase(p, true);
+            GenerateGuardsBox(menu);
 
+            menu.Items.Add(new EmptySpace(10));
+            CommandToolManager.GenerateThreeColumnCenteredRow(menu,
+                GetButtonTool(p, StoneMiner.Name, StoneMiner.Name));
+
+            ModLoader.Callbacks.OnConstructCommandTool.Invoke(p, menu, TimePeriod.PreHistory.ToString());
+            NetworkMenuManager.SendServerPopup(p, menu);
+        }
+
+        /// <summary>
+        ///     Takes 4 guard buttons, 2 day, 2 night. paird as seen on the UI. 2 day guards then 2 night guards.
+        /// </summary>
+        /// <param name="menu"></param>
+        /// <param name="guardButtons"></param>
+        private static void GenerateGuardsBox(NetworkMenu menu, params IItem[] guardButtons)
+        {
+            menu.Items.Add(new BackgroundColor(null, 255, 75, 5, 0, 4, 4, new UnityEngine.Color32(96, 79, 73, 255)));
+            menu.Items.Add(new BackgroundColor(null, 255, 75, 295, 0, 4, 4, new UnityEngine.Color32(96, 79, 73, 255)));
+            menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+            {
+                (new Label(new LabelData("popup.tooljob.guardsday", ELabelAlignment.UpperCenter), 20) { Width = 270 }, 270),
+                (new Label(new LabelData("")) { Width = 20 }, 20),
+                (new Label(new LabelData("popup.tooljob.guardsnight", ELabelAlignment.UpperCenter), 20) { Width = 270 }, 270)
+            }));
+            CommandToolManager.GenerateFourColumnTwoGroupRow(menu, guardButtons);
+            menu.Items.Add(new EmptySpace(10));
+        }
 
         public static IItem GetButtonTool(Players.Player p, string id, string labelLocalizationKey, int width = 120, bool triggerHover = true)
         {
@@ -191,6 +240,24 @@ namespace Pandaros.Civ.TimePeriods
                                                         (new Label(new LabelData(ItemId.GetItemId(guardJobSettings.RecruitmentItem.Type), ELabelAlignment.Default, 16, LabelData.ELocalizationType.Type)), 125)
                                                     }));
                 }
+
+
+                if (PandaJobFactory.MineJobsSettings.TryGetValue(toolDescription.NPCTypeKey, out var miningJobSettings))
+                {
+                    data.menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
+                                                     {
+                                                        (new Label(new LabelData(GameSetup.GetNamespace("RecruitmentItem"))), 125),
+                                                        (new Label(new LabelData(ItemId.GetItemId(miningJobSettings.RecruitmentItem.Type), ELabelAlignment.Default, 16, LabelData.ELocalizationType.Type)), 125)
+                                                    }));
+
+                    data.menu.Items.Add(new Label(new LabelData(GameSetup.GetNamespace("MinableTypes"))));
+
+                    StringBuilder buildableTypes = new StringBuilder();
+
+                    foreach (var item in miningJobSettings.MinableTypes)
+                        buildableTypes.Append(Localization.GetType(player.LastKnownLocale, ItemId.GetItemId(item)));
+                }
+
             }
         }
     }

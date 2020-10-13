@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Pipliz;
 using Pandaros.Civ.Jobs;
 using Jobs;
+using Pandaros.Civ.TimePeriods.StoneAge.Items;
 
 namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
 {
@@ -32,10 +33,10 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
     public class StoneMiner : PandaMiningJobSettings
     {
         public static string Name = GameSetup.GetNamespace("TimePeriods.StoneAge.Jobs", nameof(StoneMiner));
-
-        public StoneMiner() : base(Name, Name, 5, new HashSet<string>() { "darkstone" })
+       
+        public StoneMiner() : base(Name, Name, 5, 15, new HashSet<string>() { "darkstone" })
         {
-            
+            RecruitmentItem = new InventoryItem(StonePickaxe.NAME);
         }
     }
 
