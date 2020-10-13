@@ -75,7 +75,7 @@ namespace Pandaros.Civ.TimePeriods
 
             CommandToolManager.AddButtonTooltip(StoneMiner.Name, StoneMiner.Name, StoneMiner.Name + TOOLTIP);
 
-            CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(StoneMiner.Name, StoneMiner.Name, StoneMiner.Name, EBlockToolHoverType.GreenIfNPCCanStand));
+            CommandToolManager.AddAreaJobSettings(new BlockToolDescriptionSettings(StoneMiner.Name, StoneMiner.Name, StoneMiner.Name, EBlockToolHoverType.GreenIfMineable));
 
 
             CommandToolManager.AddButtonTooltip(TimePeriod.BronzeAge.ToString(), TimePeriod.BronzeAge.ToString(), TimePeriod.BronzeAge.ToString() + TOOLTIP);
