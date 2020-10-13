@@ -132,15 +132,6 @@ namespace Pandaros.Civ.TimePeriods
         {
             var menu = CommandToolManager.GenerateMenuBase(p, true);
 
-            menu.Items.Add(new BackgroundColor(null, 255, 75, 5, 0, 4, 4, new UnityEngine.Color32(96, 79, 73, 255)));
-            menu.Items.Add(new BackgroundColor(null, 255, 75, 295, 0, 4, 4, new UnityEngine.Color32(96, 79, 73, 255)));
-            menu.Items.Add(new HorizontalRow(new List<(IItem, int)>()
-            {
-                (new Label(new LabelData("popup.tooljob.guardsday", ELabelAlignment.UpperCenter), 20) { Width = 270 }, 270),
-                (new Label(new LabelData("")) { Width = 20 }, 20),
-                (new Label(new LabelData("popup.tooljob.guardsnight", ELabelAlignment.UpperCenter), 20) { Width = 270 }, 270)
-            }));
-
             GenerateGuardsBox(menu,
                 GetButtonTool(p, RockThrower.NameDay, RockThrower.Name),
                 GetButtonTool(p, SpearThrower.NameDay, SpearThrower.Name),

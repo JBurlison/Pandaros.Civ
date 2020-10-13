@@ -36,7 +36,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
 
         public List<RecipeResult> results => new List<RecipeResult>()
         {
-            new RecipeResult(SharpRock.NAME, 2)
+            new RecipeResult(SharpRock.NAME, 1)
         };
 
         public string name => SharpRock.NAME;
@@ -48,5 +48,20 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Items
         public string Job => StoneShaper.Name;
 
         public List<string> JobBlock => new List<string> { StoneShaper.Name };
+    }
+
+    public class SharpRockPlayerRecipe : ICSPlayerRecipe
+    {
+        public List<RecipeItem> requires => new List<RecipeItem>()
+        {
+            new RecipeItem(Rock.NAME, 2)
+        };
+
+        public List<RecipeResult> results => new List<RecipeResult>()
+        {
+            new RecipeResult(SharpRock.NAME, 1)
+        };
+
+        public string name => SharpRock.NAME + "player";
     }
 }
