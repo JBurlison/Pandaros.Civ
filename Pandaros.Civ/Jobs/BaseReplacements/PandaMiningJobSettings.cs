@@ -16,7 +16,7 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
 {
     public class PandaMiningJobSettings : MinerJobSettings
     {
-        public List<string> MinableTypes { get; set; } = new List<string>();
+        public HashSet<string> MinableTypes { get; set; }
 
         public PandaMiningJobSettings(MinerJobSettings minerJobSettings)
         {
@@ -28,8 +28,37 @@ namespace Pandaros.Civ.Jobs.BaseReplacements
             RecruitmentItem = minerJobSettings.RecruitmentItem;
         }
 
-        public PandaMiningJobSettings()
+        public PandaMiningJobSettings(string blockType, string npcType, int maxCraftsPerRun, HashSet<string> minableTypes, string onCraftedAudio = "stoneDelete")
         {
+            ItemTypes.ItemType type = ItemTypes.GetType(blockType);
+            if (type.RotatedXMinus != null)
+            {
+                BlockTypes = new ItemTypes.ItemType[5]
+                {
+                    type,
+                    ItemTypes.GetType(type.RotatedXPlus),
+                    ItemTypes.GetType(type.RotatedXMinus),
+                    ItemTypes.GetType(type.RotatedZPlus),
+                    ItemTypes.GetType(type.RotatedZMinus)
+                };
+            }
+            else
+            {
+                BlockTypes = new ItemTypes.ItemType[5]
+                {
+                    type,
+                    ItemTypes.GetType(blockType + "x+"),
+                    ItemTypes.GetType(blockType + "x-"),
+                    ItemTypes.GetType(blockType + "z+"),
+                    ItemTypes.GetType(blockType + "z-")
+                };
+            }
+
+            MinableTypes = minableTypes;
+            NPCTypeKey = npcType;
+            NPCType = NPC.NPCType.GetByKeyNameOrDefault(npcType);
+            OnCraftedAudio = onCraftedAudio;
+            MaxCraftsPerRun = maxCraftsPerRun;
         }
 
         public override Pipliz.Vector3Int GetJobLocation(BlockJobInstance instance)
