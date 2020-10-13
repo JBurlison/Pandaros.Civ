@@ -24,8 +24,12 @@ namespace Pandaros.Civ.Extender.Providers
                 if (Activator.CreateInstance(s) is ICrate sb && !string.IsNullOrEmpty(sb.name))
                 {
                     StorageFactory.CrateTypes[sb.name] = sb;
+
+                    if (ItemTypes.TryGetType(sb.name, out var type))
+                        CivCrateTracker.Types.Add(type);
                 }
             }
+
         }
     }
 }

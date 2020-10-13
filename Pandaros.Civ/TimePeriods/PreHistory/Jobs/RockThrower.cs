@@ -70,7 +70,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
         public static string NameDay = Name + "Day";
         public static string NameNight = Name + "Night";
         public static int range = 6;
-        public static int damage = 60;
+        public static int damage = 50;
         public static int cooldown = 6;
         public static float inventory = 25f;
         public static float movement = 2.5f;

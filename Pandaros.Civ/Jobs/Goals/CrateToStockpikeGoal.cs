@@ -46,9 +46,9 @@ namespace Pandaros.Civ.Jobs.Goals
                 foreach (var location in ClosestLocations)
                     if (!LastCratePosition.Contains(location) &&
                         !InProgress.Contains(location) &&
-                        StorageFactory.CrateLocations[Job.Owner].TryGetValue(location, out var inv) &&
-                        inv.IsAlmostFull &&
-                        inv.StorageTypeLookup[StorageType.Stockpile].Count > 0)
+                        StorageFactory.CrateTracker.Positions.TryGetValue(location, out var crate) &&
+                        crate.Inventory.IsAlmostFull &&
+                        crate.Inventory.StorageTypeLookup[StorageType.Stockpile].Count > 0)
                     {
                         CurrentCratePosition = location;
                         InProgress.Add(location);
@@ -61,8 +61,8 @@ namespace Pandaros.Civ.Jobs.Goals
                     foreach (var location in ClosestLocations)
                         if (!LastCratePosition.Contains(location) &&
                             !InProgress.Contains(location) &&
-                            StorageFactory.CrateLocations[Job.Owner].TryGetValue(location, out var inv) &&
-                            inv.StorageTypeLookup[StorageType.Stockpile].Count > 0)
+                            StorageFactory.CrateTracker.Positions.TryGetValue(location, out var crate) &&
+                            crate.Inventory.StorageTypeLookup[StorageType.Stockpile].Count > 0)
                         {
                             CurrentCratePosition = location;
                             InProgress.Add(location);
@@ -106,22 +106,18 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (WalkingTo == StorageType.Crate)
             {
-                if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var locs))
+                if (StorageFactory.CrateTracker.Positions.TryGetValue(CurrentCratePosition, out var crate))
                 {
-                    if (locs.TryGetValue(CurrentCratePosition, out var crate))
-                    {
-                        ToStockpike = crate.GetAllItems(StorageType.Stockpile).Values.ToArray();
-                        ShowIndicator(ref state);
-                        crate.TryTake(ToStockpike);
-                        WalkingTo = StorageType.Stockpile;
-                    }
-                    else
-                    {
-                        LastCratePosition.Clear();
-                    }
+                    ToStockpike = crate.Inventory.GetAllItems(StorageType.Stockpile).Values.ToArray();
+                    ShowIndicator(ref state);
+                    crate.Inventory.TryTake(ToStockpike);
+                    WalkingTo = StorageType.Stockpile;
                 }
                 else
-                    CivLogger.Log(ChatColor.red, "Crate locations does not contain colony id {0}", Job.Owner.ColonyID);
+                {
+                    LastCratePosition.Clear();
+                }
+
             }
             else
             {

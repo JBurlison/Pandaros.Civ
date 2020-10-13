@@ -34,6 +34,19 @@ namespace Pandaros.Civ.Storage
             StorageTypeLookup = node[nameof(StorageTypeLookup)].JsonDeerialize<Dictionary<StorageType, Dictionary<ushort, StoredItem>>>();
         }
 
+        public CrateInventory(ByteReader reader)
+        {
+            if(ServerManager.ColonyTracker.TryGet(reader.ReadVariableInt(), out var colony))
+                Colony = colony;
+
+            Position = reader.ReadVector3Int();
+
+            if (StorageFactory.CrateTypes.TryGetValue(reader.ReadString(), out var crate))
+                CrateType = crate;
+
+            StorageTypeLookup = JSONHelper.DeserializeFromMemory<Dictionary<StorageType, Dictionary<ushort, StoredItem>>>(reader);
+        }
+
         public CrateInventory(ICrate crateType, Vector3Int position, Colony c)
         {
             CrateType = crateType;
@@ -100,6 +113,14 @@ namespace Pandaros.Civ.Storage
         }
 
 
+        public void Serialize(ByteBuilder builder)
+        {
+            builder.WriteVariable(Colony.ColonyID);
+            builder.Write(Position);
+            builder.Write(CrateType.name);
+            JSONHelper.SerializeToMemory(StorageTypeLookup);
+        }
+
         public void CaclulateTimeouts()
         {
             var now = ServerTimeStamp.Now;
@@ -142,7 +163,7 @@ namespace Pandaros.Civ.Storage
                         {
                             typeKvp.Value.Remove(item.Id);
 
-                            if (StorageFactory.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
+                            if (StorageFactory.CrateTracker.ItemCrateLocations[Colony].TryGetValue(item.Id, out var posList))
                                 posList.Remove(Position);
                         }
 
@@ -202,10 +223,10 @@ namespace Pandaros.Civ.Storage
                     }
                 }
 
-                if (!StorageFactory.ItemCrateLocations[Colony].ContainsKey(item.Id))
-                    StorageFactory.ItemCrateLocations[Colony].Add(item.Id, new List<Vector3Int>());
+                if (!StorageFactory.CrateTracker.ItemCrateLocations[Colony].ContainsKey(item.Id))
+                    StorageFactory.CrateTracker.ItemCrateLocations[Colony].Add(item.Id, new List<Vector3Int>());
 
-                var listRef = StorageFactory.ItemCrateLocations[Colony][item.Id];
+                var listRef = StorageFactory.CrateTracker.ItemCrateLocations[Colony][item.Id];
 
                 if (!listRef.Contains(Position))
                     listRef.Add(Position);

@@ -50,14 +50,11 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (WalkingTo == StorageType.Crate)
             {
-                if (!StorageFactory.CrateLocations.ContainsKey(Job.Owner))
-                    StorageFactory.CrateLocations.Add(Job.Owner, new Dictionary<Vector3Int, CrateInventory>());
-
-                if (!LastCratePosition.Contains(GoalStoring.ClosestCrate) && StorageFactory.CrateLocations[Job.Owner].ContainsKey(GoalStoring.ClosestCrate))
+                if (!LastCratePosition.Contains(GoalStoring.ClosestCrate) && StorageFactory.CrateTracker.Positions.TryGetValue(GoalStoring.ClosestCrate, out var crate))
                     CurrentCratePosition = GoalStoring.ClosestCrate;
                 else
                 {
-                    var locations = GetCrateSearchPosition().SortClosestPositions(StorageFactory.CrateLocations[Job.Owner].Keys.ToList());
+                    var locations = GetCrateSearchPosition().SortClosestPositions(StorageFactory.CrateTracker.Positions.IterateTracker().Select(c => c.Position).ToList());
 
                     foreach (var location in locations)
                         if (!LastCratePosition.Contains(location))
@@ -118,8 +115,8 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (WalkingTo == StorageType.Crate)
             {
-                if (StorageFactory.CrateLocations[Job.Owner].TryGetValue(CurrentCratePosition, out CrateInventory ci))
-                    remaining = ci.TryAdd(ItemsToStore).ToArray();
+                if (StorageFactory.CrateTracker.Positions.TryGetValue(CurrentCratePosition, out var ci))
+                    remaining = ci.Inventory.TryAdd(ItemsToStore).ToArray();
             }
             else
                 StorageFactory.StoreItems(Job.Owner, ItemsToStore);

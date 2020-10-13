@@ -90,8 +90,8 @@ namespace Pandaros.Civ.Jobs.Goals
                 foreach (var location in ClosestLocations)
                     if (!LastCratePosition.Contains(location) &&
                         !InProgress.Contains(location) &&
-                        StorageFactory.CrateLocations[Job.Owner].TryGetValue(location, out var inv) &&
-                        !inv.IsAlmostFull &&
+                        StorageFactory.CrateTracker.Positions.TryGetValue(location, out var crate) &&
+                        !crate.Inventory.IsAlmostFull &&
                         ItemsNeeded.TryGetValue(location, out var itemsNeeded))
                     {
                         nexPos = location;
@@ -122,10 +122,10 @@ namespace Pandaros.Civ.Jobs.Goals
             }
             else
             {
-                if (StorageFactory.CrateLocations[Job.Owner].TryGetValue(CurrentCratePosition, out var crateInventory))
+                if (StorageFactory.CrateTracker.Positions.TryGetValue(CurrentCratePosition, out var crate))
                 {
                     WalkingTo = StorageType.Stockpile;
-                    var leftovers = crateInventory.TryAdd(Job.NPC.Inventory.Inventory.Select(ii => new StoredItem(ii, int.MaxValue, StorageType.Crate)).ToArray());
+                    var leftovers = crate.Inventory.TryAdd(Job.NPC.Inventory.Inventory.Select(ii => new StoredItem(ii, int.MaxValue, StorageType.Crate)).ToArray());
                     state.SetCooldown(1);
                     state.SetIndicator(new Shared.IndicatorState(5, ColonyBuiltIn.ItemTypes.CRATE.Id));
                     if (leftovers.Count > 0)
@@ -169,42 +169,44 @@ namespace Pandaros.Civ.Jobs.Goals
         {
             ItemsNeeded.Clear();
 
-            foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values)
-                if (colony != null && StorageFactory.CrateLocations.TryGetValue(colony, out var dict))
-                    foreach (var crate in dict.Keys)
-                        foreach (var request in StorageFactory.CrateRequests)
+            foreach (var goalByType in PandaJobFactory.ActiveGoalsByType.Values)
+                foreach (var goal in goalByType)
+                {
+                    var needed = goal.GetItemsNeeded();
+
+                    if (needed == null || needed.Count == 0)
+                        continue;
+
+                    if (goal.ClosestCrate == default(Vector3Int) || !StorageFactory.CrateTracker.Positions.TryGetValue(goal.ClosestCrate, out var crate))
+                        goal.ClosestCrate = StorageFactory.GetClosestCrateLocation(goal.GetCrateSearchPosition(), goal.Job.Owner);
+
+                    if (StorageFactory.CrateTracker.Positions.TryGetValue(goal.ClosestCrate, out crate))
+                    {
+                        if (!ItemsNeeded.TryGetValue(goal.ClosestCrate, out var items))
                         {
-                            var needed = request.GetItemsNeeded(crate);
-
-                            foreach (var need in needed)
-                            {
-                                if (!ItemsNeeded.TryGetValue(crate, out var items))
-                                {
-                                    items = new Dictionary<ushort, StoredItem>();
-                                    ItemsNeeded[crate] = items;
-                                }
-
-                                if (items.TryGetValue(need.Key, out var storedItem))
-                                    storedItem.Add(needed.Count);
-                                else
-                                    items[need.Key] = need.Value;
-                            }
+                            items = new Dictionary<ushort, StoredItem>();
+                            ItemsNeeded[goal.ClosestCrate] = items;
                         }
+
+                        var maxSize = crate.Inventory.CrateType.MaxCrateStackSize;
+                        items.AddRange(needed, maxSize);
+                    }
+
+                }
         }
 
         public static void UpdateCrateLocationsForPorter(IPandaNpcGoal goal)
         {
             if (goal != null &&
-                goal.Job.Owner != null &&
-                StorageFactory.CrateLocations.TryGetValue(goal.Job.Owner, out var crateLocations))
+                goal.Job.Owner != null)
             {
-                var locs = crateLocations.Keys.ToList();
+                var locs = StorageFactory.CrateTracker.Positions.IterateTracker().Where(c => c.Colony == goal.Job.Owner).Select(c => c.Position).ToList();
                 locs.Add(StorageFactory.GetStockpilePosition(goal.Job.Owner).Position);
 
                 if (goal is CrateToStockpikeGoal cts)
-                    cts.ClosestLocations = goal.GetCrateSearchPosition().SortClosestPositions(crateLocations.Keys);
+                    cts.ClosestLocations = goal.GetCrateSearchPosition().SortClosestPositions(locs);
                 else if (goal is StockpikeToCrateGoal stc)
-                    stc.ClosestLocations = goal.GetCrateSearchPosition().SortClosestPositions(crateLocations.Keys);
+                    stc.ClosestLocations = goal.GetCrateSearchPosition().SortClosestPositions(locs);
             }
         }
 

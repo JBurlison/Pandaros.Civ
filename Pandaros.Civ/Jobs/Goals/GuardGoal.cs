@@ -40,8 +40,7 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public Pipliz.Vector3Int GetPosition()
         {
-            if (StorageFactory.CrateLocations.TryGetValue(Job.Owner, out var crateLocs) &&
-                (ClosestCrate == default(Vector3Int) || !crateLocs.ContainsKey(ClosestCrate)))
+            if (ClosestCrate == default(Vector3Int) || !StorageFactory.CrateTracker.Positions.TryGetValue(ClosestCrate, out var crate))
                 ClosestCrate =StorageFactory.GetClosestCrateLocation(GuardJob.Position, Job.Owner);
 
             return GuardJob.Position;

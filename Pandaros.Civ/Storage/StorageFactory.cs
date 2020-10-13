@@ -26,7 +26,7 @@ using System.Threading.Tasks;
 namespace Pandaros.Civ.Storage
 {
     [ModLoader.ModManager]
-    public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad, IOnSavingColony, IOnLoadingColony, IOnLoadingImages
+    public class StorageFactory : IOnTimedUpdate, IOnChangedBlock, IAfterItemTypesDefinedExtender, IAfterWorldLoad, IOnLoadingImages
     {
         public int NextUpdateTimeMinMs => 2000;
 
@@ -35,11 +35,8 @@ namespace Pandaros.Civ.Storage
         public ServerTimeStamp NextUpdateTime { get; set; }
         public static Dictionary<Colony, Dictionary<ushort, int>> StockpileMaxStackSize { get; set; } = new Dictionary<Colony, Dictionary<ushort, int>>();
         public static Dictionary<Colony, int> DefaultMax = new Dictionary<Colony, int>();
-        public static Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>> CrateLocations { get; set; } = new Dictionary<Colony, Dictionary<Vector3Int, CrateInventory>>();
         public static Dictionary<string, IStorageUpgradeBlock> StorageBlockTypes { get; set; } = new Dictionary<string, IStorageUpgradeBlock>();
         public static Dictionary<string, ICrate> CrateTypes { get; set; } = new Dictionary<string, ICrate>();
-        public static List<ICrateRequest> CrateRequests { get; set; } = new List<ICrateRequest>();
-        public static Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>> ItemCrateLocations { get; set; } = new Dictionary<Colony, Dictionary<ushort, List<Vector3Int>>>();
         public static LocalizationHelper LocalizationHelper { get; set; } = new LocalizationHelper(GameSetup.NAMESPACE, "Storage");
         public List<Type> LoadedAssembalies { get; } = new List<Type>();
 
@@ -128,69 +125,6 @@ namespace Pandaros.Civ.Storage
             }
         }
 
-        public void OnSavingColony(Colony colony, JSONNode data)
-        {
-            if (CrateLocations.TryGetValue(colony, out var cl))
-            {
-                if (!data.HasChild(nameof(CrateLocations)))
-                    data[nameof(CrateLocations)] = new JSONNode();
-
-                var locationsNode = new JSONNode();
-
-                foreach (var crateLocation in cl)
-                    locationsNode[crateLocation.Key.ToString()] = crateLocation.Value.ToJSON();
-
-                data[nameof(CrateLocations)] = locationsNode;
-            }
-
-            if (ItemCrateLocations.TryGetValue(colony, out var icl))
-            {
-                if (!data.HasChild(nameof(ItemCrateLocations)))
-                    data[nameof(ItemCrateLocations)] = new JSONNode();
-
-                var itemsLocs = new JSONNode();
-
-                foreach(var kvp in icl)
-                {
-                    var locs = new JSONNode(NodeType.Array);
-
-                    foreach (var l in kvp.Value)
-                        locs.AddToArray((JSONNode)l);
-
-                    itemsLocs[kvp.Key.ToString()] = locs;
-                }
-
-                data[nameof(ItemCrateLocations)] = itemsLocs;
-            }
-        }
-
-        public void OnLoadingColony(Colony colony, JSONNode data)
-        {
-            if (data.TryGetAs<JSONNode>(nameof(CrateLocations), out var crateJson))
-            {
-                    if (!CrateLocations.ContainsKey(colony))
-                        CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
-
-                    foreach (var loc in crateJson.LoopObject())
-                        CrateLocations[colony][Vector3Int.Parse(loc.Key)] = new CrateInventory(loc.Value, colony);
-            }
-
-            if (data.TryGetAs<JSONNode>(nameof(ItemCrateLocations), out var icl))
-            {
-                if (!ItemCrateLocations.ContainsKey(colony))
-                    ItemCrateLocations.Add(colony, new Dictionary<ushort, List<Vector3Int>>());
-
-                foreach (var kvp in icl.LoopObject())
-                {
-                    List<Vector3Int> locs = new List<Vector3Int>();
-
-                    foreach (var l in kvp.Value.LoopArray())
-                        locs.Add((Vector3Int)l);
-
-                    ItemCrateLocations[colony][Convert.ToUInt16(kvp.Key)] = locs;
-                }
-            }
-        }
 
         /// <summary>
         ///     Stores items and discards any items that could not fit.
@@ -325,13 +259,8 @@ namespace Pandaros.Civ.Storage
                 colony.Stockpile.SendToOwners();
             }
 
-            foreach (var cKvp in CrateLocations.Values)
-            {
-                foreach (var inv in cKvp.Values)
-                {
-                    inv.CaclulateTimeouts();
-                }
-            }
+            foreach (var cKvp in CrateTracker.Positions.IterateTracker())
+                cKvp.Inventory.CaclulateTimeouts();
         }
 
         public void OnChangedBlock(ModLoader.OnTryChangeBlockData tryChangeBlockData)
@@ -347,25 +276,6 @@ namespace Pandaros.Civ.Storage
             {
                 RecalcStockpileMaxSize(colony);
                 return;
-            }
-
-            if (colony != null && CrateTypes.TryGetValue(tryChangeBlockData.TypeOld.Name, out var oldCrate))
-            {
-                /// empty the crate. TODO may want to do something other than magically teleporting.
-                if (CrateLocations[colony].TryGetValue(tryChangeBlockData.Position, out var inv))
-                    StoreItems(colony, inv.GetAllItems().Values);
-
-                CrateLocations[colony].Remove(tryChangeBlockData.Position);
-
-                foreach (var item in ItemCrateLocations[colony])
-                    item.Value.Remove(tryChangeBlockData.Position);
-            }
-            else if (CrateTypes.TryGetValue(tryChangeBlockData.TypeNew.Name, out var newCrate))
-            {
-                if (!CrateLocations.ContainsKey(colony))
-                    CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
-
-                CrateLocations[colony][tryChangeBlockData.Position] = new CrateInventory(newCrate, tryChangeBlockData.Position, colony);
             }
         }
 
@@ -503,12 +413,6 @@ namespace Pandaros.Civ.Storage
 
             foreach (var colony in ServerManager.ColonyTracker.ColoniesByID.Values.Where(c => c != null))
             {
-                if (!CrateLocations.ContainsKey(colony))
-                    CrateLocations.Add(colony, new Dictionary<Vector3Int, CrateInventory>());
-
-                if (!ItemCrateLocations.ContainsKey(colony))
-                    ItemCrateLocations.Add(colony, new Dictionary<ushort, List<Vector3Int>>());
-
                 RecalcStockpileMaxSize(colony);
             }
         }

@@ -82,7 +82,6 @@
     <Compile Include="CommonSounds.cs" />
     <Compile Include="Extender\Providers\MiningOverrideExtender.cs" />
     <Compile Include="Extender\Providers\CratePlacementUpdateProvider.cs" />
-    <Compile Include="Extender\Providers\CrateRequestProvider.cs" />
     <Compile Include="Extender\Providers\NPCTypeStandardSettingProvider.cs" />
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="GameSetup.cs" />
@@ -108,7 +107,6 @@
     <Compile Include="Jobs\Goals\GetItemsFromCrateGoal.cs" />
     <Compile Include="Jobs\Goals\StandAtJobGoal.cs" />
     <Compile Include="Jobs\Goals\WaterGatherGoal.cs" />
-    <Compile Include="Jobs\ICrateRequest.cs" />
     <Compile Include="Jobs\IPandaNpcGoal.cs" />
     <Compile Include="Jobs\NPCTypeStandardSettings.cs" />
     <Compile Include="Jobs\PandaJobFactory.cs" />

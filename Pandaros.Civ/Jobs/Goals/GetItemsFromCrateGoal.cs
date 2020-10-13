@@ -56,7 +56,7 @@ namespace Pandaros.Civ.Jobs.Goals
                 if (!Job.Owner.Stockpile.Contains(item))
                     stockpileHasItems = false;
 
-                if (StorageFactory.ItemCrateLocations.TryGetValue(Job.Owner, out var itemCrates) && itemCrates.TryGetValue(item.Id, out var locations))
+                if (StorageFactory.CrateTracker.ItemCrateLocations.TryGetValue(Job.Owner, out var itemCrates) && itemCrates.TryGetValue(item.Id, out var locations))
                     if (!LastCratePosition.Contains(ItemsForGoal.ClosestCrate) && locations.Contains(ItemsForGoal.ClosestCrate))
                         cratesWithItems.Add(ItemsForGoal.ClosestCrate);
                     else
@@ -131,8 +131,8 @@ namespace Pandaros.Civ.Jobs.Goals
 
             if (WalkingTo == StorageType.Crate)
             {
-                if (StorageFactory.CrateLocations[Job.Owner].TryGetValue(CurrentCratePosition, out CrateInventory ci))
-                    remaining = ci.TryTake(ItemsToGet).Values.ToArray();
+                if (StorageFactory.CrateTracker.Positions.TryGetValue(CurrentCratePosition, out var ci))
+                    remaining = ci.Inventory.TryTake(ItemsToGet).Values.ToArray();
             }
             else
             {

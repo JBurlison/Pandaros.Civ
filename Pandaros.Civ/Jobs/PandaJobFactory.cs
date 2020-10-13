@@ -26,7 +26,7 @@ using static Pandaros.Civ.Jobs.BaseReplacements.PandaBlockFarmAreaJobDefinition;
 namespace Pandaros.Civ.Jobs
 {
     [ModLoader.ModManager]
-    public class PandaJobFactory : IOnRegisteringEntityManagers, IAfterItemTypesDefined, IOnNPCJobChanged, IOnTimedUpdate, ICrateRequest, ICratePlacementUpdate, IOnQuit
+    public class PandaJobFactory : IOnRegisteringEntityManagers, IAfterItemTypesDefined, IOnNPCJobChanged, IOnTimedUpdate, ICratePlacementUpdate, IOnQuit
     {
         public static Dictionary<Colony, Dictionary<IJob, IPandaNpcGoal>> ActiveGoals { get; set; } = new Dictionary<Colony, Dictionary<IJob, IPandaNpcGoal>>();
         public static Dictionary<string, List<IPandaNpcGoal>> ActiveGoalsByType { get; set; } = new Dictionary<string, List<IPandaNpcGoal>>();
@@ -53,34 +53,6 @@ namespace Pandaros.Civ.Jobs
                     foreach (var goal in goalType)
                         goal.ClosestCrate = StorageFactory.GetClosestCrateLocation(goal.GetCrateSearchPosition(), colony);
             }
-        }
-
-        public Dictionary<ushort, StoredItem> GetItemsNeeded(Vector3Int crateLocation)
-        {
-            var items = new Dictionary<ushort, StoredItem>();
-
-            foreach(var goalByType in ActiveGoalsByType.Values)
-                foreach (var goal in goalByType)
-                {
-                    var itemsNeeded = goal.GetItemsNeeded();
-
-                    if (itemsNeeded == null || itemsNeeded.Count == 0)
-                        continue;
-
-                    if (StorageFactory.CrateLocations.TryGetValue(goal.Job.Owner, out var crateLocs))
-                    {
-                        if (!crateLocs.ContainsKey(goal.ClosestCrate))
-                            goal.ClosestCrate = StorageFactory.GetClosestCrateLocation(goal.GetCrateSearchPosition(), goal.Job.Owner);
-
-                        if (goal.ClosestCrate == crateLocation)
-                        {
-                            var maxSize = crateLocs[crateLocation].CrateType.MaxCrateStackSize;
-                            items.AddRange(itemsNeeded, maxSize);
-                        }
-                    }
-                }
-
-            return items;
         }
 
         public void OnTimedUpdate()

@@ -32,8 +32,7 @@ namespace Pandaros.Civ.Storage
             var itemHit = ItemId.GetItemId(voxel.TypeHit);
 
             if (StorageFactory.CrateTypes.ContainsKey(itemHit.Name) &&
-                StorageFactory.CrateLocations.TryGetValue(player.ActiveColony, out var positions) && 
-                positions.ContainsKey(voxel.BlockHit))
+                StorageFactory.CrateTracker.Positions.TryGetValue(voxel.BlockHit, out var crate))
             {
                 LastCrateClick[player] = voxel.BlockHit;
                 NetworkMenuManager.SendServerPopup(player, MainMenu(player));
@@ -43,10 +42,16 @@ namespace Pandaros.Civ.Storage
         public static bool TryGetPlayersCurrentCrate(Players.Player player, out CrateInventory crateInventory)
         {
             crateInventory = null;
-            return player.ActiveColony != null &&
-                    LastCrateClick.TryGetValue(player, out var cratePos) &&
-                    StorageFactory.CrateLocations.TryGetValue(player.ActiveColony, out var crateLocs) &&
-                    crateLocs.TryGetValue(cratePos, out crateInventory);
+
+            if (player.ActiveColony != null &&
+                LastCrateClick.TryGetValue(player, out var cratePos) &&
+                StorageFactory.CrateTracker.Positions.TryGetValue(cratePos, out var crate))
+            {
+                crateInventory = crate.Inventory;
+                return true;
+            }
+
+            return false;
         }
 
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnPlayerPushedNetworkUIButton, GameSetup.NAMESPACE + ".Items.Crate.PressButton")]

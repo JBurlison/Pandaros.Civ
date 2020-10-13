@@ -29,18 +29,15 @@ namespace Pandaros.Civ.Extender.Providers
             if (colony == null)
                 colony = tryChangeBlockData.RequestOrigin.AsColony;
 
-            if (colony != null && StorageFactory.CrateLocations.TryGetValue(colony, out var crateLocs))
+            if (colony != null && StorageFactory.CrateTracker.Positions.TryGetValue(tryChangeBlockData.Position, out var crate))
             {
                 PlacementEventType placementEventType = PlacementEventType.Placed;
 
                 if (StorageFactory.CrateTypes.ContainsKey(tryChangeBlockData.TypeOld.Name))
                     placementEventType = PlacementEventType.Removed;
 
-                if (crateLocs.ContainsKey(tryChangeBlockData.Position))
-                    foreach (var s in callbacks)
-                    {
-                        s.CratePlacementUpdate(colony, placementEventType, tryChangeBlockData.Position);
-                    }
+                foreach (var s in callbacks)
+                    s.CratePlacementUpdate(colony, placementEventType, tryChangeBlockData.Position);
             }
         }
 
