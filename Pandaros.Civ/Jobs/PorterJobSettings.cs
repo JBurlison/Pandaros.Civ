@@ -77,7 +77,8 @@ namespace Pandaros.Civ.Jobs
 
         public virtual void OnNPCAtStockpile(BlockJobInstance instance, ref NPCBase.NPCState state)
         {
-            
+            if (!state.Inventory.IsEmpty) // its a fallback
+                state.Inventory.Dump(instance.Owner.Stockpile);
         }
 
     }

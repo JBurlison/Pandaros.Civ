@@ -49,11 +49,16 @@ namespace Pandaros.Civ.Jobs.Goals
 
         public Vector3Int GetPosition()
         {
-            if (CurrentCratePosition == Vector3Int.invalidPos)
-                CurrentCratePosition = PorterJob.OriginalPosition;
-
             if (WalkingTo == StorageType.Crate)
+            {
+                if (CurrentCratePosition == Vector3Int.invalidPos)
+                {
+                    WalkingTo = StorageType.Stockpile;
+                    return PorterJob.OriginalPosition;
+                }
+
                 return CurrentCratePosition;
+            }
             else
                 return StorageFactory.GetStockpilePosition(Job.Owner).Position;
         }
@@ -111,13 +116,16 @@ namespace Pandaros.Civ.Jobs.Goals
                     }
 
                 CurrentCratePosition = nexPos;
-                state.SetCooldown(1);
-                state.SetIndicator(new Shared.IndicatorState(5, ItemId.GetItemId(StockpileBlock.Name).Id));
 
                 if (nexPos == Vector3Int.invalidPos)
                 {
                     LastCratePosition.Clear();
+                    state.SetCooldown(5);
+                }
+                else
+                {
                     state.SetCooldown(1);
+                    state.SetIndicator(new Shared.IndicatorState(5, ItemId.GetItemId(StockpileBlock.Name).Id));
                 }
             }
             else
@@ -198,9 +206,6 @@ namespace Pandaros.Civ.Jobs.Goals
                 goal.Job.Owner != null &&
                 StorageFactory.CrateLocations.TryGetValue(goal.Job.Owner, out var crateLocations))
             {
-                var locs = crateLocations.Keys.ToList();
-                locs.Add(StorageFactory.GetStockpilePosition(goal.Job.Owner).Position);
-
                 if (goal is CrateToStockpikeGoal cts)
                     cts.ClosestLocations = goal.GetCrateSearchPosition().SortClosestPositions(crateLocations.Keys);
                 else if (goal is StockpikeToCrateGoal stc)
