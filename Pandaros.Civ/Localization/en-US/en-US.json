@@ -18,6 +18,26 @@
     "InformationAgeTip": "Information Age",
     "RenewablesAgeTip": "Renewables Age",
     "FusionAgeTip": "Fusion Age",
+    "npcs": {
+      "Pandaros": {
+        "Civ": {
+          "StoneShaper": "Stone Shaper",
+          "WoodWorker": "Wood Worker",
+          "SpearThrowerDay": "Spear Thrower Day",
+          "SpearThrowerNight": "Spear Thrower Night",
+          "RockThrowerDay": "Rock Thrower Day",
+          "RockThrowerNight": "Rock Thrower Night",
+          "PrimitiveWoodForager": "Primitive Wood Forager",
+          "PrimitiveRockForager": "Primitive Rock Forager",
+          "PrimitiveBerryForager": "Primitive Berry Forager",
+          "StoneMiner": "Stone Miner",
+          "SlowPorterToCrate": "Pre-History Porter to Crate",
+          "Forager": "Forager",
+          "StoneSpearThrowerDay": "Stone Spear Thrower Day",
+          "StoneSpearThrowerNight": "Stone Spear Thrower Night"
+        }
+      }
+    },
     "popup": {
       "limits": {
         "Pandaros": {
@@ -47,7 +67,7 @@
         "RecruitmentItem": "Recruitment Item:",
         "InventorySize": "Inventory Size:",
         "Blocks": " Blocks",
-        "MinableTypes":  "Mineable Types: ",
+        "MinableTypes": "Mineable Types: ",
         "Tutorials": {
           "Welcome": "Welcome to Pandaros: Civilization Mod!",
           "WelcomeText": "Welcome to Pandaros: Civilization Mod, this mod does not take you down the traditional route of Colony Survival. Please take the time to read this first message, you can skip all future tutorials at any time by clicking the button at the bottom of the scroll bar. You will playout a civilization through the ages starting in pre-history. You must complete quests, craft items, build and have colonists to reach new ages and unlocking new technologies on the way! \r\n\r\n Some basic things to get you started: \r\n    * Quests are part of this mod. You can find the button to access them in the Colony tab. \r\n    * The Stockpile has been decentralized. You must have crates and porters to transport things! \r\n    * The first thing you should do is place your stockpile block. \r\n    * Picking up a berry bush will yeild berries. \r\n    * Dig a trench around your safe area that is at least 2 deep and leave an entrance/exit foragers will need to get in and out. \r\n ",

@@ -43,7 +43,6 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
     public class StoneMinerNpcSettings : INPCTypeStandardSettings
     {
         public string keyName { get; set; } = StoneMiner.Name;
-        public string printName { get; set; } = "StoneMiner";
         public float inventoryCapacity { get; set; } = 300f;
         public float movementSpeed { get; set; } = 2.3f;
         public UnityEngine.Color32 maskColor1 { get; set; } = new UnityEngine.Color32(122, 114, 86, 255);

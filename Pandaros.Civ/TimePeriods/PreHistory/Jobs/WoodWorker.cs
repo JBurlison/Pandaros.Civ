@@ -39,9 +39,8 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Jobs
             NPCType.AddSettings(new NPCTypeStandardSettings
             {
                 keyName = Name,
-                printName = "Wood Worker",
                 maskColor1 = new UnityEngine.Color32(51, 51, 77, 255),
-                type = NPCTypeID.GetNextID(),
+                Type = NPCTypeID.GetID(Name),
                 inventoryCapacity = 500f
             });
 

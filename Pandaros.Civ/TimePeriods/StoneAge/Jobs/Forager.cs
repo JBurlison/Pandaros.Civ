@@ -34,7 +34,6 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
     public class ForagerSettings : INPCTypeStandardSettings
     {
         public string keyName { get; set; } = Forager.Name;
-        public string printName { get; set; } = "Forager";
         public float inventoryCapacity { get; set; } = 300f;
         public float movementSpeed { get; set; } = 2.3f;
         public UnityEngine.Color32 maskColor1 { get; set; } = new UnityEngine.Color32(66, 255, 129, 255);

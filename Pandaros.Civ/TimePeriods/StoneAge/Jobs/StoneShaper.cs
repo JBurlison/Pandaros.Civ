@@ -40,9 +40,8 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Jobs
             NPCType.AddSettings(new NPCTypeStandardSettings
             {
                 keyName = Name,
-                printName = "Stone Shaper",
                 maskColor1 = new UnityEngine.Color32(51, 51, 77, 255),
-                type = NPCTypeID.GetNextID(),
+                Type = NPCTypeID.GetID(Name),
                 inventoryCapacity = 500f
             });
 

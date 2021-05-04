@@ -29,10 +29,9 @@ namespace Pandaros.Civ.Extender.Providers
                     NPCType.AddSettings(new NPCTypeStandardSettings
                     {
                         keyName = settings.keyName,
-                        printName = settings.printName,
                         maskColor1 = settings.maskColor1,
                         maskColor0 = settings.maskColor0,
-                        type = NPCTypeID.GetNextID(),
+                        Type = NPCTypeID.GetID(settings.keyName),
                         inventoryCapacity = settings.inventoryCapacity == 0 ? defaults.inventoryCapacity : settings.inventoryCapacity,
                         movementSpeed = settings.movementSpeed == 0 ? defaults.movementSpeed : settings.movementSpeed,
                     });

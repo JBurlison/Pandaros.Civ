@@ -38,7 +38,7 @@ namespace Pandaros.Civ.TimePeriods.StoneAge.Quests
         {
            new QuestPrerequisite( UsingStoneQuest.NAME)
         }; 
-        //public override bool HideQuest { get; } = true;
+
         public override Dictionary<string, IPandaQuestObjective> QuestObjectives { get; set; } = new Dictionary<string, IPandaQuestObjective>()
         {
             {

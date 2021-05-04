@@ -11,8 +11,6 @@ namespace Pandaros.Civ.Jobs
     {
         string keyName { get; set; }
 
-        string printName { get; set; }
-
         float inventoryCapacity { get; set; }
 
         float movementSpeed { get; set; }

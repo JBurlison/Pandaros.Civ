@@ -229,7 +229,7 @@ namespace Pandaros.Civ.NPCs.NPCGoals
 						pathingThreadIsQueued = false;
 						return;
 					case PathFinderLandmarks.EPathFindingResult.OutOfRange:
-					case PathFinderLandmarks.EPathFindingResult.NotLoaded:
+					case PathFinderLandmarks.EPathFindingResult.StartNotFound:
 						pathingThreadResult = EPathResult.WaitUnloaded;
 						pathingThreadIsQueued = false;
 						return;
