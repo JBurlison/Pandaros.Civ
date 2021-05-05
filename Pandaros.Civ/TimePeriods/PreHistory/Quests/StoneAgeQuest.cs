@@ -42,7 +42,7 @@ namespace Pandaros.Civ.TimePeriods.PreHistory.Quests
             },
             {
                 "foodstored",
-                new FoodStoredObjective("foodstored", 50000)
+                new FoodStoredObjective("foodstored", 100)
             }
         };
 

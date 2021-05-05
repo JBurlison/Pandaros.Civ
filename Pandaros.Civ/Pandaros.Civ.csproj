@@ -158,6 +158,7 @@
     <Compile Include="TimePeriods\StoneAge\Quests\UsingStoneQuest.cs" />
     <Compile Include="TimePeriods\StoneAge\Quests\BronzeAgeQuest.cs" />
     <Compile Include="TimePeriods\BronzeAge\Items\Planks.cs" />
+    <Compile Include="TimePeriods\StoneAge\Recipes\BerryMeal.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\Rock.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\Sling.cs" />
     <Compile Include="TimePeriods\StoneAge\Recipes\SlingBullets.cs" />
